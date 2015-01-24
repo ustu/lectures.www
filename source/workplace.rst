@@ -48,3 +48,33 @@
 
 В данном курсе для выполнения самостоятельных работ потребуются
 знания системы контроля версий `git` и учетная запись в сервисе `GitHub`.
+
+
+Системы контроля версий:
+
+* git
+* mercurial
+* subversion
+
+Социальные сети для разработчиков:
+
+* github.com
+* bitbucket.org
+* sourceforge.net
+
+Git
+~~~
+
+* `<http://progit.org/book/ru/>`_ - основная документация по Git. Нас будут интересовать первые три главы: введение, основы Git, ветвления в Git(слияния). Данный учебник является репозитарием на github и хостится как статический сайт при помощи сервиса Pages.
+* `Git для начинающих <http://ruseller.com/lessons.php?rub=28&id=2035>`_
+* `<http://githowto.com/ru>`_
+
+github.com
+~~~~~~~~~~
+
+* `Установка Git и активация открытых ключей шифрования <http://help.github.com/linux-set-up-git/>`_
+* `Создание репозитария <http://help.github.com/create-a-repo/>`_
+* `Как скопировать чужой репозитарий <http://help.github.com/fork-a-repo/>`_
+* `Внесение исправлений в чужие репозитарии <http://help.github.com/send-pull-requests/>`_
+* `Социальные функции в Github <http://help.github.com/fork-a-repo/>`_
+* `Pages - хостинг статического сайта. Сервис Pages позволяет хостить статический сайт на github. Причем сам сайт будет обычным репозитарием. <http://help.github.com/pages/>`_
