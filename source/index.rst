@@ -24,13 +24,13 @@
 Студенты должны:
 
 * **УМЕТЬ**
-  
+
   * верстать сайты с помощью (X)HTML и CSS
   * программировать на языках высокого уровня (Си, Common Lisp, Python, Java)
   * составлять SQL запросы
 
 * **ЗНАТЬ**
-  
+
   * ОС подобные Unix
   * HTML, CSS
   * яп высокого уровня
@@ -39,7 +39,7 @@
   * основы каналов передачи данных
 
 * **ИМЕТЬ**
-  
+
   * компьютер с подключением к сети Интернет
   * ОС Linux или виртуальный образ.
 
@@ -70,7 +70,7 @@
 .. toctree::
     :maxdepth: 3
 
-    www.sync/net.rst
+    www.sync/net/index.rst
     www.sync/codding.net.rst
     www.sync/web.server.rst
     www.sync/codding.web.rst
