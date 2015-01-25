@@ -70,7 +70,7 @@
 .. toctree::
     :maxdepth: 3
 
-    www.sync/net/index.rst
+    net/index.rst
     www.sync/codding.net.rst
     www.sync/web.server.rst
     www.sync/codding.web.rst
