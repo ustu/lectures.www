@@ -76,7 +76,7 @@ URI
 .. role:: orange
 
 \|-----------------------------------------------------------------URI
-------------------------------------------------------------------\|
+--------------------------------------------------------------------\|
 
 \|--------------------------------URL------------------------------------\|
 \|------------------------URN------------------------------\|
@@ -94,6 +94,7 @@ URI
         mailto  <br/>
         xmpp
     </div>
+    <br/>
 
 <схема>://
 :green:`<логин>:<пароль>`
@@ -101,30 +102,33 @@ URI
 
 .. raw:: html
 
-    <div class='green' style='padding-left:105px'>
+    <div class='green' style='padding-left:105px;margin-top:-15px'>
         user:123 <br/>
         user
     </div>
+    <br/>
 
 <схема>://<логин>:<пароль>
 :blue:`@<хост>:<порт>`/<URL ‐ путь>?<параметры>#<якорь>
 
 .. raw:: html
 
-    <div class='blue' style='padding-left:220px'>
+    <div class='blue' style='padding-left:220px;margin-top:-15px'>
         localhost:8080  <br/>
         yandex.ru       <br/>
         213.180.204.11
     </div>
+    <br/>
 
 <схема>://<логин>:<пароль>@<хост>:<порт>
 :yellow:`/<URL ‐ путь>`?<параметры>#<якорь>
 
 .. raw:: html
 
-    <div class='yellow' style='padding-left:320px'>
+    <div class='yellow' style='padding-left:320px;margin-top:-15px''>
         somedir/somefile.htm
     </div>
+    <br/>
 
 <схема>://<логин>:<пароль>@<хост>:<порт>/<URL ‐ путь>
 :purple:`?<параметры>`
@@ -132,16 +136,17 @@ URI
 
 .. raw:: html
 
-    <div class='purple' style='padding-left:430px'>
+    <div class='purple' style='padding-left:430px;margin-top:-15px''>
         text=foobar&from=fx3&lr=213
     </div>
+    <br/>
 
 <схема>://<логин>:<пароль>@<хост>:<порт>/<URL ‐ путь>?<параметры>
 :orange:`#<якорь>`
 
 .. raw:: html
 
-    <div class='orange' style='padding-left:540px'>
+    <div class='orange' style='padding-left:540px;margin-top:-15px''>
         someanchor
     </div>
 
