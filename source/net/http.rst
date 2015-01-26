@@ -101,7 +101,7 @@ URI
 
 .. raw:: html
 
-    <div class='green' style='padding-left:135px'>
+    <div class='green' style='padding-left:105px'>
         user:123 <br/>
         user
     </div>
@@ -111,7 +111,7 @@ URI
 
 .. raw:: html
 
-    <div class='blue' style='padding-left:270px'>
+    <div class='blue' style='padding-left:220px'>
         localhost:8080  <br/>
         yandex.ru       <br/>
         213.180.204.11
@@ -122,7 +122,7 @@ URI
 
 .. raw:: html
 
-    <div class='yellow' style='padding-left:400px'>
+    <div class='yellow' style='padding-left:320px'>
         somedir/somefile.htm
     </div>
 
@@ -132,7 +132,7 @@ URI
 
 .. raw:: html
 
-    <div class='purple' style='padding-left:530px'>
+    <div class='purple' style='padding-left:430px'>
         text=foobar&from=fx3&lr=213
     </div>
 
@@ -141,9 +141,11 @@ URI
 
 .. raw:: html
 
-    <div class='orange' style='padding-left:660px'>
+    <div class='orange' style='padding-left:540px'>
         someanchor
     </div>
+
+Пример якоря http://lectureswww.readthedocs.org/ru/latest/net/http.html#id2
 
 Допустимые символы
 ~~~~~~~~~~~~~~~~~~
