@@ -313,36 +313,36 @@ HTTP по умолчанию использует порт 80, поэтому е
 При GET запросе, сервер отправляет ответ в теле сообщения.
 Также существуют и другие возможные ответы:
 
-    202 Accepted: запрос принят, но может не содержать ресурс в ответе. Это полезно для асинхронных запросов на стороне сервера. Сервер определяет, отправить ресурс или нет.
-    204 No Content: в теле ответа нет сообщения.
-    205 Reset Content: указание серверу о сбросе представления документа.
-    206 Partial Content: ответ содержит только часть контента. В дополнительных заголовках определяется общая длина контента и другая инфа.
+    * **202** Accepted: запрос принят, но может не содержать ресурс в ответе. Это полезно для асинхронных запросов на стороне сервера. Сервер определяет, отправить ресурс или нет.
+    * **204** No Content: в теле ответа нет сообщения.
+    * **205** Reset Content: указание серверу о сбросе представления документа.
+    * **206** Partial Content: ответ содержит только часть контента. В дополнительных заголовках определяется общая длина контента и другая инфа.
 
 **3xx**: Перенаправление
 
 Своеобразное сообщение клиенту о необходимости совершить ещё одно действие.
 Самый распространённый вариант применения: перенаправить клиент на другой адрес.
 
-    301 Moved Permanently: ресурс теперь можно найти по другому URL адресу.
-    303 See Other: ресурс временно можно найти по другому URL адресу. Заголовок Location содержит временный URL.
-    304 Not Modified: сервер определяет, что ресурс не был изменён и клиенту нужно задействовать закэшированную версию ответа. Для проверки идентичности информации используется ETag (хэш Сущности - Enttity Tag);
+    * **301** Moved Permanently: ресурс теперь можно найти по другому URL адресу.
+    * **303** See Other: ресурс временно можно найти по другому URL адресу. Заголовок Location содержит временный URL.
+    * **304** Not Modified: сервер определяет, что ресурс не был изменён и клиенту нужно задействовать закэшированную версию ответа. Для проверки идентичности информации используется ETag (хэш Сущности - Enttity Tag);
 
 **4xx**: Клиентские ошибки
 
 Данный класс сообщений используется сервером, если он решил, что запрос был отправлен с ошибкой. Наиболее распространённый код: 404 Not Found. Это означает, что ресурс не найден на сервере. Другие возможные коды:
 
-    400 Bad Request: вопрос был сформирован неверно.
-    401 Unauthorized: для совершения запроса нужна аутентификация. Информация передаётся через заголовок Authorization.
-    403 Forbidden: сервер не открыл доступ к ресурсу.
-    405 Method Not Allowed: неверный HTTP метод был задействован для того, чтобы получить доступ к ресурсу.
-    409 Conflict: сервер не может до конца обработать запрос, т.к. пытается изменить более новую версию ресурса. Это часто происходит при PUT запросах.
+    * **400** Bad Request: вопрос был сформирован неверно.
+    * **401** Unauthorized: для совершения запроса нужна аутентификация. Информация передаётся через заголовок Authorization.
+    * **403** Forbidden: сервер не открыл доступ к ресурсу.
+    * **405** Method Not Allowed: неверный HTTP метод был задействован для того, чтобы получить доступ к ресурсу.
+    * **409** Conflict: сервер не может до конца обработать запрос, т.к. пытается изменить более новую версию ресурса. Это часто происходит при PUT запросах.
 
 **5xx**: Ошибки сервера
 
 Ряд кодов, которые используются для определения ошибки сервера при обработке запроса. Самый распространённый: 500 Internal Server Error. Другие варианты:
 
-    501 Not Implemented: сервер не поддерживает запрашиваемую функциональность.
-    503 Service Unavailable: это может случиться, если на сервере произошла ошибка или он перегружен. Обычно в этом случае, сервер не отвечает, а время, данное на ответ, истекает.
+    * **501** Not Implemented: сервер не поддерживает запрашиваемую функциональность.
+    * **503** Service Unavailable: это может случиться, если на сервере произошла ошибка или он перегружен. Обычно в этом случае, сервер не отвечает, а время, данное на ответ, истекает.
 
 Заголовки HTTP
 ~~~~~~~~~~~~~~
@@ -540,8 +540,91 @@ X-Requested-With
 
     X-ServerNickName: Wolverine
 
-Примеры
--------
+Пример
+------
+
+.. image:: /_static/http.example.mozzila.png
+    :alt: Стартовое окно браузера
+    :width: 600px
+
+Браузер отправляет запрос на сервер
+
+::
+
+
+    GET /ru/latest/net/http.html HTTP/1.1
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+    Accept-Encoding: gzip, deflate
+    Accept-Language: en-US,en;q=0.5
+    Connection: keep-alive
+    Host: lectureswww.readthedocs.org
+    User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:35.0) Gecko/20100101 Firefox/35.0
+
+.. code-block:: html
+
+    $ telnet readthedocs.org 80
+    Trying 162.209.114.75...
+    Connected to readthedocs.org.
+    Escape character is '^]'.
+    GET /ru/latest/net/http.html HTTP/1.1
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+    Accept-Language: en-US,en;q=0.5
+    Connection: keep-alive
+    Host: lectureswww.readthedocs.org
+    User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:35.0) Gecko/20100101 Firefox/35.0
+
+    HTTP/1.1 200 OK
+    Server: nginx/1.4.6 (Ubuntu)
+    Date: Mon, 26 Jan 2015 16:54:33 GMT
+    Content-Type: text/html
+    Content-Length: 48059
+    Last-Modified: Mon, 26 Jan 2015 16:22:21 GMT
+    Connection: keep-alive
+    Vary: Accept-Encoding
+    ETag: "54c669bd-bbbb"
+    X-Served: Nginx
+    X-Subdomain-TryFiles: True
+    X-Deity: hydra-lts
+    Accept-Ranges: bytes
+
+
+
+    <!DOCTYPE html>
+    <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+    <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <title>Протокол HTTP &mdash; Документация Основы Веб-программирования 0.0.0</title>
+
+      <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://media.readthedocs.org/css/sphinx_rtd_theme.css" type="text/css" />
+
+        <link rel="stylesheet" href="https://media.readthedocs.org/css/readthedocs-doc-embed.css" type="text/css" />
+
+        <link rel="top" title="Документация Основы Веб-программирования 0.0.0" href="../index.html"/>
+            <link rel="up" title="Каналы передачи данных" href="index.html"/>
+            <link rel="next" title="Сетевое программирование" href="../www.sync/codding.net.html"/>
+            <link rel="prev" title="Сети" href="net.html"/>
+
+    <!-- RTD Extra Head -->
+    <!--
+    Read the Docs is acting as the canonical URL for your project.
+    If you want to change it, more info is available in our docs:
+      http://docs.readthedocs.org/en/latest/canonical.html
+    -->
+    <link rel="canonical" href="http://lectureswww.readthedocs.org/ru/latest/net/http.html" />
+
+    <script type="text/javascript">
+    ....
+
+
+      </script>
+    </body>
+    </html>Connection closed by foreign host.
+
 
 Cookie
 ------
