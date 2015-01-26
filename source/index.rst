@@ -83,6 +83,7 @@
     :maxdepth: 3
 
     www.async/ajax.rst
+    www.async/http.comet.rst
     www.async/websocket.rst
 
 Не браузер и не консоль Веб
