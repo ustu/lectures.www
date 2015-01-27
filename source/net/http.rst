@@ -540,14 +540,17 @@ X-Requested-With
 
     X-ServerNickName: Wolverine
 
-Пример
-------
+Пример HTTP в браузере
+----------------------
+
+Открываем браузер и пишем адрес веб ресурса (URI)
 
 .. image:: /_static/http.example.mozzila.png
     :alt: Стартовое окно браузера
-    :width: 600px
+    :align: center
+    :width: 800px
 
-Браузер отправляет запрос на сервер
+Браузер генерирует строку запроса и отправляет его на сервер
 
 ::
 
@@ -559,6 +562,83 @@ X-Requested-With
     Connection: keep-alive
     Host: lectureswww.readthedocs.org
     User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:35.0) Gecko/20100101 Firefox/35.0
+
+.. image:: /_static/http_request.svg
+    :alt: HTTP запрос
+    :align: center
+    :width: 800px
+
+Сервер получает текст запроса, обрабатывает его, формирует текст ответа
+и отправляет его клиенту.
+
+::
+
+    HTTP/1.1 200 OK
+    Server: nginx/1.4.6 (Ubuntu)
+    Date: Mon, 26 Jan 2015 16:54:33 GMT
+    Content-Type: text/html
+    Content-Length: 48059
+    Last-Modified: Mon, 26 Jan 2015 16:22:21 GMT
+    Connection: keep-alive
+    Vary: Accept-Encoding
+    ETag: "54c669bd-bbbb"
+    X-Served: Nginx
+    X-Subdomain-TryFiles: True
+    X-Deity: hydra-lts
+    Accept-Ranges: bytes
+
+
+
+    <!DOCTYPE html>
+    <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+    <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <title>Протокол HTTP &mdash; Документация Основы Веб-программирования 0.0.0</title>
+
+      <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://media.readthedocs.org/css/sphinx_rtd_theme.css" type="text/css" />
+
+        <link rel="stylesheet" href="https://media.readthedocs.org/css/readthedocs-doc-embed.css" type="text/css" />
+
+        <link rel="top" title="Документация Основы Веб-программирования 0.0.0" href="../index.html"/>
+            <link rel="up" title="Каналы передачи данных" href="index.html"/>
+            <link rel="next" title="Сетевое программирование" href="../www.sync/codding.net.html"/>
+            <link rel="prev" title="Сети" href="net.html"/>
+
+    <!-- RTD Extra Head -->
+    <!--
+    Read the Docs is acting as the canonical URL for your project.
+    If you want to change it, more info is available in our docs:
+      http://docs.readthedocs.org/en/latest/canonical.html
+    -->
+    <link rel="canonical" href="http://lectureswww.readthedocs.org/ru/latest/net/http.html" />
+
+    <script type="text/javascript">
+    ....
+
+
+      </script>
+    </body>
+    </html>
+
+.. image:: /_static/http_responce.svg
+    :alt: HTTP ответ
+    :align: center
+    :width: 800px
+
+Пример HTTP в консоле (telnet)
+------------------------------
+
+.. note::
+
+    https://ru.wikipedia.org/wiki/Telnet
+
+В этом примере сделаем все то же самое, что и в предыдущем.
+Только отправлять HTTP запрос будем через протокол TELNET.
 
 .. code-block:: html
 
@@ -625,6 +705,30 @@ X-Requested-With
     </body>
     </html>Connection closed by foreign host.
 
+
+Пример HTTP в firebug
+---------------------
+
+.. note::
+
+    http://getfirebug.com/
+
+FireBug - это плагин браузера FireFox для веб разработчиков.
+Запускается по клавише <F12>.
+
+Заголовки запроса и ответа в FireBug'е из предыдущего примера.
+
+.. image:: /_static/firebug1.png
+    :alt: Firebug
+    :align: center
+    :width: 800px
+
+Тело ответа находится в отдельной вкладке.
+
+.. image:: /_static/firebug2.png
+    :alt: Firebug
+    :align: center
+    :width: 800px
 
 Cookie
 ------

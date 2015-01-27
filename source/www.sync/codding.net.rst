@@ -6,7 +6,6 @@
 
 tcpdump
 Wireshark
-Fiddler
 
 Парсим HTML
 -----------
