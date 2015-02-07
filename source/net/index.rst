@@ -4,5 +4,7 @@
 .. toctree::
     :maxdepth: 3
 
-    net.rst
-    http.rst
+    net
+    arp
+    http
+    dns

@@ -52,6 +52,7 @@
     :maxdepth: 2
 
     workplace.rst
+    README
 
 Введение
 --------
@@ -71,7 +72,7 @@
     :maxdepth: 3
 
     net/index.rst
-    www.sync/codding.net.rst
+    www.sync/net/index.rst
     www.sync/web.server.rst
     www.sync/codding.web.rst
     www.sync/framework.pyramid.rst
@@ -82,9 +83,7 @@
 .. toctree::
     :maxdepth: 3
 
-    www.async/ajax.rst
-    www.async/http.comet.rst
-    www.async/websocket.rst
+    www.async/index.rst
 
 Не браузер и не консоль Веб
 ---------------------------
