@@ -11,5 +11,4 @@
     :maxdepth: 3
 
     file
-    socket.unix
-    socket.inet
+    socket/index

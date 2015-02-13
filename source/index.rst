@@ -28,15 +28,17 @@
   * верстать сайты с помощью (X)HTML и CSS
   * программировать на языках высокого уровня (Си, Common Lisp, Python, Java)
   * составлять SQL запросы
+  * пользоваться системой контроля версий git
 
 * **ЗНАТЬ**
 
   * ОС подобные Unix
   * HTML, CSS
-  * яп высокого уровня
+  * языки программирования высокого уровня
   * РСУБД
   * основы алгоритмизации и программирования
   * основы каналов передачи данных
+  * систему контроля версий git
 
 * **ИМЕТЬ**
 
@@ -73,7 +75,8 @@
 
     net/index.rst
     www.sync/net/index.rst
-    www.sync/web.server.rst
+    www.sync/database/index.rst
+    www.sync/www.server/index.rst
     www.sync/codding.web.rst
     www.sync/framework.pyramid.rst
 

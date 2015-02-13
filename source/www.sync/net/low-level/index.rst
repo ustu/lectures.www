@@ -15,6 +15,5 @@
 
     intro
     ipc/index
-    dns
-    arp
-    socket.bluetooth
+    tcp.ip/index
+    alternative/index

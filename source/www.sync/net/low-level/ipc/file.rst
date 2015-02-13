@@ -55,11 +55,21 @@
 Пример передачи "Hello World"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. image:: /_static/pipe.gif
+   :align: center
+
 Создаем именованный канал при помощи утилиты `mkfifo`
 
 .. code-block:: bash
 
    mkfifo pipe
+
+Проверяем тип файла
+
+.. code-block:: bash
+
+   $ file pipe
+   pipe: fifo (named pipe)
 
 Слушаем канал
 
