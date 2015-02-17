@@ -67,6 +67,14 @@
 * HTML и CSS
 * JavaScript
 
+Базы дынных
+-----------
+
+.. toctree::
+    :maxdepth: 3
+
+    databases/index.rst
+
 Синхронный Веб
 --------------
 
@@ -75,7 +83,6 @@
 
     net/index.rst
     www.sync/net/index.rst
-    www.sync/database/index.rst
     www.sync/www.server/index.rst
     www.sync/codding.web.rst
     www.sync/framework.pyramid.rst
