@@ -15,12 +15,6 @@
 import sys
 import os
 
-RTD_OLD_THEME = False
-RTD_NEW_THEME = False
-
-os.environ['RTD_NEW_THEME'] = False
-os.environ['RTD_OLD_THEME'] = False
-
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -117,7 +111,7 @@ html_theme = 'default'
 html_theme_options = {'collapsiblesidebar': True}
 
 # Add any paths that contain custom themes here, relative to this directory.
-# html_theme_path = ['_themes']
+html_theme_path = ['../themes']
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
