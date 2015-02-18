@@ -18,6 +18,9 @@ import os
 RTD_OLD_THEME = False
 RTD_NEW_THEME = False
 
+os.environ['RTD_NEW_THEME'] = False
+os.environ['RTD_OLD_THEME'] = False
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
