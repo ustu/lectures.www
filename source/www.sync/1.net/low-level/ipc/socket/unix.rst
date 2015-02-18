@@ -9,7 +9,7 @@
 
 Доменные соединения Unix являются по сути байтовыми потоками, сильно напоминая сетевые соединения, но при этом все данные остаются внутри одного компьютера (то есть обмен данными происходит локально). UDS используют файловую систему как адресное пространство имен, то есть они представляются процессами как иноды в файловой системе. Это позволяет двум различным процессам открывать один и тот же сокет для взаимодействия между собой. Однако, конкретное взаимодействие, обмен данными, не использует файловую систему, а только буферы памяти ядра.
 
-Основные команды
+Основные функции
 ----------------
 
 +---------+-----------------------------------------+
@@ -39,7 +39,6 @@
 
 .. code-block:: python
 
-    # -*- coding: utf-8 -*-
     # server.py
     import os
     import os.path
@@ -50,32 +49,31 @@
     if os.path.exists(SOCKET_FILE):
         os.remove(SOCKET_FILE)
 
-    print "Открываем UNIX сокет..."
+    print("Открываем UNIX сокет...")
     server = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
     server.bind(SOCKET_FILE)
 
-    print "Слушаем..."
+    print("Слушаем...")
     while True:
         datagram = server.recv(1024)
         if not datagram:
             break
         else:
-            print "-" * 20
-        print datagram
+            print("-" * 20)
+        print(datagram)
         if "DONE" == datagram:
             break
-    print "-" * 20
-    print "Выключение..."
+    print("-" * 20)
+    print("Выключение...")
     server.close()
     os.remove(SOCKET_FILE)
-    print "Выполнено"
+    print("Выполнено")
 
 Клиент
 ~~~~~~
 
 .. code-block:: python
 
-    # -*- coding: utf-8 -*-
     # client.py
     import socket
     import os
@@ -83,29 +81,29 @@
 
     SOCKET_FILE = './echo.socket'
 
-    print "Подключение..."
+    print("Подключение...")
     if os.path.exists(SOCKET_FILE):
         client = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
         client.connect(SOCKET_FILE)
-        print "Выполнено."
-        print "Ctrl-C что бы выйти."
-        print "Отправьте 'DONE' что бы выключить сервер."
+        print("Выполнено.")
+        print("Ctrl-C что бы выйти.")
+        print("Отправьте 'DONE' что бы выключить сервер.")
         while True:
             try:
                 x = raw_input("> ")
                 if "" != x:
-                    print "ОТПРАВЛЕНО:", x
+                    print("ОТПРАВЛЕНО: %s" % x)
                     client.send(x)
                     if "DONE" == x:
-                        print "Выключение."
+                        print("Выключение.")
                         break
             except KeyboardInterrupt, k:
-                print "Выключение."
+                print("Выключение.")
                 break
         client.close()
     else:
-        print "Не могу соединиться!"
-    print "Выполнено"
+        print("Не могу соединиться!")
+    print("Выполнено")
 
 Пример работы
 ~~~~~~~~~~~~~

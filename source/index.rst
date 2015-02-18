@@ -82,10 +82,10 @@
     :maxdepth: 3
 
     net/index.rst
-    www.sync/net/index.rst
-    www.sync/www.server/index.rst
-    www.sync/codding.web.rst
-    www.sync/framework.pyramid.rst
+    www.sync/1.net/index.rst
+    www.sync/2.web.server/index.rst
+    www.sync/3.codding/index.rst
+    www.sync/4.framework/pyramid.rst
 
 Асинхронный Веб
 ---------------
