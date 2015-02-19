@@ -1,14 +1,14 @@
 Передача данных через файл
 ==========================
 
-.. note::
+.. seealso::
 
-    `<https://ru.wikipedia.org/wiki/Перенаправление_ввода-вывода>`_
+    * `<https://ru.wikipedia.org/wiki/Перенаправление_ввода-вывода>`_
 
 Конвейер
 --------
 
-.. note::
+.. seealso::
 
     * `<https://ru.wikipedia.org/wiki/Конвейер_(UNIX)>`_
     * http://pymotw.com/2/pipes/index.html
@@ -44,9 +44,9 @@
 Именованный канал
 -----------------
 
-.. note::
+.. seealso::
 
-    `<https://ru.wikipedia.org/wiki/Именованный_канал>`_
+    * `<https://ru.wikipedia.org/wiki/Именованный_канал>`_
 
 В программировании именованный канал или именованный конвейер (англ. named pipe) — один из методов межпроцессного взаимодействия, расширение понятия конвейера в Unix и подобных ОС.
 
@@ -85,19 +85,21 @@
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
+    :linenos:
 
-   # sender.py
+    # sender.py
 
-   import os
+    import os
 
-   path = "/tmp/my_program.fifo"
-   os.mkfifo(path)
+    path = "/tmp/my_program.fifo"
+    os.mkfifo(path)
 
-   fifo = open(path, "w")
-   fifo.write("Hello World!\n")
-   fifo.close()
+    fifo = open(path, "w")
+    fifo.write("Hello World!\n")
+    fifo.close()
 
 .. code-block:: python
+   :linenos:
 
    # receiver.py
 
@@ -172,6 +174,7 @@
 Реализация `tail -f` на Python
 
 .. code-block:: python
+   :linenos:
 
     import time
 

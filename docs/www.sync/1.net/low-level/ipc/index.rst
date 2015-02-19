@@ -12,4 +12,6 @@
     :maxdepth: 3
 
     file
-    socket/index
+    socket/intro
+    socket/unix
+    socket/inet

@@ -16,6 +16,7 @@
 ~~~~~~
 
 .. code-block:: python
+    :linenos:
 
     # server.py
     import os
@@ -51,6 +52,7 @@
 ~~~~~~
 
 .. code-block:: python
+    :linenos:
 
     # client.py
     import socket
