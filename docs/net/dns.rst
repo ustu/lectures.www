@@ -25,7 +25,7 @@ DNS (система доменных имен)
 
 0-й уровень
 
-* .
+* \.
 
 1-й уровень
 
@@ -81,7 +81,7 @@ localhost (так называемый, «локальный хост», по с
 
 **dig**
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ dig lectureswww.readthedocs.org +nostats +nocomments +nocmd
     ; <<>> DiG 9.9.5-4.3ubuntu0.1-Ubuntu <<>> lectureswww.readthedocs.org +nostats +nocomments +nocmd
@@ -91,7 +91,7 @@ localhost (так называемый, «локальный хост», по с
 
 **host**
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ host lectureswww.readthedocs.org
     lectureswww.readthedocs.org has address 162.209.114.75
@@ -101,14 +101,14 @@ localhost (так называемый, «локальный хост», по с
     lectureswww.readthedocs.org mail is handled by 20 alt2.aspmx.l.google.com.
     lectureswww.readthedocs.org mail is handled by 30 aspmx2.googlemail.com.
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ host 162.209.114.75
     75.114.209.162.in-addr.arpa domain name pointer readthedocs.org.
 
 **ping**
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ ping lectureswww.readthedocs.org
     PING lectureswww.readthedocs.org (162.209.114.75) 56(84) bytes of data.
@@ -122,7 +122,7 @@ localhost (так называемый, «локальный хост», по с
 
 **nslookup**
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ nslookup lectureswww.readthedocs.org
     docs.org

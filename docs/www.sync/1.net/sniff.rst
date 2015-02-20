@@ -34,7 +34,7 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 Просмотр интерфейсов
 ~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ sudo tcpdump -D
     1.wlan0 [Up, Running]
@@ -62,7 +62,7 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 
 или
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ sudo tcpdump -i wlan0
     tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
@@ -83,7 +83,7 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 
 Чтобы узнать получаемые или отправляемые пакеты от определенного хоста, необходимо его имя или IP-адрес указать после ключевого слова host:
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ sudo tcpdump host readthedocs.org
     tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
@@ -103,7 +103,7 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 Фильтр по протоколу
 ~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ sudo tcpdump -n tcp
 
@@ -118,7 +118,7 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 
 Показывает DNS запросы
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ sudo tcpdump -n 'udp and dst port 53'
     tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
@@ -146,7 +146,7 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
     https://ru.wikipedia.org/wiki/NetBIOS
 
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ nbtscan 192.168.1.0/24
     Doing NBT name scan for addresses from 192.168.1.0/24
@@ -161,7 +161,7 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 
 Или при помощи `nmap`
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ nmap -sP 192.168.1.*
 
@@ -186,7 +186,7 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 
 Создаем трафик ICMP для хоста 192.168.1.23
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ ping 192.168.1.23
     PING 192.168.1.23 (192.168.1.23) 56(84) bytes of data.
@@ -201,7 +201,7 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 
 Смотрим пакеты
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ sudo tcpdump 'src 192.168.1.101 and dst 192.168.1.23 and icmp'
     tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
@@ -217,7 +217,7 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 
 Без фильтрации, получим все пакеты. Например ARP и NetBIOS.
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ sudo tcpdump 'src 192.168.1.101 and dst 192.168.1.23'
     tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
@@ -236,7 +236,7 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 
 Ответы со статусом 200
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     $ sudo tcpdump -n -A | grep -e '200 OK'
     tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
@@ -252,7 +252,7 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 
 .. image:: /_static/login_form.png
 
-.. code-block:: bash
+.. no-code-block:: bash
     :emphasize-lines: 24
 
     $ sudo tcpdump -l -A -i lo | egrep -i 'pass=|pwd=|log=|login=|user=|username=|pw=|passw=|passwd=|password=|pass:|user:|username:|password:|login:|pass |user ' --color=auto --line-buffered -B20

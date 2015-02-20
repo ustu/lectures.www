@@ -20,12 +20,12 @@ httplib представляет собой простую обертку вок
     conn = httplib.HTTPConnection("lectureswww.readthedocs.org")
     conn.request("GET", "/ru/latest/")
     r1 = conn.getresponse()
-    print r1.status, r1.reason
+    print(r1.status, r1.reason)
 
     data1 = r1.read()
     conn.request("GET", "/parrot.spam")
     r2 = conn.getresponse()
-    print r2.status, r2.reason
+    print(r2.status, r2.reason)
 
     data2 = r2.read()
     conn.close()
@@ -50,14 +50,14 @@ POST запрос
     conn = httplib.HTTPConnection("bugs.python.org")
     conn.request("POST", "", params, headers)
     response = conn.getresponse()
-    print response.status, response.reason
+    print(response.status, response.reason)
 
     data = response.read()
-    print data
+    print(data)
 
     conn.close()
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     302 Found
     Redirecting to <a href="http://bugs.python.org/issue12524">http://bugs.python.org/issue12524</a>
@@ -74,7 +74,7 @@ urllib
 
    import urllib
    doc = urllib.urlopen("http://lectureswww.readthedocs.org").read()
-   print doc[:350]
+   print(doc[:350])
 
 .. code-block:: html
 
@@ -95,9 +95,9 @@ urllib
 
     import urllib
     doc = urllib.urlopen("http://lectureswww.readthedocs.org")
-    print doc.info()
+    print(doc.info())
 
-.. code-block:: python
+.. no-code-block:: python
 
     Server: nginx/1.4.6 (Ubuntu)
     X-Deity: chimera-lts
@@ -127,11 +127,11 @@ urllib
 
     # GET запрос
     f = urllib.urlopen("http://nigma.ru/" + "?" + enc_data)
-    print f.read()
+    print(f.read())
 
     # POST запрос
     f = urllib.urlopen("http://nigma.ru/", enc_data)
-    print f.read()
+    print(f.read())
 
 В некоторых случаях данные имеют повторяющиеся имена. В этом случае в качестве параметра urllib.urlencode() можно использовать вместо словаря последовательность пар имя-значение:
 
@@ -140,7 +140,7 @@ urllib
     import urllib
     data = [("n", "1"), ("n", "3"), ("n", "4"), ("button", "Привет"),]
     enc_data = urllib.urlencode(data)
-    print enc_data
+    print(enc_data)
 
 ::
 
@@ -178,13 +178,13 @@ urllib2
 
     import urllib2
     response = urllib2.urlopen('http://lectureswww.readthedocs.org/')
-    print response.info()
+    print(response.info())
     print
-    print response.info()['server']
+    print(response.info()['server'])
     print
-    print response.read()[:350]
+    print(response.read()[:350])
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     Server: nginx/1.4.6 (Ubuntu)
     X-Deity: asgard-lts
@@ -217,38 +217,38 @@ urllib2
 
     import urllib2
     response = urllib2.urlopen('http://lectureswww.readthedocs.org/')
-    print "Response:", response
+    print("Response:", response)
 
     # Get the URL. This gets the real URL.
-    print "The URL is: ", response.geturl()
+    print("The URL is: ", response.geturl())
 
     # Getting the code
-    print "This gets the code: ", response.code
+    print("This gets the code: ", response.code)
 
     # Get the Headers.
     # This returns a dictionary-like object that describes the page fetched,
     # particularly the headers sent by the server
-    print "The Headers are: ", response.info()
+    print("The Headers are: ", response.info())
 
     # Get the date part of the header
-    print "The Date is: ", response.info()['date']
+    print("The Date is: ", response.info()['date'])
 
     # Get the server part of the header
-    print "The Server is: ", response.info()['server']
+    print("The Server is: ", response.info()['server'])
 
     # Get all data
     html = response.read()
-    print "Get all data: ", html[:350]
+    print("Get all data: ", html[:350])
 
     # Get only the length
-    print "Get the length :", len(html)
+    print("Get the length :", len(html))
 
     # Showing that the file object is iterable
     for line in response:
-        print line.rstrip()
+        print(line.rstrip())
 
 
-.. code-block:: bash
+.. no-code-block:: bash
 
     Response: <addinfourl at 140390167715208 whose fp = <socket._fileobject object at 0x7faf2451b8d0>>
     The URL is:  http://lectureswww.readthedocs.org/ru/latest/
@@ -336,9 +336,9 @@ POST запрос
     html = response.read()
 
     # Print the result
-    print html[:330]
+    print(html[:330])
 
-.. code-block:: bash
+.. code-block:: html
 
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -359,13 +359,13 @@ POST запрос
 
     req = urllib2.Request('http://lectureswww.readthedocs.org/')
     req.add_header('User-agent', 'Mozilla 5.10')
-    print req.headers
+    print(req.headers)
 
     res = urllib2.urlopen(req)
     html = res.read()
-    print html[:350]
+    print(html[:350])
 
-.. code-block:: bash
+.. code-block:: html
 
     {'User-agent': 'Mozilla 5.10'}
 
@@ -409,8 +409,8 @@ requests
 
     handler = urllib2.urlopen(req)
 
-    print handler.getcode()
-    print handler.headers.getheader('content-type')
+    print(handler.getcode())
+    print(handler.headers.getheader('content-type'))
 
     # ------
     # 200
@@ -424,8 +424,8 @@ requests
 
     r = requests.get('https://api.github.com', auth=('user', 'pass'))
 
-    print r.status_code
-    print r.headers['content-type']
+    print(r.status_code)
+    print(r.headers['content-type'])
 
     # ------
     # 200
@@ -437,10 +437,10 @@ requests
 
    import requests
 
-    s = requests.Session()
+   s = requests.Session()
 
-    s.get('http://httpbin.org/cookies/set/sessioncookie/123456789')
-    r = s.get("http://httpbin.org/cookies")
+   s.get('http://httpbin.org/cookies/set/sessioncookie/123456789')
+   r = s.get("http://httpbin.org/cookies")
 
-    print(r.text)
-    # '{"cookies": {"sessioncookie": "123456789"}}'
+   print(r.text)
+   # '{"cookies": {"sessioncookie": "123456789"}}'
