@@ -38,3 +38,8 @@ Sphinx — это генератор документации, который п
 .. code-block:: bash
 
   make.bat html
+
+Зависимости
+-----------
+
+Для команды ``make livehtml`` необходимо установить `sphinx-autobuild <https://github.com/GaretJax/sphinx-autobuild>`_
