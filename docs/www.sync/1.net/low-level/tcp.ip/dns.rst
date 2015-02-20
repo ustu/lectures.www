@@ -19,8 +19,8 @@ DNS
 .. code-block:: python
 
     import socket
-    print socket.gethostbyname('localhost')     # результат из hosts файла
-    print socket.gethostbyname('google.com')    # ваша ОС отправит запрос на удаленный DNS сервер
+    print(socket.gethostbyname('localhost'))    # результат из hosts файла
+    print(socket.gethostbyname('google.com'))   # ваша ОС отправит запрос на удаленный DNS сервер
 
 ::
 
@@ -32,20 +32,20 @@ DNS
 .. code-block:: python
 
     import socket
-    print socket.gethgstgyname_ex("localhost")
-    print socket.gethostbyname_ex("google.com")
-    print socket.gethostbyname_ex("www.google.com")
-    print socket.gethostbyname_ex("www.python.org")
+    print(socket.gethgstgyname_ex("localhost"))
+    print(socket.gethostbyname_ex("google.com"))
+    print(socket.gethostbyname_ex("www.google.com"))
+    print(socket.gethostbyname_ex("www.python.org"))
 
 Вернет (hostname, aliaslist, ipaddrlist) где hostname основное имя хоста по этому IP,
 aliaslist список (может быть пустым) альтернативных имен на этом IP, ipaddrlist список IPv4 адресов прикрепленных к этому домену (часто не множество IP).
 
 ::
 
-('localhost', [], ['127.0.0.1'])
-('google.com', [], ['213.180.204.3'])
-('www.google.com', [], ['195.64.213.53', '195.64.213.42', '195.64.213.44', '195.64.213.59', '195.64.213.49', '195.64.213.38', '195.64.213.29', '195.64.213.27', '195.64.213.23', '195.64.213.15', '195.64.213.19', '195.64.213.34', '195.64.213.45', '195.64.213.30', '195.64.213.57'])
-('python.map.fastly.net', ['www.python.org'], ['23.235.43.223'])
+    ('localhost', [], ['127.0.0.1'])
+    ('google.com', [], ['213.180.204.3'])
+    ('www.google.com', [], ['195.64.213.53', '195.64.213.42', '195.64.213.44', '195.64.213.59', '195.64.213.49', '195.64.213.38', '195.64.213.29', '195.64.213.27', '195.64.213.23', '195.64.213.15', '195.64.213.19', '195.64.213.34', '195.64.213.45', '195.64.213.30', '195.64.213.57'])
+    ('python.map.fastly.net', ['www.python.org'], ['23.235.43.223'])
 
 В реальных программах нужно использовать перехват исключений
 
@@ -55,13 +55,13 @@ aliaslist список (может быть пустым) альтернатив
     name = "www.python.org"
     try:
         host = socket.gethostbyname(name)
-        print host
+        print(host)
     except socket.gaierror, err:
-        print "cannot resolve hostname: ", name, err
+        print("cannot resolve hostname: %s %s" % (name, err))
 
 Пример DNS обращений к текущим лекциям (lectureswww.readthedocs.org)
 
-.. code-block:: python
+.. no-code-block:: python
 
     In [1]: print socket.gethostbyname('lectureswww.readthedocs.org')
     162.209.114.75
@@ -78,7 +78,7 @@ aliaslist список (может быть пустым) альтернатив
 .. code-block:: python
 
     import socket
-    print socket.gethostname()
+    print(socket.gethostname())
 
 ::
 
@@ -92,7 +92,7 @@ aliaslist список (может быть пустым) альтернатив
     * http://ru.wikipedia.org/wiki/FQDN
 
 
-.. code-block:: python
+.. no-code-block:: python
 
     In [1]: import socket
 
