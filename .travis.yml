@@ -4,6 +4,7 @@ language: python
 
 install:
     - pip install pep8 flake8 sphinx
+    - pip install git+https://github.com/uralbash/rstcheck.git
 
 script:
     - rstcheck `find . -name "*.rst" -printf "%p "`
