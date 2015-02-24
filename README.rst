@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/ustu/lectures.www.svg
+    :target: https://travis-ci.org/ustu/lectures.www
+
 Инструкция как писать эту документацию
 ======================================
 
@@ -16,7 +19,7 @@ Sphinx — это генератор документации, который п
 .. code-block:: bash
 
   pip install sphinx
-  
+
 Клонирование репозитария
 
 .. code-block:: bash
