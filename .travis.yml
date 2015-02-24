@@ -1,0 +1,12 @@
+sudo: false
+
+language: python
+
+install:
+    - pip install pep8 flake8 sphinx
+
+script:
+    - rstcheck `find . -name "*.rst" -printf "%p "`
+    - flake8 ./sourcecode/
+    - pep8 ./sourcecode/
+    - make html

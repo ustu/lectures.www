@@ -10,7 +10,7 @@ while True:
     resp = sock_obj.recv(1024)
     if resp == "":
         break
-    print resp
+    print(resp)
 
 # Close the connection when completed
 sock_obj.close()
