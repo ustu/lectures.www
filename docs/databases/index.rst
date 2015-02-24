@@ -1,18 +1,7 @@
 Базы данных
 ===========
 
-ZODB
-----
+.. toctree::
+    :maxdepth: 3
 
-РСУБД
------
-
-SQLite
-~~~~~~
-
-Postgres
-~~~~~~~~
-
-ORM
-~~~
-
+    dbms
