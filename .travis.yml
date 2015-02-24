@@ -7,7 +7,5 @@ install:
     - pip install git+https://github.com/myint/rstcheck.git
 
 script:
-    - rstcheck `find . -name "*.rst" -printf "%p "`
-    - flake8 ./sourcecode/
-    - pep8 ./sourcecode/
+    - ./test.sh
     - make html

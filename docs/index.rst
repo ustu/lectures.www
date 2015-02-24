@@ -54,7 +54,6 @@
     :maxdepth: 2
 
     workplace.rst
-    README
 
 Введение
 --------
