@@ -21,8 +21,8 @@
    parsed_body = html.fromstring(response.text)
 
    # Выполнение xpath в дереве элементов
-   print parsed_body.xpath('//title/text()')[0]    # Получить title страницы
-   print parsed_body.xpath('//a/@href')            # Получить аттрибут href для всех ссылок
+   print(parsed_body.xpath('//title/text()')[0])    # Получить title страницы
+   print(parsed_body.xpath('//a/@href'))            # Получить аттрибут href для всех ссылок
 
 .. code-block:: bash
 
@@ -51,7 +51,7 @@
 
     # Конвертирование всех относительных ссылок в абсолютные
     images = [urlparse.urljoin(response.url, url) for url in images]
-    print 'Found %s images' % len(images)
+    print('Found %s images' % len(images))
 
     # Скачиваем только первые 10
     for url in images[0:10]:

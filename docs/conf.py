@@ -12,8 +12,12 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
-import os
+# import sys
+# import os
+from sphinx.directives.code import CodeBlock
+from docutils.parsers.rst import directives
+
+directives.register_directive('no-code-block', CodeBlock)
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the

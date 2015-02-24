@@ -66,7 +66,7 @@
 
 Проверяем тип файла
 
-.. code-block:: bash
+.. no-code-block:: bash
 
    $ file pipe
    pipe: fifo (named pipe)
@@ -109,7 +109,7 @@
    path = "/tmp/my_program.fifo"
    fifo = open(path, "r")
    for line in fifo:
-       print "Полученно: " + line,
+       print("Полученно: %s" % line)
    fifo.close()
 
 .. code:: bash
@@ -176,17 +176,17 @@
 .. code-block:: python
    :linenos:
 
-    import time
+   import time
 
-    # Open a file
-    file = open("pipe.txt", "r")
-    print "Name of the file: ", file.name
+   # Open a file
+   file = open("pipe.txt", "r")
+   print("Name of the file: %s" % file.name)
 
-    while True:
-        where = file.tell()
-        line = file.readline()
-        if not line:
-            time.sleep(1)
-            file.seek(where)
-        else:
-            print line,  # already has newline
+   while True:
+       where = file.tell()
+       line = file.readline()
+       if not line:
+           time.sleep(1)
+           file.seek(where)
+       else:
+           print(line)  # already has newline
