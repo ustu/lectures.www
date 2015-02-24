@@ -25,18 +25,18 @@ ARP (англ. Address Resolution Protocol — протокол определе
 
 **arp -d 192.168.1.*** - удалить из таблицы ARP записи для диапазона IP-адресов 192.168.1.1 - 192.168.1.254
 
-.. code-block:: bash
+.. no-code-block:: bash
 
    $ arp 192.168.1.1 -i wlan0
    Адрес HW-тип HW-адрес Флаги Маска Интерфейс
    192.168.1.1              ether   00:24:b2:84:19:11   C                     wlan0
 
-.. code-block:: bash
+.. no-code-block:: bash
 
    $ arp -a
    ? (192.168.1.1) в 00:24:b2:84:19:22 [ether] на wlan0
 
-.. code-block:: bash
+.. no-code-block:: bash
 
    $ arping 192.168.1.1 -I wlan0
    ARPING 192.168.1.1 from 192.168.1.111 wlan0

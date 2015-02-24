@@ -86,7 +86,7 @@ socket()
 
 Пример на Си
 
-.. code-block:: cpp
+.. no-code-block:: cpp
 
     #include <sys/types.h>
     #include <sys/socket.h>
@@ -126,7 +126,7 @@ bind()
 
 Пример на Си
 
-.. code-block:: cpp
+.. no-code-block:: cpp
 
     #include <sys/types.h>
     #include <sys/socket.h>
@@ -167,7 +167,7 @@ listen()
 
 Пример на Си
 
-.. code-block:: cpp
+.. no-code-block:: cpp
 
     #include <sys/socket.h>
     int listen(int sockfd, int backlog);

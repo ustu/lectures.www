@@ -16,8 +16,8 @@ TCP пример
 .. image:: /_static/tcp_socket.gif
    :align: center
 
-Клиент
-~~~~~~
+TCP клиент
+~~~~~~~~~~
 
 .. literalinclude:: /../sourcecode/net/socket/inet/1.tcp_client.py
    :language: python
@@ -29,8 +29,8 @@ TCP пример
 
    $ telnet localhost 5005
 
-Сервер
-~~~~~~
+TCP сервер
+~~~~~~~~~~
 
 .. literalinclude:: /../sourcecode/net/socket/inet/1.tcp_server.py
    :language: python
@@ -56,8 +56,8 @@ UDP пример
 .. image:: /_static/udp_socket.gif
    :align: center
 
-Клиент
-~~~~~~
+UDP клиент
+~~~~~~~~~~
 
 .. literalinclude:: /../sourcecode/net/socket/inet/1.udp_client.py
    :language: python
@@ -69,8 +69,8 @@ UDP пример
 
    $ nc localhost 5005 -u
 
-Сервер
-~~~~~~
+UDP сервер
+~~~~~~~~~~
 
 .. literalinclude:: /../sourcecode/net/socket/inet/1.udp_server.py
    :language: python
