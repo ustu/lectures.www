@@ -62,9 +62,9 @@
     :maxdepth: 2
 
     history.rst
-
-* HTML и CSS
-* JavaScript
+    frontend/html.rst
+    frontend/css.rst
+    frontend/javascript.rst
 
 Базы дынных
 -----------
