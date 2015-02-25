@@ -1,9 +1,9 @@
 ARP протокол
 ============
 
-.. note::
+.. seealso::
 
-    https://ru.wikipedia.org/wiki/ARP
+    * https://ru.wikipedia.org/wiki/ARP
 
 ARP (англ. Address Resolution Protocol — протокол определения адреса) — протокол в компьютерных сетях, предназначенный для определения MAC-адреса по известному IP-адресу.
 

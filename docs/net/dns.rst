@@ -1,10 +1,11 @@
 DNS (система доменных имен)
 ===========================
 
-.. note::
+.. seealso::
 
     * https://ru.wikipedia.org/wiki/DNS
     * http://book.itep.ru/4/44/dns_4412.htm
+    * https://developer.mozilla.org/en-US/Learn/Understanding_domain_names
 
 Доменное имя
 ------------
@@ -76,6 +77,10 @@ localhost (так называемый, «локальный хост», по с
 
 Использование адреса 127.0.0.1 позволяет устанавливать соединение и передавать информацию для программ-серверов, работающих на том же компьютере, что и программа-клиент, независимо от конфигурации аппаратных сетевых средств компьютера (не требуется сетевая карта, модем, и прочее коммуникационное оборудование, интерфейс реализуется при помощи драйвера псевдоустройства в ядре операционной системы). Таким образом, для работы клиент-серверных приложений на одном компьютере не требуется изобретать дополнительные протоколы и дописывать программные модули.
 
+
+.. image:: /_static/dns_request.png
+   :align: center
+
 Способы получения IP адреса по доменному имени
 ----------------------------------------------
 
@@ -132,3 +137,73 @@ localhost (так называемый, «локальный хост», по с
     Non-authoritative answer:
     Name:   lectureswww.readthedocs.org
     Address: 162.209.114.75
+
+**whois**
+
+.. seealso::
+
+    * https://ru.wikipedia.org/wiki/WHOIS
+
+WHOIS (от англ. who is — «кто такой?») — сетевой протокол прикладного уровня, базирующийся на протоколе TCP (порт 43). Основное применение — получение регистрационных данных о владельцах доменных имён, IP-адресов и автономных систем.
+
+Протокол подразумевает архитектуру «клиент-сервер» и используется для доступа к публичным серверам баз данных (БД) регистраторов IP-адресов и регистраторов доменных имён. Текущая версия этого протокола описана в RFC 3912. Чаще всего WHOIS-клиенты реализованы в виде консольных программ. Однако, поскольку для многих пользователей командная строка недоступна или неудобна, на основе консольных клиентов обычно создаются веб-формы, доступные пользователям на многих сайтах в Интернете. Кроме того, существуют WHOIS-клиенты и с графическим интерфейсом.
+
+.. no-code-block:: bash
+
+   $ whois ustu.ru
+   % By submitting a query to RIPN's Whois Service
+   % you agree to abide by the following terms of use:
+   % http://www.ripn.net/about/servpol.html#3.2 (in Russian)
+   % http://www.ripn.net/about/en/servpol.html#3.2 (in English)
+
+   domain:        USTU.RU
+   nserver:       ns2.ustu.ru. 93.88.182.2
+   nserver:       ns.ustu.ru. 93.88.181.2
+   state:         REGISTERED, DELEGATED, VERIFIED
+   org:           UrFU
+   registrar:     RU-CENTER-RU
+   admin-contact: https://www.nic.ru/whois
+   created:       1997.09.28
+   paid-till:     2015.10.01
+   free-date:     2015.11.01
+   source:        TCI
+
+   Last updated on 2015.02.25 11:51:31 MSK
+
+TLD (Top-Level Domain). Некоторые Whois сервера
+ничего не знают о доменах "ru."
+
+.. no-code-block:: bash
+
+    $ whois --host whois.pir.org ustu.ru
+    TLD "ru" is not supported
+
+Что бы посмотреть какой сервер используется,
+нужно добавить опцию "--verbose"
+
+.. no-code-block:: bash
+   :linenos:
+   :emphasize-lines: 2
+
+   $ whois --verbose ustu.ru
+   Используется сервер whois.tcinet.ru.
+   Строка запроса: "ustu.ru"
+
+   % By submitting a query to RIPN's Whois Service
+   % you agree to abide by the following terms of use:
+   % http://www.ripn.net/about/servpol.html#3.2 (in Russian)
+   % http://www.ripn.net/about/en/servpol.html#3.2 (in English).
+
+   domain:        USTU.RU
+   nserver:       ns2.ustu.ru. 93.88.182.2
+   nserver:       ns.ustu.ru. 93.88.181.2
+   state:         REGISTERED, DELEGATED, VERIFIED
+   org:           UrFU
+   registrar:     RU-CENTER-RU
+   admin-contact: https://www.nic.ru/whois
+   created:       1997.09.28
+   paid-till:     2015.10.01
+   free-date:     2015.11.01
+   source:        TCI
+
+   Last updated on 2015.02.25 12:01:33 MSK

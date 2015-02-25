@@ -1,6 +1,8 @@
 Веб-программирование
 ====================
 
+http://maluke.com/old/webdev
+
 Paste script
 ------------
 

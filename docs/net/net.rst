@@ -1,9 +1,10 @@
 Сети
 ====
 
-.. note:: Список ресурсов:
+.. seealso::
 
     * `Каналы передачи данных <http://book.itep.ru/1/intro1.htm>`_
+    * `<https://developer.mozilla.org/en-US/Learn/How_the_Internet_works>`_
 
 **World Wide Web (WWW, W3)** — гипертекстовая (гипермедиа) система,
 предназначенная для интеграции различных сетевых ресурсов в единое информационное
