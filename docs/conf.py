@@ -19,7 +19,7 @@ from docutils.parsers.rst import directives
 
 directives.register_directive('no-code-block', CodeBlock)
 
-html_logo = '_static/urfu.png'
+html_logo = '_static/info-small.png'
 html_favicon = '_static/urfu.ico'
 html_sidebars = {
     '**': ['globaltoc.html', 'sourcelink.html', 'searchbox.html'],
@@ -122,10 +122,12 @@ html_theme = 'mydefault'
 html_theme_options = {
     'collapsiblesidebar': True,
     'sidebarbgcolor': '#eee',
-    'sidebartextcolor': '#f33',
+    'sidebartextcolor': '#33a',
     'sidebarlinkcolor': '#333',
     'relbarbgcolor': '#666',
     'sidebarbtncolor': '#666',
+    'footerbgcolor': '#eee',
+    'footertextcolor': '#000',
 }
 
 # Add any paths that contain custom themes here, relative to this directory.

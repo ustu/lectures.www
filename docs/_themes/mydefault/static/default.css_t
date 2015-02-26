@@ -320,3 +320,16 @@ div.viewcode-block:target {
 .toctree-l1 {
     background: #fff;
 }
+
+li.toctree-l1.current {
+    background: #fee;
+}
+
+li[class*=" current"] {
+    background: #fff;
+    color:red 
+}
+
+.logo {
+    max-width : none;
+}
