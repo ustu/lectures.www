@@ -25,16 +25,16 @@
 	<g id="Hardware_1_">
 		<path id="Container_2_" d="M45,55c16.6,0,30,13.4,30,30s-13.4,30-30,30s-30-13.4-30-30S28.4,55,45,55 M45,50
 			c-19.3,0-35,15.7-35,35s15.7,35,35,35s35-15.7,35-35S64.3,50,45,50L45,50z"/>
-		<text x="45" y="90" class="st0 st1">Files</text>
+		<text x="45" y="90" class="st0 st1">Файлы</text>
 	</g>
 	<g id="Software_1_">
 		<path id="Container_3_" d="M125,55c16.6,0,30,13.4,30,30s-13.4,30-30,30s-30-13.4-30-30S108.4,55,125,55 M125,50
 			c-19.3,0-35,15.7-35,35s15.7,35,35,35s35-15.7,35-35S144.3,50,125,50L125,50z"/>
-		<text><tspan  x="125" y="80" class="st0 st1">HTTP</tspan> <tspan  x="125" y="97" class="st0 st1">server</tspan></text>
+		<text><tspan  x="125" y="80" class="st0 st1">HTTP</tspan> <tspan  x="125" y="97" class="st0 st1">сервер</tspan></text>
 	</g>
 	<path id="Container_1_" d="M85,5c44.1,0,80,35.9,80,80s-35.9,80-80,80S5,129.1,5,85S40.9,5,85,5 M85,0C38.1,0,0,38.1,0,85
 		s38.1,85,85,85s85-38.1,85-85S131.9,0,85,0L85,0z"/>
-	<text x="85" y="195" class="st2 st1">Web server</text>
+	<text x="85" y="195" class="st2 st1">Web сервер</text>
 </g>
 <g id="Browser">
 	<g id="Computer_2_">
@@ -44,13 +44,13 @@
 	</g>
 	<path id="Container_5_" d="M515,5.6c44.1,0,80,35.9,80,80s-35.9,80-80,80s-80-35.9-80-80S470.9,5.6,515,5.6 M515,0.6
 		c-46.9,0-85,38.1-85,85s38.1,85,85,85s85-38.1,85-85S561.9,0.6,515,0.6L515,0.6z"/>
-	<text x="515" y="195" class="st2 st1">Browser</text>
+	<text x="515" y="195" class="st2 st1">Браузер</text>
 </g>
 <g id="HTTP">
 	<polygon id="left_arrow" points="175,54 175,48 165,55.5 175,63 175,57.1 440,57.1 440,54 	"/>
 	<polygon id="right_arrow" points="425,113 425,107 435,114.5 425,122 425,116.1 160,116.1 160,113 	"/>
-	<text x="375" y="73" class="st0 st1">HTTP Request</text>
-	<text x="227" y="107" class="st0 st1">HTTP Response</text>
+	<text x="375" y="73" class="st0 st1">HTTP Запрос</text>
+	<text x="227" y="107" class="st0 st1">HTTP Ответ</text>
 </g>
 </svg>
 
