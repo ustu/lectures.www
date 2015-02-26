@@ -6,7 +6,19 @@
 # Distributed under terms of the MIT license.
 #
 
-rstcheck `find . -name "*.rst" -printf "%p "`
-flake8 ./sourcecode/
-pep8 ./sourcecode/
+if rstcheck `find . -name "*.rst" -printf "%p "`
+then
+    exit 1
+fi
+
+if flake8 ./sourcecode/
+then
+    exit 1
+fi
+
+if pep8 ./sourcecode/
+then
+    exit 1
+fi
+
 make doctest
