@@ -5,20 +5,16 @@
 #
 # Distributed under terms of the MIT license.
 #
+RED='\033[0;31m'
+NC='\033[0m' # No Color
 
-if rstcheck `find . -name "*.rst" -printf "%p "`
+echo -e "${RED}"
+if rstcheck `find . -name "*.rst" -printf "%p "` ||
+    flake8 ./sourcecode/ ||
+    pep8 ./sourcecode/
 then
     exit 1
 fi
-
-if flake8 ./sourcecode/
-then
-    exit 1
-fi
-
-if pep8 ./sourcecode/
-then
-    exit 1
-fi
+echo -e "${NC}"
 
 make doctest
