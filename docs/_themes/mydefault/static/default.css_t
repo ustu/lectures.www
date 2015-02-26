@@ -147,6 +147,10 @@ div.sphinxsidebar input {
     font-size: 1em;
 }
 
+div.sphinxsidebar input[type="submit"] {
+    width: 80px !important;
+}
+
 {% if theme_collapsiblesidebar|tobool %}
 /* for collapsible sidebar */
 div#sidebarbutton {
@@ -311,4 +315,8 @@ div.viewcode-block:target {
 
 .hll {
     background: #ff0 !important;
+}
+
+.toctree-l1 {
+    background: #fff;
 }

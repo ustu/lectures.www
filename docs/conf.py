@@ -19,6 +19,13 @@ from docutils.parsers.rst import directives
 
 directives.register_directive('no-code-block', CodeBlock)
 
+html_logo = '_static/urfu.png'
+html_favicon = '_static/urfu.ico'
+html_sidebars = {
+    '**': ['globaltoc.html', 'sourcelink.html', 'searchbox.html'],
+    'using/windows': ['windowssidebar.html', 'searchbox.html'],
+}
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -112,7 +119,14 @@ html_theme = 'mydefault'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-html_theme_options = {'collapsiblesidebar': True}
+html_theme_options = {
+    'collapsiblesidebar': True,
+    'sidebarbgcolor': '#eee',
+    'sidebartextcolor': '#f33',
+    'sidebarlinkcolor': '#333',
+    'relbarbgcolor': '#666',
+    'sidebarbtncolor': '#666',
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 html_theme_path = ['_themes']
