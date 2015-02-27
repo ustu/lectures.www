@@ -5,6 +5,7 @@ language: python
 install:
     - pip install pep8 flake8 sphinx
     - pip install git+https://github.com/myint/rstcheck.git
+    - pip install -r requirements.txt
 
 script:
     - ./test.sh
