@@ -61,12 +61,19 @@
 --------
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
 
     history.rst
-    frontend/html.rst
-    frontend/css.rst
-    frontend/javascript.rst
+
+Пользовательский интерфейс
+--------------------------
+
+.. toctree::
+   :maxdepth: 3
+
+   frontend/html.rst
+   frontend/css.rst
+   frontend/javascript.rst
 
 Базы дынных
 -----------
