@@ -22,7 +22,10 @@ directives.register_directive('no-code-block', CodeBlock)
 html_logo = '_static/info-small.png'
 html_favicon = '_static/urfu.ico'
 html_sidebars = {
-    '**': ['globaltoc.html', 'sourcelink.html', 'searchbox.html'],
+    '**': ['globaltoc.html',
+           'searchbox.html',
+           'sourcelink.html',
+           ],
     'using/windows': ['windowssidebar.html', 'searchbox.html'],
 }
 
@@ -44,7 +47,7 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
-]
+    'sphinxcontrib.fulltoc']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
