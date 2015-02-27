@@ -14,11 +14,11 @@ Sphinx — это генератор документации, который п
 Установка
 ---------
 
-Установка sphinx
+Установка
 
 .. code-block:: bash
 
-  pip install sphinx
+  pip install -r requirements.txt
 
 Клонирование репозитария
 
