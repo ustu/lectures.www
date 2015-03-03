@@ -25,7 +25,7 @@ Sphinx — это генератор документации, который п
 .. code-block:: bash
 
   git clone git@github.com:ustu/lectures.www.git
-  cd lecctures.www
+  cd lectures.www
 
 Сборка
 ------
