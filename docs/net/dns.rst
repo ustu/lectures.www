@@ -59,8 +59,9 @@ hosts — текстовый файл, содержащий базу данны�
 
 Расположение:
 
-| В Unix /etc/hosts
-| В Windows %SystemRoot%\\system32\\drivers\\etc\\hosts
+В Unix ``/etc/hosts``
+
+В Windows ``%SystemRoot%\\system32\\drivers\\etc\\hosts``
 
 Пример файла hosts
 
