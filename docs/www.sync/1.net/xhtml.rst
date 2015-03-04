@@ -1,9 +1,9 @@
 Парсим HTML
 ===========
 
-.. note::
+.. seealso::
 
-    http://devacademy.ru/posts/parsing-resursov-pri-pomoschi-python/
+    * http://devacademy.ru/posts/parsing-resursov-pri-pomoschi-python/
 
 Разбор HTTP ответа
 ------------------

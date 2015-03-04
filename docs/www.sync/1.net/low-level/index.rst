@@ -1,7 +1,7 @@
 Низкоуровневое программирование
 ===============================
 
-.. note::
+.. seealso::
 
     * `Книги Стивенса <http://www.books.ru/author/stivens-2266/?partner=490327>`_
     * `Библиотека socket в Python2 <https://docs.python.org/2/library/socket.html>`_

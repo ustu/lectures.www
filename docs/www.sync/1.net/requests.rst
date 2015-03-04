@@ -4,7 +4,7 @@ HTTP Запросы/Ответы на Python
 httplib
 -------
 
-.. note::
+.. seealso::
 
     * https://docs.python.org/2/library/httplib.html
     * https://docs.python.org/3/library/http.client.html
@@ -65,7 +65,7 @@ POST запрос
 urllib
 ------
 
-.. note::
+.. seealso::
 
     * `Лекции Р. Сузи <http://www.wiki.intuit.ru/wiki/Курсы/Язык_программирования_Python/Лекция_9:_Сетевые_приложения_на_Python>`_
     * https://docs.python.org/2/library/urllib.html
@@ -164,7 +164,7 @@ urllib
 urllib2
 -------
 
-.. note::
+.. seealso::
 
     * https://docs.python.org/3.5/howto/urllib2.html
     * https://docs.python.org/2/howto/urllib2.html
@@ -382,9 +382,9 @@ POST запрос
 requests
 --------
 
-.. note::
+.. seealso::
 
-    http://docs.python-requests.org/en/latest/
+    * http://docs.python-requests.org/en/latest/
 
 `requests` - самая популярная библиотека на языке программирования Python.
 Она предоставляет более абстрактный уровень чем urllib, urllib2 и использует их в своем коде.

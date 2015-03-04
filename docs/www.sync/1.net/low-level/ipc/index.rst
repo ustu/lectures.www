@@ -1,7 +1,7 @@
 Межпроцессное взаимодействие
 ============================
 
-.. note::
+.. seealso::
 
     * `<https://ru.wikipedia.org/wiki/Межпроцессное_взаимодействие>`_
     * http://heap.altlinux.org/tmp/unix_base/ch01s03.html

@@ -87,7 +87,7 @@
 --------------
 
 .. toctree::
-    :maxdepth: 3
+    :maxdepth: 4
 
     net/index.rst
     www.sync/1.net/index.rst

@@ -10,7 +10,7 @@ DNS (система доменных имен)
 Доменное имя
 ------------
 
-.. note::
+.. seealso::
 
     * `<https://ru.wikipedia.org/wiki/Доменное_имя>`_
 
@@ -48,7 +48,7 @@ DNS (система доменных имен)
 Привязка к IP адресу
 --------------------
 
-.. note::
+.. seealso::
 
     * https://ru.wikipedia.org/wiki/BIND
     * https://ru.wikipedia.org/wiki/Hosts

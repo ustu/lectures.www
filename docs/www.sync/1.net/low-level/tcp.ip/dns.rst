@@ -10,7 +10,7 @@ DNS
 Переводим имя хоста в IP адрес
 ------------------------------
 
-.. note::
+.. seealso::
 
     * https://docs.python.org/2/library/socket.html#socket.gethostbyname
     * http://man7.org/linux/man-pages/man3/gethostbyname.3.html
@@ -87,7 +87,7 @@ aliaslist список (может быть пустым) альтернатив
 Получаем fqdn (fully qualified domain name)
 -------------------------------------------
 
-.. note::
+.. seealso::
 
     * http://ru.wikipedia.org/wiki/FQDN
 
