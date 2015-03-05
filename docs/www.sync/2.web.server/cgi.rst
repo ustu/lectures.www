@@ -473,3 +473,23 @@ C++
 .. literalinclude:: /../sourcecode/cgi-bin/10.fileupload.cpp
    :language: cpp
    :linenos:
+
+Отладка
+~~~~~~~
+
+.. seealso::
+
+   * http://pymotw.com/2/cgitb/
+   * https://docs.python.org/2/library/cgitb.html
+
+.. note::
+
+   * http://localhost:8000/cgi-bin/test.py
+
+Python
+
+.. literalinclude:: /../sourcecode/cgi-bin/test.py
+   :language: python
+   :linenos:
+
+.. image:: /_static/cgitb.png
