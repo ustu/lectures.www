@@ -182,8 +182,20 @@ CGI
 
        sudo apt-get install libcgicc5-dev
 
+   Пример компиляции:
+
+   .. code-block:: bash
+
+       g++ -o 3.get.post.cgi 3.get.post.cpp -lcgicc
+
 Hello World!
 ~~~~~~~~~~~~
+
+.. note::
+
+   * http://localhost:8000/cgi-bin/1.hello.cgi
+   * http://localhost:8000/cgi-bin/1.hello.py
+   * http://localhost:8000/cgi-bin/1.hello.rb
 
 Python
 
@@ -202,5 +214,262 @@ C++
 Для компиляции: ``make 1_hello``
 
 .. literalinclude:: /../sourcecode/cgi-bin/1.hello.cpp
+   :language: cpp
+   :linenos:
+
+Вывод пременных окружения
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. note::
+
+   * http://localhost:8000/cgi-bin/2.environment.cgi
+   * http://localhost:8000/cgi-bin/2.environment.py
+   * http://localhost:8000/cgi-bin/2.environment.rb
+
+Python
+
+.. literalinclude:: /../sourcecode/cgi-bin/2.environment.py
+   :language: python
+   :linenos:
+
+Ruby
+
+.. literalinclude:: /../sourcecode/cgi-bin/2.environment.rb
+   :language: ruby
+   :linenos:
+
+C++
+
+Для компиляции: ``make 2_environment``
+
+.. literalinclude:: /../sourcecode/cgi-bin/2.environment.cpp
+   :language: cpp
+   :linenos:
+
+GET и POST запросы
+~~~~~~~~~~~~~~~~~~
+
+.. note::
+
+   * http://localhost:8000/cgi-bin/3.get.post.cgi?first_name=Lev&last_name=Tolstoy
+   * http://localhost:8000/cgi-bin/3.get.post.py?first_name=Lev&last_name=Tolstoy
+   * http://localhost:8000/cgi-bin/3.get.post.rb?first_name=Lev&last_name=Tolstoy
+
+* **GET** (action="http://localhost:8000/cgi-bin/3.get.post.cgi" method="get")
+
+   .. raw:: html
+
+        <form action="http://localhost:8000/cgi-bin/3.get.post.cgi"
+              method="get" target="_blank">
+            First Name: <input type="text" name="first_name"><br />
+            Last Name: <input type="text" name="last_name" />
+
+            <input type="submit" value="Submit" />
+        </form>
+
+* **POST** (action="http://localhost:8000/cgi-bin/3.get.post.cgi" method="post")
+
+   .. raw:: html
+
+        <form action="http://localhost:8000/cgi-bin/3.get.post.cgi"
+              method="post" target="_blank">
+            First Name: <input type="text" name="first_name"><br />
+            Last Name: <input type="text" name="last_name" />
+
+            <input type="submit" value="Submit" />
+        </form>
+
+Python
+
+.. literalinclude:: /../sourcecode/cgi-bin/3.get.post.py
+   :language: python
+   :linenos:
+
+Ruby
+
+.. literalinclude:: /../sourcecode/cgi-bin/3.get.post.rb
+   :language: ruby
+   :linenos:
+
+C++
+
+Для компиляции: ``make 3_get_post``
+
+.. literalinclude:: /../sourcecode/cgi-bin/3.get.post.cpp
+   :language: cpp
+   :linenos:
+
+
+
+Checkbox
+~~~~~~~~
+
+.. raw:: html
+
+   <form action="http://localhost:8000/cgi-bin/4.checkbox.cgi" method="POST" target="_blank">
+      <input type="checkbox" name="maths" value="on" /> Maths
+      <input type="checkbox" name="physics" value="on" /> Physics
+      <input type="submit" value="Select Subject" />
+   </form>
+
+Python
+
+.. literalinclude:: /../sourcecode/cgi-bin/4.checkbox.py
+   :language: python
+   :linenos:
+
+C++
+
+Для компиляции: ``make 4_checkbox``
+
+.. literalinclude:: /../sourcecode/cgi-bin/4.checkbox.cpp
+   :language: cpp
+   :linenos:
+
+Radio
+~~~~~
+
+.. raw:: html
+
+   <form action="http://localhost:8000/cgi-bin/5.radio.cgi" method="POST" target="_blank">
+      <input type="radio" name="subject" value="maths"
+                                          checked="checked"/> Maths
+      <input type="radio" name="subject" value="physics" /> Physics
+      <input type="submit" value="Select Subject" />
+   </form>
+
+Python
+
+.. literalinclude:: /../sourcecode/cgi-bin/5.radio.py
+   :language: python
+   :linenos:
+
+C++
+
+Для компиляции: ``make 5_radio``
+
+.. literalinclude:: /../sourcecode/cgi-bin/5.radio.cpp
+   :language: cpp
+   :linenos:
+
+TextArea
+~~~~~~~~
+
+.. raw:: html
+
+   <form action="http://localhost:8000/cgi-bin/6.textarea.cgi" method="POST" target="_blank">
+      <textarea name="textcontent" cols="40" rows="4">
+      Type your text here...
+      </textarea>
+      <input type="submit" value="Submit" />
+   </form>
+
+Python
+
+.. literalinclude:: /../sourcecode/cgi-bin/6.textarea.py
+   :language: python
+   :linenos:
+
+C++
+
+Для компиляции: ``make 6_textarea``
+
+.. literalinclude:: /../sourcecode/cgi-bin/6.textarea.cpp
+   :language: cpp
+   :linenos:
+
+Drop Down Box
+~~~~~~~~~~~~~
+
+.. raw:: html
+
+   <form action="http://localhost:8000/cgi-bin/7.dropdown.cgi" method="POST" target="_blank">
+      <select name="dropdown">
+      <option value="Maths" selected>Maths</option>
+      <option value="Physics">Physics</option>
+      </select>
+      <input type="submit" value="Submit"/>
+   </form>
+
+Python
+
+.. literalinclude:: /../sourcecode/cgi-bin/7.dropdown.py
+   :language: python
+   :linenos:
+
+C++
+
+Для компиляции: ``make 7_dropdown``
+
+.. literalinclude:: /../sourcecode/cgi-bin/7.dropdown.cpp
+   :language: cpp
+   :linenos:
+
+Печать Cookie
+~~~~~~~~~~~~~
+
+.. note::
+
+   * http://localhost:8000/cgi-bin/8.getcookie.cgi
+   * http://localhost:8000/cgi-bin/8.getcookie.py
+
+Python
+
+.. literalinclude:: /../sourcecode/cgi-bin/8.getcookie.py
+   :language: python
+   :linenos:
+
+C++
+
+Для компиляции: ``make 8_getcookie``
+
+.. literalinclude:: /../sourcecode/cgi-bin/8.getcookie.cpp
+   :language: cpp
+   :linenos:
+
+Установка Cookie
+~~~~~~~~~~~~~~~~
+
+.. note::
+
+   * http://localhost:8000/cgi-bin/9.setcookie.cgi
+   * http://localhost:8000/cgi-bin/9.setcookie.py
+
+Python
+
+.. literalinclude:: /../sourcecode/cgi-bin/9.setcookie.py
+   :language: python
+   :linenos:
+
+C++
+
+Для компиляции: ``make 9_setcookie``
+
+.. literalinclude:: /../sourcecode/cgi-bin/9.setcookie.cpp
+   :language: cpp
+   :linenos:
+
+Загрузка файлов
+~~~~~~~~~~~~~~~
+
+.. raw:: html
+
+   <form action="http://localhost:8000/cgi-bin/10.fileupload.cgi" method="POST"
+         target="_blank" enctype="multipart/form-data">
+      <p>File: <input type="file" name="filename" /></p>
+      <p><input type="submit" value="Upload" /></p>
+   </form>
+
+Python
+
+.. literalinclude:: /../sourcecode/cgi-bin/10.fileupload.py
+   :language: python
+   :linenos:
+
+C++
+
+Для компиляции: ``make 10_fileupload``
+
+.. literalinclude:: /../sourcecode/cgi-bin/10.fileupload.cpp
    :language: cpp
    :linenos:
