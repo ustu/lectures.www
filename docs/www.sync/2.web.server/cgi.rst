@@ -491,5 +491,6 @@ Python
 .. literalinclude:: /../sourcecode/cgi-bin/test.py
    :language: python
    :linenos:
+   :emphasize-lines: 24
 
 .. image:: /_static/cgitb.png
