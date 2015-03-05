@@ -21,7 +21,7 @@ def func2(arg2):
 
 
 def func3(arg3):
-    local_var = arg2 / 2
+    local_var = arg2/2  # noqa
     return local_var
 
 func1(1)
