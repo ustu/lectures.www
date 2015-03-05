@@ -119,28 +119,88 @@ CGI
 .. image:: /_static/cgi_env.png
    :width: 700px
 
+Преимущества CGI
+----------------
 
+* Процесс CGI скрипта не зависит от Веб-сервера и в случае падения ни как не отразится на работе последнего
+* Может быть написан на любом языке программирования
+* Поддерживается большинством Веб-серверов
 
+Недостатки CGI
+--------------
 
+Самым большим недостатком этой технологии являются повышенные требования к производительности веб-сервера. Дело в том, что каждое обращение к CGI-приложению вызывает порождение нового процесса, со всеми вытекающими отсюда накладными расходами. Если же приложение написано с ошибками, то возможна ситуация, когда оно, например, зациклится. Браузер прервет соединение по истечении тайм-аута, но на серверной стороне процесс будет продолжаться, пока администратор не снимет его принудительно.
 
+Альтернативы
+------------
 
+* FastCGI - дальнейшее развитие технологии CGI. Поддерживается
+  многими Веб-серверами, например Nginx.
+* Веб-сервера в которые уже встроена поддержка дополнительных,
+  стандартов и протоколов, таких как WSGI (Gunicorn, waitress, uwsgi)
+* Веб-сервер функционал которого расширяется через модули, например
+  Apache (mod_wsgi, mod_php, mod_fastcgi)
 
+Практика
+--------
 
+.. seealso::
 
-`Пример CGI скриптов на C++ <http://www.tutorialspoint.com/cplusplus/cpp_web_programming.htm>`_
+   * https://docs.python.org/2/library/cgihttpserver.html
+   * https://docs.python.org/3/library/http.server.html
 
-Для работы нужно поставить библиотеку cgi:
+Для запуска CGI сервера, необходимо перейти в директорию ``sourcecode``
+и выполнить команду:
 
-::
+.. code-block:: bash
 
-    sudo apt-get install libcgicc5-dev
+   python -m CGIHTTPServer 8000
 
-`Пример CGI скриптов на Python <http://www.tutorialspoint.com/python/python_cgi_programming.htm>`_
+или
 
-Запуск локального web сервера:
+.. code-block:: bash
 
-::
+   python3 -m http.server --cgi 8000
 
-    python -m CGIHTTPServer
-    или
-    python cgiserver.py
+или
+
+.. code-block:: bash
+
+   python cgiserver.py
+
+Теперь CGI-скрипты доступны на ``8000`` порту,
+например по адресу `<http://localhost:8000/cgi-bin/1.hello.py>`_
+
+* `Пример CGI скриптов на Python <http://www.tutorialspoint.com/python/python_cgi_programming.htm>`_
+* `Пример CGI скриптов на C++ <http://www.tutorialspoint.com/cplusplus/cpp_web_programming.htm>`_
+
+.. note::
+
+   Для компиляции кода на C++ необходимо установить библиотеку cgi:
+
+   .. code-block:: bash
+
+       sudo apt-get install libcgicc5-dev
+
+Hello World!
+~~~~~~~~~~~~
+
+Python
+
+.. literalinclude:: /../sourcecode/cgi-bin/1.hello.py
+   :language: python
+   :linenos:
+
+Ruby
+
+.. literalinclude:: /../sourcecode/cgi-bin/1.hello.rb
+   :language: ruby
+   :linenos:
+
+C++
+
+Для компиляции: ``make 1_hello``
+
+.. literalinclude:: /../sourcecode/cgi-bin/1.hello.cpp
+   :language: cpp
+   :linenos:

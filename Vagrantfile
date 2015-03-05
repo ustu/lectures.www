@@ -14,7 +14,7 @@ Vagrant.configure(2) do |config|
     lectureswww.ssh.username = 'vagrant'
     lectureswww.ssh.password = '123'
     lectureswww.vm.provider 'docker' do |docker|
-      docker.image = "uralbash/docker-ubuntu"
+      docker.build_dir = '.'
       docker.name = 'lectureswww'
       docker.build_args = ['--tag=ustu/lectureswww']
       docker.remains_running = false
