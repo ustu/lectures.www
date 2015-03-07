@@ -5,11 +5,12 @@
 # Copyright © 2014 uralbash <root@uralbash.ru>
 #
 # Distributed under terms of the MIT license.
-#
-# FastCGI example
-# http://flask.pocoo.org/docs/deploying/fastcgi/
-# http://docs.python.org/2/howto/webservers.html#setting-up-fastcgi
 
+"""
+FastCGI example
+http://flask.pocoo.org/docs/deploying/fastcgi/
+http://docs.python.org/2/howto/webservers.html#setting-up-fastcgi
+"""
 from flup.server.fcgi import WSGIServer
 
 

@@ -162,7 +162,11 @@ CGI
 
    python3 -m http.server --cgi 8000
 
-или
+или ``cgiserver.py``
+
+.. literalinclude:: /../sourcecode/cgiserver.py
+   :language: python
+   :linenos:
 
 .. code-block:: bash
 
@@ -298,8 +302,6 @@ C++
 .. literalinclude:: /../sourcecode/cgi-bin/3.get.post.cpp
    :language: cpp
    :linenos:
-
-
 
 Checkbox
 ~~~~~~~~
