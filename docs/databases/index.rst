@@ -6,3 +6,4 @@
 
     dbms
     rdb
+    sqlite
