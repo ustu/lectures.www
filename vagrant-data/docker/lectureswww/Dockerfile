@@ -7,5 +7,7 @@
 FROM uralbash/docker-ubuntu:latest
 MAINTAINER Dmitry Svintsov <root@uralbash.ru>
 
-## Set LOCALE
-RUN apt-get -qqy install ruby-full libcgicc5-dev
+## Ruby
+RUN apt-get -qqy install ruby-full
+## CGI & FastCGI
+RUN apt-get -qqy install libfcgi-dev libcgicc5-dev spawn-fcgi

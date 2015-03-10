@@ -14,4 +14,5 @@
 
     web.server.rst
     cgi.rst
+    fcgi.rst
     wsgi.rst

@@ -7,6 +7,10 @@ PROJECT_NAME = "lectureswww"
 Vagrant.configure(2) do |config|
   sourcecode_dir = './sourcecode/'
   config.vm.synced_folder sourcecode_dir, "/home/vagrant/sourcecode/"
+  config.vm.provision :shell,
+    run: "always",
+    privileged: false,
+    :path => "vagrant-data/nginx.sh"
 
   # Lecture examples
   config.vm.define 'lectureswww', primary: true do |lectureswww|
@@ -14,14 +18,13 @@ Vagrant.configure(2) do |config|
     lectureswww.ssh.username = 'vagrant'
     lectureswww.ssh.password = '123'
     lectureswww.vm.provider 'docker' do |docker|
-      docker.build_dir = '.'
+      docker.build_dir = 'vagrant-data/docker/lectureswww'
       docker.name = 'lectureswww'
       docker.build_args = ['--tag=ustu/lectureswww']
       docker.remains_running = false
 
-      # telnet redis 6379
+      docker.link('%s_nginx:nginx' % PROJECT_NAME)
       docker.link('%s_db_redis:redis' % PROJECT_NAME)
-      # telnet postgres 5432
       docker.link('%s_db_postgres:postgres' % PROJECT_NAME)
 
       # -t - Allocate a (pseudo) tty
@@ -30,10 +33,9 @@ Vagrant.configure(2) do |config|
       docker.has_ssh = true
 
       # HOST:CONTAINER
-      # Pyramid
-      docker.ports = ['6543:6543', '6544:6544']
-      # CGI & WSGI
-      docker.ports = ['8000:8000', '8080:8080']
+      docker.ports = ['6543:6543',  # Pyramid
+                      '6544:6544',  # Websocket
+                      '8000:8000']  # CGI & WSGI
     end
   end
 
@@ -56,6 +58,22 @@ Vagrant.configure(2) do |config|
       docker.image = "dockerfile/redis"
       docker.name = '%s_db_redis' % PROJECT_NAME
       docker.ports = ["6379:6379"]
+    end
+  end
+
+  # Nginx with inotify (auto reload)
+  config.vm.define "nginx" do |nginx|
+    nginx.vm.provider "docker" do |docker|
+      docker.build_dir = 'vagrant-data/docker/nginx'
+      docker.build_args = ['--tag=uralbash/nginx']
+      docker.name = '%s_nginx' % PROJECT_NAME
+      docker.ports = ["8080:80"]
+
+      nginx_dir = '%s/sourcecode/nginx' % Dir.pwd
+      nginx_html = "%s/html:/usr/share/nginx/html" % nginx_dir
+      nginx_sites_enables = "%s/sites-enabled:/etc/nginx/sites-enabled" % nginx_dir
+      nginx_includes = "%s/includes:/etc/nginx/includes" % nginx_dir
+      docker.volumes = [nginx_sites_enables, nginx_html, nginx_includes]
     end
   end
 end
