@@ -34,10 +34,11 @@ class AppClass:
         status = '200 OK'
         response_headers = [('Content-type', 'text/plain')]
         self.start(status, response_headers)
-        for key, value in self.environ:
-            env = key + ': ' + value
-            yield env
+        for value in self.environ.items():
+            env = '{0}: {1}'.format(*value)
+            yield env.encode('utf-8')
             yield b'\n'
+        yield b'\n'
         yield HELLO_WORLD
 
 
