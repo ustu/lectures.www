@@ -11,7 +11,7 @@ NC='\033[0m' # No Color
 
 RST_FILES=`find . -name "*.rst" -printf "%p "`
 FLAKE8=$(flake8 ./sourcecode/)
-PEP8=$(pep8 ./sourcecode/)
+# PEP8=$(pep8 ./sourcecode/)
 RST_CHECK=$(rstcheck $RST_FILES --report 2 3>&1 1>&2 2>&3 | tee >(cat - >&2)) # fd=STDERR_FILENO
 
 echo -e "${RED}"

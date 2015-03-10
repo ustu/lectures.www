@@ -2,12 +2,14 @@ from server import run_with_cgi
 
 HELLO_WORLD = b"Hello world!\n"
 
+
 def simple_app(environ, start_response):
     """Simplest possible application object"""
     status = '200 OK'
     response_headers = [('Content-type', 'text/plain')]
     start_response(status, response_headers)
     return [HELLO_WORLD]
+
 
 class AppClass:
     """Produce the same output, but using a class
@@ -32,7 +34,6 @@ class AppClass:
         status = '200 OK'
         response_headers = [('Content-type', 'text/plain')]
         self.start(status, response_headers)
-        import ipdb; ipdb.set_trace()
         for key, value in self.environ:
             env = key + ': ' + value
             yield env
