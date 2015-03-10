@@ -99,8 +99,6 @@
    Host: httpbin.org
    Accept: */*
 
-
-
 Задание 4
 ---------
 

@@ -1,6 +1,9 @@
 1_hello:
 	g++ -o 1.hello.cgi 1.hello.cpp
 
+1_hello_go:
+	go build -o 1.hello.go.cgi 1.hello.go
+
 2_environment:
 	g++ -o 2.environment.cgi 2.environment.cpp
 
