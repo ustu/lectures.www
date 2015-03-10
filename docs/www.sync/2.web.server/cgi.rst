@@ -198,6 +198,7 @@ Hello World!
 .. note::
 
    * http://localhost:8000/cgi-bin/1.hello.cgi
+   * http://localhost:8000/cgi-bin/1.hello.go.cgi
    * http://localhost:8000/cgi-bin/1.hello.py
    * http://localhost:8000/cgi-bin/1.hello.rb
 
@@ -219,6 +220,14 @@ C++
 
 .. literalinclude:: /../sourcecode/cgi-bin/1.hello.cpp
    :language: cpp
+   :linenos:
+
+Go
+
+Для компиляции: ``make 1_hello_go``
+
+.. literalinclude:: /../sourcecode/cgi-bin/1.hello.go
+   :language: go
    :linenos:
 
 Вывод пременных окружения

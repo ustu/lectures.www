@@ -1,6 +1,10 @@
 WebSocket
 =========
 
+.. seealso::
+
+   * http://tools.ietf.org/html/rfc6455
+
 nodejs
 ------
 

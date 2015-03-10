@@ -31,17 +31,7 @@ FastCGI
 
    * http://chriswu.me/blog/writing-hello-world-in-fcgi-with-c-plus-plus/
 
-С++
-
-.. note::
-
-   Компиляция ``g++ -o hello.fcgi hello.cpp -lfcgi++ -lfcgi``
-
-.. literalinclude:: /../sourcecode/fcgi/hello.cpp
-   :language: python
-   :linenos:
-
-Nginx
+**Nginx**
 
 .. literalinclude:: /../sourcecode/nginx/sites-enabled/default.nginx
    :language: nginx
@@ -72,6 +62,16 @@ fastcgi_param
       fastcgi_param  SERVER_ADDR        $server_addr;
       fastcgi_param  SERVER_PORT        $server_port;
       fastcgi_param  SERVER_NAME        $server_name;
+
+**С++**
+
+.. note::
+
+   Компиляция ``g++ -o hello.fcgi hello.cpp -lfcgi++ -lfcgi``
+
+.. literalinclude:: /../sourcecode/fcgi/hello.cpp
+   :language: cpp
+   :linenos:
 
 Запуск fcgi сервера на 5000 порту
 
