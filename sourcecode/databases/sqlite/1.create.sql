@@ -1,7 +1,4 @@
-CREATE TABLE category (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL
-);
+CREATE TABLE category (name TEXT NOT NULL);
 
 INSERT INTO category (name) VALUES
     ('Тапки'),
@@ -10,10 +7,9 @@ INSERT INTO category (name) VALUES
 
 
 CREATE TABLE product (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     price NUMERIC NOT NULL,
-    category REFERENCES category(id)
+    category REFERENCES category(rowid)
 );
 
 INSERT INTO product (name, price, category) VALUES
