@@ -7,7 +7,8 @@
 # Distributed under terms of the MIT license.
 
 """
-FastCGI example
+Run WSGI application through FastCGI
+
 http://flask.pocoo.org/docs/deploying/fastcgi/
 http://docs.python.org/2/howto/webservers.html#setting-up-fastcgi
 """

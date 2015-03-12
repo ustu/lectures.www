@@ -9,8 +9,12 @@
 """
 Demo CGI Server
 """
-import BaseHTTPServer
-import CGIHTTPServer
+try:
+    import BaseHTTPServer
+    import CGIHTTPServer
+except ImportError:
+    import http.server as BaseHTTPServer
+    import http.server as CGIHTTPServer
 import cgitb
 
 cgitb.enable()  # This line enables CGI error reporting
@@ -18,7 +22,7 @@ cgitb.enable()  # This line enables CGI error reporting
 server = BaseHTTPServer.HTTPServer
 handler = CGIHTTPServer.CGIHTTPRequestHandler
 server_address = ("", 8000)
-handler.cgi_directories = ["/cgi-bin"]
+handler.cgi_directories = ["/cgi-bin", "/wsgi"]
 
 httpd = server(server_address, handler)
 httpd.serve_forever()
