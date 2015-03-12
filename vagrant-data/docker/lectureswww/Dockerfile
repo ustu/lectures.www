@@ -14,6 +14,8 @@ RUN apt-get -qqy install ruby-full
 RUN apt-get -qqy install libfcgi-dev libcgicc5-dev spawn-fcgi
 # For gvm - Golang version manager
 RUN apt-get install -qqy bison
+# SQLite
+RUN apt-get install -qqy sqlite
 
 USER vagrant
 
