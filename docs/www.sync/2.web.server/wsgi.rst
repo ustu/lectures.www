@@ -4,9 +4,9 @@ WSGI (pep-333)
 .. seealso::
 
     * http://legacy.python.org/dev/peps/pep-0333/
-    * http://pylonsbook.com/en/1.1/the-web-server-gateway-interface-wsgi.html#testing-the-gzip-middleware
+    * https://ru.wikipedia.org/wiki/WSGI
+    * http://pylonsbook.com/en/1.1/the-web-server-gateway-interface-wsgi.html
     * http://pylons-webframework.readthedocs.org/en/latest/concepts.html
-    * http://lucumr.pocoo.org/2007/5/21/getting-staRTED-with-wsgi/
 
 .. image:: /_static/wsgi.svg
    :width: 800px
@@ -19,21 +19,36 @@ WSGI (pep-333)
 
 WSGI предоставляет простой и универсальный интерфейс между большинством веб-серверов и веб-приложениями или фреймворками.
 
-Приложение
-----------
+Application
+-----------
 
-.. literalinclude:: /../sourcecode/wsgi/1.cgi.app.py
-   :language: python
-   :pyobject: AppClass
-   :linenos:
+По стандарту, WSGI-приложение должно удовлетворять следующим требованиям:
+
+* должно быть вызываемым (callable) объектом (обычно это функция или метод)
+* принимать два параметра:
+
+  + словарь переменных окружения (**environ**)
+  + обработчик запроса (**start_response**)
+
+* вызывать обработчик запроса с кодом HTTP-ответа и HTTP-заголовками
+* возвращать итерируемый объект с телом ответа
+
+Простейшим примером WSGI-приложения может служить такая функция-генератор:
 
 .. literalinclude:: /../sourcecode/wsgi/1.cgi.app.py
    :language: python
    :pyobject: simple_app
    :linenos:
 
-Сервер
-------
+или WSGI-приложение в виде класса:
+
+.. literalinclude:: /../sourcecode/wsgi/1.cgi.app.py
+   :language: python
+   :pyobject: AppClass
+   :linenos:
+
+Server/Gateway
+--------------
 
 Middleware
 ----------

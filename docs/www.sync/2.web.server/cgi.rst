@@ -6,6 +6,7 @@ CGI
     * https://ru.wikipedia.org/wiki/CGI
     * http://www.ietf.org/rfc/rfc3875.txt
     * `Лекции ОмГТУ, кафедра АСОИУ <http://www.4stud.info/web-programming/cgi.html>`_
+    * http://webpython.codepoint.net/cgi_tutorial
 
 **CGI** (от англ. Common Gateway Interface — «общий интерфейс шлюза») — стандарт интерфейса, используемого для связи внешней программы с веб-сервером. Программу, которая работает по такому интерфейсу совместно с веб-сервером, принято называть шлюзом, хотя многие предпочитают названия «скрипт» (сценарий) или «CGI-программа».
 

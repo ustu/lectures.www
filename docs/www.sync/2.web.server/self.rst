@@ -53,6 +53,7 @@ Go FastCGI
 либо с балансировкой на несколько серверов:
 
 .. code-block:: nginx
+   :linenos:
 
    # Nginx
    upstream myapp1 {
@@ -107,6 +108,7 @@ Go HTTP
 либо настроить обратный прокси сервер:
 
 .. code-block:: nginx
+   :linenos:
 
    # Nginx
 
@@ -121,6 +123,7 @@ Go HTTP
 либо с балансировкой на несколько серверов:
 
 .. code-block:: nginx
+   :linenos:
 
    # Nginx
    upstream myapp1 {
