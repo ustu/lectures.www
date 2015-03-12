@@ -8,8 +8,8 @@
 Sphinx — это генератор документации, который преобразует файлы в формате reStructuredText
 в HTML website и другие форматы (PDF, EPub и man).
 
-| `<https://ru.wikipedia.org/wiki/Sphinx_(генератор_документации)>`_
-| `Докумнтация на русском <https://sphinx-ru.readthedocs.org/ru/latest/>`_
+* `<https://ru.wikipedia.org/wiki/Sphinx_(генератор_документации)>`_
+* `Докумнтация на русском <https://sphinx-ru.readthedocs.org/ru/latest/>`_
 
 Установка
 ---------
