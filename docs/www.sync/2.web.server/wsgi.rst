@@ -8,8 +8,9 @@ WSGI (pep-333)
     * http://docs.repoze.org/moonshining/pep333.html
     * http://pylonsbook.com/en/1.1/the-web-server-gateway-interface-wsgi.html
     * http://pylons-webframework.readthedocs.org/en/latest/concepts.html
+    * http://www.docstoc.com/docs/69863691/WSGI-from-Start-to-Finish
 
-.. image:: /_static/wsgi.svg
+.. image:: /_static/wsgi/wsgi.svg
    :width: 800px
 
 **WSGI** — стандарт взаимодействия между Python-программой, выполняющейся на стороне сервера, и самим веб-сервером, например, Apache.
@@ -155,4 +156,219 @@ start_response
 Middleware
 ----------
 
+Помимо приложений и серверов, стандарт дает определение **middleware-компонентов**, предоставляющих интерфейсы как приложению, так и серверу. То есть для сервера middleware является приложением, а для приложения — сервером. Это позволяет составлять «цепочки» WSGI-совместимых middleware.
+
+Middleware могут брать на себя следующие функции (но не ограничиваются этим):
+
+* обработка сессий
+* аутентификация/авторизация
+* управление URL (маршрутизация запросов)
+* балансировка нагрузки
+* пост-обработка выходных данных (например, проверка на валидность)
+
+Мы рассмотри пример, приложения которое считает количество обращений и использует
+следующие middleware:
+
+* Обработчик исключений
+* Сессии
+* Сжатие Gzip
+* Пони
+
 .. image:: /_static/vector/wsgi_as_onion.svg
+
+Приложение
+~~~~~~~~~~
+
+.. image:: /_static/wsgi/wsgi_as_onion_app.png
+   :width: 400px
+   :align: left
+
+.. literalinclude:: /../sourcecode/wsgi/3.http.middleware.py
+   :language: python
+   :pyobject: app
+   :linenos:
+
+.. raw:: html
+
+   <br clear="all" />
+
+Приложение выводи число 1 при первом обращении, записывает его в сессию и при каждом
+последующем обращении увеличивает число на 1.
+
+.. image:: /_static/wsgi/wsgi_example.png
+
+Т.к. протокол HTTP не сохраняет предыдущего состояния, то при обновлении страницы число не увеличится. Что бы это произошло нужно реализовать механизм сессии.
+
+Обработчик исключений
+~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: /_static/wsgi/wsgi_as_onion_evalexception.png
+   :width: 400px
+   :align: left
+
+.. code-block:: python
+   :linenos:
+
+   from paste.evalexception.middleware import EvalException
+   app = EvalException(app)
+
+.. raw:: html
+
+   <br clear="all" />
+
+``EvalException`` позволяет нам отлавливать ошибки и выводить их в браузере.
+Если мы перейдем по адресу http://localhost:8000/Errors_500, наше приложение
+найдет слово `error` в пути и искусственно вызовет исключение.
+
+.. image:: /_static/wsgi/wsgi_example_error.png
+
+Сессии
+~~~~~~
+
+.. image:: /_static/wsgi/wsgi_as_onion_session.png
+   :width: 400px
+   :align: left
+
+.. code-block:: python
+   :linenos:
+
+   from paste.session import SessionMiddleware
+   app = SessionMiddleware(app)
+
+.. raw:: html
+
+   <br clear="all" />
+
+``SessionMiddleware`` добавляет cookie клиенту с ключом `_SID_` и номером сессии.
+
+Например ``_SID_=20150313142600-d18ec118fff970ad4fb3628fbf530bc4``
+
+Для каждой сессии на сервере в директории ``/tmp/`` (по умолчанию) создается файл с таким же именем.
+
+.. no-code-block:: bash
+   :emphasize-lines: 4
+
+   $ tree /tmp/
+   /tmp/
+   |-- 20150313094744-5d2e448000e6312d7c0b8a02ed954d22
+   `-- 20150313142600-d18ec118fff970ad4fb3628fbf530bc4
+
+   1 directory, 2 files
+
+В этот файл записывается значение ``count`` для нашей сессии. При каждом обращении клиента
+``SessionMiddleware`` находит файл с таким же именем как у cookie ``_SID_`` десереализует
+объекты в нем и присваивает переменной окружения ``paste.session.factory``. Таким образом
+мы можем хранить состояние сессии и при каждом обновлении будет отдаваться значение увеличенное на 1.
+
+.. image:: /_static/wsgi/wsgi_example_count.png
+
+Сжатие Gzip
+~~~~~~~~~~~
+
+.. image:: /_static/wsgi/wsgi_as_onion_gzip.png
+   :width: 400px
+   :align: left
+
+.. code-block:: python
+   :linenos:
+
+   from paste.gzipper import middleware as GzipMiddleware
+   app = GzipMiddleware(app)
+
+.. raw:: html
+
+   <br clear="all" />
+
+``GzipMiddleware`` сжимает ответ методом gzip
+
+.. image:: /_static/wsgi/wsgi_example_gzip.png
+
+Pony
+~~~~
+
+.. image:: /_static/wsgi/wsgi_as_onion_pony.png
+   :width: 400px
+   :align: left
+
+.. code-block:: python
+   :linenos:
+
+   from paste.pony import PonyMiddleware
+   app = PonyMiddleware(app)
+
+.. raw:: html
+
+   <br clear="all" />
+
+Это самое важное расширение в WSGI. Доступно по адресу http://localhost:8000/pony.
+
+.. image:: /_static/wsgi/wsgi_example_pony.png
+
+Полный пример
+~~~~~~~~~~~~~
+
+.. literalinclude:: /../sourcecode/wsgi/3.http.middleware.py
+   :language: python
+   :linenos:
+
+Свой middleware
+~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :linenos:
+
+   class GoogleRefMiddleware(object):
+       def __init__(self, app):
+           self.app = app
+
+       def __call__(self, environ, start_response):
+           environ['google'] = False
+           if 'HTTP_REFERER' in environ:
+               if environ['HTTP_REFERER'].startswith('http://google.com'):
+                   environ['google'] = True
+           return self.app(environ, start_response)
+
+   app = GoogleRefMiddleware(app)
+
+``GoogleRefMiddleware`` добавляет переменную окружения ``google`` и если бы мы перешли
+на наш сайт из поиска ``google.com``, тo это значение было бы ``True``.
+
+Кто использует WSGI?
+--------------------
+
+* BlueBream
+* bobo
+* Bottle
+* CherryPy
+* Django
+* Eventlet
+* Flask
+* Google App Engine's webapp2
+* Gunicorn
+* prestans
+* mod_wsgi для Apache
+* MoinMoin
+* netius
+* Plone
+* Pylons
+* Pyramid
+* repoze
+* restlite
+* Tornado
+* Trac
+* TurboGears
+* Uliweb
+* webpy
+* Falcon
+* web2py
+* weblayer
+* Werkzeug
+* Zope
+* и многие другие
+
+Аналоги
+-------
+
+* `Rack <https://en.wikipedia.org/wiki/Rack_(web_server_interface)>`_ – Ruby web server interface
+* `PSGI <https://en.wikipedia.org/wiki/PSGI>`_ – Perl Web Server Gateway Interface
+* `JSGI <https://en.wikipedia.org/wiki/JSGI>`_ – JavaScript web server gateway interface
