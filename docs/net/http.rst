@@ -11,6 +11,7 @@ HTTP протокол
     * `Перевод документа RFC 2068 на русский язык <http://www.lib.ru/WEBMASTER/rfc2068/>`_
     * `Гипертекстный протокол HTTP <http://book.itep.ru/4/45/http4561.htm>`_
     * `Доклад от Yandex <https://events.yandex.ru/lib/talks/537/>`_
+    * https://github.com/alex/what-happens-when
 
 Протокол `HTTP` это основа Веба, через него передается основная часть веб трафика.
 HTTP является протоколом передачи данных 4го (прикладного) уровня стека протоколов `TCP/IP`.

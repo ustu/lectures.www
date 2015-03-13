@@ -12,7 +12,7 @@ from paste.pony import PonyMiddleware
 from paste.session import SessionMiddleware
 
 
-def counter_app(environ, start_response):
+def my_app(environ, start_response):
     # Except error
     if 'error' in environ['PATH_INFO'].lower():
         raise Exception('Detect "error" in URL path')
@@ -29,10 +29,10 @@ def counter_app(environ, start_response):
     start_response('200 OK', [('Content-Type', 'text/plain')])
     return ['You have been here %d times!\n' % count, ]
 
-app = SessionMiddleware(counter_app)
+app = EvalException(my_app)   # go to http://localhost:8000/Errors
+app = SessionMiddleware(app)
 app = GzipMiddleware(app)
 app = PonyMiddleware(app)  # go to http://localhost:8000/pony
-app = EvalException(app)   # go to http://localhost:8000/Errors
 
 if __name__ == '__main__':
     from paste import reloader

@@ -1,26 +1,16 @@
 import os
 import sys
 
-enc, esc = sys.getfilesystemencoding(), 'surrogateescape'
-
-
-def unicode_to_wsgi(u):
-    # Convert an environment variable to a WSGI "bytes-as-unicode" string
-    return u.encode(enc, esc).decode('iso-8859-1')
-
-
-def wsgi_to_bytes(s):
-    return s.encode('iso-8859-1')
-
 
 def run_with_cgi(application):
-    environ = {k: unicode_to_wsgi(v) for k, v in os.environ.items()}
-    environ['wsgi.input']        = sys.stdin.buffer  # flake8: noqa
-    environ['wsgi.errors']       = sys.stderr        # noqa
-    environ['wsgi.version']      = (1, 0)            # noqa
-    environ['wsgi.multithread']  = False             # noqa
+
+    environ = dict(os.environ.items())
+    environ['wsgi.input']        = sys.stdin  # flake8: noqa
+    environ['wsgi.errors']       = sys.stderr
+    environ['wsgi.version']      = (1, 0)
+    environ['wsgi.multithread']  = False
     environ['wsgi.multiprocess'] = True
-    environ['wsgi.run_once']     = True              # noqa
+    environ['wsgi.run_once']     = True
 
     if environ.get('HTTPS', 'off') in ('on', '1'):
         environ['wsgi.url_scheme'] = 'https'
@@ -31,39 +21,32 @@ def run_with_cgi(application):
     headers_sent = []
 
     def write(data):
-        out = sys.stdout.buffer
-
         if not headers_set:
             raise AssertionError("write() before start_response()")
+
         elif not headers_sent:
             # Before the first output, send the stored headers
             status, response_headers = headers_sent[:] = headers_set
-            out.write(wsgi_to_bytes('Status: %s\r\n' % status))
+            sys.stdout.write('Status: %s\r\n' % status)
             for header in response_headers:
-                out.write(wsgi_to_bytes('%s: %s\r\n' % header))
-                out.write(wsgi_to_bytes('\r\n'))
+                sys.stdout.write('%s: %s\r\n' % header)
+                sys.stdout.write('\r\n')
 
-        out.write(data)
-        out.flush()
+        sys.stdout.write(data)
+        sys.stdout.flush()
 
     def start_response(status, response_headers, exc_info=None):
         if exc_info:
             try:
                 if headers_sent:
                     # Re-raise original exception if headers sent
-                    raise exc_info[1].with_traceback(exc_info[2])
+                    raise Exception(exc_info[0], exc_info[1], exc_info[2])
             finally:
                 exc_info = None     # avoid dangling circular ref
         elif headers_set:
             raise AssertionError("Headers already set!")
 
         headers_set[:] = [status, response_headers]
-
-        # Note: error checking on the headers should happen here,
-        # *after* the headers are set.  That way, if an error
-        # occurs, start_response can only be re-called with
-        # exc_info set.
-
         return write
 
     result = application(environ, start_response)
