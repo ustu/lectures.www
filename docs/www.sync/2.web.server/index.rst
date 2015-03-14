@@ -17,3 +17,4 @@
     fcgi.rst
     self.rst
     wsgi.rst
+    _checkpoint.rst
