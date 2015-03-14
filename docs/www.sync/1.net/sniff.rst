@@ -258,6 +258,30 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 
 .. image:: /_static/login_form.png
 
+**HTTP** (http://httpbin.org/post)
+
+.. raw:: html
+
+   <form method="POST" action="http://httpbin.org/post">
+     Username: <input type="text" name="username" size="15" /><br />
+     Password: <input type="password" name="passwort" size="15" /><br />
+     <div align="center">
+       <p><input type="submit" value="Login" /></p>
+     </div>
+   </form>
+
+**HTTPS** (https://httpbin.org/post)
+
+.. raw:: html
+
+   <form method="POST" action="https://httpbin.org/post">
+     Username: <input type="text" name="username" size="15" /><br />
+     Password: <input type="password" name="passwort" size="15" /><br />
+     <div align="center">
+       <p><input type="submit" value="Login" /></p>
+     </div>
+   </form>
+
 .. no-code-block:: bash
     :emphasize-lines: 24
 
