@@ -10,7 +10,20 @@
 
    Оформить в виде репозитария на github.
 
+.. seealso::
+
+   * http://ruslanspivak.com/lsbaws-part1/
+
+::
+
+   myproject/
+   ├── about
+   │   └── aboutme.html
+   └── index.html
+
 * Написать socket сервер который отдает статикой файлы по HTTP при обращении по IP адресу.
+* Файл ``aboutme.html`` должен быть доступен по ссылке ``http://localhost/about/aboutme.html``
+* Файл ``index.html`` должен быть доступен по ссылке ``http://localhost/index.html`` или ``http://localhost/``
 
 Задание 2
 ---------
