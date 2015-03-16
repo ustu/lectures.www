@@ -21,6 +21,8 @@ WSGI (pep-333)
 
 WSGI предоставляет простой и универсальный интерфейс между большинством веб-серверов и веб-приложениями или фреймворками.
 
+.. image:: /_static/wsgi/wsgi.png
+
 Application
 -----------
 
@@ -41,6 +43,9 @@ Application
    :language: python
    :pyobject: simple_app
    :linenos:
+
+.. image:: /_static/wsgi/wsgi-app.png
+   :width: 400px
 
 или то же самое в виде класса:
 
@@ -64,6 +69,9 @@ Server/Gateway
 * а **WSGI шлюз** приводит к формату клиент-серверного протокола (CGI, FastCGI, SCGI, uWSGI, ...)
   и передает их на Веб-сервер (например выводит в stdout, stderr).
 
+.. image:: /_static/wsgi/server-app.png
+   :width: 400px
+
 Пример WSGI-шлюза к CGI-серверу.
 
 .. literalinclude:: /../sourcecode/wsgi/cgi_gateway.py
@@ -72,6 +80,8 @@ Server/Gateway
 
 Environment
 ~~~~~~~~~~~
+
+Всегда словарь
 
 * ``environ`` это обычно копия переменных окружения ОС ``os.environ`` + стандартные CGI переменные.
 
@@ -155,6 +165,9 @@ start_response
 
 Middleware
 ----------
+
+.. image:: /_static/wsgi/server-middleware-app.png
+   :width: 500px
 
 Помимо приложений и серверов, стандарт дает определение **middleware-компонентов**, предоставляющих интерфейсы как приложению, так и серверу. То есть для сервера middleware является приложением, а для приложения — сервером. Это позволяет составлять «цепочки» WSGI-совместимых middleware.
 

@@ -7,9 +7,6 @@
    * `A Do-It-Yourself Framework <http://pythonpaste.org/do-it-yourself-framework.html>`_
    * `Another Do-It-Yourself Framework <http://docs.webob.org/en/latest/do-it-yourself.html>`_
 
-.. figure:: /_static/wsgi/wsgi.png
-
-   WSGI
 
 Paste script
 ------------
