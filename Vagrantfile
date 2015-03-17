@@ -12,33 +12,6 @@ Vagrant.configure(2) do |config|
     privileged: false,
     :path => "vagrant-data/nginx.sh"
 
-  # Lecture examples
-  config.vm.define 'lectureswww', primary: true do |lectureswww|
-    lectureswww.ssh.port = 22
-    lectureswww.ssh.username = 'vagrant'
-    lectureswww.ssh.password = '123'
-    lectureswww.vm.provider 'docker' do |docker|
-      docker.build_dir = 'vagrant-data/docker/lectureswww'
-      docker.name = 'lectureswww'
-      docker.build_args = ['--tag=ustu/lectureswww']
-      docker.remains_running = false
-
-      docker.link('%s_nginx:nginx' % PROJECT_NAME)
-      docker.link('%s_db_redis:redis' % PROJECT_NAME)
-      docker.link('%s_db_postgres:postgres' % PROJECT_NAME)
-
-      # -t - Allocate a (pseudo) tty
-      # -i - Keep stdin open (so we can interact with it)
-      docker.create_args = ['-i', '-t']
-      docker.has_ssh = true
-
-      # HOST:CONTAINER
-      docker.ports = ['6543:6543',  # Pyramid
-                      '6544:6544',  # Websocket
-                      '8000:8000']  # CGI & WSGI
-    end
-  end
-
   # Postgres
   config.vm.define 'postgres' do |postgres|
     postgres.vm.provider 'docker' do |docker|
@@ -74,6 +47,33 @@ Vagrant.configure(2) do |config|
       nginx_sites_enables = "%s/sites-enabled:/etc/nginx/sites-enabled" % nginx_dir
       nginx_includes = "%s/includes:/etc/nginx/includes" % nginx_dir
       docker.volumes = [nginx_sites_enables, nginx_html, nginx_includes]
+    end
+  end
+
+  # Lecture examples
+  config.vm.define 'lectureswww', primary: true do |lectureswww|
+    lectureswww.ssh.port = 22
+    lectureswww.ssh.username = 'vagrant'
+    lectureswww.ssh.password = '123'
+    lectureswww.vm.provider 'docker' do |docker|
+      docker.build_dir = 'vagrant-data/docker/lectureswww'
+      docker.name = 'lectureswww'
+      docker.build_args = ['--tag=ustu/lectureswww']
+      docker.remains_running = false
+
+      docker.link('%s_nginx:nginx' % PROJECT_NAME)
+      docker.link('%s_db_redis:redis' % PROJECT_NAME)
+      docker.link('%s_db_postgres:postgres' % PROJECT_NAME)
+
+      # -t - Allocate a (pseudo) tty
+      # -i - Keep stdin open (so we can interact with it)
+      docker.create_args = ['-i', '-t']
+      docker.has_ssh = true
+
+      # HOST:CONTAINER
+      docker.ports = ['6543:6543',  # Pyramid
+                      '6544:6544',  # Websocket
+                      '8000:8000']  # CGI & WSGI
     end
   end
 end

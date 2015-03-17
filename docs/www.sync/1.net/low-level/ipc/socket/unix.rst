@@ -15,75 +15,16 @@
 Сервер
 ~~~~~~
 
-.. code-block:: python
-    :linenos:
-
-    # server.py
-    import os
-    import os.path
-    import socket
-
-    SOCKET_FILE = './echo.socket'
-
-    if os.path.exists(SOCKET_FILE):
-        os.remove(SOCKET_FILE)
-
-    print("Открываем UNIX сокет...")
-    server = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
-    server.bind(SOCKET_FILE)
-
-    print("Слушаем...")
-    while True:
-        datagram = server.recv(1024)
-        if not datagram:
-            break
-        else:
-            print("-" * 20)
-        print(datagram)
-        if "DONE" == datagram:
-            break
-    print("-" * 20)
-    print("Выключение...")
-    server.close()
-    os.remove(SOCKET_FILE)
-    print("Выполнено")
+.. literalinclude:: /../sourcecode/net/socket/unix/1.unix.server.py
+   :language: python
+   :linenos:
 
 Клиент
 ~~~~~~
 
-.. code-block:: python
-    :linenos:
-
-    # client.py
-    import socket
-    import os
-    import os.path
-
-    SOCKET_FILE = './echo.socket'
-
-    print("Подключение...")
-    if os.path.exists(SOCKET_FILE):
-        client = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
-        client.connect(SOCKET_FILE)
-        print("Выполнено.")
-        print("Ctrl-C что бы выйти.")
-        print("Отправьте 'DONE' что бы выключить сервер.")
-        while True:
-            try:
-                x = raw_input("> ")
-                if "" != x:
-                    print("ОТПРАВЛЕНО: %s" % x)
-                    client.send(x)
-                    if "DONE" == x:
-                        print("Выключение.")
-                        break
-            except KeyboardInterrupt, k:
-                print("Выключение.")
-                break
-        client.close()
-    else:
-        print("Не могу соединиться!")
-    print("Выполнено")
+.. literalinclude:: /../sourcecode/net/socket/unix/1.unix.client.py
+   :language: python
+   :linenos:
 
 Пример работы
 ~~~~~~~~~~~~~

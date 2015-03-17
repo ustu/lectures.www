@@ -4,7 +4,7 @@
 # vi: set ft=Dockerfile :
 # vi: set nu :
 
-FROM uralbash/docker-ubuntu:latest
+FROM uralbash/docker-ubuntu-ru:latest
 MAINTAINER Dmitry Svintsov <root@uralbash.ru>
 
 ## apt-get install
