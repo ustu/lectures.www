@@ -9,23 +9,12 @@
 
 В этом разделе мы напишем `еще один блог` используя популярные инструменты языка программирования `Python`.
 
-Paste script
-------------
+.. toctree::
+   :maxdepth: 3
 
-request & response -> object
-----------------------------
-
-Пагинация
----------
-
-Шаблоны
--------
-
-Jina & Mako
-~~~~~~~~~~~
-
-Диспетчеризация URL
--------------------
-
-repoze
-------
+   paste.rst
+   webob.rst
+   pagination.rst
+   templates.rst
+   routes.rst
+   repoze.rst

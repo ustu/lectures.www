@@ -10,7 +10,24 @@
 
    Оформить в виде репозитария на github.
 
-* Написать WSGI сервер который отдает статикой файлы по HTTP при обращении по IP адресу.
+* Написать `WSGI` сервер который отдает статикой файлы по HTTP при обращении по IP адресу.
+* Написать `WSGI middleware` которое будет вставлять в тело `HTML` страниц строки следующим образом:
+
+  .. code-block:: html
+     :emphasize-lines: 6, 10
+
+     <html>
+     <head>
+        ...
+     </head>
+     <body>
+        <div class='top'>Middleware TOP</div>
+
+        ...
+
+        <div class='botton'>Middleware BOTTOM</div>
+     </body>
+     </html>
 
 Задание 2
 ---------
