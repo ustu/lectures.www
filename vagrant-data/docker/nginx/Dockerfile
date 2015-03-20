@@ -1,4 +1,4 @@
-# healthdesk
+# nginx
 #
 # VERSION               0.0.2
 # vi: set ft=Dockerfile :

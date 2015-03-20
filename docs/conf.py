@@ -29,6 +29,10 @@ html_sidebars = {
     'using/windows': ['windowssidebar.html', 'searchbox.html'],
 }
 
+
+def setup(app):
+    app.add_javascript('js/metrika.js')
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
