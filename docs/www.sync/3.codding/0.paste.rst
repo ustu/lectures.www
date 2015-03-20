@@ -116,7 +116,7 @@ URL диспетчеризация
    * `<http://localhost:8000/article/{id}/edit>`_
    * `<http://localhost:8000/article/{id}/delete>`_
 
-   Если вместо ``{id}`` подставить цифру, то вернется ``404 ошибка``.
+   Если вместо ``{id}`` подставить цифру, то вернется `404 ошибка`.
 
 Перепишем `WSGI-middleware` ``URLDispatch`` так, что бы он понимал регулярные выражения.
 
@@ -151,10 +151,131 @@ URL диспетчеризация
 
 Добавим базовые данные и функционал для их чтения, удаления.
 
+Данные хранятся в виде списка словарей. Каждый словарь это отдельная статья с
+ключами ``id``, ``title``, ``content``.
+
+.. code-block:: python
+   :linenos:
+
+   ARTICLES = [
+       {'id': 1, 'title': 'Lorem ipsum dolor sid amet!',
+        'content': '''Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Curabitur vel tortor eleifend, sollicitudin nisl quis, lacinia augue.
+        Duis quam est, laoreet sit amet justo vitae, viverra egestas sem.
+        Maecenas pellentesque augue in nibh feugiat tincidunt. Nunc magna ante,
+        mollis vitae ultricies eu, consectetur id ante. In ut libero eleifend,
+        blandit ipsum a, ullamcorper nunc. Sed bibendum eget odio eget
+        pellentesque. Curabitur elit felis, pellentesque id feugiat et, tincidunt
+        ut mauris. Integer vitae vehicula nunc. Integer ullamcorper, nunc in
+        volutpat auctor, elit leo convallis nulla, vitae varius mi nisl ac lorem.
+        Sed a lacus mi. In hac habitasse platea dictumst. Cras in posuere velit,
+        id dignissim nisl. Interdum et malesuada fames ac ante ipsum primis in
+        faucibus. Nulla bibendum suscipit convallis.'''},
+       {'id': 2, 'title': 'Hello', 'content': 'Test2'},
+       {'id': 3, 'title': 'World', 'content': 'Test2'}, ]
+
+
+Главная страница формируется перебором статей в списке:
+
+.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/4_step.py
+   :language: python
+   :pyobject: BlogIndex
+   :emphasize-lines: 6-9
+   :linenos:
+
+.. image:: /_static/wsgi/blog/1.4_step.png
+
+`WSGI-приложения` ``BlogRead``, ``BlogUpdate`` и ``BlogDelete`` теперь
+наследуются от специально класса ``BaseArticle``, он берет ``id`` статьи
+(переменная окружения, которую добавляет `middlwware` ``RegexDispatch``) и
+находит ее среди списка данных.
+
+.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/4_step.py
+   :language: python
+   :pyobject: BaseArticle
+   :linenos:
+
+Приложение ``BlogRead`` отвечающее за чтение статьи выводит его содержимое или
+отдает `404 ошибку`:
+
+.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/4_step.py
+   :language: python
+   :pyobject: BlogRead
+   :linenos:
+
+.. image:: /_static/wsgi/blog/1.4_step2.png
+
+Приложение удаляющее статью ``BlogDelete``, удаляет объект из списка данных и
+возвращает статус ответа `302 Fount` с заголовком `Location: /`, указывающий
+браузеру что нужно перейти на главную страницу (перенаправление).
+
+.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/4_step.py
+   :language: python
+   :pyobject: BlogDelete
+   :linenos:
+
+Полный код с изменениями:
+
 .. literalinclude:: /../sourcecode/wsgi/blog/0.paster/4_step.py
    :language: python
    :emphasize-lines: 14-29, 39-47, 55-58, 72-80, 93-97
    :linenos:
 
-.. image:: /_static/wsgi/blog/1.4_step.png
-.. image:: /_static/wsgi/blog/1.4_step2.png
+Формы
+-----
+
+Приложение ``BlogCreate`` проверяет метод запроса, если он `GET`, то возвращает
+HTML  форму, если `POST` записывает данные в список ``ARTICLES`` и
+перенаправляет на главную страницу.
+
+.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/5_step.py
+   :language: python
+   :pyobject: BlogCreate
+   :linenos:
+
+.. image:: /_static/wsgi/blog/1.5_step.png
+
+Обновление статей происходит схожим образом, за исключением того что в форму
+подставляются уже существующие данные и вместо добавления нового объекта в
+список ``ARTICLES``, обновляется уже существующий.
+
+.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/5_step.py
+   :language: python
+   :pyobject: BlogUpdate
+   :linenos:
+
+.. image:: /_static/wsgi/blog/1.5_step2.png
+
+Полный код с изменениями:
+
+.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/5_step.py
+   :language: python
+   :emphasize-lines: 60, 68-92, 112-130
+   :linenos:
+
+Авторизация
+-----------
+
+.. seealso::
+
+   * http://pythonpaste.org/modules/auth.basic.html#module-paste.auth.basic
+
+Для операций которые меняют данные (``BlogCreate``, ``BlogUpdate``,
+``BlogDelete``) нужно добавить проверку пользователя.
+
+.. image:: /_static/wsgi/blog/1.6_step_dia.svg
+
+В нашем примере используется алгоритм ``BasicAuth`` и `WSGI-middleware`
+``middlewares.basicauth.BasicAuth``.
+
+.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/middlewares/basicauth.py
+   :language: python
+   :pyobject: BasicAuth
+   :linenos:
+
+Полный код с изменениями:
+
+.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/6_step.py
+   :language: python
+   :emphasize-lines: 13, 143-147, 152, 154, 155
+   :linenos:

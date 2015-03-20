@@ -52,17 +52,44 @@ class BlogIndex(BaseBlog):
     def __iter__(self):
         self.start('200 OK', [('Content-Type', 'text/html')])
         yield '<h1>Simple Blog</h1>'
+        yield '<a href="/article/add">Add article</a>'
+        yield '<br />'
+        yield '<br />'
         for article in ARTICLES:
-            yield '''{0} - <a href="/article/{0}">{1}</a>
-                (<a href="/article/{0}/delete">delete</a>)<br/>
+            yield '''{0} - (<a href="/article/{0}/delete">delete</a> |
+                <a href="/article/{0}/edit">edit</a>)
+                <a href="/article/{0}">{1}</a><br />
             '''.format(article['id'], article['title'])
 
 
 class BlogCreate(BaseBlog):
 
     def __iter__(self):
-        self.start('200 OK', [('Content-Type', 'text/plain')])
-        yield 'Simple Blog -> CREATE'
+        if self.environ['REQUEST_METHOD'].upper() == 'POST':
+            from urlparse import parse_qs
+            values = parse_qs(self.environ['wsgi.input'].read())
+            max_id = max([art['id'] for art in ARTICLES])
+            ARTICLES.append(
+                {'id': max_id+1,
+                 'title': values['title'].pop(),
+                 'content': values['content'].pop()
+                 }
+            )
+            self.start('302 Found',
+                       [('Content-Type', 'text/html'),
+                        ('Location', '/')])
+            return
+
+        self.start('200 OK', [('Content-Type', 'text/html')])
+        yield '<h1><a href="/">Simple Blog</a> -> CREATE</h1>'
+        yield '''
+<form action="" method="POST">
+    Title:<br>
+    <input type="text" name="title"><br>
+    Content:<br>
+    <textarea name="content"></textarea><br><br>
+    <input type="submit" value="Submit">
+</form>'''
 
 
 class BlogRead(BaseArticle):
@@ -82,8 +109,25 @@ class BlogRead(BaseArticle):
 class BlogUpdate(BaseArticle):
 
     def __iter__(self):
-        self.start('200 OK', [('Content-Type', 'text/plain')])
-        yield 'Simple Blog -> UPDATE'
+        if self.environ['REQUEST_METHOD'].upper() == 'POST':
+            from urlparse import parse_qs
+            values = parse_qs(self.environ['wsgi.input'].read())
+            self.article['title'] = values['title'].pop()
+            self.article['content'] = values['content'].pop()
+            self.start('302 Found',
+                       [('Content-Type', 'text/html'),
+                        ('Location', '/')])
+            return
+        self.start('200 OK', [('Content-Type', 'text/html')])
+        yield '<h1><a href="/">Simple Blog</a> -> UPDATE</h1>'
+        yield '''
+<form action="" method="POST">
+    Title:<br>
+    <input type="text" name="title" value="{0}"><br>
+    Content:<br>
+    <textarea name="content">{1}</textarea><br><br>
+    <input type="submit" value="Submit">
+</form>'''.format(self.article['title'], self.article['content'])
 
 
 class BlogDelete(BaseArticle):

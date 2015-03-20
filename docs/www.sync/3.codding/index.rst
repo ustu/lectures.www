@@ -12,9 +12,12 @@
 .. toctree::
    :maxdepth: 3
 
-   paste.rst
+   0.paste.rst
+   1.paste.rst
    webob.rst
    pagination.rst
+   static.rst
    templates.rst
    routes.rst
    repoze.rst
+   databases.rst
