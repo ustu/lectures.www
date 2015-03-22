@@ -9,9 +9,8 @@
 """
 Unix socket client
 """
-import socket
 import os
-import os.path
+import socket
 
 SOCKET_FILE = './echo.socket'
 

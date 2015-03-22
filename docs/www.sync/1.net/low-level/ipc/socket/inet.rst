@@ -67,7 +67,7 @@ UDP клиент
 
 .. code-block:: bash
 
-   $ nc localhost 5005 -u
+   $ nc 127.0.0.1 5005 -u
 
 UDP сервер
 ~~~~~~~~~~

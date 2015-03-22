@@ -33,6 +33,8 @@ FastCGI
 
 **Nginx**
 
+.. note:: `Nginx` доступен по адресу http://localhost:8080/
+
 .. literalinclude:: /../sourcecode/nginx/sites-enabled/default.nginx
    :language: nginx
    :linenos:
@@ -78,3 +80,5 @@ fastcgi_param
 .. code-block:: bash
 
    spawn-fcgi -p 5000 -n hello.fcgi
+
+.. note:: Пример доступен по адресу http://localhost:8080/fastcgi_hello

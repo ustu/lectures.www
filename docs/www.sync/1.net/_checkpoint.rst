@@ -8,7 +8,7 @@
 
 .. note::
 
-   Оформить в виде репозитария на github.
+   Оформить в виде репозитария или `Gist` на `GitHub`.
 
 .. seealso::
 
@@ -22,8 +22,9 @@
    └── index.html
 
 * Написать socket сервер который отдает статикой файлы по HTTP при обращении по IP адресу.
-* Файл ``aboutme.html`` должен быть доступен по ссылке ``http://localhost/about/aboutme.html``
-* Файл ``index.html`` должен быть доступен по ссылке ``http://localhost/index.html`` или ``http://localhost/``
+* Файл ``aboutme.html`` должен быть доступен по ссылке http://localhost:8000/about/aboutme.html
+* Файл ``index.html`` должен быть доступен по ссылке
+  http://localhost:8000/index.html или http://localhost:8000/
 
 Задание 2
 ---------

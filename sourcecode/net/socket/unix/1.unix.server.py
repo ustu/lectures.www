@@ -10,7 +10,6 @@
 Unix socket server
 """
 import os
-import os.path
 import socket
 
 SOCKET_FILE = './echo.socket'

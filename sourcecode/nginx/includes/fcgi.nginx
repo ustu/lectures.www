@@ -2,6 +2,6 @@
 
 location /fastcgi_hello {
     # host and port to fastcgi server
-    fastcgi_pass 172.17.0.68:5000;
-    fastcgi_param QUERY_STRING $query_string;
+    include         fastcgi.conf;
+    fastcgi_pass 172.17.0.11:5000;
 }

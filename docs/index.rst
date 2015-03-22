@@ -111,6 +111,8 @@
 
     www.gui/qt5.rst
 
+.. include:: additions/index.rst
+
 Навигация
 =========
 
