@@ -27,8 +27,15 @@ RUN /tmp/install_py.sh
 RUN wget https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer -O /tmp/gvm-installer.sh
 RUN chmod +x /tmp/gvm-installer.sh
 RUN /tmp/gvm-installer.sh
-
 ADD install_go.sh /tmp/install_go.sh
 RUN /tmp/install_go.sh
+
+## nodejs + iojs
+RUN wget https://raw.githubusercontent.com/creationix/nvm/v0.24.0/install.sh -O /tmp/nvm-installer.sh
+RUN chmod +x /tmp/nvm-installer.sh
+RUN /tmp/nvm-installer.sh
+ADD install_js.sh /tmp/install_js.sh
+RUN /tmp/install_js.sh
+
 
 USER root

@@ -1,0 +1,11 @@
+{
+  "name": "Hello",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "window": {
+    "toolbar": false,
+    "width": 200,
+    "height": 180
+  }
+}

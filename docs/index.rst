@@ -109,7 +109,7 @@
 .. toctree::
     :maxdepth: 3
 
-    www.gui/qt5.rst
+    www.gui/index.rst
 
 .. include:: additions/index.rst
 
