@@ -7,9 +7,9 @@ node.js + WebKit
 
 Установка:
 
-.. code-block: bash
+.. code-block:: bash
 
-   npm install nw
+   $ npm install nw
 
 Hello World
 -----------
@@ -42,8 +42,8 @@ Hello World
 
 Запуск:
 
-.. code-block: bash
+.. code-block:: bash
 
-   nw
+   $ nw
 
 .. image:: /_static/gui/hello_nw.js.png

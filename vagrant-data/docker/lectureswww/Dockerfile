@@ -37,5 +37,4 @@ RUN /tmp/nvm-installer.sh
 ADD install_js.sh /tmp/install_js.sh
 RUN /tmp/install_js.sh
 
-
 USER root

@@ -111,7 +111,13 @@
 
     www.gui/index.rst
 
-.. include:: additions/index.rst
+Справочник
+==========
+
+.. toctree::
+   :maxdepth: 3
+
+   additions/index.rst
 
 Навигация
 =========

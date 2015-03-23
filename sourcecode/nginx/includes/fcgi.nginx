@@ -3,5 +3,5 @@
 location /fastcgi_hello {
     # host and port to fastcgi server
     include         fastcgi.conf;
-    fastcgi_pass 172.17.0.33:5000;
+    fastcgi_pass 172.17.0.5:5000;
 }

@@ -1,8 +1,5 @@
-Приложения
-==========
-
 .. toctree::
    :maxdepth: 3
 
-   /additions/python/package_manager.rst
-   /additions/generators.rst
+   python/package_manager.rst
+   generators.rst
