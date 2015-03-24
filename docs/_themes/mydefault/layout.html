@@ -31,6 +31,14 @@
 {% endif %}
 
 {% block content %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // TODO: SVG not work
+            $(".image-reference").fancybox({});
+        });
+    </script>
+
     {{ super() }}
     {%- if not internal_build and (pagename != 'index') %}
       <hr/>

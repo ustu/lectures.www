@@ -13,7 +13,7 @@
 # serve to show the default.
 
 # import sys
-# import os
+import os
 from sphinx.directives.code import CodeBlock
 from docutils.parsers.rst import directives
 
@@ -31,7 +31,10 @@ html_sidebars = {
 
 
 def setup(app):
-    app.add_javascript('js/metrika.js')
+    if 'NO_METRIKA' not in os.environ:
+        app.add_javascript('js/metrika.js')
+    app.add_javascript('js/jquery.fancybox.js')
+    app.add_stylesheet('css/jquery.fancybox.css')
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -135,6 +138,9 @@ html_theme_options = {
     'sidebarbtncolor': '#666',
     'footerbgcolor': '#eee',
     'footertextcolor': '#000',
+    # link color
+    'linkcolor': 'blue',
+    'visitedlinkcolor': 'blue'
 }
 
 # Add any paths that contain custom themes here, relative to this directory.

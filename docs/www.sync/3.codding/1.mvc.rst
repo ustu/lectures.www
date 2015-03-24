@@ -1,0 +1,182 @@
+Разделение кода
+===============
+
+В программном обеспечении принято разделять программную логику, код который
+относится к данным, настройки и шаблоны. Таким образом код становится более
+структурированным и его легче развивать, а также сопровождать в дальнейшем.
+
+MVC
+---
+
+.. seealso::
+
+   * https://ru.wikipedia.org/wiki/Ruby_on_Rails
+   * http://ruseller.com/lessons.php?rub=37&id=666
+
+**MVC** (Model-View-Controller: модель-вид-контроллер) — это не шаблон проекта,
+это конструкционный шаблон, который описывает способ построения структуры
+нашего приложения, сферы ответственности и взаимодействие каждой из частей в
+данной структуре.
+
+Бешеная популярность данной структуры в Веб-приложениях сложилась благодаря ее
+включению в две среды разработки, которые стали очень популярными: `Struts
+<http://struts.apache.org/>`_ и |rails|_. Эти
+две среды разработки наметили пути развития для сотен рабочих сред, созданных
+позже.
+
+.. figure:: /_static/web/mvc.svg
+   :width: 600px
+
+   Рис.1 Паттерн MVC (Model-View-Controller)
+
+* **Model** - доступ к данным, обрабатывается слоем работы с базой данных;
+* **View** - преобразует данные в выходной формат (HTML, JSON, ...), обрабатывается представлениями и шаблонами;
+* **Controller** - в зависимости от запроса (URL схемы, метода GET, POST) выбирает нужные данные и запускает подходящий вид (view).
+
+Классические `MVC` фреймворки:
+
+* |rails|_
+* `Pylons <http://docs.pylonsproject.org/>`_
+
+MTV
+---
+
+Фреймворк Django_ ввел новую терминологию **MTV**.
+
+Так как `Controller` обрабатывается средой разработки и все интересное в Django
+происходит в `моделях` (Models), `шаблонах` (Template) и `представлениях`
+(View), то Django именуют как MTV-ориентированную среду разработки.
+
+Вся логика при таком подходе вынесена во `View`, а то как будут отображаться
+данные в `Template`.
+
+.. figure:: /_static/web/mtv.svg
+   :width: 600px
+
+   Рис.2 Паттерн MTV (Model-Template-View)
+
+MTV фреймворки:
+
+* Django_
+
+RV
+--
+
+.. seealso::
+
+   * `RV Pyramid <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/introduction.html#pyramid-and-other-web-frameworks>`_
+   * `Что не так в терминологии MVC <http://docs.pylonsproject.org/projects/pyramid/en/latest/designdefense.html#pyramid-gets-its-terminology-wrong-mvc>`_
+   * `Pyramid wikipedia <https://ru.wikipedia.org/wiki/Pyramid_(программный_каркас)>`_
+
+В защиту своего дизайна авторы Pyramid написали довольно большой документ,
+который призван развеять мифы о фреймворке. Например, на критику модели MVC в
+Pyramid следует подробное объяснение, что MVC «притянут за уши» к
+веб-приложениям. Следующая цитата хорошо характеризует подход к терминологии в
+Pyramid:
+
+.. epigraph::
+
+   «Мы считаем, что есть только две вещи: **ресурсы** (resource) и **виды** (view).  Дерево ресурсов представляет структуру сайта, а вид представляет ресурс.  **"Шаблоны"** (template) в реальности лишь деталь реализации некоторого вида: строго говоря, они не обязательны, и вид может вернуть ответ (response) и без них. Нет никакого **"контроллера"** (controller): его просто не существует. **"Модель"** (model) же либо представлена деревом ресурсов, либо "доменной моделью" (domain model) (например, моделью SQLAlchemy), которая вообще не является частью каркаса. Нам кажется, что наша терминология более разумна при существующих ограничениях веб-технологий.»
+
+.. figure:: /_static/web/Pyramid_rv.svg
+   :width: 800px
+
+   Рис.3 Паттерн RV (Resources-View)
+
+RV фреймворки:
+
+* `Pyramid <http://www.pylonsproject.com/>`_
+
+Структура файлов
+----------------
+
+Приведем структуру нашего блога к следующему виду:
+
+.. code-block:: bash
+
+   .
+   ├── __init__.py
+   ├── models.py
+   └── views.py
+
+   0 directories, 3 files
+
+.. note:: Исходный код доступен по адрусу:
+
+   * https://github.com/ustu/lectures.www/tree/master/sourcecode/wsgi/blog/1.mvc/
+
+Где:
+
+* ``__init__.py`` - входная точка программы, которая содержит основные
+  настройки и запуск Веб-сервера
+* ``models.py`` - код который представляет данные, обычно называется `модели`
+* ``views.py`` - логика программы (в нашем случае `WSGI-приложения`)
+
+Данные
+------
+
+``models.py``:
+
+.. literalinclude:: /../sourcecode/wsgi/blog/1.mvc/models.py
+   :language: python
+   :linenos:
+
+Авторизация
+-----------
+
+Мы использовали самописные `WSGI-middleware`, которые решают стандартные
+задачи. Заменим их на уже существующие:
+
+* `urlrelay <https://pypi.python.org/pypi/urlrelay/>`_ - URL-диспетчеризация
+* `paste.auth.basic <http://pythonpaste.org/modules/auth.basic.html#module-paste.auth.basic>`_ - авторизация по методу `Basic Auth`
+
+Настройки авторизации ``__init__.py``:
+
+.. literalinclude:: /../sourcecode/wsgi/blog/1.mvc/__init__.py
+   :language: python
+   :emphasize-lines: 12, 18-19, 24-26
+   :linenos:
+
+Для авторизации добавлена отдельная функция проверки `логина`, `пароля` (``authfunc``).
+
+URL-диспетчеризация
+-------------------
+
+Настройки URL-диспетчеризации ``__init__.py``:
+
+.. literalinclude:: /../sourcecode/wsgi/blog/1.mvc/__init__.py
+   :language: python
+   :emphasize-lines: 14, 15, 29-34
+   :linenos:
+
+`WSGI-приложение` можно указывать как объект (``BlogRead``) или как строку
+импорта (``"views.BlogIndex"``).
+
+``views.py``:
+
+.. literalinclude:: /../sourcecode/wsgi/blog/1.mvc/views.py
+   :language: python
+   :emphasize-lines: 5
+   :pyobject: BaseArticle
+   :linenos:
+
+`urlrelay` добавляет результат поиска в переменную с названием ``wsgiorg.routing_args``.
+
+
+.. links
+
+.. |rails| replace:: Ruby on Rails
+.. _rails: http://rubyonrails.org/
+.. _Django: https://www.djangoproject.com/
+
+WSGI-приложения
+---------------
+
+Практически не изменились.
+
+``views.py``:
+
+.. literalinclude:: /../sourcecode/wsgi/blog/1.mvc/views.py
+   :language: python
+   :emphasize-lines: 1, 15
+   :linenos:

@@ -333,3 +333,7 @@ li[class*=" current"] {
 .logo {
     max-width : none;
 }
+
+.epigraph {
+    font-style: italic;
+}
