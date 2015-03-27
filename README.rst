@@ -46,3 +46,8 @@ Sphinx — это генератор документации, который п
 -----------
 
 Для команды ``make livehtml`` необходимо установить `sphinx-autobuild <https://github.com/GaretJax/sphinx-autobuild>`_
+
+Требования к оформлению
+-----------------------
+
+Смотри `RULES.rst <https://github.com/ustu/lectures.www/blob/master/RULES.rst>`_
