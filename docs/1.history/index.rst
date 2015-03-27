@@ -150,8 +150,11 @@ CGI (`Common Gateway Interface <https://ru.wikipedia.org/wiki/CGI>`_) — мех
 
 Существует большое число программ-браузеров, но наибольшей популярностью пользуются следующие:
 
-.. image:: http://www.w3schools.com/browsers/pic_browsers_pie.png
-   :target: http://www.w3schools.com/browsers/default.asp
+.. seealso:
+
+   *  http://www.w3schools.com/browsers/default.asp
+
+.. image:: /_static/pic_browsers_pie.png
 
 **Internet Explorer (IE)** — браузер, разработанный компанией Майкрософт и тесно интегрированный c ОС Windows. Платформозависим (поддержка сторонних ОС прекращена, начиная с версии 5). Единственный браузер, напрямую поддерживающий технологию ActiveX. Не полностью совместим со стандартами W3C, в связи с чем требует дополнительных затрат от веб-разработчиков.
 

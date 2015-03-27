@@ -12,10 +12,18 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-# import sys
 import os
-from sphinx.directives.code import CodeBlock
+
 from docutils.parsers.rst import directives
+from sphinx.builders.html import StandaloneHTMLBuilder
+from sphinx.builders.latex import LaTeXBuilder
+from sphinx.directives.code import CodeBlock
+
+image_types = ['image/png', 'image/svg+xml', 'image/gif', 'image/jpeg']
+
+# Redefine supported_image_types for the HTML and LaTeX builder
+LaTeXBuilder.supported_image_types = image_types
+StandaloneHTMLBuilder.supported_image_types = image_types
 
 directives.register_directive('no-code-block', CodeBlock)
 
@@ -35,6 +43,17 @@ def setup(app):
         app.add_javascript('js/metrika.js')
     app.add_javascript('js/jquery.fancybox.js')
     app.add_stylesheet('css/jquery.fancybox.css')
+
+
+# If true, figures, tables and code-blocks are automatically numbered if they
+# has caption. For now, it works only with the HTML builder. Default is False.
+numfig = True
+# A dictionary mapping 'figure', 'table' and 'code-block' to strings that are
+# used for format of figure numbers. Default is to use 'Fig. %s' for 'figure',
+# 'Table %s' for 'table' and 'Listing %s' for 'code-block'.
+numfig_format = {"figure": u"Рис. %s",
+                 "table": u"Таблица %s",
+                 "code-block": u"Код %s"}
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -217,16 +236,20 @@ htmlhelp_basename = '-doc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
+ADDITIONAL_PREAMBLE = """
+\\setcounter{tocdepth}{3}
+"""
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     'papersize': 'letterpaper',
-
+    'wrapperclass': 'book',
     # The font size ('10pt', '11pt' or '12pt').
-    'pointsize': '14pt',
-
+    'pointsize': '12pt',
+    # 'fontpkg': '\\usepackage[sfdefault]{cabin}',
     # Additional stuff for the LaTeX preamble.
-    # 'preamble': '',
+    'preamble': ADDITIONAL_PREAMBLE,
+    'figure_align': 'H',  # htbp
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -238,15 +261,10 @@ latex_documents = [
      u'Свинцов Дмитрий', 'manual'),
 ]
 
-from sphinx.builders.latex import LaTeXBuilder
-
-LaTeXBuilder.supported_image_types =\
-    ['application/pdf', 'image/png', 'image/gif', 'image/jpeg',
-     'image/svg']
-
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-# latex_logo = None
+latex_logo = '_static/info-small.png'
+# latex_additional_files = ["arial.sty", ]
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
