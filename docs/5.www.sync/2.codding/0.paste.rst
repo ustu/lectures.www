@@ -5,9 +5,7 @@ Paste
 
    * https://ru.wikipedia.org/wiki/Python_Paste
 
-.. note::
-
-   Исходный код данного примера доступен по адресу:
+.. note:: | Исходный код данного примера доступен по адресу:
 
    * https://github.com/ustu/lectures.www/tree/master/sourcecode/wsgi/blog/0.paster
 
@@ -33,7 +31,7 @@ HTTP server
 
 .. figure:: /_static/wsgi/blog/1_0_step_dia.*
    :align: center
-   :scale: 80
+   :scale: 100
 
    Схема работы WSGI-приложения `Blog`
 
@@ -65,7 +63,7 @@ URL диспетчеризация
 
 .. figure:: /_static/wsgi/blog/1_1_step_dia.*
    :align: center
-   :scale: 80
+   :scale: 100
 
    URLDispatch middleware
 
@@ -113,7 +111,7 @@ URL диспетчеризация
 
 .. figure:: /_static/wsgi/blog/1_2_step_dia.*
    :align: center
-   :scale: 80
+   :scale: 100
 
    Сопоставление путей и `WSGI-приложений`
 
@@ -166,7 +164,7 @@ URL диспетчеризация
 
 .. figure:: /_static/wsgi/blog/1_3_step_dia.*
    :align: center
-   :scale: 80
+   :scale: 100
 
    URL пути на регулярных выражениях
 
@@ -284,7 +282,7 @@ HTML  форму, если `POST` записывает данные в спис�
 
 .. figure:: /_static/wsgi/blog/1_5_step.png
    :align: center
-   :scale: 80
+   :scale: 70
 
    Форма создания новой статьи
 
@@ -322,7 +320,7 @@ HTML  форму, если `POST` записывает данные в спис�
 
 .. figure:: /_static/wsgi/blog/1_6_step_dia.*
    :align: center
-   :scale: 80
+   :scale: 100
 
    BasicAuth `WSGI-middleware` для авторизации
 
