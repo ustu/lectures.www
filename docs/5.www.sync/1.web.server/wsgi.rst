@@ -12,7 +12,7 @@ WSGI (pep-333)
     * http://pylons-webframework.readthedocs.org/en/latest/concepts.html
     * http://www.docstoc.com/docs/69863691/WSGI-from-Start-to-Finish
 
-.. image:: /_static/wsgi/wsgi.svg
+.. image:: /_static/wsgi/wsgi.*
    :width: 800px
 
 **WSGI** — стандарт взаимодействия между Python-программой, выполняющейся на стороне сервера, и самим веб-сервером, например, Apache.
@@ -23,7 +23,7 @@ WSGI (pep-333)
 
 WSGI предоставляет простой и универсальный интерфейс между большинством веб-серверов и веб-приложениями или фреймворками.
 
-.. image:: /_static/wsgi/wsgi.png
+.. image:: /_static/wsgi/wsgi_ianb.png
 
 Application
 -----------
