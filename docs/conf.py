@@ -19,13 +19,14 @@ from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.builders.latex import LaTeXBuilder
 from sphinx.directives.code import CodeBlock
 
+directives.register_directive('no-code-block', CodeBlock)
+
+# IMAGES
 image_types = ['image/png', 'image/svg+xml', 'image/gif', 'image/jpeg']
 
 # Redefine supported_image_types for the HTML and LaTeX builder
 LaTeXBuilder.supported_image_types = image_types
 StandaloneHTMLBuilder.supported_image_types = image_types
-
-directives.register_directive('no-code-block', CodeBlock)
 
 html_logo = '_static/info-small.png'
 html_favicon = '_static/urfu.ico'
