@@ -26,7 +26,7 @@ MVC
 
 .. figure:: /_static/web/mvc.*
    :align: center
-   :scale: 90%
+   :scale: 90
 
    Паттерн MVC (Model-View-Controller)
 
@@ -53,7 +53,7 @@ MTV
 
 .. figure:: /_static/web/mtv.*
    :align: center
-   :scale: 90%
+   :scale: 90
 
    Паттерн MTV (Model-Template-View)
 
@@ -82,7 +82,7 @@ Pyramid:
 
 .. figure:: /_static/web/Pyramid_rv.*
    :align: center
-   :scale: 90%
+   :scale: 90
 
    Паттерн RV (Resources-View)
 
