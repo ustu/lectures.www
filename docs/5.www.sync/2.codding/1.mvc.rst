@@ -24,10 +24,11 @@ MVC
 две среды разработки наметили пути развития для сотен рабочих сред, созданных
 позже.
 
-.. figure:: /_static/web/mvc.svg
-   :width: 600px
+.. figure:: /_static/web/mvc.*
+   :align: center
+   :scale: 90
 
-   Рис.1 Паттерн MVC (Model-View-Controller)
+   Паттерн MVC (Model-View-Controller)
 
 * **Model** - доступ к данным, обрабатывается слоем работы с базой данных;
 * **View** - преобразует данные в выходной формат (HTML, JSON, ...), обрабатывается представлениями и шаблонами;
@@ -50,10 +51,11 @@ MTV
 Вся логика при таком подходе вынесена во `View`, а то как будут отображаться
 данные в `Template`.
 
-.. figure:: /_static/web/mtv.svg
-   :width: 600px
+.. figure:: /_static/web/mtv.*
+   :align: center
+   :scale: 90
 
-   Рис.2 Паттерн MTV (Model-Template-View)
+   Паттерн MTV (Model-Template-View)
 
 MTV фреймворки:
 
@@ -78,10 +80,11 @@ Pyramid:
 
    «Мы считаем, что есть только две вещи: **ресурсы** (resource) и **виды** (view).  Дерево ресурсов представляет структуру сайта, а вид представляет ресурс.  **"Шаблоны"** (template) в реальности лишь деталь реализации некоторого вида: строго говоря, они не обязательны, и вид может вернуть ответ (response) и без них. Нет никакого **"контроллера"** (controller): его просто не существует. **"Модель"** (model) же либо представлена деревом ресурсов, либо "доменной моделью" (domain model) (например, моделью SQLAlchemy), которая вообще не является частью каркаса. Нам кажется, что наша терминология более разумна при существующих ограничениях веб-технологий.»
 
-.. figure:: /_static/web/Pyramid_rv.svg
-   :width: 800px
+.. figure:: /_static/web/Pyramid_rv.*
+   :align: center
+   :scale: 90
 
-   Рис.3 Паттерн RV (Resources-View)
+   Паттерн RV (Resources-View)
 
 RV фреймворки:
 
@@ -101,7 +104,7 @@ RV фреймворки:
 
    0 directories, 3 files
 
-.. note:: Исходный код доступен по адрусу:
+.. note:: | Исходный код доступен по адресу:
 
    * https://github.com/ustu/lectures.www/tree/master/sourcecode/wsgi/blog/1.mvc/
 

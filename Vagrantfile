@@ -55,6 +55,7 @@ Vagrant.configure(2) do |config|
     lectureswww.ssh.port = 22
     lectureswww.ssh.username = 'vagrant'
     lectureswww.ssh.password = '123'
+    lectureswww.ssh.forward_x11 = true
     lectureswww.vm.provider 'docker' do |docker|
       docker.build_dir = 'vagrant-data/docker/lectureswww'
       docker.name = 'lectureswww'

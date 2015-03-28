@@ -6,10 +6,10 @@
 Основы Веб-программирования
 ===========================
 
-.. image:: /_static/logo.jpg
-
 Описание курса
 --------------
+
+.. image:: /_static/logo.jpg
 
 Преподаватель
 ~~~~~~~~~~~~~
@@ -55,7 +55,7 @@
 .. toctree::
     :maxdepth: 2
 
-    workplace.rst
+    0.workplace/index.rst
 
 Введение
 --------
@@ -63,25 +63,31 @@
 .. toctree::
     :maxdepth: 3
 
-    history.rst
+    1.history/index.rst
 
-Пользовательский интерфейс
---------------------------
-
-.. toctree::
-   :maxdepth: 3
-
-   frontend/html.rst
-   frontend/css.rst
-   frontend/javascript.rst
-
-Базы дынных
+Базы данных
 -----------
 
 .. toctree::
     :maxdepth: 3
 
-    databases/index.rst
+    2.databases/index.rst
+
+Каналы передачи данных
+----------------------
+
+.. toctree::
+    :maxdepth: 4
+
+    3.kpd/index.rst
+
+Сетевое программирование
+------------------------
+
+.. toctree::
+    :maxdepth: 4
+
+    4.net/index.rst
 
 Синхронный Веб
 --------------
@@ -89,11 +95,9 @@
 .. toctree::
     :maxdepth: 4
 
-    net/index.rst
-    www.sync/1.net/index.rst
-    www.sync/2.web.server/index.rst
-    www.sync/3.codding/index.rst
-    www.sync/4.framework/pyramid.rst
+    5.www.sync/1.web.server/index.rst
+    5.www.sync/2.codding/index.rst
+    5.www.sync/3.framework/pyramid.rst
 
 Асинхронный Веб
 ---------------
@@ -101,7 +105,7 @@
 .. toctree::
     :maxdepth: 3
 
-    www.async/index.rst
+    6.www.async/index.rst
 
 Не браузер и не консоль Веб
 ---------------------------
@@ -109,7 +113,7 @@
 .. toctree::
     :maxdepth: 3
 
-    www.gui/index.rst
+    7.www.gui/index.rst
 
 Справочник
 ==========
@@ -117,11 +121,14 @@
 .. toctree::
    :maxdepth: 3
 
-   additions/index.rst
+   999.additions/index.rst
 
-Навигация
-=========
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. only:: not latex
+
+   Навигация
+   =========
+
+   + :ref:`genindex`
+   + :ref:`modindex`
+   + :ref:`search`

@@ -12,8 +12,10 @@ WSGI (pep-333)
     * http://pylons-webframework.readthedocs.org/en/latest/concepts.html
     * http://www.docstoc.com/docs/69863691/WSGI-from-Start-to-Finish
 
-.. image:: /_static/wsgi/wsgi.svg
-   :width: 800px
+.. figure:: /_static/wsgi/wsgi.*
+   :align: center
+   :scale: 80
+
 
 **WSGI** — стандарт взаимодействия между Python-программой, выполняющейся на стороне сервера, и самим веб-сервером, например, Apache.
 
@@ -23,7 +25,10 @@ WSGI (pep-333)
 
 WSGI предоставляет простой и универсальный интерфейс между большинством веб-серверов и веб-приложениями или фреймворками.
 
-.. image:: /_static/wsgi/wsgi.png
+.. figure:: /_static/wsgi/wsgi_ianb.png
+   :align: center
+
+   Пример работы `WSGI` (автор Ян Бикинг)
 
 Application
 -----------
@@ -46,8 +51,11 @@ Application
    :pyobject: simple_app
    :linenos:
 
-.. image:: /_static/wsgi/wsgi-app.png
+.. figure:: /_static/wsgi/wsgi-app.png
+   :align: center
    :width: 400px
+
+   `WSGI-приложение`
 
 или то же самое в виде класса:
 
@@ -71,8 +79,11 @@ Server/Gateway
 * а **WSGI шлюз** приводит к формату клиент-серверного протокола (CGI, FastCGI, SCGI, uWSGI, ...)
   и передает их на Веб-сервер (например выводит в stdout, stderr).
 
-.. image:: /_static/wsgi/server-app.png
+.. figure:: /_static/wsgi/server-app.png
+   :align: center
    :width: 400px
+
+   `WSGI-сервер`
 
 Пример WSGI-шлюза к CGI-серверу.
 
@@ -168,8 +179,11 @@ start_response
 Middleware
 ----------
 
-.. image:: /_static/wsgi/server-middleware-app.png
+.. figure:: /_static/wsgi/server-middleware-app.png
+   :align: center
    :width: 500px
+
+   `WSGI-middleware`
 
 Помимо приложений и серверов, стандарт дает определение **middleware-компонентов**, предоставляющих интерфейсы как приложению, так и серверу. То есть для сервера middleware является приложением, а для приложения — сервером. Это позволяет составлять «цепочки» WSGI-совместимых middleware.
 

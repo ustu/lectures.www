@@ -7,6 +7,50 @@ SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
 
+SOURCEDIR     = docs
+#IMAGEDIRS can be a list of directories that contain SVG files and are relative to the SOURCEDIR
+IMAGEDIRS = $(shell find docs/_static/ -type d | sed -e 's/docs\///')
+# IMAGEDIRS = _static _static/gui _static/vector _static/web _static/wsgi _static/wsgi/blog
+
+# SVG to PDF conversion
+SVG2PDF       = inkscape
+SVG2PDF_FLAGS = -C
+
+# SVG to PNG conversion
+SVG2PNG       = inkscape
+SVG2PNG_FLAGS = -C -d=90 --export-background-opacity=\#00
+
+# Pattern rule for converting SVG to PDF
+%.pdf : %.svg
+	$(SVG2PDF) $(SVG2PDF_FLAGS) -f $< -A $@
+
+# Pattern rule for converting SVG to PNG
+%.png : %.svg
+	$(SVG2PNG) $(SVG2PNG_FLAGS) -f $< -e $@
+
+# Build a list of SVG files to convert to PDFs
+PDFs := $(foreach dir, $(IMAGEDIRS), $(patsubst %.svg,%.pdf,$(wildcard $(SOURCEDIR)/$(dir)/*.svg)))
+
+# Build a list of SVG files to convert to PNGs
+PNGs := $(foreach dir, $(IMAGEDIRS), $(patsubst %.svg,%.png,$(wildcard $(SOURCEDIR)/$(dir)/*.svg)))
+
+# Make a rule to build the PDFs
+images-pdf: $(PDFs)
+
+# Make a rule to build the PNGs
+images-png: $(PNGs)
+
+# Make a rule to build the images
+images: images-png images-pdf
+
+clean-pdf:
+	rm $(PDFs)
+
+clean-png:
+	rm $(PNGs)
+
+clean-images: clean-png clean-pdf
+
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
 $(error The '$(SPHINXBUILD)' command was not found. Make sure you have Sphinx installed, then set the SPHINXBUILD environment variable to point to the full path of the '$(SPHINXBUILD)' executable. Alternatively you can add the directory with the executable to your PATH. If you don't have Sphinx installed, grab it from http://sphinx-doc.org/)
@@ -103,14 +147,14 @@ epub:
 	@echo
 	@echo "Build finished. The epub file is in $(BUILDDIR)/epub."
 
-latex:
+latex: images
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo
 	@echo "Build finished; the LaTeX files are in $(BUILDDIR)/latex."
 	@echo "Run \`make' in that directory to run these through (pdf)latex" \
 	      "(use \`make latexpdf' here to do that automatically)."
 
-latexpdf:
+latexpdf: images
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo "Running LaTeX files through pdflatex..."
 	$(MAKE) -C $(BUILDDIR)/latex all-pdf
