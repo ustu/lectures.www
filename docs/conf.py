@@ -57,6 +57,17 @@ numfig_format = {"figure": u"Рис. %s",
                  "table": u"Таблица %s",
                  "code-block": u"Код %s"}
 
+
+# If true, figures, tables and code-blocks are automatically numbered if they
+# has caption. For now, it works only with the HTML builder. Default is False.
+numfig = True
+# A dictionary mapping 'figure', 'table' and 'code-block' to strings that are
+# used for format of figure numbers. Default is to use 'Fig. %s' for 'figure',
+# 'Table %s' for 'table' and 'Listing %s' for 'code-block'.
+numfig_format = {"figure": u"Рис. %s",
+                 "table": u"Таблица %s",
+                 "code-block": u"Код %s"}
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.

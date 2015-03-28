@@ -11,8 +11,8 @@ Simple blog
 """
 from paste.auth.basic import AuthBasicHandler
 
-import urlrelay
-from views import BlogCreate, BlogDelete, BlogRead, BlogUpdate
+import selector
+from views import BlogCreate, BlogDelete, BlogIndex, BlogRead, BlogUpdate
 
 
 def authfunc(environ, username, password):
@@ -26,12 +26,13 @@ def make_wsgi_app():
     delete = AuthBasicHandler(BlogDelete, 'www', authfunc)
 
     # URL dispatching middleware
-    urlrelay.register('^/$', 'views.BlogIndex')
-    urlrelay.register('^/article/add$', create)
-    urlrelay.register('^/article/(?P<id>\d+)$', BlogRead)
-    urlrelay.register('^/article/(?P<id>\d+)/edit$', update)
-    urlrelay.register('^/article/(?P<id>\d+)/delete$', delete)
-    dispatch = urlrelay.URLRelay()
+    dispatch = selector.Selector()
+    dispatch.add('/', GET=BlogIndex)
+    dispatch.prefix = '/article'
+    dispatch.add('/add', GET=create, POST=create)
+    dispatch.add('/{id:digits}', GET=BlogRead)
+    dispatch.add('/{id:digits}/edit', GET=update, POST=update)
+    dispatch.add('/{id:digits}/delete', GET=delete)
     return dispatch
 
 if __name__ == '__main__':
