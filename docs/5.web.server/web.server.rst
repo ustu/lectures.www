@@ -4,6 +4,9 @@
 .. seealso::
 
     * https://developer.mozilla.org/en-US/Learn/What_is_a_web_server
+    * `<https://ru.wikipedia.org/wiki/Веб-сервер>`_
+    * https://docs.python.org/3.5/howto/webservers.html
+    * https://gist.github.com/willurd/5720255
 
 Описание
 --------

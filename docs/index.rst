@@ -89,15 +89,22 @@
 
     4.net/index.rst
 
+Веб сервер
+----------
+
+.. toctree::
+    :maxdepth: 4
+
+    5.web.server/index.rst
+
 Синхронный Веб
 --------------
 
 .. toctree::
     :maxdepth: 4
 
-    5.www.sync/1.web.server/index.rst
-    5.www.sync/2.codding/index.rst
-    5.www.sync/3.framework/pyramid.rst
+    6.www.sync/2.codding/index.rst
+    6.www.sync/3.framework/pyramid.rst
 
 Асинхронный Веб
 ---------------
@@ -105,7 +112,7 @@
 .. toctree::
     :maxdepth: 3
 
-    6.www.async/index.rst
+    7.www.async/index.rst
 
 Не браузер и не консоль Веб
 ---------------------------
@@ -113,7 +120,7 @@
 .. toctree::
     :maxdepth: 3
 
-    7.www.gui/index.rst
+    8.www.gui/index.rst
 
 Справочник
 ==========
