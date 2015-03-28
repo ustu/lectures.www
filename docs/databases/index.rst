@@ -7,3 +7,4 @@
     dbms
     rdb
     sqlite
+    zodb
