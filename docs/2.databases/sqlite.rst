@@ -75,7 +75,7 @@ SQLite использует динамическое типизирование 
 
 В этом примере мы рассмотрим как создать простую струкртуру каталога товаров.
 
-.. literalinclude:: /../sourcecode/databases/sqlite/1.create.sql
+.. literalinclude:: /../sourcecode/2.databases/sqlite/1.create.sql
    :language: sql
    :linenos:
 
@@ -90,7 +90,7 @@ SQLite использует динамическое типизирование 
 * Для категории "Самолёты" необходимо добавить поле "Вместимость".
 * Для категории "Ноутбуки" необходимо добавить поле "Прцессор".
 
-.. literalinclude:: /../sourcecode/databases/sqlite/2.alter.sql
+.. literalinclude:: /../sourcecode/2.databases/sqlite/2.alter.sql
    :language: sql
    :linenos:
 

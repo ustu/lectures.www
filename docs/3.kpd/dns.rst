@@ -20,9 +20,11 @@ DNS (система доменных имен)
 Примеры доменов
 ~~~~~~~~~~~~~~~
 
-.. image:: /_static/DNS-names-ru.svg
+.. figure:: /_static/DNS-names-ru.*
     :width: 600px
     :align: center
+
+    Дерево доменных зон
 
 0-й уровень
 
@@ -81,6 +83,7 @@ localhost (так называемый, «локальный хост», по с
 
 .. image:: /_static/dns_request.png
    :align: center
+   :scale: 90
 
 Способы получения IP адреса по доменному имени
 ----------------------------------------------

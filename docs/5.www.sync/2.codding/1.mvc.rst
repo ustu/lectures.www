@@ -26,7 +26,7 @@ MVC
 
 .. figure:: /_static/web/mvc.*
    :align: center
-   :scale: 90
+   :width: 400px
 
    Паттерн MVC (Model-View-Controller)
 
@@ -53,7 +53,7 @@ MTV
 
 .. figure:: /_static/web/mtv.*
    :align: center
-   :scale: 90
+   :width: 400px
 
    Паттерн MTV (Model-Template-View)
 
@@ -82,7 +82,7 @@ Pyramid:
 
 .. figure:: /_static/web/Pyramid_rv.*
    :align: center
-   :scale: 90
+   :width: 600px
 
    Паттерн RV (Resources-View)
 
@@ -106,7 +106,7 @@ RV фреймворки:
 
 .. note:: | Исходный код доступен по адресу:
 
-   * https://github.com/ustu/lectures.www/tree/master/sourcecode/wsgi/blog/1.mvc/
+   * https://github.com/ustu/lectures.www/tree/master/sourcecode/5.www.sync/2.codding/blog/1.mvc/
 
 Где:
 
@@ -120,7 +120,7 @@ RV фреймворки:
 
 ``models.py``:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/1.mvc/models.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/1.mvc/models.py
    :language: python
    :linenos:
 
@@ -135,7 +135,7 @@ RV фреймворки:
 
 Настройки авторизации ``__init__.py``:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/1.mvc/__init__.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/1.mvc/__init__.py
    :language: python
    :emphasize-lines: 12, 18-19, 24-26
    :linenos:
@@ -147,7 +147,7 @@ URL-диспетчеризация
 
 Настройки URL-диспетчеризации ``__init__.py``:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/1.mvc/__init__.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/1.mvc/__init__.py
    :language: python
    :emphasize-lines: 14, 15, 29-34
    :linenos:
@@ -157,7 +157,7 @@ URL-диспетчеризация
 
 ``views.py``:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/1.mvc/views.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/1.mvc/views.py
    :language: python
    :emphasize-lines: 5
    :pyobject: BaseArticle
@@ -179,7 +179,7 @@ WSGI-приложения
 
 ``views.py``:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/1.mvc/views.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/1.mvc/views.py
    :language: python
    :emphasize-lines: 1, 15
    :linenos:

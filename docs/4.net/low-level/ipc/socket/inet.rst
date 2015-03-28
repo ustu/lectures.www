@@ -1,7 +1,7 @@
 Передача данных через INET сокеты
 =================================
 
-.. image:: /_static/socket.svg
+.. image:: /_static/socket.*
    :width: 600px
 
 TCP пример
@@ -13,13 +13,15 @@ TCP пример
 
 Это простой пример эхо-сервера при помощи TCP.
 
-.. image:: /_static/tcp_socket.gif
-   :align: center
+.. only:: not latex
+
+   .. image:: /_static/tcp_socket.gif
+      :align: center
 
 TCP клиент
 ~~~~~~~~~~
 
-.. literalinclude:: /../sourcecode/net/socket/inet/1.tcp_client.py
+.. literalinclude:: /../sourcecode/4.net/socket/inet/1.tcp_client.py
    :language: python
    :linenos:
 
@@ -32,7 +34,7 @@ TCP клиент
 TCP сервер
 ~~~~~~~~~~
 
-.. literalinclude:: /../sourcecode/net/socket/inet/1.tcp_server.py
+.. literalinclude:: /../sourcecode/4.net/socket/inet/1.tcp_server.py
    :language: python
    :linenos:
 
@@ -53,13 +55,15 @@ UDP пример
 
 Это простой пример приемо-передачи сообщений при помощи UDP.
 
-.. image:: /_static/udp_socket.gif
-   :align: center
+.. only:: not latex
+
+   .. image:: /_static/udp_socket.gif
+      :align: center
 
 UDP клиент
 ~~~~~~~~~~
 
-.. literalinclude:: /../sourcecode/net/socket/inet/1.udp_client.py
+.. literalinclude:: /../sourcecode/4.net/socket/inet/1.udp_client.py
    :language: python
    :linenos:
 
@@ -72,7 +76,7 @@ UDP клиент
 UDP сервер
 ~~~~~~~~~~
 
-.. literalinclude:: /../sourcecode/net/socket/inet/1.udp_server.py
+.. literalinclude:: /../sourcecode/4.net/socket/inet/1.udp_server.py
    :language: python
    :linenos:
 
@@ -88,7 +92,7 @@ UDP сервер
 
 **Сырой сокет** - разновидность сокетов Беркли, позволяющий собирать TCP/IP-пакеты, контролируя каждый бит заголовка и отправляя в сеть нестандартные пакеты.
 
-.. literalinclude:: /../sourcecode/net/socket/inet/1.raw_socket_sniff.py
+.. literalinclude:: /../sourcecode/4.net/socket/inet/1.raw_socket_sniff.py
    :language: python
    :linenos:
 
@@ -132,7 +136,7 @@ UDP сервер
 HTTP клиент
 -----------
 
-.. literalinclude:: /../sourcecode/net/socket/inet/1.http_socket.py
+.. literalinclude:: /../sourcecode/4.net/socket/inet/1.http_socket.py
    :language: python
    :linenos:
 

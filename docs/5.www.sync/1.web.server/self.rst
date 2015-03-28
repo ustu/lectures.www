@@ -24,7 +24,7 @@ Go FastCGI
 
    Компиляция ``go build -o hello.go.fcgi hello.go``
 
-.. literalinclude:: /../sourcecode/fcgi/hello.go
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/fcgi/hello.go
    :language: go
    :linenos:
 
@@ -88,7 +88,7 @@ Go HTTP
 
    Компиляция ``go build -o hello.go.http hello.go``
 
-.. literalinclude:: /../sourcecode/httpserver/hello.go
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/httpserver/hello.go
    :language: go
    :linenos:
 

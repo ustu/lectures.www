@@ -37,9 +37,9 @@
 
 .. note:: | Исходный код доступен по адресу:
 
-   * https://github.com/ustu/lectures.www/tree/master/sourcecode/wsgi/blog/2.routes
+   * https://github.com/ustu/lectures.www/tree/master/sourcecode/5.www.sync/2.codding/blog/2.routes
 
-.. literalinclude:: /../sourcecode/wsgi/blog/2.routes/__init__.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/2.routes/__init__.py
    :language: python
    :emphasize-lines: 14, 29-35
    :linenos:

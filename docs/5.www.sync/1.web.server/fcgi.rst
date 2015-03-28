@@ -71,7 +71,7 @@ fastcgi_param
 
    Компиляция ``g++ -o hello.fcgi hello.cpp -lfcgi++ -lfcgi``
 
-.. literalinclude:: /../sourcecode/fcgi/hello.cpp
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/fcgi/hello.cpp
    :language: cpp
    :linenos:
 

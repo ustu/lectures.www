@@ -90,7 +90,7 @@ TODO: Вставить схему обхода словаря
 
 Для начала создадим классы для реализации задачи без сохранения.
 
-.. literalinclude:: /../sourcecode/databases/zodb/1.create.py
+.. literalinclude:: /../sourcecode/2.databases/zodb/1.create.py
     :language: python
     :linenos:
 

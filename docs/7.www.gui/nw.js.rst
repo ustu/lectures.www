@@ -14,9 +14,9 @@ node.js + WebKit
 Hello World
 -----------
 
-.. note:: исходный код примера:
+.. note:: | Исходный код примера:
 
-   https://github.com/ustu/lectures.www/tree/master/sourcecode/gui/js/hello
+   * https://github.com/ustu/lectures.www/tree/master/sourcecode/7.www.gui/js/hello
 
 Структура файлов:
 
@@ -30,13 +30,13 @@ Hello World
 
 | index.html
 
-.. literalinclude:: /../sourcecode/gui/js/hello/index.html
+.. literalinclude:: /../sourcecode/7.www.gui/js/hello/index.html
    :language: html
    :linenos:
 
 | package.json
 
-.. literalinclude:: /../sourcecode/gui/js/hello/package.json
+.. literalinclude:: /../sourcecode/7.www.gui/js/hello/package.json
    :language: json
    :linenos:
 
@@ -46,4 +46,4 @@ Hello World
 
    $ nw
 
-.. image:: /_static/gui/hello_nw.js.png
+.. figure:: /_static/7.www.gui/hello_nw_js.png

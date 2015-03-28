@@ -15,26 +15,28 @@
 Сервер
 ~~~~~~
 
-.. literalinclude:: /../sourcecode/net/socket/unix/1.unix.server.py
+.. literalinclude:: /../sourcecode/4.net/socket/unix/1.unix.server.py
    :language: python
    :linenos:
 
 Клиент
 ~~~~~~
 
-.. literalinclude:: /../sourcecode/net/socket/unix/1.unix.client.py
+.. literalinclude:: /../sourcecode/4.net/socket/unix/1.unix.client.py
    :language: python
    :linenos:
 
-Пример работы
-~~~~~~~~~~~~~
+.. only:: not latex
 
-.. image:: /_static/unix_socket.gif
-   :align: center
+   Пример работы
+   ~~~~~~~~~~~~~
+
+   .. image:: /_static/unix_socket.gif
+      :align: center
 
 Схематичное отображение
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: /_static/socket_unix.svg
+.. image:: /_static/socket_unix.*
    :align: center
    :width: 600px

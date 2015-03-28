@@ -9,7 +9,11 @@
 Python
 ------
 
-.. literalinclude:: /../sourcecode/additions/generators/gen.py
+.. todo::
+
+   расписать детали
+
+.. literalinclude:: /../sourcecode/999.additions/generators/gen.py
    :language: python
    :linenos:
 
@@ -22,11 +26,11 @@ Python
    1
    2
 
-.. literalinclude:: /../sourcecode/additions/generators/csv_gen.py
+.. literalinclude:: /../sourcecode/999.additions/generators/csv_gen.py
    :language: python
    :linenos:
 
-.. literalinclude:: /../sourcecode/additions/generators/sample.csv
+.. literalinclude:: /../sourcecode/999.additions/generators/sample.csv
    :linenos:
 
 .. code-block:: bash
@@ -39,7 +43,7 @@ Python
 JavaScript
 ----------
 
-.. literalinclude:: /../sourcecode/additions/generators/gen.js
+.. literalinclude:: /../sourcecode/999.additions/generators/gen.js
    :language: javascript
    :linenos:
 

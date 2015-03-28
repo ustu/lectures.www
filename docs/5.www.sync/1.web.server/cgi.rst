@@ -113,7 +113,7 @@ CGI
 
 Пример вывода переменных окружения CGI-скрипта:
 
-.. literalinclude:: /../sourcecode/cgi-bin/2.environment.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/2.environment.py
    :language: python
    :linenos:
 
@@ -165,7 +165,7 @@ CGI
 
 или ``cgiserver.py``
 
-.. literalinclude:: /../sourcecode/cgiserver.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgiserver.py
    :language: python
    :linenos:
 
@@ -205,13 +205,13 @@ Hello World!
 
 Python
 
-.. literalinclude:: /../sourcecode/cgi-bin/1.hello.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/1.hello.py
    :language: python
    :linenos:
 
 Ruby
 
-.. literalinclude:: /../sourcecode/cgi-bin/1.hello.rb
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/1.hello.rb
    :language: ruby
    :linenos:
 
@@ -219,7 +219,7 @@ C++
 
 Для компиляции: ``make 1_hello``
 
-.. literalinclude:: /../sourcecode/cgi-bin/1.hello.cpp
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/1.hello.cpp
    :language: cpp
    :linenos:
 
@@ -227,7 +227,7 @@ Go
 
 Для компиляции: ``make 1_hello_go``
 
-.. literalinclude:: /../sourcecode/cgi-bin/1.hello.go
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/1.hello.go
    :language: go
    :linenos:
 
@@ -242,13 +242,13 @@ Go
 
 Python
 
-.. literalinclude:: /../sourcecode/cgi-bin/2.environment.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/2.environment.py
    :language: python
    :linenos:
 
 Ruby
 
-.. literalinclude:: /../sourcecode/cgi-bin/2.environment.rb
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/2.environment.rb
    :language: ruby
    :linenos:
 
@@ -256,7 +256,7 @@ C++
 
 Для компиляции: ``make 2_environment``
 
-.. literalinclude:: /../sourcecode/cgi-bin/2.environment.cpp
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/2.environment.cpp
    :language: cpp
    :linenos:
 
@@ -295,13 +295,13 @@ GET и POST запросы
 
 Python
 
-.. literalinclude:: /../sourcecode/cgi-bin/3.get.post.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/3.get.post.py
    :language: python
    :linenos:
 
 Ruby
 
-.. literalinclude:: /../sourcecode/cgi-bin/3.get.post.rb
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/3.get.post.rb
    :language: ruby
    :linenos:
 
@@ -309,7 +309,7 @@ C++
 
 Для компиляции: ``make 3_get_post``
 
-.. literalinclude:: /../sourcecode/cgi-bin/3.get.post.cpp
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/3.get.post.cpp
    :language: cpp
    :linenos:
 
@@ -326,7 +326,7 @@ Checkbox
 
 Python
 
-.. literalinclude:: /../sourcecode/cgi-bin/4.checkbox.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/4.checkbox.py
    :language: python
    :linenos:
 
@@ -334,7 +334,7 @@ C++
 
 Для компиляции: ``make 4_checkbox``
 
-.. literalinclude:: /../sourcecode/cgi-bin/4.checkbox.cpp
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/4.checkbox.cpp
    :language: cpp
    :linenos:
 
@@ -352,7 +352,7 @@ Radio
 
 Python
 
-.. literalinclude:: /../sourcecode/cgi-bin/5.radio.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/5.radio.py
    :language: python
    :linenos:
 
@@ -360,7 +360,7 @@ C++
 
 Для компиляции: ``make 5_radio``
 
-.. literalinclude:: /../sourcecode/cgi-bin/5.radio.cpp
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/5.radio.cpp
    :language: cpp
    :linenos:
 
@@ -378,7 +378,7 @@ TextArea
 
 Python
 
-.. literalinclude:: /../sourcecode/cgi-bin/6.textarea.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/6.textarea.py
    :language: python
    :linenos:
 
@@ -386,7 +386,7 @@ C++
 
 Для компиляции: ``make 6_textarea``
 
-.. literalinclude:: /../sourcecode/cgi-bin/6.textarea.cpp
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/6.textarea.cpp
    :language: cpp
    :linenos:
 
@@ -405,7 +405,7 @@ Drop Down Box
 
 Python
 
-.. literalinclude:: /../sourcecode/cgi-bin/7.dropdown.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/7.dropdown.py
    :language: python
    :linenos:
 
@@ -413,7 +413,7 @@ C++
 
 Для компиляции: ``make 7_dropdown``
 
-.. literalinclude:: /../sourcecode/cgi-bin/7.dropdown.cpp
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/7.dropdown.cpp
    :language: cpp
    :linenos:
 
@@ -427,7 +427,7 @@ C++
 
 Python
 
-.. literalinclude:: /../sourcecode/cgi-bin/8.getcookie.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/8.getcookie.py
    :language: python
    :linenos:
 
@@ -435,7 +435,7 @@ C++
 
 Для компиляции: ``make 8_getcookie``
 
-.. literalinclude:: /../sourcecode/cgi-bin/8.getcookie.cpp
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/8.getcookie.cpp
    :language: cpp
    :linenos:
 
@@ -449,7 +449,7 @@ C++
 
 Python
 
-.. literalinclude:: /../sourcecode/cgi-bin/9.setcookie.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/9.setcookie.py
    :language: python
    :linenos:
 
@@ -457,7 +457,7 @@ C++
 
 Для компиляции: ``make 9_setcookie``
 
-.. literalinclude:: /../sourcecode/cgi-bin/9.setcookie.cpp
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/9.setcookie.cpp
    :language: cpp
    :linenos:
 
@@ -474,7 +474,7 @@ C++
 
 Python
 
-.. literalinclude:: /../sourcecode/cgi-bin/10.fileupload.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/10.fileupload.py
    :language: python
    :linenos:
 
@@ -482,7 +482,7 @@ C++
 
 Для компиляции: ``make 10_fileupload``
 
-.. literalinclude:: /../sourcecode/cgi-bin/10.fileupload.cpp
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/10.fileupload.cpp
    :language: cpp
    :linenos:
 
@@ -500,7 +500,7 @@ C++
 
 Python
 
-.. literalinclude:: /../sourcecode/cgi-bin/test.py
+.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/cgi-bin/test.py
    :language: python
    :linenos:
    :emphasize-lines: 24

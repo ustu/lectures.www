@@ -44,6 +44,7 @@ def setup(app):
         app.add_javascript('js/metrika.js')
     app.add_javascript('js/jquery.fancybox.js')
     app.add_stylesheet('css/jquery.fancybox.css')
+    app.add_stylesheet('css/todo.css')
 
 
 # If true, figures, tables and code-blocks are automatically numbered if they
@@ -71,10 +72,14 @@ numfig_format = {"figure": u"Рис. %s",
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.todo',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
     'sphinxcontrib.fulltoc']
+
+# TODO
+todo_include_todos = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

@@ -7,7 +7,7 @@ Paste
 
 .. note:: | Исходный код данного примера доступен по адресу:
 
-   * https://github.com/ustu/lectures.www/tree/master/sourcecode/wsgi/blog/0.paster
+   * https://github.com/ustu/lectures.www/tree/master/sourcecode/5.www.sync/2.codding/blog/0.paster
 
 Python Paste, или просто Paste — набор программ для веб-разработки с использованием языка Python.
 Включает в себя множество различных `middleware`, `WSGI-сервер` и другое.
@@ -25,13 +25,13 @@ HTTP server
 
 Создадим простое `WSGI-приложение` и запустим его при помощи `WSGI-HTTP-сервера` ``paste.httpserver``:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/0_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/0_step.py
    :language: python
    :linenos:
 
 .. figure:: /_static/wsgi/blog/1_0_step_dia.*
    :align: center
-   :scale: 100
+   :width: 600px
 
    Схема работы WSGI-приложения `Blog`
 
@@ -56,20 +56,20 @@ URL диспетчеризация
 
 Для разделения путей напишем `WSGI-middleware` ``URLDispatch``.
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/middlewares/urldispatch.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/middlewares/urldispatch.py
    :language: python
    :pyobject: URLDispatch
    :linenos:
 
 .. figure:: /_static/wsgi/blog/1_1_step_dia.*
    :align: center
-   :scale: 100
+   :width: 600px
 
    URLDispatch middleware
 
 Добавим настройки в наше приложение:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/1_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/1_step.py
    :language: python
    :emphasize-lines: 12, 20-24
    :linenos:
@@ -111,11 +111,11 @@ URL диспетчеризация
 
 .. figure:: /_static/wsgi/blog/1_2_step_dia.*
    :align: center
-   :scale: 100
+   :width: 600px
 
    Сопоставление путей и `WSGI-приложений`
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/2_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/2_step.py
    :language: python
    :emphasize-lines: 22-54
    :linenos:
@@ -156,7 +156,7 @@ URL диспетчеризация
      - ^/article/(?P<id>\d+)/delete$
      - Удаление статьи по {id}
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/middlewares/urldispatch.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/middlewares/urldispatch.py
    :language: python
    :pyobject: RegexDispatch
    :emphasize-lines: 11-14
@@ -164,13 +164,13 @@ URL диспетчеризация
 
 .. figure:: /_static/wsgi/blog/1_3_step_dia.*
    :align: center
-   :scale: 100
+   :width: 600px
 
    URL пути на регулярных выражениях
 
 И поменяем настройки:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/3_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/3_step.py
    :language: python
    :emphasize-lines: 12, 60-62
    :linenos:
@@ -216,7 +216,7 @@ URL диспетчеризация
 
 Главная страница формируется перебором статей в списке:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/4_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/4_step.py
    :language: python
    :pyobject: BlogIndex
    :emphasize-lines: 6-9
@@ -233,7 +233,7 @@ URL диспетчеризация
 (переменная окружения, которую добавляет `middlwware` ``RegexDispatch``) и
 находит ее среди списка данных.
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/4_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/4_step.py
    :language: python
    :pyobject: BaseArticle
    :linenos:
@@ -241,7 +241,7 @@ URL диспетчеризация
 Приложение ``BlogRead`` отвечающее за чтение статьи выводит его содержимое или
 отдает `404 ошибку`:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/4_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/4_step.py
    :language: python
    :pyobject: BlogRead
    :linenos:
@@ -256,14 +256,14 @@ URL диспетчеризация
 возвращает статус ответа `302 Fount` с заголовком `Location: /`, указывающий
 браузеру что нужно перейти на главную страницу (перенаправление).
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/4_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/4_step.py
    :language: python
    :pyobject: BlogDelete
    :linenos:
 
 Полный код с изменениями:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/4_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/4_step.py
    :language: python
    :emphasize-lines: 14-29, 39-47, 55-58, 72-80, 93-97
    :linenos:
@@ -275,7 +275,7 @@ URL диспетчеризация
 HTML  форму, если `POST` записывает данные в список ``ARTICLES`` и
 перенаправляет на главную страницу.
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/5_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/5_step.py
    :language: python
    :pyobject: BlogCreate
    :linenos:
@@ -290,7 +290,7 @@ HTML  форму, если `POST` записывает данные в спис�
 подставляются уже существующие данные и вместо добавления нового объекта в
 список ``ARTICLES``, обновляется уже существующий.
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/5_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/5_step.py
    :language: python
    :pyobject: BlogUpdate
    :linenos:
@@ -303,7 +303,7 @@ HTML  форму, если `POST` записывает данные в спис�
 
 Полный код с изменениями:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/5_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/5_step.py
    :language: python
    :emphasize-lines: 60, 68-92, 112-130
    :linenos:
@@ -320,21 +320,21 @@ HTML  форму, если `POST` записывает данные в спис�
 
 .. figure:: /_static/wsgi/blog/1_6_step_dia.*
    :align: center
-   :scale: 100
+   :width: 600px
 
    BasicAuth `WSGI-middleware` для авторизации
 
 В нашем примере используется алгоритм ``BasicAuth`` и `WSGI-middleware`
 ``middlewares.basicauth.BasicAuth``.
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/middlewares/basicauth.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/middlewares/basicauth.py
    :language: python
    :pyobject: BasicAuth
    :linenos:
 
 Полный код с изменениями:
 
-.. literalinclude:: /../sourcecode/wsgi/blog/0.paster/6_step.py
+.. literalinclude:: /../sourcecode/5.www.sync/2.codding/blog/0.paster/6_step.py
    :language: python
    :emphasize-lines: 13, 143-147, 152, 154, 155
    :linenos:

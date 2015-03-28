@@ -33,7 +33,7 @@ def app(environ, start_response):
     start_response('200 OK', [('Content-Type', 'text/plain')])
     return ['You have been here %d times!\n' % count, ]
 
-app = EvalException(app)   # go to http://localhost:8000/Errors
+# app = EvalException(app)   # go to http://localhost:8000/Errors
 app = SessionMiddleware(app)
 app = GzipMiddleware(app)
 app = PonyMiddleware(app)  # go to http://localhost:8000/pony
