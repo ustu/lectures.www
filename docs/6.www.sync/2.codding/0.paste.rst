@@ -31,7 +31,7 @@ HTTP server
 
 .. figure:: /_static/wsgi/blog/1_0_step_dia.*
    :align: center
-   :width: 600px
+   :width: 450pt
 
    Схема работы WSGI-приложения `Blog`
 
@@ -63,7 +63,7 @@ URL диспетчеризация
 
 .. figure:: /_static/wsgi/blog/1_1_step_dia.*
    :align: center
-   :width: 600px
+   :width: 450pt
 
    URLDispatch middleware
 
@@ -111,7 +111,7 @@ URL диспетчеризация
 
 .. figure:: /_static/wsgi/blog/1_2_step_dia.*
    :align: center
-   :width: 600px
+   :width: 450pt
 
    Сопоставление путей и `WSGI-приложений`
 
@@ -320,7 +320,7 @@ HTML  форму, если `POST` записывает данные в спис�
 
 .. figure:: /_static/wsgi/blog/1_6_step_dia.*
    :align: center
-   :width: 600px
+   :width: 450pt
 
    BasicAuth `WSGI-middleware` для авторизации
 
