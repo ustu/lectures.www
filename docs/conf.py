@@ -28,7 +28,8 @@ image_types = ['image/png', 'image/svg+xml', 'image/gif', 'image/jpeg']
 LaTeXBuilder.supported_image_types = image_types
 StandaloneHTMLBuilder.supported_image_types = image_types
 
-html_logo = '_static/info-small.png'
+_LOGO = '_static/info-small.png'
+html_logo = _LOGO
 html_favicon = '_static/urfu.ico'
 html_sidebars = {
     '**': ['globaltoc.html',
@@ -87,10 +88,12 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
+    'sphinx.ext.extlinks',
     'sphinxcontrib.fulltoc']
 
 # TODO
-todo_include_todos = True
+if 'NO_METRIKA' not in os.environ:
+    todo_include_todos = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -259,14 +262,14 @@ ADDITIONAL_PREAMBLE = """
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
-    'papersize': 'letterpaper',
-    'wrapperclass': 'book',
+    'papersize': 'a4papper',
+    'wrapperclass': 'scrbook',
     # The font size ('10pt', '11pt' or '12pt').
     'pointsize': '12pt',
     # 'fontpkg': '\\usepackage[sfdefault]{cabin}',
     # Additional stuff for the LaTeX preamble.
     'preamble': ADDITIONAL_PREAMBLE,
-    'figure_align': 'H',  # htbp
+    'figure_align': 'ht',  # htbp
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -280,7 +283,7 @@ latex_documents = [
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-latex_logo = '_static/info-small.png'
+latex_logo = _LOGO
 # latex_additional_files = ["arial.sty", ]
 
 # For "manual" documents, if this is true, then toplevel headings are parts,

@@ -94,9 +94,6 @@ TODO: Вставить схему обхода словаря
     :language: python
     :linenos:
 
-Примечания
-----------
-
 .. [1] https://github.com/zopefoundation/ZODB
 .. [2] https://github.com/zodb/relstorage
 .. [3] `Atomicity Consistency Isolation Durability <https://ru.wikipedia.org/wiki/ACID>`_
