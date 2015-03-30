@@ -4,6 +4,7 @@ language: python
 install:
     - pip install pep8 flake
     - pip install git+https://github.com/myint/rstcheck.git
+    # - pip install git+https://github.com/uralbash/rstcheck.git@path-1
     - pip install -r requirements.txt
 
 script:
