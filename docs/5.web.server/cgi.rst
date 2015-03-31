@@ -14,12 +14,11 @@ CGI
 
 Упрощенная модель, иллюстрирующая работу CGI:
 
-.. image:: /_static/cgi.svg
-   :width: 800px
+.. image:: /_static/5.web.server/cgi.*
+   :width: 550pt
+   :align: center
 
 Сам интерфейс разработан таким образом, чтобы можно было использовать любой язык программирования, который может работать со стандартными устройствами ввода-вывода. Такими возможностями обладают даже скрипты для встроенных командных интерпретаторов операционных систем, поэтому в простых случаях могут использоваться даже командные скрипты.
-
-
 
 Как работает CGI?
 -----------------
@@ -117,8 +116,9 @@ CGI
    :language: python
    :linenos:
 
-.. image:: /_static/cgi_env.png
-   :width: 700px
+.. image:: /_static/5.web.server/cgi_env.png
+   :width: 500pt
+   :align: center
 
 Преимущества CGI
 ----------------
@@ -271,6 +271,8 @@ GET и POST запросы
 
 * **GET** (action="http://localhost:8000/cgi-bin/3.get.post.cgi" method="get")
 
+   .. todo:: Add LaTeX support
+
    .. raw:: html
 
         <form action="http://localhost:8000/cgi-bin/3.get.post.cgi"
@@ -282,6 +284,8 @@ GET и POST запросы
         </form>
 
 * **POST** (action="http://localhost:8000/cgi-bin/3.get.post.cgi" method="post")
+
+   .. todo:: Add LaTeX support
 
    .. raw:: html
 
@@ -316,6 +320,8 @@ C++
 Checkbox
 ~~~~~~~~
 
+.. todo:: Add LaTeX support
+
 .. raw:: html
 
    <form action="http://localhost:8000/cgi-bin/4.checkbox.cgi" method="POST" target="_blank">
@@ -340,6 +346,8 @@ C++
 
 Radio
 ~~~~~
+
+.. todo:: Add LaTeX support
 
 .. raw:: html
 
@@ -367,6 +375,8 @@ C++
 TextArea
 ~~~~~~~~
 
+.. todo:: Add LaTeX support
+
 .. raw:: html
 
    <form action="http://localhost:8000/cgi-bin/6.textarea.cgi" method="POST" target="_blank">
@@ -392,6 +402,8 @@ C++
 
 Drop Down Box
 ~~~~~~~~~~~~~
+
+.. todo:: Add LaTeX support
 
 .. raw:: html
 
@@ -464,6 +476,8 @@ C++
 Загрузка файлов
 ~~~~~~~~~~~~~~~
 
+.. todo:: Add LaTeX support
+
 .. raw:: html
 
    <form action="http://localhost:8000/cgi-bin/10.fileupload.cgi" method="POST"
@@ -505,4 +519,6 @@ Python
    :linenos:
    :emphasize-lines: 24
 
-.. image:: /_static/cgitb.png
+.. figure:: /_static/5.web.server/cgitb.png
+   :align: center
+   :Width: 400pt

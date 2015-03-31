@@ -6,8 +6,9 @@ FastCGI
    * `<http://dev-lab.info/2012/10/пример-простого-fastcgi-сервера-и-fastcgi-клиента/>`_
    * https://ru.wikipedia.org/wiki/FastCGI
 
-.. image:: /_static/FastCGI_vs_CGI.svg
-   :width: 800px
+.. image:: /_static/5.web.server/FastCGI_vs_CGI.*
+   :width: 550pt
+   :align: center
 
 Что такое FastCGI
 -----------------

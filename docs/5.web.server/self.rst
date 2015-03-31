@@ -5,8 +5,9 @@
 
    * http://golang.org/pkg/net/http/
 
-.. image:: /_static/reverse_proxy.svg
-   :width: 800px
+.. figure:: /_static/5.web.server/reverse_proxy.*
+   :width: 500pt
+   :align: center
 
 В некоторых языках, например `Go`, уже существует встроенный Веб-сервер, который можно использовать в вашем приложении.
 

@@ -27,9 +27,9 @@
 браузер запрашивает его через HTTP. Когда запрос достигает нужного веб-сервера (железо),
 сервер HTTP (ПО) передает запрашиваемый документ обратно, также через HTTP.
 
-.. image:: /_static/web-server.svg
+.. figure:: /_static/5.web.server/web-server.*
    :align: center
-   :width: 600px
+   :width: 550pt
 
 .. seealso::
 
@@ -131,8 +131,9 @@ HTTP задает строгие правила, как клиент и серв
 
 На веб-сервере, HTTP сервер отвечает за обработку входящих запросов и ответ на них.
 
-.. image:: /_static/mdn-404.jpg
+.. figure:: /_static/5.web.server/mdn-404.jpg
    :align: right
+   :width: 200pt
    :target: https://developer.mozilla.org/en-US/404
 
 
