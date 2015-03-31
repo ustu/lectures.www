@@ -46,7 +46,7 @@ Application
 
 Простейшим примером WSGI-приложения может служить такая функция-генератор:
 
-.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/wsgi/1.cgi.app.py
+.. literalinclude:: /../sourcecode/5.web.server/wsgi/1.cgi.app.py
    :language: python
    :pyobject: simple_app
    :linenos:
@@ -59,7 +59,7 @@ Application
 
 или то же самое в виде класса:
 
-.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/wsgi/1.cgi.app.py
+.. literalinclude:: /../sourcecode/5.web.server/wsgi/1.cgi.app.py
    :language: python
    :pyobject: AppClass
    :linenos:
@@ -87,7 +87,7 @@ Server/Gateway
 
 Пример WSGI-шлюза к CGI-серверу.
 
-.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/wsgi/cgi_gateway.py
+.. literalinclude:: /../sourcecode/5.web.server/wsgi/cgi_gateway.py
    :language: python
    :linenos:
 
@@ -123,7 +123,7 @@ start_response
 * ``response_headers`` - список кортежей, которые содержат заголовки ответа, например
   ``[('Content-Type', 'text/html'), ('Content-Length', '15')``.
 
-.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/wsgi/1.cgi.app.py
+.. literalinclude:: /../sourcecode/5.web.server/wsgi/1.cgi.app.py
    :language: python
    :pyobject: simple_app
    :emphasize-lines: 2-4
@@ -159,7 +159,7 @@ start_response
 
 Запуск нашего приложения через WSGI-шлюз к CGI
 
-.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/wsgi/1.cgi.app.py
+.. literalinclude:: /../sourcecode/5.web.server/wsgi/1.cgi.app.py
    :language: python
    :linenos:
 
@@ -212,7 +212,7 @@ Middleware могут брать на себя следующие функции
    :width: 400pt
    :align: left
 
-.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/wsgi/3.http.middleware.py
+.. literalinclude:: /../sourcecode/5.web.server/wsgi/3.http.middleware.py
    :language: python
    :pyobject: app
    :linenos:
@@ -336,7 +336,7 @@ Pony
 Полный пример
 ~~~~~~~~~~~~~
 
-.. literalinclude:: /../sourcecode/5.www.sync/1.web.server/wsgi/3.http.middleware.py
+.. literalinclude:: /../sourcecode/5.web.server/wsgi/3.http.middleware.py
    :language: python
    :linenos:
 
