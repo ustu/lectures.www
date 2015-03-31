@@ -55,8 +55,10 @@
 Пример передачи "Hello World"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: /_static/pipe.gif
-   :align: center
+.. only:: not latex
+
+   .. image:: /_static/4.net/pipe.gif
+      :align: center
 
 Создаем именованный канал при помощи утилиты `mkfifo`
 

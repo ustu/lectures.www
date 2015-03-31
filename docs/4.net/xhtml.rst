@@ -60,4 +60,6 @@
         f.write(r.content)
         f.close()
 
-.. image:: /_static/imgur.png
+.. figure:: /_static/4.net/imgur.png
+   :align: center
+   :width: 500pt

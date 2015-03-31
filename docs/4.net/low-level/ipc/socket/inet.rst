@@ -1,8 +1,9 @@
 Передача данных через INET сокеты
 =================================
 
-.. image:: /_static/socket.*
-   :width: 600px
+.. figure:: /_static/4.net/socket.*
+   :width: 600pt
+   :align: center
 
 TCP пример
 ----------
@@ -15,7 +16,7 @@ TCP пример
 
 .. only:: not latex
 
-   .. image:: /_static/tcp_socket.gif
+   .. image:: /_static/4.net/tcp_socket.gif
       :align: center
 
 TCP клиент
@@ -57,7 +58,7 @@ UDP пример
 
 .. only:: not latex
 
-   .. image:: /_static/udp_socket.gif
+   .. image:: /_static/4.net/udp_socket.gif
       :align: center
 
 UDP клиент

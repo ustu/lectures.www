@@ -78,6 +78,8 @@ URI
       urn:example:animal:ferret:nose
 
 
+.. todo:: Переписать, что бы работало в LaTeX
+
 .. raw:: html
 
     <style>
@@ -453,6 +455,8 @@ HTTP по умолчанию использует порт 80, поэтому е
 
    * https://ru.wikipedia.org/wiki/Chunked_transfer_encoding
 
+.. todo:: Переписать, что бы работало в LaTeX
+
 .. raw:: html
 
     <div class='blue'>Основные заголовки</div>
@@ -650,7 +654,7 @@ Cookie
 .. figure:: /_static/3.kpd/http.example.mozzila.png
     :alt: Стартовое окно браузера
     :align: center
-    :width: 800pt
+    :width: 500pt
 
     Стартовое окно браузера
 

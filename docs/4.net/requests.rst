@@ -20,20 +20,20 @@ httplib представляет собой простую обертку вок
     conn = httplib.HTTPConnection("lectureswww.readthedocs.org")
     conn.request("GET", "/ru/latest/")
     r1 = conn.getresponse()
-    print(r1.status, r1.reason)
+    print(r1.status)
 
     data1 = r1.read()
     conn.request("GET", "/parrot.spam")
     r2 = conn.getresponse()
-    print(r2.status, r2.reason)
+    print(r2.status)
 
     data2 = r2.read()
     conn.close()
 
-.. code-block:: bash
+.. code-block:: text
 
-    200 OK
-    404 OK
+    200
+    404
 
 В переменных data1, data2 хранится тело ответа.
 
@@ -184,7 +184,7 @@ urllib2
     print
     print(response.read()[:350])
 
-.. no-code-block:: bash
+.. no-code-block:: html
 
     Server: nginx/1.4.6 (Ubuntu)
     X-Deity: asgard-lts
@@ -248,7 +248,7 @@ urllib2
         print(line.rstrip())
 
 
-.. no-code-block:: bash
+.. no-code-block:: html
 
     Response: <addinfourl at 140390167715208 whose fp = <socket._fileobject object at 0x7faf2451b8d0>>
     The URL is:  http://lectureswww.readthedocs.org/ru/latest/

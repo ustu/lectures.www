@@ -324,8 +324,9 @@ SOCK_STREAM vs SOCK_DGRAM
     * `UDP <http://www.soslan.ru/tcp/tcp11.html>`_
     * `TCP <http://www.soslan.ru/tcp/tcp17.html>`_
 
-.. image:: /_static/stream_datagram_socket.svg
-   :width: 300px
+.. figure:: /_static/4.net/stream_datagram_socket.*
+   :width: 300pt
+   :align: center
 
 +--------------------------------------+----------------------------+
 | Потоковый (SOCK_STREAM)              | Дейтаграммный (SOCK_DGRAM) |

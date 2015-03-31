@@ -31,12 +31,12 @@
    Пример работы
    ~~~~~~~~~~~~~
 
-   .. image:: /_static/unix_socket.gif
+   .. image:: /_static/4.net/unix_socket.gif
       :align: center
 
 Схематичное отображение
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: /_static/socket_unix.*
+.. image:: /_static/4.net/socket_unix.*
    :align: center
    :width: 600px

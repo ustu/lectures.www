@@ -256,7 +256,10 @@ tcpdump — утилита UNIX (есть клон для Windows), позвол
 Поиск паролей в трафике если он не использует шифрование.
 Например если ввести логин и пароль в HTML форме.
 
-.. image:: /_static/login_form.png
+.. figure:: /_static/4.net/login_form.png
+    :align: center
+
+.. todo:: Add LaTeX support!
 
 **HTTP** (http://httpbin.org/post)
 
@@ -326,8 +329,9 @@ Wireshark (ранее — Ethereal) — программа-анализатор 
 
 Просмотр только ICMP трафика в WireShark
 
-.. image:: /_static/wireshark.png
+.. figure:: /_static/4.net/wireshark.png
     :align: center
+    :width: 550pt
 
 mitmproxy
 ---------

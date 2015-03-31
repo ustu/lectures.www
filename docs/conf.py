@@ -92,7 +92,7 @@ extensions = [
     'sphinxcontrib.fulltoc']
 
 # TODO
-if 'NO_METRIKA' not in os.environ:
+if 'NO_METRIKA' in os.environ:
     todo_include_todos = True
 
 # Add any paths that contain templates here, relative to this directory.
