@@ -12,7 +12,7 @@ WSGI (pep-333)
     * http://pylons-webframework.readthedocs.org/en/latest/concepts.html
     * http://www.docstoc.com/docs/69863691/WSGI-from-Start-to-Finish
 
-.. figure:: /_static/wsgi/wsgi.*
+.. figure:: /_static/6.www.sync/wsgi/wsgi.*
    :align: center
    :scale: 80
 
@@ -25,7 +25,7 @@ WSGI (pep-333)
 
 WSGI предоставляет простой и универсальный интерфейс между большинством веб-серверов и веб-приложениями или фреймворками.
 
-.. figure:: /_static/wsgi/wsgi_ianb.png
+.. figure:: /_static/6.www.sync/wsgi/wsgi_ianb.png
    :align: center
 
    Пример работы `WSGI` (автор Ян Бикинг)
@@ -51,9 +51,9 @@ Application
    :pyobject: simple_app
    :linenos:
 
-.. figure:: /_static/wsgi/wsgi-app.png
+.. figure:: /_static/6.www.sync/wsgi/wsgi-app.png
    :align: center
-   :width: 400px
+   :width: 400pt
 
    `WSGI-приложение`
 
@@ -79,9 +79,9 @@ Server/Gateway
 * а **WSGI шлюз** приводит к формату клиент-серверного протокола (CGI, FastCGI, SCGI, uWSGI, ...)
   и передает их на Веб-сервер (например выводит в stdout, stderr).
 
-.. figure:: /_static/wsgi/server-app.png
+.. figure:: /_static/6.www.sync/wsgi/server-app.png
    :align: center
-   :width: 400px
+   :width: 400pt
 
    `WSGI-сервер`
 
@@ -179,9 +179,9 @@ start_response
 Middleware
 ----------
 
-.. figure:: /_static/wsgi/server-middleware-app.png
+.. figure:: /_static/6.www.sync/wsgi/server-middleware-app.png
    :align: center
-   :width: 500px
+   :width: 500pt
 
    `WSGI-middleware`
 
@@ -203,13 +203,13 @@ Middleware могут брать на себя следующие функции
 * Сжатие Gzip
 * Пони
 
-.. image:: /_static/vector/wsgi_as_onion.svg
+.. figure:: /_static/vector/wsgi_as_onion.*
 
 Приложение
 ~~~~~~~~~~
 
-.. image:: /_static/wsgi/wsgi_as_onion_app.png
-   :width: 400px
+.. figure:: /_static/6.www.sync/wsgi/wsgi_as_onion_app.png
+   :width: 400pt
    :align: left
 
 .. literalinclude:: /../sourcecode/5.www.sync/1.web.server/wsgi/3.http.middleware.py
@@ -224,15 +224,15 @@ Middleware могут брать на себя следующие функции
 Приложение выводи число 1 при первом обращении, записывает его в сессию и при каждом
 последующем обращении увеличивает число на 1.
 
-.. image:: /_static/wsgi/wsgi_example.png
+.. figure:: /_static/6.www.sync/wsgi/wsgi_example.png
 
 Т.к. протокол HTTP не сохраняет предыдущего состояния, то при обновлении страницы число не увеличится. Что бы это произошло нужно реализовать механизм сессии.
 
 Обработчик исключений
 ~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: /_static/wsgi/wsgi_as_onion_evalexception.png
-   :width: 400px
+.. figure:: /_static/6.www.sync/wsgi/wsgi_as_onion_evalexception.png
+   :width: 400pt
    :align: left
 
 .. code-block:: python
@@ -249,13 +249,13 @@ Middleware могут брать на себя следующие функции
 Если мы перейдем по адресу http://localhost:8000/Errors_500, наше приложение
 найдет слово `error` в пути и искусственно вызовет исключение.
 
-.. image:: /_static/wsgi/wsgi_example_error.png
+.. figure:: /_static/6.www.sync/wsgi/wsgi_example_error.png
 
 Сессии
 ~~~~~~
 
-.. image:: /_static/wsgi/wsgi_as_onion_session.png
-   :width: 400px
+.. figure:: /_static/6.www.sync/wsgi/wsgi_as_onion_session.png
+   :width: 400pt
    :align: left
 
 .. code-block:: python
@@ -289,13 +289,13 @@ Middleware могут брать на себя следующие функции
 объекты в нем и присваивает переменной окружения ``paste.session.factory``. Таким образом
 мы можем хранить состояние сессии и при каждом обновлении будет отдаваться значение увеличенное на 1.
 
-.. image:: /_static/wsgi/wsgi_example_count.png
+.. figure:: /_static/6.www.sync/wsgi/wsgi_example_count.png
 
 Сжатие Gzip
 ~~~~~~~~~~~
 
-.. image:: /_static/wsgi/wsgi_as_onion_gzip.png
-   :width: 400px
+.. figure:: /_static/6.www.sync/wsgi/wsgi_as_onion_gzip.png
+   :width: 400pt
    :align: left
 
 .. code-block:: python
@@ -310,13 +310,13 @@ Middleware могут брать на себя следующие функции
 
 ``GzipMiddleware`` сжимает ответ методом gzip
 
-.. image:: /_static/wsgi/wsgi_example_gzip.png
+.. figure:: /_static/6.www.sync/wsgi/wsgi_example_gzip.png
 
 Pony
 ~~~~
 
-.. image:: /_static/wsgi/wsgi_as_onion_pony.png
-   :width: 400px
+.. figure:: /_static/6.www.sync/wsgi/wsgi_as_onion_pony.png
+   :width: 400pt
    :align: left
 
 .. code-block:: python
@@ -331,7 +331,7 @@ Pony
 
 Это самое важное расширение в WSGI. Доступно по адресу http://localhost:8000/pony.
 
-.. image:: /_static/wsgi/wsgi_example_pony.png
+.. figure:: /_static/6.www.sync/wsgi/wsgi_example_pony.png
 
 Полный пример
 ~~~~~~~~~~~~~

@@ -29,7 +29,7 @@ HTTP server
    :language: python
    :linenos:
 
-.. figure:: /_static/wsgi/blog/1_0_step_dia.*
+.. figure:: /_static/6.www.sync/wsgi/blog/1_0_step_dia.*
    :align: center
    :width: 450pt
 
@@ -37,7 +37,7 @@ HTTP server
 
 Теперь приложение доступно по адресу http://localhost:8000/.
 
-.. figure:: /_static/wsgi/blog/1_0_step.png
+.. figure:: /_static/6.www.sync/wsgi/blog/1_0_step.png
    :align: center
    :scale: 80
 
@@ -61,7 +61,7 @@ URL диспетчеризация
    :pyobject: URLDispatch
    :linenos:
 
-.. figure:: /_static/wsgi/blog/1_1_step_dia.*
+.. figure:: /_static/6.www.sync/wsgi/blog/1_1_step_dia.*
    :align: center
    :width: 450pt
 
@@ -76,7 +76,7 @@ URL диспетчеризация
 
 Любой путь отличающийся от корневого (http://localhost:8000/), по которому доступно приложение ``blog``, будет инициализировать `404 код ошибки`.
 
-.. figure:: /_static/wsgi/blog/1_1_step.png
+.. figure:: /_static/6.www.sync/wsgi/blog/1_1_step.png
    :align: center
    :scale: 80
 
@@ -109,7 +109,7 @@ URL диспетчеризация
 
 Добавим `WSGI-приложения` которые будут реализовывать `CRUD` и укажем им соответствующие адреса.
 
-.. figure:: /_static/wsgi/blog/1_2_step_dia.*
+.. figure:: /_static/6.www.sync/wsgi/blog/1_2_step_dia.*
    :align: center
    :width: 450pt
 
@@ -162,9 +162,9 @@ URL диспетчеризация
    :emphasize-lines: 11-14
    :linenos:
 
-.. figure:: /_static/wsgi/blog/1_3_step_dia.*
+.. figure:: /_static/6.www.sync/wsgi/blog/1_3_step_dia.*
    :align: center
-   :width: 600px
+   :width: 550pt
 
    URL пути на регулярных выражениях
 
@@ -222,7 +222,7 @@ URL диспетчеризация
    :emphasize-lines: 6-9
    :linenos:
 
-.. figure:: /_static/wsgi/blog/1_4_step.png
+.. figure:: /_static/6.www.sync/wsgi/blog/1_4_step.png
    :align: center
    :scale: 80
 
@@ -246,7 +246,7 @@ URL диспетчеризация
    :pyobject: BlogRead
    :linenos:
 
-.. figure:: /_static/wsgi/blog/1_4_step2.png
+.. figure:: /_static/6.www.sync/wsgi/blog/1_4_step2.png
    :align: center
    :scale: 80
 
@@ -280,7 +280,7 @@ HTML  форму, если `POST` записывает данные в спис�
    :pyobject: BlogCreate
    :linenos:
 
-.. figure:: /_static/wsgi/blog/1_5_step.png
+.. figure:: /_static/6.www.sync/wsgi/blog/1_5_step.png
    :align: center
    :scale: 70
 
@@ -295,7 +295,7 @@ HTML  форму, если `POST` записывает данные в спис�
    :pyobject: BlogUpdate
    :linenos:
 
-.. figure:: /_static/wsgi/blog/1_5_step2.png
+.. figure:: /_static/6.www.sync/wsgi/blog/1_5_step2.png
    :align: center
    :scale: 80
 
@@ -318,7 +318,7 @@ HTML  форму, если `POST` записывает данные в спис�
 Для операций которые меняют данные (``BlogCreate``, ``BlogUpdate``,
 ``BlogDelete``) нужно добавить проверку пользователя.
 
-.. figure:: /_static/wsgi/blog/1_6_step_dia.*
+.. figure:: /_static/6.www.sync/wsgi/blog/1_6_step_dia.*
    :align: center
    :width: 450pt
 
