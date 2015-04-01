@@ -7,7 +7,7 @@ Paste
 
 .. note:: | Исходный код данного примера доступен по адресу:
 
-   * https://github.com/ustu/lectures.www/tree/master/sourcecode/6.www.sync/2.codding/blog/0.paster
+   * :src:`6.www.sync/2.codding/blog/0.paster`
 
 Python Paste, или просто Paste — набор программ для веб-разработки с использованием языка Python.
 Включает в себя множество различных `middleware`, `WSGI-сервер` и другое.

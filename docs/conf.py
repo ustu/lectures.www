@@ -14,7 +14,9 @@
 
 import os
 
+import docutils
 from docutils.parsers.rst import directives
+from docutils.parsers.rst.roles import set_classes
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.builders.latex import LaTeXBuilder
 from sphinx.directives.code import CodeBlock
@@ -38,15 +40,6 @@ html_sidebars = {
            ],
     'using/windows': ['windowssidebar.html', 'searchbox.html'],
 }
-
-
-def setup(app):
-    if 'NO_METRIKA' not in os.environ:
-        app.add_javascript('js/metrika.js')
-    app.add_javascript('js/jquery.fancybox.js')
-    app.add_stylesheet('css/jquery.fancybox.css')
-    app.add_stylesheet('css/todo.css')
-
 
 # If true, figures, tables and code-blocks are automatically numbered if they
 # has caption. For now, it works only with the HTML builder. Default is False.
@@ -88,7 +81,6 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
-    'sphinx.ext.extlinks',
     'sphinxcontrib.fulltoc']
 
 # TODO
@@ -412,3 +404,64 @@ epub_exclude_files = ['search.html']
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'http://docs.python.org/': None}
+
+
+def rfc_reference_role(role, rawtext, text, lineno, inliner,
+                       options={}, content=[]):
+    """
+    Example:
+
+        See :RFC:`2822` for information about email headers.
+    """
+    try:
+        rfcnum = int(text)
+        if rfcnum <= 0:
+            raise ValueError
+    except ValueError:
+        msg = inliner.reporter.error(
+            'RFC number must be a number greater than or equal to 1; '
+            '"%s" is invalid.' % text, line=lineno)
+        prb = inliner.problematic(rawtext, rawtext, msg)
+        return [prb], [msg]
+    # Base URL mainly used by inliner.rfc_reference, so this is correct:
+    ref = inliner.document.settings.rfc_base_url + inliner.rfc_url % rfcnum
+    set_classes(options)
+    node = docutils.nodes.reference(rawtext, 'RFC ' +
+                                    docutils.utils.unescape(text),
+                                    refuri=ref, **options)
+    return [node], []
+
+
+def sourcecode(role, rawtext, text, lineno, inliner,
+               options={}, content=[]):
+    """
+    Example:
+
+        See code there :src:`6.www.sync/2.codding/blog/0.paster`.
+    """
+    # Base URL mainly used by inliner.rfc_reference, so this is correct:
+    SOURCE_URL =\
+        'https://github.com/ustu/lectures.www/tree/master/sourcecode/'
+    ref = SOURCE_URL + text
+    set_classes(options)
+    node = docutils.nodes.reference(
+        rawtext,
+        SOURCE_URL + docutils.utils.unescape(text),
+        refuri=ref, **options)
+    return [node], []
+
+
+def setup(app):
+    """Install the plugin.
+
+    :param app: Sphinx application context.
+    """
+    if 'NO_METRIKA' not in os.environ:
+        app.add_javascript('js/metrika.js')
+    app.add_javascript('js/jquery.fancybox.js')
+    app.add_stylesheet('css/jquery.fancybox.css')
+    app.add_stylesheet('css/todo.css')
+
+    # Add roles
+    app.add_role('RFC', rfc_reference_role)
+    app.add_role('src', sourcecode)
