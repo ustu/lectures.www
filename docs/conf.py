@@ -432,6 +432,7 @@ def rfc_reference_role(role, rawtext, text, lineno, inliner,
     return [node], []
 
 
+# TODO: сделать через директиву, типа .. note::
 def sourcecode(role, rawtext, text, lineno, inliner,
                options={}, content=[]):
     """
