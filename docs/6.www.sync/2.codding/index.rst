@@ -17,9 +17,9 @@
    1.mvc.rst
    2.routes.rst
    3.templates/index.rst
-   4.pagination.rst
-   5.forms.rst
-   webob.rst
-   static.rst
-   repoze.rst
-   databases.rst
+   4.static.rst
+   5.pagination.rst
+   6.forms.rst
+   7.webob.rst
+   8.session.rst
+   9.databases.rst
