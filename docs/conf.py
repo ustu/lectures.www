@@ -31,6 +31,7 @@ LaTeXBuilder.supported_image_types = image_types
 StandaloneHTMLBuilder.supported_image_types = image_types
 
 _LOGO = '_static/info-small.png'
+
 html_logo = _LOGO
 html_favicon = '_static/urfu.ico'
 html_sidebars = {

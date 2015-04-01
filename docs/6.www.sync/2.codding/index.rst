@@ -16,7 +16,7 @@
    0.paste.rst
    1.mvc.rst
    2.routes.rst
-   3.templates.rst
+   3.templates/index.rst
    4.pagination.rst
    5.forms.rst
    webob.rst
