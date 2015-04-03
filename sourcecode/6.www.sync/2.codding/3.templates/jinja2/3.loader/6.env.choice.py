@@ -25,5 +25,5 @@ env = Environment(loader=ChoiceLoader({
 }))
 template1 = env.get_template('index.html')
 template2 = env.get_template('0.hello.html')
-print(template1.render(name='Петя'))
-print(template2.render(name='Петя'))
+print(template1.render(name=u'Петя'))
+print(template2.render(name=u'Петя'))

@@ -21,4 +21,4 @@ def myloader(name):
 
 env = Environment(loader=FunctionLoader(myloader))
 template = env.get_template('index.html')
-print(template.render(name='Петя'))
+print(template.render(name=u'Петя'))

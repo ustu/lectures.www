@@ -256,6 +256,80 @@ BaseLoader
 {% extends "Наследование" %}
 ----------------------------
 
+.. todo:: добавить описание
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/5.inherit/base.html
+   :language: jinja
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/5.inherit/index.html
+   :language: jinja
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/5.inherit/app.py
+   :language: python
+   :linenos:
+
+.. code-block:: html
+
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+
+
+       <link rel="stylesheet" href="style.css" />
+       <title>Index - My Webpage</title>
+       <meta charset='utf-8'>
+
+       <style type="text/css">
+           .important { color: #336699; }
+       </style>
+
+   </head>
+   <body>
+       <div id="content">
+       <h1>Index</h1>
+       <p class="important">
+         Welcome Петя to my awesome homepage.
+       </p>
+   </div>
+       <div id="footer">
+
+           &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+
+       </div>
+   </body>
+   </html>
+
+.. figure:: /_static/6.www.sync/3.templates/inherit.png
+
 Блог
 ----
 
+.. todo:: добавить описание
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/templates/base.html
+   :language: jinja
+   :linenos:
+   :caption: templates/base.html
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/templates/index.html
+   :language: jinja
+   :linenos:
+   :caption: templates/index.html
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/templates/create.html
+   :language: jinja
+   :linenos:
+   :caption: templates/create.html
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/templates/read.html
+   :language: jinja
+   :linenos:
+   :caption: templates/read.html
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/views.py
+   :language: python
+   :linenos:
+   :emphasize-lines: 5, 30, 52, 64, 80
+   :caption: views.py

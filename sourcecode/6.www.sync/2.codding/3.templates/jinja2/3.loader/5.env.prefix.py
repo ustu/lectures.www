@@ -25,5 +25,5 @@ env = Environment(loader=PrefixLoader({
 }))
 template1 = env.get_template('foo/index.html')
 template2 = env.get_template('bar/0.hello.html')
-print(template1.render(name='Петя'))
-print(template2.render(name='Петя'))
+print(template1.render(name=u'Петя'))
+print(template2.render(name=u'Петя'))

@@ -16,4 +16,4 @@ html = '''<!DOCTYPE html>
 
 env = Environment(loader=DictLoader({'index.html': html}))
 template = env.get_template('index.html')
-print(template.render(name='Петя'))
+print(template.render(name=u'Петя'))
