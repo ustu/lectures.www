@@ -1,3 +1,6 @@
 Статика
 =======
 
+* https://github.com/evansd/whitenoise
+* https://github.com/lukearno/static
+* http://docs.repoze.org/moonshining/tools/paste.html
