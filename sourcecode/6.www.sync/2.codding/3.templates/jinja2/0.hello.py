@@ -2,4 +2,4 @@
 from jinja2 import Template
 
 template = Template('Hello {{ name }}!')
-print(template.render(name='Вася'))
+print(template.render(name=u'Вася'))

@@ -28,7 +28,7 @@ Hello Вася!
 
 .. code-block:: jinja
 
-   {# note: commented-out template because we no longer use this
+   {# Это кусок кода который стал временно не ненужен, но удалять жалко
        {% for user in users %}
            ...
        {% endfor %}
