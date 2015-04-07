@@ -17,6 +17,43 @@
 
 .. figure:: /_static/6.www.sync/web/template.*
 
+Простой пример на `PHP`:
+
+.. code-block:: php
+
+   <html>
+      <head>
+         <title>
+            Тестируем PHP
+         </title>
+      </head>
+      <body>
+
+         <?php
+            echo 'Hello, world!';
+         ?>
+
+      </body>
+   </html>
+
+Результат:
+
+.. code-block:: html
+
+   <html>
+      <head>
+         <title>
+            Тестируем PHP
+         </title>
+      </head>
+      <body>
+
+         Hello, world!
+      </body>
+   </html>
+
+
+
 .. toctree::
    :maxdepth: 3
 
