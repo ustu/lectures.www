@@ -1,14 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}{{ article.title }}{% endblock %}
-
+{% block title %}Index{% endblock %}
 {% block content %}
-    <div class="blog__title">
-        <a href="/" class="blog__title-link">Simple Blog</a>
-        <span class="blog__title-text">{{ article.title }}</span>
-    </div>
-    <div class="blog-item">
-        <div class="blog-item__title">{{ article.title }}</div>
-        <div class="blog-item__text">{{ article.content }}</div>
-    </div>
+    <h1><a href="/">Simple Blog</a> -> READ</h1>
+    <h2>{{ article.title }}</h2>
+    {{  article.content }}
 {% endblock %}

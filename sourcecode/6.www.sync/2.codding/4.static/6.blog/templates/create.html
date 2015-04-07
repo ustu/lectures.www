@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Create{% endblock %}
+
+{% block content %}
+    <div class="blog__title">
+        <a href="/" class="blog__title-link">Simple Blog</a>
+        <span class="blog__title-text">Edit</span>
+    </div>
+    <form action="" method="POST" class="blog-form">
+        <div class="blog-form-field">
+            <div class="blog-form-field__title">Title:</div>
+            <input type="text" class="blog-form-field__input" name="title" value="{{ article.title }}"><br>
+        </div>
+        <div class="blog-form-field">
+            <div class="blog-form-field__title">Content:</div>
+            <textarea class="blog-form-field__textarea" name="content">{{ article.content }}</textarea><br><br>
+        </div>
+        <input class="blog-form__button" type="submit" value="Submit">
+    </form>
+{% endblock %}
