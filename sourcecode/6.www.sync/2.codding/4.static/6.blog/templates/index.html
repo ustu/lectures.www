@@ -12,7 +12,7 @@
                 <a href="/article/{{ article.id }}" class="blog-list__item-link">{{ article.title }}</a>
                 <div class="blog-list__item-action">
                     <a href="/article/{{ article.id }}/edit" class="blog-list__item-edit">edit</a>
-                    <a href="/article/{{ article.id }}/delete" class="blog-list__item-delete">delete</a>
+                    <a href="/article/{{ article.id }}/delete" onclick="return confirm_delete();" class="blog-list__item-delete">delete</a>
                 </div>
             </div>
         {% endfor %}
