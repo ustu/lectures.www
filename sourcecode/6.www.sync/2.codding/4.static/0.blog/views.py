@@ -27,7 +27,8 @@ class BlogIndex(BaseBlog):
 
     def __iter__(self):
         self.start('200 OK', [('Content-Type', 'text/html')])
-        yield env.get_template('index.html').render(articles=ARTICLES)
+        yield env.get_template('index.html').render(articles=ARTICLES)\
+            .encode('utf-8')
 
 
 class BlogCreate(BaseBlog):
@@ -39,8 +40,8 @@ class BlogCreate(BaseBlog):
             max_id = max([art['id'] for art in ARTICLES])
             ARTICLES.append(
                 {'id': max_id+1,
-                 'title': values['title'].pop(),
-                 'content': values['content'].pop()
+                 'title': values['title'].pop().decode('utf-8'),
+                 'content': values['content'].pop().decode('utf-8')
                  }
             )
             self.start('302 Found',
@@ -61,7 +62,8 @@ class BlogRead(BaseArticle):
             return
 
         self.start('200 OK', [('Content-Type', 'text/html')])
-        yield env.get_template('read.html').render(article=self.article)
+        yield env.get_template('read.html').render(article=self.article)\
+            .encode('utf-8')
 
 
 class BlogUpdate(BaseArticle):
@@ -70,14 +72,15 @@ class BlogUpdate(BaseArticle):
         if self.environ['REQUEST_METHOD'].upper() == 'POST':
             from urlparse import parse_qs
             values = parse_qs(self.environ['wsgi.input'].read())
-            self.article['title'] = values['title'].pop()
-            self.article['content'] = values['content'].pop()
+            self.article['title'] = values['title'].pop().decode('utf-8')
+            self.article['content'] = values['content'].pop().decode('utf-8')
             self.start('302 Found',
                        [('Content-Type', 'text/html'),
                         ('Location', '/')])
             return
         self.start('200 OK', [('Content-Type', 'text/html')])
-        yield env.get_template('create.html').render(article=self.article)
+        yield env.get_template('create.html').render(article=self.article)\
+            .encode('utf-8')
 
 
 class BlogDelete(BaseArticle):
