@@ -5,6 +5,8 @@
       <title>{% block title %}{% endblock %} - My Blog</title>
       <meta charset='utf-8'>
     {% endblock %}
+	
+	
     {% block css %}
       <style type="text/css">
         .wrapper
@@ -210,5 +212,13 @@
           {% endblock %}
       </div>
     </div>
+	{% block js %}
+		<script type="text/javascript">
+			function confirm_delete() {
+				return confirm("Are you sure to delete entry?");
+			}
+		</script>
+    {% endblock %}
+	
 </body>
 </html>
