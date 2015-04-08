@@ -1,0 +1,25 @@
+body
+{
+	background: #eee;
+}
+h1
+{
+	color: red;
+	font-size: 5em;
+}
+a
+{
+	color: blue;
+	font-size: 1.8em;
+	padding: 0 1em;
+}
+a:hover
+{
+	font-size: 2em;
+	color: maroon;
+}
+p
+{
+	color: purple;
+	font-size: 1.2em;
+}

@@ -453,6 +453,26 @@ def sourcecode(role, rawtext, text, lineno, inliner,
     return [node], []
 
 
+GLOBAL_LINKS = {
+    'nginx': 'http://nginx.org/',
+}
+
+
+def global_link(role, rawtext, text, lineno, inliner,
+                options={}, content=[]):
+    """
+    Example:
+
+        See code there :l:`Nginx`.
+    """
+    link = GLOBAL_LINKS[text.lower()]
+    set_classes(options)
+    node = docutils.nodes.reference(
+        rawtext, docutils.utils.unescape(text),
+        refuri=link, **options)
+    return [node], []
+
+
 def setup(app):
     """Install the plugin.
 
@@ -467,3 +487,4 @@ def setup(app):
     # Add roles
     app.add_role('RFC', rfc_reference_role)
     app.add_role('src', sourcecode)
+    app.add_role('l', global_link)

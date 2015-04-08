@@ -1,6 +1,74 @@
 Статика
 =======
 
-* https://github.com/evansd/whitenoise
-* https://github.com/lukearno/static
-* http://docs.repoze.org/moonshining/tools/paste.html
+.. seealso::
+
+   * https://github.com/evansd/whitenoise
+   * https://github.com/lukearno/static
+   * http://docs.repoze.org/moonshining/tools/paste.html
+
+При загрузке HTML страницы браузер ищет все недостающие медиа-файлы (css, js, swf, png, svg, gif, jpg, avi, mp3, mp4, ...) и подгружает их отдельными HTTP запросами (см. :numref:`itcase`).
+
+.. figure:: /_static/6.www.sync/4.static/browser-static-load.png
+   :width: 530pt
+   :align: center
+   :name: itcase
+
+   http://itcase.pro
+
+Отдачу статических файлов можно настроить через отдельный сервер статики, например :l:`Nginx`, или реализовать средствами самого Веб-приложения.
+
+Nginx
+-----
+
+.. seealso::
+
+   * http://nginx.org/ru/docs/beginners_guide.html#static
+
+Для примера возьмем следующую структуру файлов:
+
+.. code-block:: text
+
+   /usr/share/nginx/html/
+   |-- index.html
+   |-- index2.html
+   `-- static_example
+       `-- static
+           |-- html-css-js.png
+           |-- jquery.min.js
+           |-- script.js
+           `-- style.css
+
+   2 directories, 6 files
+
+``index2.html`` страница которая ссылается на другие статические файлы.
+
+.. literalinclude:: /../sourcecode/nginx/html/index2.html
+   :language: html
+   :linenos:
+   :caption: index2.html
+   :emphasize-lines: 6,7,8,35
+
+Сервер :l:`Nginx` настроен таким образом, что по адресу ``/example`` отдается страница ``index2.html``, а по ``/static`` файлы из директории ``/usr/share/nginx/html/static_example/static``.
+
+.. literalinclude:: /../sourcecode/nginx/sites-enabled/default.nginx
+   :language: nginx
+   :linenos:
+   :caption: /etc/nginx/sites-enabled/default.html
+   :emphasize-lines: 11-17
+
+.. figure:: /_static/6.www.sync/4.static/nginx_wo_static.png
+   :width: 530pt
+   :align: center
+
+   Пример index2.html без статики
+
+.. figure:: /_static/6.www.sync/4.static/nginx_with_static.png
+   :width: 530pt
+   :align: center
+
+   Пример index2.html со статикой
+
+Paste
+-----
+
