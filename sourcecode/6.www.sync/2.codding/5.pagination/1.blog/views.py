@@ -31,7 +31,7 @@ class BlogIndex(BaseBlog):
         from paginate import Page
         from urlparse import parse_qs
         values = parse_qs(self.environ['QUERY_STRING'])
-        page = values.get('page', ('1', )).pop()
+        page = values.get('page', ['1', ]).pop()
         paged_articles = Page(
             ARTICLES,
             page=page,

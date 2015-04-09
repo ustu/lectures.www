@@ -10,10 +10,13 @@
 .. figure:: /_static/6.www.sync/5.pagination/opennet.png
    :align: center
 
-   `Opennet.ru <http://www.opennet.ru/cgi-bin/openforum/vsluhboard.cgi?az=list&forum=vsluhforumID8>`_
+   `OpenNET.ru <http://www.opennet.ru/cgi-bin/openforum/vsluhboard.cgi?az=list&forum=vsluhforumID8>`_
 
 Блог
 ----
+
+Данные
+~~~~~~
 
 .. seealso::
 
@@ -31,6 +34,9 @@
    :align: center
 
    Много статей не помещаются на экран
+
+Paginate
+~~~~~~~~
 
 .. seealso::
 
