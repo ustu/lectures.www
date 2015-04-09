@@ -1,12 +1,6 @@
 Статика
 =======
 
-.. seealso::
-
-   * https://github.com/evansd/whitenoise
-   * https://github.com/lukearno/static
-   * http://docs.repoze.org/moonshining/tools/paste.html
-
 При загрузке HTML страницы браузер ищет все недостающие медиа-файлы (css, js, swf, png, svg, gif, jpg, avi, mp3, mp4, ...) и подгружает их отдельными HTTP запросами (см. :numref:`itcase`).
 
 .. figure:: /_static/6.www.sync/4.static/browser-static-load.png
@@ -54,8 +48,13 @@ Nginx
 .. literalinclude:: /../sourcecode/nginx/sites-enabled/default.nginx
    :language: nginx
    :linenos:
-   :caption: /etc/nginx/sites-enabled/default.html
-   :emphasize-lines: 11-17
+   :caption: /etc/nginx/sites-enabled/default.nginx
+   :emphasize-lines: 10
+
+.. literalinclude:: /../sourcecode/nginx/includes/static.nginx
+   :language: nginx
+   :linenos:
+   :caption: /etc/nginx/includes/static.nginx
 
 .. figure:: /_static/6.www.sync/4.static/nginx_wo_static.png
    :width: 530pt
@@ -72,3 +71,132 @@ Nginx
 Paste
 -----
 
+.. seealso::
+
+   * http://pythonpaste.org/modules/urlparser.html
+
+Приведем предыдущий пример к следующей структуре файлов:
+
+.. code-block:: text
+
+   .
+   ├── app.py
+   ├── index.html
+   └── static
+       ├── html-css-js.png
+       ├── jquery.min.js
+       ├── script.js
+       └── style.css
+
+   1 directory, 6 files
+
+Для отдачи статики используется WSGI-приложение ``StaticURLParser`` из модуля :l:`paste`.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/0.paste/app.py
+   :language: python
+   :linenos:
+   :caption: app.py
+
+По адресу http://localhost:8000 будет открыта страница `index.html` (действие по умолчанию). Остальные файлы доступны по адресам:
+
+* http://localhost:8000/index.html
+* http://localhost:8000/static/html-css-js.png
+* http://localhost:8000/static/jquery.min.js
+* http://localhost:8000/static/script.js
+* http://localhost:8000/static/style.css
+
+Блог
+~~~~
+
+В нашем примере блога определенно не хватает стилей и динамики. Что бы это исправить, добавим файлы `css` и `js` в директорию `static`, как показано ниже:
+
+.. code-block:: text
+   :emphasize-lines: 6,7
+
+   .
+   ├── __init__.py
+   ├── models.py
+   ├── requirements.txt
+   ├── static
+   │   ├── main.css
+   │   └── main.js
+   ├── templates
+   │   ├── base.html
+   │   ├── create.html
+   │   ├── index.html
+   │   └── read.html
+   └── views.py
+
+   2 directories, 12 files
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/templates/base.html
+   :language: jinja
+   :linenos:
+   :caption: templates/base.html
+   :emphasize-lines: 11, 27
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/static/main.css
+   :language: css
+   :linenos:
+   :caption: static/main.css
+
+Функция ``confirm_delete()`` выводит окно подтверждения при нажатии на кнопку удаления статьи.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/static/main.js
+   :language: js
+   :linenos:
+   :caption: static/main.js
+
+Добавим классы в остальных шаблонах, что бы наши стили применились.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/templates/index.html
+   :language: jinja
+   :linenos:
+   :caption: templates/index.html
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/templates/read.html
+   :language: jinja
+   :linenos:
+   :caption: templates/read.html
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/templates/create.html
+   :language: jinja
+   :linenos:
+   :caption: templates/create.html
+
+В результате получим новое отображение блога, но пока мы не укажем ему откуда брать статику, он ее не сможет найти.
+
+.. figure:: /_static/6.www.sync/4.static/blog_wo_static.png
+   :align: center
+
+   Новые шаблоны блога без статики
+
+Статику будет отдавать WSGI-приложение ``StaticURLParser``.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/__init__.py
+   :language: python
+   :linenos:
+   :caption: __init__.py
+   :emphasize-lines: 37-46
+
+При помощи ``paste.urlmap.URLMap`` добавляется префикс `/static/` для наших файлов из директории `static`. ``paste.cascade.Cascade`` позволяет запускать несколько WSGI-приложений одновременно.
+Таким образом наш блог принял следующую архитектуру:
+
+.. figure:: /_static/6.www.sync/4.static/blog_scheme.png
+   :align: center
+
+   Структура блога со статикой
+
+И стал по другому выглядеть:
+
+.. figure:: /_static/6.www.sync/4.static/blog_with_static.png
+   :align: center
+
+   Новые шаблоны блога со статикой
+
+.. figure:: /_static/6.www.sync/4.static/blog_delete_action.png
+   :align: center
+
+   Окно подтверждения при удалении статьи
+
+Для реальных проектов лучше использовать библиотеку `Whitenoise <https://github.com/evansd/whitenoise>`_, она поддерживает Python 3 и CDN.

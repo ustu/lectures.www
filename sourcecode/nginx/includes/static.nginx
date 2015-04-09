@@ -1,0 +1,7 @@
+location  /example {
+    try_files ../$uri ../$uri/ /index2.html;
+}
+
+location /static {
+    alias /usr/share/nginx/html/static_example/static;
+}

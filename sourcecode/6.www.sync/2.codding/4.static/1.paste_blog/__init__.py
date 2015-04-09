@@ -33,7 +33,19 @@ def make_wsgi_app():
     dispatch.add('/{id:digits}', GET=BlogRead)
     dispatch.add('/{id:digits}/edit', GET=update, POST=update)
     dispatch.add('/{id:digits}/delete', GET=delete)
-    return dispatch
+
+    # Static files
+    from paste.urlparser import StaticURLParser
+    static_app = StaticURLParser("static/")
+
+    from paste import urlmap
+    mapping = urlmap.URLMap()
+    mapping['/static'] = static_app
+
+    from paste.cascade import Cascade
+    app = Cascade([mapping, dispatch])
+
+    return app
 
 if __name__ == '__main__':
     from paste.httpserver import serve

@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% block head %}
-      <title>{% block title %}{% endblock %} - My Blog</title>
-      <meta charset='utf-8'>
-    {% endblock %}
-	
-	
-    {% block css %}
-      <style type="text/css">
-        .wrapper
+ .wrapper
         {
           width: 50%;
           max-width: 600px;
@@ -197,28 +186,3 @@
             padding: 3em 0 0 1em;
             font: 0.8em Arial;
           }
-      </style>
-    {% endblock %}
-</head>
-<body>
-    <div class="wrapper">
-      <div class="blog">
-        {% block content %}
-        {% endblock %}
-      </div>
-      <div class="footer">
-          {% block footer %}
-            &copy; Copyright 2015 by <a href="http://domain.invalid/">you</a>.
-          {% endblock %}
-      </div>
-    </div>
-	{% block js %}
-		<script type="text/javascript">
-			function confirm_delete() {
-				return confirm("Are you sure to delete entry?");
-			}
-		</script>
-    {% endblock %}
-	
-</body>
-</html>

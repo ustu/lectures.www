@@ -455,6 +455,7 @@ def sourcecode(role, rawtext, text, lineno, inliner,
 
 GLOBAL_LINKS = {
     'nginx': 'http://nginx.org/',
+    'paste': 'http://pythonpaste.org/',
 }
 
 
