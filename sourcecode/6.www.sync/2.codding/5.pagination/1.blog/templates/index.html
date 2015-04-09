@@ -17,5 +17,7 @@
             </div>
         {% endfor %}
     </div>
-    {{ articles.pager(url="?page=$page") }}
+    <div class="paginator">
+        {{ articles.pager(url="?page=$page") }}
+    </div>
 {% endblock %}
