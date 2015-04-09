@@ -22,7 +22,7 @@
 
    * http://ru.lipsum.com/
 
-Для наполнения блога используем функцию ``generate_lorem_ipsum`` из пакета ``jinja2.utils``.
+Для начала наполним блог случайными статьями при помощи функции ``generate_lorem_ipsum`` из пакета ``jinja2.utils``.
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/5.pagination/0.blog/models.py
    :language: python
@@ -33,7 +33,7 @@
 .. figure:: /_static/6.www.sync/5.pagination/long_list_blog_articles.png
    :align: center
 
-   Много статей не помещаются на экран
+   много статей не помещаются на экран
 
 Paginate
 ~~~~~~~~
@@ -43,7 +43,7 @@ Paginate
    * `webhelpers.paginate <http://docs.pylonsproject.org/projects/webhelpers/en/latest/modules/paginate.html>`_
    * https://github.com/Pylons/paginate
 
-Используем модуль ``paginate`` что бы поделить список статей на страницы.
+Модуль ``paginate`` делит список статей на страницы. Номер страницы передается методом `GET`, в параметре `page`. По умолчанию берется первая страница.
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/5.pagination/1.blog/views.py
    :language: python
@@ -51,3 +51,16 @@ Paginate
    :caption: views.py
    :pyobject: BlogIndex
    :emphasize-lines: 6-14
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/5.pagination/1.blog/templates/index.html
+   :language: jinja
+   :linenos:
+   :caption: templates/index.html
+   :emphasize-lines: 22
+
+В результате на каждой странице отображаются только 8 статей.
+
+.. figure:: /_static/6.www.sync/5.pagination/blog_with_page.png
+   :align: center
+
+   Блог со страницами
