@@ -1,0 +1,5 @@
+{'HTTP_HOST': 'localhost:80',
+ 'PATH_INFO': '/article',
+ 'QUERY_STRING': 'id=1',
+ 'REQUEST_METHOD': 'GET',
+ 'SCRIPT_NAME': ''}

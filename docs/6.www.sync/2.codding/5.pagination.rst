@@ -33,7 +33,7 @@
 .. figure:: /_static/6.www.sync/5.pagination/long_list_blog_articles.png
    :align: center
 
-   много статей не помещаются на экран
+   Много статей не помещаются на экран
 
 Paginate
 ~~~~~~~~

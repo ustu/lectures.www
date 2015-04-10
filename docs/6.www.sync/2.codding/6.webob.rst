@@ -1,0 +1,385 @@
+WebOb
+=====
+
+.. seealso::
+
+   * :l:`WebOb`
+   * http://maluke.com/old/webdev#part2
+
+WebOb - это библиотека превращающая HTTP запрос в объект и генерировать ответы. В частности работает с окружение WSGI.
+
+Вместо странных конструкций вида:
+
+.. code-block:: python
+
+   from urlparse import parse_qs
+   values = parse_qs(environ['QUERY_STRING'])
+   page = values.get('page', ['1', ]).pop()
+
+Мы можем использовать:
+
+.. code-block:: python
+
+   from webob import Request
+
+   req = Request(environ)
+   page = req.params.get('page', '1')
+
+Request
+-------
+
+Класс ``Request`` оборачивает окружение пришедшее от Веб-сервера, в случае HTTP-запроса.
+
+Мы можем сами создать окружение для класса ``Request`` и получить объект запроса, как в примере ниже.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/0.request.py
+   :language: python
+   :caption: 0.request.py
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/0.request.txt
+   :language: python
+   :linenos:
+
+Mock запрос
+~~~~~~~~~~~
+
+``Request`` имеет конструктор, который создает минимальное окружение запроса. При помощи метода ``blank`` можно имитировать HTTP запрос:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/1.request.py
+   :language: python
+   :caption: 1.request.py
+   :emphasize-lines: 2
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/1.request.txt
+   :language: python
+   :linenos:
+
+Методы объекта Request
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. todo:: описать
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/2.request.py
+   :language: python
+   :caption: 2.request.py
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/2.request.txt
+   :language: python
+   :linenos:
+
+GET
+~~~
+
+.. todo:: описать
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/3.request.py
+   :language: python
+   :caption: 3.request.py
+   :emphasize-lines: 5-7
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/3.request.txt
+   :language: python
+   :emphasize-lines: 2-4
+   :linenos:
+
+POST
+~~~~
+
+.. todo:: описать
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/4.request.py
+   :language: python
+   :caption: 4.request.py
+   :emphasize-lines: 12-14
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/4.request.txt
+   :language: python
+   :emphasize-lines: 4-6
+   :linenos:
+
+GET & POST & PUT & DELETE ...
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Если вы не уверенны каким методом были отправлены данные можно воспользоваться атрибутом ``params``.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/5.request.py
+   :language: python
+   :caption: 5.request.py
+   :emphasize-lines: 9-11
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/5.request.txt
+   :language: python
+   :emphasize-lines: 2-4
+   :linenos:
+
+Cookie
+~~~~~~
+
+.. todo:: описать
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/6.request.py
+   :language: python
+   :caption: 6.request.py
+   :emphasize-lines: 8
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/6.request.txt
+   :language: python
+   :linenos:
+   :emphasize-lines: 2
+
+Запуск WSGI-приложений
+~~~~~~~~~~~~~~~~~~~~~~
+
+``webob.Request`` умеет запускать WSGI-приложения. Это может понадобиться, например при написании тестов.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/7.request.py
+   :language: python
+   :caption: 7.request.py
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/7.request.txt
+   :language: python
+   :linenos:
+
+Response
+--------
+
+Класс который содержит все необходимое для создания ответа WSGI-приложения.
+
+Конструктор класса ``Response`` имеет минимальный набор для HTTP ответа:
+
+.. code-block:: python
+
+   >>> from webob import Response
+   >>> res = Response()
+   >>> res.status
+   '200 OK'
+   >>> res.headerlist
+   [('Content-Type', 'text/html; charset=UTF-8'), ('Content-Length', '0')]
+   >>> res.body
+   ''
+
+В процессе выполнения программы ответ можно переопределить:
+
+.. code-block:: python
+
+   >>> res.status = 404
+   >>> res.status
+   '404 Not Found'
+   >>> res.status_code
+   404
+   >>> res.headerlist = [('Content-type', 'text/html')]
+   >>> res.body = 'test'
+   >>> print res
+   404 Not Found
+   Content-type: text/html
+   Content-Length: 4
+
+   test
+   >>> res.body = u"test"
+   Traceback (most recent call last):
+       ...
+   TypeError: You cannot set Response.body to a unicode object (use Response.text)
+   >>> res.text = u"test"
+   Traceback (most recent call last):
+       ...
+   AttributeError: You cannot access Response.text unless charset is set
+   >>> res.charset = 'utf8'
+   >>> res.text = u"test"
+   >>> res.body
+   'test'
+
+Также можно задать значения передав их в конструктор, например ``Response(charset='utf8')``.
+
+.. code-block:: python
+
+   >>> from webob import Response
+   >>> resp = Response(body='Hello World!')
+   >>> resp.content_type
+   'text/html'
+   >>> resp.content_type = 'text/plain'
+   >>> print resp
+   200 OK
+   Content-Length: 12
+   Content-Type: text/plain; charset=UTF-8
+
+   Hello World!
+
+get_response
+~~~~~~~~~~~~
+
+``get_response`` генерирует HTTP ответ.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/8.response.py
+   :language: python
+   :caption: 8.response.py
+   :emphasize-lines: 15,17
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/8.response.txt
+   :language: python
+   :linenos:
+
+Exceptions
+~~~~~~~~~~
+
+.. seealso::
+
+   * http://maluke.com/old/webdev#webobexchttpexception
+
+.. code-block:: python
+
+   >>> from webob.exc import *
+   >>> exc = HTTPTemporaryRedirect(location='foo')
+   >>> req = Request.blank('/path/to/something')
+   >>> print str(req.get_response(exc)).strip()
+   307 Temporary Redirect
+   Location: http://localhost/path/to/foo
+   Content-Length: 126
+   Content-Type: text/plain; charset=UTF-8
+
+   307 Temporary Redirect
+
+   The resource has been moved to http://localhost/path/to/foo; you should be redirected automatically.
+
+Блог
+----
+
+Добавим декоратор ``wsgify`` который будет делать, для каждого "вида", всю WSGI-магию и добавлять объект ``request``.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/blog/0.step/views.py
+   :language: python
+   :caption: views.py декоротор wsgify
+   :pyobject: wsgify
+   :emphasize-lines: 2,5,6
+   :linenos:
+
+Index
+~~~~~
+
+В самих представлениях ``request`` передается как параметр конструктора, а ответ реализуется в виде метода класса ``response``.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/blog/0.step/views.py
+   :language: python
+   :caption: views.py класс BlogIndex
+   :pyobject: BlogIndex
+   :emphasize-lines: 3-4,12
+   :linenos:
+
+.. no-code-block:: python
+   :linenos:
+
+   @wsgify
+   class BlogIndex(object):
+      ...
+
+Метод ``response`` должен возвращать WSGI-приложение. В нашем случае это объект класса ``Response`` из библиотеки ``webob``.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/blog/0.step/views.py
+   :language: python
+   :caption: views.py класс BlogIndex
+   :pyobject: BlogIndex
+   :emphasize-lines: 12-16
+   :linenos:
+
+Create
+~~~~~~
+
+.. todo::  добавить описание
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/blog/1.step/views.py
+   :language: python
+   :caption: views.py класс BlogCreate
+   :pyobject: BlogCreate
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/blog/1.step/views.py
+   :diff: /../sourcecode/6.www.sync/2.codding/5.pagination/1.blog/views.py
+   :language: python
+   :caption: views.py изменения в классе BlogCreate
+   :pyobject: BlogCreate
+   :emphasize-lines: 3-6, 16-17
+   :linenos:
+
+.. no-code-block:: python
+   :linenos:
+
+   @wsgify
+   class BlogCreate(object):
+      ...
+
+BaseArticle
+~~~~~~~~~~~
+
+.. todo:: добавить описание
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/blog/1.step/views.py
+   :language: python
+   :caption: views.py класс BaseArticle
+   :pyobject: BaseArticle
+   :linenos:
+
+BlogRead
+~~~~~~~~
+
+.. todo:: добавить описание
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/5.pagination/1.blog/views.py
+   :language: python
+   :caption: views.py пример класса BlogRead без webob
+   :pyobject: BlogRead
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/blog/1.step/views.py
+   :language: python
+   :caption: views.py класс BlogRead
+   :pyobject: BlogRead
+   :linenos:
+
+BlogUpdate
+~~~~~~~~~~
+
+.. todo:: добавить описание
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/5.pagination/1.blog/views.py
+   :language: python
+   :caption: views.py пример класса BlogUpdate без webob
+   :pyobject: BlogUpdate
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/blog/1.step/views.py
+   :language: python
+   :caption: views.py класс BlogUpdate
+   :pyobject: BlogUpdate
+   :linenos:
+
+BlogDelete
+~~~~~~~~~~
+
+.. todo:: добавить описание
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/5.pagination/1.blog/views.py
+   :language: python
+   :caption: views.py пример класса BlogDelete без webob
+   :pyobject: BlogDelete
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/blog/1.step/views.py
+   :language: python
+   :caption: views.py класс BlogDelete
+   :pyobject: BlogDelete
+   :linenos:
+
+views.py
+~~~~~~~~
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/blog/2.step/views.py
+   :language: python
+   :linenos:

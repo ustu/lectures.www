@@ -458,6 +458,7 @@ GLOBAL_LINKS = {
     'paste': 'http://pythonpaste.org/',
     'jinja': 'http://jinja.pocoo.org/',
     'jinja2': 'http://jinja.pocoo.org/',
+    'webob': 'http://docs.webob.org/',
 }
 
 
@@ -476,6 +477,31 @@ def global_link(role, rawtext, text, lineno, inliner,
     return [node], []
 
 
+def pep_reference_role(role, rawtext, text, lineno, inliner,
+                       options={}, content=[]):
+    """
+    Example:
+
+        See :PEP:`333`
+    """
+    try:
+        pepnum = int(text)
+        if pepnum <= 0:
+            raise ValueError
+    except ValueError:
+        msg = inliner.reporter.error(
+            'PEP number must be a number greater than or equal to 1; '
+            '"%s" is invalid.' % text, line=lineno)
+        prb = inliner.problematic(rawtext, rawtext, msg)
+        return [prb], [msg]
+    ref = "https://www.python.org/dev/peps/pep-{}/".format(pepnum)
+    set_classes(options)
+    node = docutils.nodes.reference(rawtext, 'PEP' +
+                                    docutils.utils.unescape(text),
+                                    refuri=ref, **options)
+    return [node], []
+
+
 def setup(app):
     """Install the plugin.
 
@@ -489,5 +515,6 @@ def setup(app):
 
     # Add roles
     app.add_role('RFC', rfc_reference_role)
+    app.add_role('PEP', pep_reference_role)
     app.add_role('src', sourcecode)
     app.add_role('l', global_link)

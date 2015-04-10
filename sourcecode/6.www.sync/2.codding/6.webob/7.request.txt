@@ -1,0 +1,7 @@
+200 OK
+[('Content-type', 'text/plain')]
+['Hi!']
+
+404 Not Found
+[('Content-type', 'text/plain')]
+None

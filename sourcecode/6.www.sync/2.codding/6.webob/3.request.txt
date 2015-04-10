@@ -1,0 +1,4 @@
+GET([(u'check', u'a'), (u'check', u'b'), (u'name', u'Bob')])
+b
+[u'a', u'b']
+[(u'check', u'a'), (u'check', u'b'), (u'name', u'Bob')]

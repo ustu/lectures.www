@@ -1,0 +1,44 @@
+Формы
+=====
+
+WTForms
+-------
+
+.. todo:: вынести в отдельный раздел
+
+.. seealso::
+
+   * http://wtforms.readthedocs.org/
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/wtforms/1.reg_form.py
+   :language: python
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/wtforms/1.reg_form.html
+   :language: html
+   :linenos:
+
+.. only:: not latex
+
+   .. raw:: html
+      :file: ../../../sourcecode/6.www.sync/2.codding/7.forms/wtforms/1.reg_form.html
+
+Colander
+--------
+
+Deform
+------
+
+.. todo:: Вынести в отдельный раздел
+.. todo:: Расписать про pstruct, cstruct, peppercon
+.. todo:: Написать пример без Colander
+
+.. seealso::
+
+   * http://docs.pylonsproject.org/projects/deform/
+
+
+
+Блог
+----
+

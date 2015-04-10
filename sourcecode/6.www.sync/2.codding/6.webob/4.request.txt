@@ -1,0 +1,6 @@
+<NoVars: Not a form request>
+[]
+
+MultiDict([('name', u'Vasya'), ('email', u'vasya@example.com')])
+Vasya
+vasya@example.com

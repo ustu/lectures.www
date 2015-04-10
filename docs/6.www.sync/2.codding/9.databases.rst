@@ -1,3 +1,19 @@
 Базы данных
 ===========
 
+SQLAlchemy
+----------
+
+Пагинация
+---------
+
+.. seealso::
+
+   * https://github.com/Pylons/paginate_sqlalchemy
+
+Формы
+-----
+
+.. seealso::
+
+   * http://docs.formalchemy.org/
