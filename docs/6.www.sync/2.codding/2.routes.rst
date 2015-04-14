@@ -6,6 +6,7 @@
    * http://restas.lisper.ru/ru/manual/routes.html
    * `Ryby on Rails -> Routes <http://guides.rubyonrails.org/routing.html>`_
    * `Python -> Routes <https://routes.readthedocs.org/en/latest/>`_
+   * `<https://ru.wikipedia.org/wiki/ЧПУ_(Интернет)>`_
 
 .. figure:: /_static/6.www.sync/web/routes4.jpg
    :align: left

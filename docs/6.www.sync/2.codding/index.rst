@@ -23,3 +23,4 @@
    7.forms.rst
    8.session.rst
    9.databases.rst
+   _checkpoint.rst
