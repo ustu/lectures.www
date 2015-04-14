@@ -11,6 +11,8 @@
 
 .. image:: /_static/logo.jpg
 
+http://lectures.uralbash.ru
+
 Преподаватель
 ~~~~~~~~~~~~~
 
