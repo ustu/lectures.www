@@ -337,3 +337,8 @@ li[class*=" current"] {
 .epigraph {
     font-style: italic;
 }
+
+#disqus_thread {
+    width: 80%;
+    margin: 0 auto;
+}

@@ -68,10 +68,26 @@ Colander
 * WSGI-приложение которое получает POST параметры из запроса
 * Шаблон страницы с формой
 
+Схема Colander
+~~~~~~~~~~~~~~
+
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/0.simple_form.py
    :language: python
-   :caption: 0.simple_form.py
+   :caption: 0.simple_form.py - Colander схема
+   :emphasize-lines: 8-12
    :linenos:
+
+Форма deform.Form
+~~~~~~~~~~~~~~~~~
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/0.simple_form.py
+   :language: python
+   :emphasize-lines: 20, 24, 26, 30
+   :caption: 0.simple_form.py - Форма от Deform
+   :linenos:
+
+Шаблон simple.html
+~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/templates/simple.html
    :language: jinja
@@ -79,6 +95,76 @@ Colander
    :linenos:
 
 .. figure:: /_static/6.www.sync/7.forms/simple_form.png
+   :align: center
+
+   Сгенерированная форма
+
+.. figure:: /_static/6.www.sync/7.forms/simple_form_validation.png
+   :align: center
+
+   Валидация формы
+
+Добавим стилей:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/templates/simple_with_css.html
+   :language: html
+   :caption: templates/simple.html
+   :linenos:
+
+.. figure:: /_static/6.www.sync/7.forms/simple_form_with_css.png
+   :align: center
+
+   Сгенерированная форма с применением CSS стилей
+
+.. figure:: /_static/6.www.sync/7.forms/simple_form_validation_with_css.png
+   :align: center
+
+   Валидация формы с применением CSS стилей
+
+Widgets
+-------
+
+.. seealso::
+
+   * http://deform.readthedocs.org/en/latest/api.html#module-deform.widget
+
+.. list-table:: Соответствие полей :l:`Colander` и виджетов :l:`Deform`
+   :header-rows: 1
+
+   * - :l:`Colander`
+     - :l:`Deform`
+   * - :class:`colander.String`
+     - :class:`deform.widget.TextInputWidget`
+   * - :class:`colander.Integer`
+     - :class:`deform.widget.TextInputWidget`
+   * - :class:`colander.Float`
+     - :class:`deform.widget.TextInputWidget`
+   * - :class:`colander.Decimal`
+     - :class:`deform.widget.TextInputWidget`
+   * - :class:`colander.Boolean`
+     - :class:`deform.widget.CheckboxWidget`
+   * - :class:`colander.Date`
+     - :class:`deform.widget.DateInputWidget`
+   * - :class:`colander.DateTime`
+     - :class:`deform.widget.DateTimeInputWidget`
+
+Deform и Colander в реальных проектах
+-------------------------------------
+
+Наследование схем
+~~~~~~~~~~~~~~~~~
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/1.inheritance_scheme.py
+   :language: python
+   :caption: 1.inheritance.py - Наследование Colander схем
+   :emphasize-lines: 18-22
+   :linenos:
+
+Кастомная валидация
+~~~~~~~~~~~~~~~~~~~
+
+Переопределение шаблонов
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Блог
 ----
