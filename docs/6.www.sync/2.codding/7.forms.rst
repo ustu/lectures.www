@@ -23,9 +23,6 @@ WTForms
    .. raw:: html
       :file: ../../../sourcecode/6.www.sync/2.codding/7.forms/wtforms/1.reg_form.html
 
-Colander
---------
-
 Deform
 ------
 
@@ -35,9 +32,53 @@ Deform
 
 .. seealso::
 
-   * http://docs.pylonsproject.org/projects/deform/
+   * :l:`Deform`
 
+`Deform` - это `Python` библиотека для генерации форм. `Deform` использует :l:`Colander` как генератор схемы, :l:`Peppercorn` для десериализации данных из формы и шаблонизатор :l:`Chameleon`.
 
+Основные задачи, которые выполняет `Deform`:
+
+* Генерирует форму
+* Имеет набор виджетов для форм
+* Умеет генерировать AJAX формы
+* Использует схемы :l:`Colander`
+* Использует шаблоны :l:`Chameleon` (Но можно использовать и другие, например :l:`Jinja2` или :l:`Mako`)
+
+Примеры форм http://deformdemo.repoze.org/
+
+Colander
+--------
+
+.. seealso::
+
+   * :l:`Colander`
+
+`Colander` - десериализует данные полученные как XML, JSON, HTTP POST запрос и проверяет правильность их заполнения по заранее заданной схеме.
+
+* Определяет структуру (схему) формы
+* Проверяет содержимое формы
+
+Простая форма
+-------------
+
+Для создания простой формы нам понадобится:
+
+* Схема :l:`Colander`
+* Объект `Form` из :l:`Deform`
+* WSGI-приложение которое получает POST параметры из запроса
+* Шаблон страницы с формой
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/0.simple_form.py
+   :language: python
+   :caption: 0.simple_form.py
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/templates/simple.html
+   :language: jinja
+   :caption: templates/simple.html
+   :linenos:
+
+.. figure:: /_static/6.www.sync/7.forms/simple_form.png
 
 Блог
 ----

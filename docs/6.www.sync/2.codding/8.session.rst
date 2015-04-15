@@ -7,3 +7,8 @@ Beaker
 dogpile.cache
 -------------
 
+.. seealso::
+
+   * https://dogpilecache.readthedocs.org/en/latest/
+   * https://gist.github.com/sontek/5660624
+   * http://docs.sqlalchemy.org/en/latest/orm/examples.html?highlight=caching_query#dogpile-caching

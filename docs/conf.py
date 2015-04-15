@@ -121,7 +121,7 @@ language = 'ru'
 # non-false value, then it is used:
 # today = ''
 # Else, today_fmt is used as the format for a strftime call.
-# today_fmt = '%B %d, %Y'
+today_fmt = '%d-%m-%Y'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 exclude_patterns = []
@@ -407,32 +407,6 @@ epub_exclude_files = ['search.html']
 intersphinx_mapping = {'http://docs.python.org/': None}
 
 
-def rfc_reference_role(role, rawtext, text, lineno, inliner,
-                       options={}, content=[]):
-    """
-    Example:
-
-        See :RFC:`2822` for information about email headers.
-    """
-    try:
-        rfcnum = int(text)
-        if rfcnum <= 0:
-            raise ValueError
-    except ValueError:
-        msg = inliner.reporter.error(
-            'RFC number must be a number greater than or equal to 1; '
-            '"%s" is invalid.' % text, line=lineno)
-        prb = inliner.problematic(rawtext, rawtext, msg)
-        return [prb], [msg]
-    # Base URL mainly used by inliner.rfc_reference, so this is correct:
-    ref = inliner.document.settings.rfc_base_url + inliner.rfc_url % rfcnum
-    set_classes(options)
-    node = docutils.nodes.reference(rawtext, 'RFC ' +
-                                    docutils.utils.unescape(text),
-                                    refuri=ref, **options)
-    return [node], []
-
-
 # TODO: сделать через директиву, типа .. note::
 def sourcecode(role, rawtext, text, lineno, inliner,
                options={}, content=[]):
@@ -453,13 +427,25 @@ def sourcecode(role, rawtext, text, lineno, inliner,
     return [node], []
 
 
-GLOBAL_LINKS = {
+PYLONS_LINKS = {
+    'webob': 'http://docs.webob.org/',
+    'colander': 'http://docs.pylonsproject.org/projects/colander/en/latest/',
+    'deform': 'http://deform.readthedocs.org/en/latest/',
+    'chameleon': 'http://pyramid-chameleon.readthedocs.org/en/latest/',
+    'peppercorn':
+    'http://docs.pylonsproject.org/projects/peppercorn/en/latest/',
+}
+
+
+OTHER_LINKS = {
     'nginx': 'http://nginx.org/',
     'paste': 'http://pythonpaste.org/',
     'jinja': 'http://jinja.pocoo.org/',
     'jinja2': 'http://jinja.pocoo.org/',
-    'webob': 'http://docs.webob.org/',
+    'mako': 'http://www.makotemplates.org/',
 }
+
+GLOBAL_LINKS = dict(PYLONS_LINKS.items() + OTHER_LINKS.items())
 
 
 def global_link(role, rawtext, text, lineno, inliner,
@@ -477,31 +463,6 @@ def global_link(role, rawtext, text, lineno, inliner,
     return [node], []
 
 
-def pep_reference_role(role, rawtext, text, lineno, inliner,
-                       options={}, content=[]):
-    """
-    Example:
-
-        See :PEP:`333`
-    """
-    try:
-        pepnum = int(text)
-        if pepnum <= 0:
-            raise ValueError
-    except ValueError:
-        msg = inliner.reporter.error(
-            'PEP number must be a number greater than or equal to 1; '
-            '"%s" is invalid.' % text, line=lineno)
-        prb = inliner.problematic(rawtext, rawtext, msg)
-        return [prb], [msg]
-    ref = "https://www.python.org/dev/peps/pep-{}/".format(pepnum)
-    set_classes(options)
-    node = docutils.nodes.reference(rawtext, 'PEP' +
-                                    docutils.utils.unescape(text),
-                                    refuri=ref, **options)
-    return [node], []
-
-
 def setup(app):
     """Install the plugin.
 
@@ -514,7 +475,5 @@ def setup(app):
     app.add_stylesheet('css/todo.css')
 
     # Add roles
-    app.add_role('RFC', rfc_reference_role)
-    app.add_role('PEP', pep_reference_role)
     app.add_role('src', sourcecode)
     app.add_role('l', global_link)

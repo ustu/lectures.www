@@ -40,3 +40,11 @@
 
 * Сформировать HTTP запрос задания 4 :ref:`dz1`, при помощи :l:`WebOb`.
 * Отправить запрос при помощи метода ``req.get_response()`` и проанализировать результат.
+
+Пример
+------
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/9.send_request.py
+   :language: python
+   :caption: 9.send_request.py
+   :linenos:
