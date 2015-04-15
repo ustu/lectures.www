@@ -2,3 +2,4 @@ paste
 jinja2
 deform>=2.0a2
 colander
+WebOb
