@@ -3,8 +3,78 @@
     <head>
         <meta charset="utf-8" />
         <title>simple</title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css" />
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+        <style type="text/css">
+            .deformFormFieldset {
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+            .control-label {
+                left: 0 !important;
+            }
+            .form-group
+            {
+                position: relative;
+                margin: 1em 0 0 0;
+            }
+            .alert-danger
+            {
+                top: -1.5em;
+                position: relative;
+            }
+            p.help-block[id*="error"]
+            {
+                width: 10em;
+                color: red !important;
+                font-style: normal;
+                padding: 0;
+                margin: 0 0 1em 0;
+                line-height: 1.5;
+                font-family: "Roboto", sans-serif;
+                font-weight: normal;
+                position: absolute;
+                left: -12em;
+                text-align: right;
+                top: 0.85em;
+            }
+            .required:after
+            {
+                content: "*";
+                position: relative;
+                font-family: "Roboto", sans-serif;
+                font-weight: normal;
+                color: red;
+            }
+            .errorMsgLbl
+            {
+                background: red;
+                font-family: "Roboto", sans-serif;
+                font-weight: normal;
+                padding: 0.5em 1em;
+                color: #fff;
+                margin: 0 0 1em 0;
+            }
+            .alert-danger .errorMsg
+            {
+                display: none;
+            }
+        </style>
     </head>
     <body>
-        {{ form }}
+        <div class="form" style="width: 500px; margin: 0 auto; padding: 50px">
+            <h1>Simple Form</h1>
+            {{ form }}
+        </div>
     </body>
+    <script type="text/javascript">
+        $(function() {
+            $('#item-deformField1').addClass('input-field').addClass('col');
+            $('#item-deformField2').addClass('input-field').addClass('col');
+            $('#item-deformField3').addClass('input-field').addClass('col');
+            $('#deformField3').addClass('materialize-textarea');
+        });
+    </script>
 </html>
