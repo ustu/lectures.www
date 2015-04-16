@@ -33,6 +33,7 @@ Deform
 .. seealso::
 
    * :l:`Deform`
+   * https://skillsmatter.com/skillscasts/4886-king-forms
 
 `Deform` - это `Python` библиотека для генерации форм. `Deform` использует :l:`Colander` как генератор схемы, :l:`Peppercorn` для десериализации данных из формы и шаблонизатор :l:`Chameleon`.
 
@@ -82,7 +83,7 @@ Colander
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/0.simple_form.py
    :language: python
-   :emphasize-lines: 20, 24, 26, 30
+   :emphasize-lines: 20,31
    :caption: 0.simple_form.py - Форма от Deform
    :linenos:
 
@@ -160,12 +161,201 @@ Deform и Colander в реальных проектах
    :emphasize-lines: 18-22
    :linenos:
 
+.. figure:: /_static/6.www.sync/7.forms/inheritance_scheme.png
+   :align: center
+
+   Наследование Colander схемы
+
 Кастомная валидация
 ~~~~~~~~~~~~~~~~~~~
 
-Переопределение шаблонов
-~~~~~~~~~~~~~~~~~~~~~~~~
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/2.custom_validators.py
+   :language: python
+   :caption: 2.custom_validators.py - Кастомная валидация
+   :emphasize-lines: 8-15,33
+   :linenos:
+
+.. figure:: /_static/6.www.sync/7.forms/custom_validator_form.png
+   :align: center
+
+   Кастомная валидация поля
+
+Отложенная валидация
+~~~~~~~~~~~~~~~~~~~~
+
+.. seealso::
+
+   * `CSRF <https://ru.wikipedia.org/wiki/Межсайтовая_подделка_запроса>`_
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/3.defered_validators.py
+   :language: python
+   :caption: 3.defered_validators.py - добавление CSRF токена
+   :emphasize-lines: 8-9,12-16,58,59,70,77,79
+   :linenos:
+
+.. figure:: /_static/6.www.sync/7.forms/defered_validator_form_csrf_token.png
+   :align: center
+
+   Ключ CSRF
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/3.defered_validators.py
+   :language: python
+   :caption: 3.defered_validators.py - отложенная валидация
+   :emphasize-lines: 19-24,27-36,41,42
+   :linenos:
+
+.. figure:: /_static/6.www.sync/7.forms/defered_validator_form_bad_token.png
+   :align: center
+
+   Ключ CSRF
+
+Переопределение стандартных шаблонов
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/4.custom_templates.py
+   :language: python
+   :caption: 4.custom_templates.py - переопределение стандартных шаблонов формы
+   :emphasize-lines: 11-12,15-16
+   :linenos:
+
+.. code-block:: bash
+
+   $ tree templates/deform/
+   templates/deform/
+   ├── form.pt
+   └── mapping_item.pt
+
+   0 directories, 2 files
+
+.. figure:: /_static/6.www.sync/7.forms/custom_templates.png
+   :align: center
+
+   Переопределенный шаблон form.pt
+
+Новые шаблоны на Jinja2
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. seealso::
+
+   * http://docs.pylonsproject.org/projects/deform/en/latest/templates.html#using-an-alternative-templating-system
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/5.custom_jinja_templates.py
+   :language: python
+   :caption: 5.custom_jinja2_templates.py - переопределение стандартных шаблонов формы, на свои Jinja2 шаблоны
+   :emphasize-lines: 10-18,34
+   :linenos:
+
+.. code-block:: bash
+
+   $ tree templates/deform_jinja2/
+   templates/deform_jinja2/
+   ├── autocomplete_input.jinja2
+   ├── checkbox_choice.jinja2
+   ├── checkbox.jinja2
+   ├── checked_input.jinja2
+   ├── checked_password.jinja2
+   ├── dateinput.jinja2
+   ├── dateparts.jinja2
+   ├── datetimeinput.jinja2
+   ├── file_upload.jinja2
+   ├── form.jinja2
+   ├── hidden.jinja2
+   ├── mapping_item.jinja2
+   ├── mapping.jinja2
+   ├── moneyinput.jinja2
+   ├── password.jinja2
+   ├── radio_choice.jinja2
+   ├── readonly
+   │   ├── checkbox_choice.jinja2
+   │   ├── checkbox.jinja2
+   │   ├── checked_input.jinja2
+   │   ├── checked_password.jinja2
+   │   ├── dateparts.jinja2
+   │   ├── file_upload.jinja2
+   │   ├── form.jinja2
+   │   ├── mapping_item.jinja2
+   │   ├── mapping.jinja2
+   │   ├── password.jinja2
+   │   ├── radio_choice.jinja2
+   │   ├── richtext.jinja2
+   │   ├── select.jinja2
+   │   ├── sequence_item.jinja2
+   │   ├── sequence.jinja2
+   │   ├── textarea.jinja2
+   │   └── textinput.jinja2
+   ├── richtext.jinja2
+   ├── select.jinja2
+   ├── sequence_item.jinja2
+   ├── sequence.jinja2
+   ├── textarea.jinja2
+   └── textinput.jinja2
+
+   1 directory, 39 files
+
+
+.. code-block:: html
+   :linenos:
+   :caption: Стандартный шаблон textarea.pt из Deform
+
+   <textarea tal:define="rows rows|field.widget.rows;
+                         cols cols|field.widget.cols;
+                         css_class css_class|field.widget.css_class;
+                         oid oid|field.oid;
+                         name name|field.name;
+                         style style|field.widget.style"
+             tal:attributes="rows rows;
+                             cols cols;
+                             class string: form-control ${css_class or ''};
+                             style style"
+             id="${oid}"
+             name="${name}">${cstruct}</textarea>
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/templates/deform_jinja2/textarea.jinja2
+   :language: jinja
+   :caption: templates/deform_jinja2/textarea.jinja2 - Переопределенный нами шаблон textarea на Jinja2
+   :emphasize-lines: 2
+   :linenos:
+
+.. figure:: /_static/6.www.sync/7.forms/custom_jinja2_templates.png
+   :align: center
+
+   Переопределенный шаблон textarea.jinja2
 
 Блог
 ----
 
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/blog/forms.py
+   :language: python
+   :caption: forms.py - Форма для создания статьи
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/blog/common.py
+   :language: python
+   :caption: common.py - Функции get_session и get_csrf_token
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/blog/__init__.py
+   :language: python
+   :emphasize-lines: 52,55
+   :caption: __init__.py - Добавляем механизм сессии в наше WSGI-приложение
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/blog/views.py
+   :language: python
+   :emphasize-lines: 30-40,68-73,84,102-107,114
+   :caption: views.py - Генерация форм в представлениях при помощи Deform
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/blog/templates/create.html
+   :language: jinja
+   :emphasize-lines: 11
+   :caption: create.html - форма генерируется автоматически
+   :linenos:
+
+Теперь форма имеет валидацию, защиту от CSRF атак и генерируются автоматически при помощи :l:`Deform`.
+
+
+.. figure:: /_static/6.www.sync/7.forms/blog_validation.png
+   :align: center
+
+   Валидация формы

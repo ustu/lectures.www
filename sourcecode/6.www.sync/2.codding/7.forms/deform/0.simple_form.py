@@ -18,16 +18,17 @@ def simple_form(environ, start_response):
     request = Request(environ)
 
     form = deform.Form(Contact(), buttons=('submit',))
+    template = env.get_template('simple.html')
     if request.POST:
         submitted = request.POST.items()
         try:
             form.validate(submitted)
         except deform.ValidationFailure as e:
-            return env.get_template('simple.html').render(form=e.render())
+            return template.render(form=e.render())
     data = {'email': 'jon.staley@fundingoptions.com',
             'name': 'Jon',
             'message': 'Hello World'}
-    return env.get_template('simple.html').render(form=form.render(data))
+    return template.render(form=form.render(data))
 
 
 if __name__ == '__main__':

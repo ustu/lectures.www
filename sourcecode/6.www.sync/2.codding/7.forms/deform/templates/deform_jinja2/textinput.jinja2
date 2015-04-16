@@ -1,0 +1,21 @@
+<input type="text" name="{{ field.name }}" value="{{ cstruct }}"
+        {% if field.widget.size %}
+       size="{{ field.widget.size }}"
+        {% endif %}
+        {% if field.widget.css_class %}
+       class="{{ field.widget.css_class }}"
+        {% endif %}
+       id="{{field.oid}}"
+        {% if field.description %}
+       placeholder="{{ _(field.description) }}"
+        {% endif %}/>
+{% if field.widget.mask %}
+    <script type="text/javascript">
+        deform.addCallback(
+                '{{field.oid}}',
+                function (oid) {
+                    $("#" + oid).mask("{{ field.widget.mask }}",
+                            {placeholder:"{{ field.widget.mask_placeholder }}"});
+                });
+    </script>
+{% endif %}
