@@ -34,6 +34,15 @@ Vagrant.configure(2) do |config|
     end
   end
 
+  # Memcached
+  config.vm.define "memcached" do |memcached|
+    memcached.vm.provider "docker" do |docker|
+      docker.image = "memcached"
+      docker.name = '%s_db_memcached' % PROJECT_NAME
+      docker.ports = ["11211:11211"]
+    end
+  end
+
   # Nginx with inotify (auto reload)
   config.vm.define "nginx" do |nginx|
     nginx.vm.provider "docker" do |docker|
@@ -65,6 +74,7 @@ Vagrant.configure(2) do |config|
       docker.link('%s_nginx:nginx' % PROJECT_NAME)
       docker.link('%s_db_redis:redis' % PROJECT_NAME)
       docker.link('%s_db_postgres:postgres' % PROJECT_NAME)
+      docker.link('%s_db_memcached:memcached' % PROJECT_NAME)
 
       # -t - Allocate a (pseudo) tty
       # -i - Keep stdin open (so we can interact with it)

@@ -1,3 +1,5 @@
+.. _additions_python_decorator:
+
 Декораторы
 ==========
 

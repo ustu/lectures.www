@@ -440,6 +440,10 @@ PYLONS_LINKS = {
     'http://docs.pylonsproject.org/projects/peppercorn/en/latest/',
 }
 
+DATABASE_LINKS = {
+    'memcached': 'https://ru.wikipedia.org/wiki/Memcached',
+    'redis': 'https://ru.wikipedia.org/wiki/Redis'
+}
 
 OTHER_LINKS = {
     'nginx': 'http://nginx.org/',
@@ -447,9 +451,11 @@ OTHER_LINKS = {
     'jinja': 'http://jinja.pocoo.org/',
     'jinja2': 'http://jinja.pocoo.org/',
     'mako': 'http://www.makotemplates.org/',
+    'beaker': 'https://beaker.readthedocs.org/en/latest/',
 }
 
-GLOBAL_LINKS = dict(PYLONS_LINKS.items() + OTHER_LINKS.items())
+GLOBAL_LINKS = dict(PYLONS_LINKS.items() + OTHER_LINKS.items() +
+                    DATABASE_LINKS.items())
 
 
 def global_link(role, rawtext, text, lineno, inliner,

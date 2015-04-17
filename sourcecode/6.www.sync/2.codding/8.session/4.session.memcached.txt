@@ -1,0 +1,14 @@
+Session ID: 8c549978a6984a648d2dadba44becd23
+{'Deutchland': 'Sebastian Vettel',
+ 'Great Britain': 'Jenson Button',
+ 'Suomi': 'Kimi R\xc3\xa4ikk\xc3\xb6nen',
+ '_accessed_time': 1429279819.517085,
+ '_creation_time': 1429279819.517085}
+
+Memcached storage session
+Session ID: 8c549978a6984a648d2dadba44becd23
+{'Deutchland': 'Sebastian Vettel',
+ 'Great Britain': 'Jenson Button',
+ 'Suomi': 'Kimi R\xc3\xa4ikk\xc3\xb6nen',
+ '_accessed_time': 1429279819.52295,
+ '_creation_time': 1429279819.517085}
