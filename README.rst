@@ -51,3 +51,8 @@ Sphinx — это генератор документации, который п
 -----------------------
 
 Смотри `RULES.rst <https://github.com/ustu/lectures.www/blob/master/RULES.rst>`_
+
+
+.. image:: https://badges.gitter.im/Join%20Chat.svg
+   :alt: Join the chat at https://gitter.im/ustu/lectures.www
+   :target: https://gitter.im/ustu/lectures.www?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
