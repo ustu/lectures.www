@@ -4,6 +4,179 @@
 Beaker
 ------
 
+.. seealso::
+
+   * :l:`Beaker`
+
+`Beaker` - это библиотека предназначенная для кэширования и создания сессии, как в веб-приложениях, так и в чистых `Python` скриптах. Имеет `WSGI`-middleware для `WSGI`-приложений и декоратор (:ref:`additions_python_decorator`) для простых приложений.
+
+    .. Lazy-Loading Sessions: No performance hit for having sessions active in a request unless they’re actually used
+    .. Performance: Utilizes a multiple-reader / single-writer locking system to prevent the Dog Pile effect when caching.
+    .. Mulitple Back-ends: File-based, DBM files, memcached, memory, and database (via SQLAlchemy) back-ends available for sessions and caching
+    .. Cookie-based Sessions: SHA-1 signatures with optional AES encryption for client-side cookie-based session storage
+    .. Flexible Caching: Data can be cached per function to different back-ends, with different expirations, and different keys
+    .. Extensible Back-ends: Add more backends using setuptools entrypoints to support new back-ends.
+
+Конфигурация
+~~~~~~~~~~~~
+
+http://beaker.readthedocs.org/en/latest/configuration.html
+
+Сессии
+~~~~~~
+
+.. todo:: добавить описание
+.. todo:: добавить пример с куками без WSGI
+
+Создание
+""""""""
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/common.py
+   :language: python
+   :emphasize-lines: 1,8
+   :caption: common.py - функция ``get_session`` создает сессию
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/0.session.py
+   :language: python
+   :emphasize-lines: 7-11
+   :caption: 0.session.py - сохранение данных в сессии
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/0.session.txt
+   :language: text
+   :caption: Результат выполнения программы 0.session.py
+   :linenos:
+
+Удаление
+""""""""
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/1.session.delete.py
+   :language: python
+   :emphasize-lines: 15
+   :caption: 1.session.delete.py - удаление сессии
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/1.session.delete.txt
+   :language: text
+   :caption: Результат выполнения программы 1.session.delete.py
+   :linenos:
+
+Откат изменений
+"""""""""""""""
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/2.session.revert.py
+   :language: python
+   :emphasize-lines: 26
+   :caption: 2.session.revert.py - откат изменений в сессии
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/2.session.revert.txt
+   :language: text
+   :caption: Результат выполнения программы 2.session.revert.py
+   :linenos:
+
+Хранение в файловой системе
+"""""""""""""""""""""""""""
+
+По умолчанию сессии хранятся в оперативной памяти и при завершении программы удаляются. Что бы сессии хранились постоянно нужно указать место на диске:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/3.session.file.py
+   :language: python
+   :emphasize-lines: 7,15
+   :caption: 3.session.file.py - хранение сессии в файле
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/3.session.file.txt
+   :language: text
+   :caption: Результат выполнения программы 3.session.file.py
+   :linenos:
+
+.. code-block:: text
+   :emphasize-lines: 8
+
+   cache/
+   ├── container_file
+   │   ├── 7
+   │   │   └── 71
+   │   │       └── 711bd07daea5435cbe36aca5606b5b27.cache
+   │   ├── b
+   │   │   └── bd
+   │   │       └── bdf97caaea9441d4afb5fdbaf544c4d1.cache
+   │   └── c
+   │       └── cd
+   │           └── cd17504bb06b427da121682e5880e624.cache
+   └── container_file_lock
+       ├── 5
+       │   └── 57
+       │       └── 57ae97a56a1f25174e10d8dd97c21ca9b0143d80.lock
+       ├── 9
+       │   └── 95
+       │       └── 95ce7159f13371f684a35fec0ded3876aeb46163.lock
+       └── b
+           └── b2
+               └── b2f7ea4a5655f8b9b0c6fbf285021ca6709ab22d.lock
+
+   14 directories, 6 files
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/cache/container_file/b/bd/bdf97caaea9441d4afb5fdbaf544c4d1.cache
+   :language: text
+   :caption: Сереализованный кэш в файле bdf97caaea9441d4afb5fdbaf544c4d1.cache
+   :linenos:
+
+Хранение в Memcached
+""""""""""""""""""""
+
+.. seealso::
+
+   * :l:`Memcached`
+   * http://beaker.readthedocs.org/en/latest/modules/memcached.html
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/4.session.memcached.py
+   :language: python
+   :emphasize-lines: 8-9,20-21
+   :caption: 4.session.memcached.py - Хранение сессий в memcached
+   :linenos:
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/4.session.memcached.txt
+   :language: text
+   :caption: Результат выполнения программы 4.session.memcached.txt
+   :linenos:
+
+Хранение в Redis
+""""""""""""""""
+
+.. seealso::
+
+   * :l:`Redis`
+   * https://github.com/didip/beaker_extensions
+
+WSGI-middleware
+"""""""""""""""
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/8.session/5.session.wsgi.py
+   :language: python
+   :emphasize-lines: 1,20
+   :caption: 5.session.wsgi.py - WSGI-meddleware
+   :linenos:
+
+.. figure:: /_static/6.www.sync/8.session/beaker_wsgi_1.png
+   :align: center
+
+   Первый запуск страницы
+
+.. figure:: /_static/6.www.sync/8.session/beaker_wsgi_84.png
+   :align: center
+
+   На страницу заходили 84 раза
+
+Кэширование
+~~~~~~~~~~~
+
+.. seealso::
+
+   * https://github.com/bbangert/beaker/blob/master/tests/test_cache.py
+
 dogpile.cache
 -------------
 
@@ -12,3 +185,5 @@ dogpile.cache
    * https://dogpilecache.readthedocs.org/en/latest/
    * https://gist.github.com/sontek/5660624
    * http://docs.sqlalchemy.org/en/latest/orm/examples.html?highlight=caching_query#dogpile-caching
+   * http://techspot.zzzeek.org/2012/04/19/using-beaker-for-caching-why-you-ll-want-to-switch-to-dogpile.cache/
+   * http://docs.makotemplates.org/en/latest/caching.html

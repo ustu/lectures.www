@@ -16,6 +16,8 @@ RUN apt-get -qqy install libfcgi-dev libcgicc5-dev spawn-fcgi
 RUN apt-get install -qqy bison
 # SQLite
 RUN apt-get install -qqy sqlite
+# Memcached
+RUN apt-get install -qqy libmemcached-dev zlib1g-dev libssl-dev
 
 USER vagrant
 
