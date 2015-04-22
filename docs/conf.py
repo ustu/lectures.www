@@ -219,6 +219,7 @@ epub_exclude_files = ['search.html']
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
     'http://docs.python.org/': None,
+    'http://docs.sqlalchemy.org/en/latest/': None,
     'http://docs.pylonsproject.org/projects/colander/en/latest/': None,
     'http://deform.readthedocs.org/en/latest/': None,
     'http://initd.org/psycopg/docs/': None,
@@ -265,6 +266,8 @@ DATABASE_LINKS = {
     'postgresql': 'http://postgresql.org',
 
     # ORM
+    'db-api': 'https://www.python.org/dev/peps/pep-0249/',
+    'db-api 2.0': 'https://www.python.org/dev/peps/pep-0249/',
     'sqlalchemy': 'http://sqlalchemy.org/',
 }
 

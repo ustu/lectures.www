@@ -1,0 +1,248 @@
+Соединение (engine)
+===================
+
+Создадим две таблицы и добавим сотрудников (``employee``).
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/0.simple.example.py
+   :language: python
+   :caption: 2.sqlalchemy/0.simple.example.py
+   :linenos:
+
+`SQL` запрос:
+
+.. code-block:: sql
+
+    create table employee (
+        emp_id integer primary key,
+        emp_name varchar
+    );
+
+    create table employee_of_month (
+        emp_id integer primary key,
+        emp_name varchar
+    );
+   insert into employee(emp_name) values ('ed');
+   insert into employee(emp_name) values ('jack');
+   insert into employee(emp_name) values ('fred');
+
+.. code-block:: sql
+
+   $ sqlite3 some.db
+   sqlite> .tables
+   employee           employee_of_month
+   sqlite> SELECT * FROM employee;
+   1|ed
+   2|jack
+   3|fred
+   sqlite> SELECT * FROM employee_of_month;
+   sqlite>
+
+create_engine
+-------------
+
+Функция :func:`sqlalchemy.create_engine` создает новый экземпляр класса
+:class:`sqlalchemy.engine.Engine` который предоставляет подключение к базе данных.
+
+.. code-block:: python
+   :linenos:
+
+   from sqlalchemy import create_engine
+   engine = create_engine("sqlite:///some.db")
+
+execute
+-------
+
+Метод :meth:`sqlalchemy.engine.Engine.execute` выполняет `SQL` запрос
+в нашем соединении и возвращает объект класса :class:`sqlalchemy.engine.ResultProxy`.
+
+.. code-block:: python
+   :linenos:
+
+   result = engine.execute(
+               "select emp_id, emp_name from "
+               "employee where emp_id=:emp_id",
+               emp_id=3)
+
+В результате выполнится следующий `SQL` запрос:
+
+.. code-block:: sql
+
+   select emp_id, emp_name from employee where emp_id=3;
+
+fetchone
+--------
+
+Объект класса :class:`sqlalchemy.engine.ResultProxy` реализует некоторые методы
+из спецификации :l:`DB-API 2.0`:
+
+* :meth:`sqlalchemy.engine.ResultProxy.fetchone`
+* :meth:`sqlalchemy.engine.ResultProxy.fetchmany`
+* :meth:`sqlalchemy.engine.ResultProxy.fetchall`
+
+Результат запроса похож на список.
+
+.. code-block:: python
+   :linenos:
+
+   row = result.fetchone()
+   print(row)  # (3, u'fred')
+
+Но также выполняет функции словаря.
+
+.. code-block:: python
+   :linenos:
+
+   print(row['emp_name'])  # u'fred'
+
+fetchall
+--------
+
+Объект класса :class:`sqlalchemy.engine.ResultProxy` является итератором,
+поэтому можно получить список всех строк в цикле.
+
+.. code-block:: python
+   :linenos:
+
+   result = engine.execute("select * from employee")
+   for row in result:
+       print(row)
+   # (1, u'ed')
+   # (2, u'jack')
+   # (3, u'fred')
+
+Тоже самое делает функция :meth:`sqlalchemy.engine.ResultProxy.fetchall`
+
+.. code-block:: python
+   :linenos:
+
+   result = engine.execute("select * from employee")
+   print(result.fetchall())
+   # [(1, u'ed'), (2, u'jack'), (3, u'fred')]
+
+close
+-----
+
+Соединение закроется автоматически после выполнения `SQL` запроса,
+но можно это сделать и вручную, при помощи метода :meth:`sqlalchemy.engine.ResultProxy.close`
+
+.. code-block:: python
+   :linenos:
+   :caption: Закрытие соединения вручную
+
+   result.close()
+
+Транзакции
+----------
+
+:meth:`sqlalchemy.engine.Engine.execute` автоматически подтверждает транзакцию
+в текущем соединении
+(выполняет `COMMIT <http://www.postgresql.org/docs/devel/static/sql-commit.html>`_)
+
+.. code-block:: python
+   :linenos:
+
+   engine.execute("insert into employee_of_month (emp_name) values (:emp_name)",
+                  emp_name='fred')
+
+Мы можем контролировать соединение используя метод :meth:`sqlalchemy.engine.Engine.connect`
+
+.. code-block:: python
+   :linenos:
+
+   conn = engine.connect()
+   result = conn.execute("select * from employee")
+   result.fetchall()
+   conn.close()
+
+Он также дает возможность управлять транзакциями.
+Транзакция является объектом класса :class:`sqlalchemy.engine.Transaction`
+и содержит в себе следующие методы:
+
+* :meth:`sqlalchemy.engine.Transaction.close` - выполняет ``rollback``
+* :meth:`sqlalchemy.engine.Transaction.commit` - подтверждает транзакцию
+* :meth:`sqlalchemy.engine.Transaction.rollback` - отменяет транзакцию
+
+Метод :meth:`sqlalchemy.engine.Transaction.commit`
+позволяет вам вручную подтвердить транзакцию.
+
+.. code-block:: python
+   :linenos:
+   :emphasize-lines: 5
+   :caption: Подтверждение транзакции вручную
+
+   conn = engine.connect()
+   trans = conn.begin()
+   conn.execute("insert into employee (emp_name) values (:emp_name)", emp_name="wendy")
+   conn.execute("update employee_of_month set emp_name = :emp_name", emp_name="wendy")
+   trans.commit()
+   conn.close()
+
+`SQL` запрос:
+
+.. code-block:: sql
+
+   BEGIN;
+   insert into employee (emp_name) values 'wendy';
+   update employee_of_month set emp_name = 'wendy';
+   COMMIT;
+
+.. code-block:: python
+   :linenos:
+   :caption: Данные успешно записанны в БД
+
+   print(engine.execute("select * from employee").fetchall())
+   print(engine.execute("select * from employee_of_month").fetchall())
+   # [(1, u'ed'), (2, u'jack'), (3, u'fred'), (4, u'wendy')]
+   # [(1, u'wendy')]
+
+Метод :meth:`sqlalchemy.engine.Transaction.rollback`
+отменяет транзакцию, откатывая данные к начальному состоянию.
+
+.. code-block:: python
+   :linenos:
+   :emphasize-lines: 5
+   :caption: Отмена транзакции вручную
+
+   conn = engine.connect()
+   trans = conn.begin()
+   conn.execute("insert into employee (emp_name) values (:emp_name)", emp_name="wendy")
+   conn.execute("update employee_of_month set emp_name = :emp_name", emp_name="wendy")
+   trans.rollback()
+   conn.close()
+
+`SQL` запрос:
+
+.. code-block:: sql
+
+   BEGIN;
+   insert into employee (emp_name) values 'wendy';
+   update employee_of_month set emp_name = 'wendy';
+   ROLLBACK;
+
+.. code-block:: python
+   :linenos:
+   :caption: Данные не изменились
+
+   print(engine.execute("select * from employee").fetchall())
+   print(engine.execute("select * from employee_of_month").fetchall())
+   # [(1, u'ed'), (2, u'jack'), (3, u'fred')]
+   # [(1, u'fred')]
+
+:ref:`context_manager` немного упрощает это процесс:
+
+.. code-block:: python
+   :linenos:
+
+   with engine.begin() as conn:
+       conn.execute("insert into employee (emp_name) values (:emp_name)", emp_name="mary")
+       conn.execute("update employee_of_month set emp_name = :emp_name", emp_name="mary")
+
+Полный пример
+-------------
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/1.engine.py
+   :language: python
+   :caption: 2.sqlalchemy/1.engine.py
+   :linenos:
+
+

@@ -6,7 +6,6 @@ SQLAlchemy
    * :l:`SQLAlchemy`
    * https://ru.wikipedia.org/wiki/ORM
    * https://ru.wikipedia.org/wiki/SQLAlchemy
-   * https://bitbucket.org/zzzeek/pycon2013_student_package/
 
 **ORM** (`англ. object-relational mapping, рус. объектно-реляционное отображение`) — технология программирования, которая связывает базы данных с концепциями объектно-ориентированных языков программирования, создавая «виртуальную объектную базу данных». Существуют как проприетарные, так и свободные реализации этой технологии.
 
@@ -24,9 +23,6 @@ SQLAlchemy
 Пример
 ------
 
-Hello World!
-~~~~~~~~~~~~
-
 Простейший пример с использованием SQLite в оперативной памяти:
 
 .. code-block:: python
@@ -37,41 +33,27 @@ Hello World!
    >>> engine.execute("select 'Hello, World!'").scalar()
    u'Hello, World!'
 
-Еще пример
-~~~~~~~~~~
+Базовые понятия
+---------------
 
-Создание двух таблиц и добавление записей.
+.. seealso::
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/0.simple.example.py
-   :language: python
-   :caption: 2.sqlalchemy/0.simple.example.py
-   :linenos:
+   * https://ru.wikibooks.org/wiki/SQLAlchemy
+   * https://bitbucket.org/zzzeek/pycon2013_student_package/
 
-.. code-block:: sql
+.. todo::
 
-   $ sqlite3 some.db
-   sqlite> .tables
-   employee           employee_of_month
-   sqlite> SELECT * FROM employee;
-   1|ed
-   2|jack
-   3|fred
-   sqlite> SELECT * FROM employee_of_month;
-   sqlite>
+   * Добавить описание из http://mapfish.org/doc/tutorials/sqlalchemy.html
+   * добавить схемы из http://rus-linux.net/MyLDP/BOOKS/Architecture-Open-Source-Applications/Vol-2/sqlalchemy-04.html
+   * описать сессии более подробно https://ru.wikibooks.org/wiki/SQLAlchemy/Sessions
 
-engine
-~~~~~~
+.. toctree::
+   :maxdepth: 3
 
-
-metadata
-~~~~~~~~
-
-SQL expressions
-~~~~~~~~~~~~~~~
-
-ORM
-~~~
-
+   0.engine.rst
+   1.metadata.rst
+   2.sql_expressions.rst
+   3.orm.rst
 
 Применение и аналоги
 --------------------
