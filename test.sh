@@ -11,7 +11,6 @@ NC='\033[0m' # No Color
 
 RST_FILES=`find . -name "*.rst" -printf "%p "`
 FLAKE8=$(flake8 ./sourcecode/)
-# PEP8=$(pep8 ./sourcecode/)
 RST_LINT=$(./rstlint.py)
 RST_CHECK=$(rstcheck $RST_FILES --report 2 3>&1 1>&2 2>&3 | tee >(cat - >&2)) # fd=STDERR_FILENO
 
@@ -23,7 +22,6 @@ then
     echo -e "RST_CHECK: ${RST_CHECK:-OK}"
     echo -e "RST_LINT: ${RST_LINT:-OK}"
     echo -e "FLAKE8: ${FLAKE8:-OK}"
-    # echo -e "PEP8: ${PEP8:-OK}"
     exit 1
 else
     echo -e "${GREEN}OK!"

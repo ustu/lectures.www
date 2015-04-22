@@ -1,0 +1,81 @@
+SQLAlchemy
+==========
+
+.. seealso::
+
+   * :l:`SQLAlchemy`
+   * https://ru.wikipedia.org/wiki/ORM
+   * https://ru.wikipedia.org/wiki/SQLAlchemy
+   * https://bitbucket.org/zzzeek/pycon2013_student_package/
+
+**ORM** (`англ. object-relational mapping, рус. объектно-реляционное отображение`) — технология программирования, которая связывает базы данных с концепциями объектно-ориентированных языков программирования, создавая «виртуальную объектную базу данных». Существуют как проприетарные, так и свободные реализации этой технологии.
+
+**SQLAlchemy** — это библиотека на языке Python для работы с реляционными СУБД с применением технологии ORM. Служит для синхронизации объектов Python и записей реляционной базы данных. SQLAlchemy позволяет описывать структуры баз данных и способы взаимодействия с ними на языке Python без использования SQL.
+
+Преимущества использования
+--------------------------
+
+Использование SQLAlchemy для автоматической генерации SQL-кода имеет несколько преимуществ по сравнению с ручным написанием SQL:
+
+* **Безопасность**. Параметры запросов экранируются, что делает атаки типа внедрение SQL-кода маловероятными.
+* **Производительность**. Повышается вероятность повторного использования запроса к серверу базы данных, что может позволить ему в некоторых случаях применить повторно план выполнения запроса.
+* **Переносимость**. SQLAlchemy, при должном подходе, позволяет писать код на Python, совместимый с несколькими back-end СУБД. Несмотря на стандартизацию языка SQL, между базами данных имеются различия в его реализации, абстрагироваться от которых и помогает SQLAlchemy.
+
+Пример
+------
+
+Hello World!
+~~~~~~~~~~~~
+
+Простейший пример с использованием SQLite в оперативной памяти:
+
+.. code-block:: python
+   :linenos:
+
+   >>> from sqlalchemy import create_engine
+   >>> engine = create_engine('sqlite:///:memory:')
+   >>> engine.execute("select 'Hello, World!'").scalar()
+   u'Hello, World!'
+
+Еще пример
+~~~~~~~~~~
+
+Создание двух таблиц и добавление записей.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/0.simple.example.py
+   :language: python
+   :caption: 2.sqlalchemy/0.simple.example.py
+   :linenos:
+
+.. code-block:: sql
+
+   $ sqlite3 some.db
+   sqlite> .tables
+   employee           employee_of_month
+   sqlite> SELECT * FROM employee;
+   1|ed
+   2|jack
+   3|fred
+   sqlite> SELECT * FROM employee_of_month;
+   sqlite>
+
+engine
+~~~~~~
+
+
+metadata
+~~~~~~~~
+
+SQL expressions
+~~~~~~~~~~~~~~~
+
+ORM
+~~~
+
+
+Применение и аналоги
+--------------------
+
+SQLAlchemy находит применение в веб-фреймворках :l:`TurboGears`,
+:l:`Pylons`, :l:`Pyramid`, :l:`Zope`, :l:`Flask`.
+Например, известный социальный новостной сайт `Reddit <http://www.reddit.com/>`_ построен с использованием SQLAlchemy. Список организаций, использующих SQLAlchemy, можно найти на `сайте проекта <http://www.sqlalchemy.org/organizations.html>`_.

@@ -1,0 +1,86 @@
+SQLite
+======
+
+.. seealso::
+
+   * https://docs.python.org/3.5/library/sqlite3.html
+
+:l:`SQLite` - это БД которая хранит базу в одном файле и не требует отдельного процесса для запуска, при этом использует не стандартный вариант языка SQL.
+
+`SQLite` можно использовать для хранения внутренних данных программы (например FireFox хранит куки в sqlite) или для создания прототипа приложения, а затем портировать код в крупную БД типа :l:`Postgres`.
+
+Модуль :mod:`sqlite3` совместим c DB-API 2.0 спецификацией, опиcаной в :PEP:`249`.
+
+Чтобы использовать этот модуль, вы должны сначала создать объект
+:class:`sqlite3.Connection` который представляет базу данных.
+
+.. code-block:: python
+
+   import sqlite3
+   conn = sqlite3.connect('example.sqlite')
+
+Также можно создать БД в ОЗУ при помощи специального имени ``:memory:``.
+
+.. code-block:: python
+
+   import sqlite3
+   conn = sqlite3.connect(':memory:')
+
+После создания объекта :class:`sqlite3.Connection`, можно создать объект
+:class:`sqlite3.Cursor` и вызвать метод :meth:`sqlite3.Cursor.execute`
+для выполнения SQL запросов.
+
+.. code-block:: python
+
+   c = conn.cursor()
+
+   # Создание таблицы
+   c.execute('''CREATE TABLE stocks
+                (date text, trans text, symbol text, qty real, price real)''')
+
+   # Добавление записи
+   c.execute("INSERT INTO stocks VALUES ('2006-01-05','BUY','RHAT',100,35.14)")
+
+   # Сохранение (commit) изменений
+   conn.commit()
+
+   # Закрытие соединения.
+   # Если изменения не были сохранены (метод commit), то данные пропадут.
+   conn.close()
+
+Для "экранирования" данных используйте ``?`` заместо ``%s``:
+
+.. code-block:: python
+
+   # Никогда так не делайте -- не безопасно!
+   symbol = 'RHAT'
+   c.execute("SELECT * FROM stocks WHERE symbol = '%s'" % symbol)
+
+   # Правильно
+   t = ('RHAT',)
+   c.execute('SELECT * FROM stocks WHERE symbol=?', t)
+   print(c.fetchone())
+
+   # Запись сразу нескольких объектов за раз
+   purchases = [('2006-03-28', 'BUY', 'IBM', 1000, 45.00),
+                ('2006-04-05', 'BUY', 'MSFT', 1000, 72.00),
+                ('2006-04-06', 'SELL', 'IBM', 500, 53.00),
+               ]
+   c.executemany('INSERT INTO stocks VALUES (?,?,?,?,?)', purchases)
+
+Чтение данных:
+
+.. code-block:: python
+
+   >>> for row in c.execute('SELECT * FROM stocks ORDER BY price'):
+           print(row)
+
+   ('2006-01-05', 'BUY', 'RHAT', 100, 35.14)
+   ('2006-03-28', 'BUY', 'IBM', 1000, 45.0)
+   ('2006-04-06', 'SELL', 'IBM', 500, 53.0)
+   ('2006-04-05', 'BUY', 'MSFT', 1000, 72.0)
+
+
+.. todo::
+
+   Нехватает более емких примеров с исходными кодами

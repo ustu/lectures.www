@@ -1,0 +1,6 @@
+Пагинация
+=========
+
+.. seealso::
+
+   * https://github.com/Pylons/paginate_sqlalchemy

@@ -1,0 +1,7 @@
+Формы
+=====
+
+.. seealso::
+
+   * http://docs.formalchemy.org/
+   * http://colanderalchemy.readthedocs.org
