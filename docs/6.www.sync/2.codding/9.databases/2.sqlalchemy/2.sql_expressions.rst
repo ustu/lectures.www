@@ -1,3 +1,97 @@
 SQL выражения
 =============
 
+.. seealso::
+
+   * http://rus-linux.net/MyLDP/BOOKS/Architecture-Open-Source-Applications/Vol-2/sqlalchemy-05
+
+В момент начала разработки :l:`SQLAlchemy` способ генерации SQL-запросов не был ясен. Текстовый язык мог быть хорошим кандидатом; это стандартный подход, лежащий в основе таких широко известных инструментов объектно-реляционного отображения, как `HQL <https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/queryhql.html>`_ из состава `Hibernate <https://ru.wikipedia.org/wiki/Hibernate_(библиотека)>`_. В случае использования языка программирования Python, однако, был доступен более занимательный вариант: использование объектов и выражений языка Python для генерации древовидных структур представления запросов, причем возможным было даже изменение назначения операторов языка Python с целью использования их для формирования SQL-запросов.
+
+Хотя рассматриваемый инструмент и не был первым инструментом, выполняющим подобные функции, следует упомянуть о библиотеке `SQLBuilder <http://www.sqlobject.org/SQLBuilder.html>`_ из состава SQLObject_ от Ian Bicking, которая была использована как образец при создании системы работы с объектами языка Python и операторами, используемыми в рамках языка формирования запросов SQLAlchemy. При использовании данного подхода объекты языка Python представляют лексические части SQL-запроса. Методы этих объектов, также как и перегружаемые операторы, позволяют генерировать новые унаследованные от существующих лексические конструкции. Наиболее часто используемым объектом является представляющий столбец объект "Column" - библиотека SQLObject_ будет представлять такие объекты в рамках класса объектно-реляционного отображения, используя пространство имен с доступом посредством атрибута .q; также в :l:`SQLAlchemy` объявлен атрибут с именем .c. Этот атрибут .c на сегодняшний день поддерживается и используется для представления элементов основной части, подвергающихся выборке, таких, как объекты, представляющие таблицы и запросы выборки.
+
+.. _SQLObject: http://www.sqlobject.org/index.html
+
+Создание таблицы
+----------------
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> from sqlalchemy import MetaData, Table, Column, String, Integer
+
+   >>> metadata = MetaData()
+   >>> user_table = Table('user', metadata,
+   ...                     Column('id', Integer, primary_key=True),
+   ...                     Column('username', String(50)),
+   ...                     Column('fullname', String(50))
+   ...                    )
+
+   >>> from sqlalchemy import create_engine
+   >>> engine = create_engine("sqlite://")
+   >>> metadata.create_all(engine)
+
+   [SQL]: PRAGMA table_info("user")
+   [SQL]: ()
+   [SQL]:
+   CREATE TABLE user (
+       id INTEGER NOT NULL,
+       username VARCHAR(50),
+       fullname VARCHAR(50),
+       PRIMARY KEY (id)
+   )
+
+
+   [SQL]: ()
+   [SQL]: COMMIT
+
+Python оператор сравнения '=='
+------------------------------
+
+Каждая колонка в SQAlchemy является частью класса :class:`sqlalchemy.sql.expression.ColumnElement`.
+
+В примере ниже показывается соответствие SQL выражения с Python выражением `сравнения`. Такое преобразование возможно при помощи реализации "магического" Python метода :meth:`sqlalchemy.sql.expression.ColumnElement.__eq__`.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 7
+
+   >>> user_table.c.username
+   Column('username', String(length=50), table=<user>)
+   >>>
+   >>> user_table.c.username == 'ed'
+   <sqlalchemy.sql.expression.BinaryExpression object at 0x7fb829e60a90>
+   >>>
+   >>> str(user_table.c.username == 'ed')
+   '"user".username = :username_1'
+
+Комбинация нескольких выражений
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 4
+
+   >>> print(
+   ...     (user_table.c.username == 'ed') | (user_table.c.username == 'jack')
+   ...     )
+   "user".username = :username_1 OR "user".username = :username_2
+
+OR и AND
+--------
+
+SQL операторы OR и AND соответствуют побитовым операторам в Python ``|`` и ``&`` или функциям :func:`sqlalchemy.sql.expression.or_` и :func:`sqlalchemy.sql.expression.and_`.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> from sqlalchemy import and_, or_
+
+   >>> print(
+   ...     and_(
+   ...         user_table.c.fullname == 'ed jones',
+   ...             or_(
+   ...                 user_table.c.username == 'ed',
+   ...                 user_table.c.username == 'jack'
+   ...             )
+   ...         )
+   ...     )
+   "user".fullname = :fullname_1 AND ("user".username = :username_1 OR "user".username = :username_2)

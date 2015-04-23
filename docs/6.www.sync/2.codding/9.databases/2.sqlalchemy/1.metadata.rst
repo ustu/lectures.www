@@ -1,7 +1,568 @@
 Метаданные (metadata)
 =====================
 
+.. seealso::
+
+   * http://rus-linux.net/MyLDP/BOOKS/Architecture-Open-Source-Applications/Vol-2/sqlalchemy-04.html
+
 .. todo::
 
    * Написать про горизонтальное маштабирование http://docs.sqlalchemy.org/en/latest/orm/examples.html#examples-sharding
-   * Как разделеять таблицы по разным метаданным и привязывать к ним свое подключение http://otkds.blogspot.com/2009/04/sqlalchemy.html
+   * Как разделять таблицы по разным метаданным и привязывать к ним свое подключение http://otkds.blogspot.com/2009/04/sqlalchemy.html
+
+Для описания структуры базы данных используют 3 основных класса:
+
+* :class:`sqlalchemy.schema.Table` - таблица
+* :class:`sqlalchemy.schema.Column` - поле таблицы
+* :class:`sqlalchemy.schema.MetaData` - список таблиц
+
+А также типы полей описанные в модуле :mod:`sqlalchemy.types`:
+
+* :class:`sqlalchemy.types.Integer`
+* :class:`sqlalchemy.types.String`
+* :class:`sqlalchemy.types.Text`
+* И другие
+
+.. code-block:: python
+   :linenos:
+
+   from sqlalchemy import MetaData
+   from sqlalchemy import Table, Column
+   from sqlalchemy import Integer, String
+
+   metadata = MetaData()
+   user_table = Table('user', metadata,
+                  Column('id', Integer, primary_key=True),
+                  Column('name', String),
+                  Column('fullname', String)
+                )
+
+Создание таблиц таким образом описывают структуру базы данных независимо от
+объектно-реляционного отображения.
+Объект :class:`sqlalchemy.schema.Table` представляет имя и другие атрибуты
+текущей таблицы. Его коллекция объектов ``Column`` представляет информацию об
+именах и типах для определенных столбцов таблицы.
+
+Дополнительно в описание схемы базы данных можно включить внешние ключи,
+индексы, последовательности и т.д.:
+
+* :class:`sqlalchemy.schema.ForeignKey` - внешние ключи
+* :class:`sqlalchemy.schema.Index` - индексы
+* :class:`sqlalchemy.schema.Sequence` - последовательности
+
+Вся информация о таблицах базы данных складывается в объект класса
+:class:`sqlalchemy.schema.MetaData`. Получить список таблиц можно при помощи
+атрибута :attr:`sqlalchemy.schema.MetaData.tables`.
+
+.. figure:: /_static/6.www.sync/9.databases/sqlalchemy_schema.png
+   :align: center
+   :name: sqlalchemy_schema
+
+   Базовые объекты пакета sqlalchemy.schema
+
+Объекты ``Table`` и ``Column`` уникальны по сравнению со всеми остальными
+объектами из пакета для работы со схемами, так как они используют двойное
+наследование от объектов из пакетов :mod:`sqlalchemy.schema` и
+:mod:`sqlalchemy.sql.expression`, работая не только как конструкции уровня
+обработки схем, но также и как синтаксические единицы языка для создания
+выражений SQL. Это отношение проиллюстрировано на
+:numref:`sqlalchemy_table_crossover`.
+
+.. _sqlalchemy_table_crossover:
+
+.. figure:: /_static/6.www.sync/9.databases/table-column-crossover_ru.png
+   :align: center
+
+   Двойная жизнь объектов Table и Column
+
+Table
+-----
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> user_table
+   Table('user', MetaData(bind=None),
+   Column('id', Integer(), table=<user>, primary_key=True, nullable=False),
+   Column('name', String(), table=<user>),
+   Column('fullname', String(), table=<user>), schema=None)
+
+Имя таблицы
+~~~~~~~~~~~
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> user_table.name
+   'user'
+
+Поля таблицы
+~~~~~~~~~~~~
+
+Поля таблицы хранятся в списке :attr:`sqlalchemy.schema.Table.columns` или его более коротком варианте :attr:`sqlalchemy.schema.Table.c`.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> user_table.c
+   <sqlalchemy.sql.expression.ImmutableColumnCollection object at 0x7fee7d18c450>
+   >>> print(user_table.c)
+   ['user.id', 'user.name', 'user.fullname']
+   >>> user_table.c.id
+   Column('id', Integer(), table=<user>, primary_key=True, nullable=False)
+   >>> user_table.c.name
+   Column('name', String(), table=<user>)
+   >>> user_table.c.fullname
+   Column('fullname', String(), table=<user>)
+
+Сами поля тоже содержат информацию о себе, например в атрибутах ``name`` и
+``type``.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> user_table.c.id
+   Column('id', Integer(), table=<user>, primary_key=True, nullable=False)
+   >>> user_table.c.id.name
+   'id'
+   >>> user_table.c.id.type
+   Integer()
+   >>>
+   >>> user_table.c.name
+   Column('name', String(), table=<user>)
+   >>> user_table.c.name.name
+   'name'
+   >>> user_table.c.name.type
+   String()
+
+Первичные ключи
+~~~~~~~~~~~~~~~
+
+Первичные ключи таблицы можно получить при помощи атрибута
+:attr:`sqlalchemy.schema.Table.primary_key`
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> user_table.primary_key
+   PrimaryKeyConstraint(Column('id', Integer(), table=<user>, primary_key=True, nullable=False))
+   >>> print(user_table.primary_key.columns)
+   ['user.id']
+   >>> user_table.primary_key.columns.id
+   Column('id', Integer(), table=<user>, primary_key=True, nullable=False)
+
+SQL выражения
+~~~~~~~~~~~~~
+
+Объект класса :class:`sqlalchemy.schema.Table` является частью механизма SQL выражений в :mod:`sqlalchemy` и содержит в себе множество вспомогательных методов для построения SQL запросов:
+
+* :meth:`sqlalchemy.schema.Table.select`
+* :meth:`sqlalchemy.schema.Table.delete`
+* :meth:`sqlalchemy.schema.Table.insert`
+* :meth:`sqlalchemy.schema.Table.update`
+* :meth:`sqlalchemy.schema.Table.join`
+* :meth:`sqlalchemy.schema.Table.outerjoin`
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> print(user_table.select())
+   SELECT "user".id, "user".name, "user".fullname
+   FROM "user"
+
+   >>> print(user_table.delete())
+   DELETE FROM "user"
+
+   >>> print(user_table.insert())
+   INSERT INTO "user" (id, name, fullname) VALUES (:id, :name, :fullname)
+
+   >>> print(user_table.update())
+   UPDATE "user" SET id=:id, name=:name, fullname=:fullname
+
+Создание таблиц
+~~~~~~~~~~~~~~~
+
+Все таблицы из списка :class:`sqlalchemy.schema.MetaData` можно создать при помощи метода :meth:`sqlalchemy.schema.MetaData.create_all`.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> from sqlalchemy import create_engine
+   >>> engine = create_engine("sqlite://")
+   >>> metadata.create_all(engine)
+
+   [SQL]: PRAGMA table_info("user")
+   [SQL]: ()
+   [SQL]:
+   CREATE TABLE user (
+       id INTEGER NOT NULL,
+       name VARCHAR,
+       fullname VARCHAR,
+       PRIMARY KEY (id)
+   )
+
+
+   [SQL]: ()
+   [SQL]: COMMIT
+
+Для создания, удаления одной таблицы необходимо использовать методы класса :class:`sqlalchemy.schema.Table`:
+
+* :meth:`sqlalchemy.schema.Table.drop`
+* :meth:`sqlalchemy.schema.Table.create`
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> user_table.drop(engine)
+   [SQL]:
+   DROP TABLE user
+   [SQL]: ()
+   [SQL]: COMMIT
+
+   >>> user_table.create(engine)
+   [SQL]:
+   CREATE TABLE user (
+       id INTEGER NOT NULL,
+       name VARCHAR,
+       fullname VARCHAR,
+       PRIMARY KEY (id)
+   )
+
+
+   [SQL]: ()
+   [SQL]: COMMIT
+
+Типы полей
+----------
+
+Типы полей описаны в модуле :mod:`sqlalchemy.types`:
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> from sqlalchemy import String, Numeric, DateTime, Enum
+   >>> fancy_table = Table('fancy', metadata,
+   ...                     Column('key', String(50), primary_key=True),
+   ...                     Column('timestamp', DateTime),
+   ...                     Column('amount', Numeric(10, 2)),
+   ...                     Column('type', Enum('a', 'b', 'c'))
+   ...                 )
+   >>> fancy_table.create(engine)
+
+   [SQL]:
+   CREATE TABLE fancy (
+       "key" VARCHAR(50) NOT NULL,
+       timestamp DATETIME,
+       amount NUMERIC(10, 2),
+       type VARCHAR(1),
+       PRIMARY KEY ("key"),
+       CHECK (type IN ('a', 'b', 'c'))
+   )
+
+
+   [SQL]: ()
+   [SQL]: COMMIT
+
+Огрничения и Индексы
+~~~~~~~~~~~~~~~~~~~~
+
+.. seealso::
+
+   * http://docs.sqlalchemy.org/en/latest/core/constraints.html#indexes
+
+Индексы создаются при помощи параметра ``index`` в классе
+:class:`sqlalchemy.schema.Column` или при помощи объекта класса
+:class:`sqlalchemy.schema.Index`.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> meta = MetaData()
+   >>> mytable = Table('mytable', meta,
+   ...     # an indexed column, with index "ix_mytable_col1"
+   ...     Column('col1', Integer, index=True),
+   ...
+   ...     # a uniquely indexed column with index "ix_mytable_col2"
+   ...     Column('col2', Integer, index=True, unique=True),
+   ...
+   ...     Column('col3', Integer),
+   ...     Column('col4', Integer),
+   ...
+   ...     Column('col5', Integer),
+   ...     Column('col6', Integer),
+   ...     )
+   >>> from sqlalchemy import Index
+   >>> Index('idx_col34', mytable.c.col3, mytable.c.col4)
+   Index('idx_col34', Column('col3', Integer(), table=<mytable>), Column('col4', Integer(), table=<mytable>))
+   >>> Index('myindex', mytable.c.col5, mytable.c.col6, unique=True)
+   Index('myindex', Column('col5', Integer(), table=<mytable>), Column('col6', Integer(), table=<mytable>), unique=True)
+   >>> mytable.create(engine)
+   [SQL]:
+   CREATE TABLE mytable (
+       col1 INTEGER,
+       col2 INTEGER,
+       col3 INTEGER,
+       col4 INTEGER,
+       col5 INTEGER,
+       col6 INTEGER
+   )
+
+
+   [SQL]: ()
+   [SQL]: COMMIT
+   [SQL]: CREATE UNIQUE INDEX myindex ON mytable (col5, col6)
+   [SQL]: ()
+   [SQL]: COMMIT
+   [SQL]: CREATE INDEX idx_col34 ON mytable (col3, col4)
+   [SQL]: ()
+   [SQL]: COMMIT
+   [SQL]: CREATE INDEX ix_mytable_col1 ON mytable (col1)
+   [SQL]: ()
+   [SQL]: COMMIT
+   [SQL]: CREATE UNIQUE INDEX ix_mytable_col2 ON mytable (col2)
+   [SQL]: ()
+   [SQL]: COMMIT
+
+Внешние ключи
+~~~~~~~~~~~~~
+
+Внешние ключи обычно используют как ссылки на первичные ключи. Для описания
+внешнего ключа в схеме нужно использовать класс
+:class:`sqlalchemy.schema.ForeignKey`.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 1,5
+
+   >>> from sqlalchemy import ForeignKey
+   >>> addresses_table = Table('address', metadata,
+   ...                     Column('id', Integer, primary_key=True),
+   ...                     Column('email_address', String(100), nullable=False),
+   ...                     Column('user_id', Integer, ForeignKey('user.id'))
+   ...                   )
+   >>> addresses_table.create(engine)
+
+   [SQL]:
+   CREATE TABLE address (
+       id INTEGER NOT NULL,
+       email_address VARCHAR(100) NOT NULL,
+       user_id INTEGER,
+       PRIMARY KEY (id),
+       FOREIGN KEY(user_id) REFERENCES user (id)
+   )
+
+
+   [SQL]: ()
+   [SQL]: COMMIT
+
+:class:`sqlalchemy.schema.ForeignKey` это более краткая запись следующей
+конструкции :class:`sqlalchemy.schema.ForeignKeyConstraint`.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 16-19
+
+   >>> from sqlalchemy import Unicode, UnicodeText, DateTime
+   >>> from sqlalchemy import ForeignKeyConstraint
+
+   >>> story_table = Table('story', metadata,
+   ...                Column('story_id', Integer, primary_key=True),
+   ...                Column('version_id', Integer, primary_key=True),
+   ...                Column('headline', Unicode(100), nullable=False),
+   ...                Column('body', UnicodeText)
+   ...           )
+
+   >>> published_table = Table('published', metadata,
+   ...             Column('pub_id', Integer, primary_key=True),
+   ...             Column('pub_timestamp', DateTime, nullable=False),
+   ...             Column('story_id', Integer),
+   ...             Column('version_id', Integer),
+   ...             ForeignKeyConstraint(
+   ...                             ['story_id', 'version_id'],
+   ...                             ['story.story_id', 'story.version_id'])
+   ...                 )
+
+   >>> metadata.create_all(engine)
+
+   [SQL]: PRAGMA table_info("user")
+   [SQL]: ()
+   [SQL]: PRAGMA table_info("fancy")
+   [SQL]: ()
+   [SQL]: PRAGMA table_info("story")
+   [SQL]: ()
+   [SQL]: PRAGMA table_info("published")
+   [SQL]: ()
+   [SQL]: PRAGMA table_info("address")
+   [SQL]: ()
+   [SQL]:
+   CREATE TABLE story (
+       story_id INTEGER NOT NULL,
+       version_id INTEGER NOT NULL,
+       headline VARCHAR(100) NOT NULL,
+       body TEXT,
+       PRIMARY KEY (story_id, version_id)
+   )
+
+
+   [SQL]: ()
+   [SQL]: COMMIT
+   [SQL]:
+   CREATE TABLE published (
+       pub_id INTEGER NOT NULL,
+       pub_timestamp DATETIME NOT NULL,
+       story_id INTEGER,
+       version_id INTEGER,
+       PRIMARY KEY (pub_id),
+       FOREIGN KEY(story_id, version_id) REFERENCES story (story_id, version_id)
+   )
+
+
+   [SQL]: ()
+   [SQL]: COMMIT
+
+Рефлексия
+~~~~~~~~~
+
+.. seealso::
+
+   * `<https://ru.wikipedia.org/wiki/Отражение_(программирование)>`_
+   * http://docs.sqlalchemy.org/en/latest/core/reflection.html
+
+В информатике отражение или рефлексия (холоним интроспекции, англ. reflection)
+означает процесс, во время которого программа может отслеживать и
+модифицировать собственную структуру и поведение во время выполнения.
+
+В :l:`SQLAlchemy` рефлексия означает автоматическую загрузку схемы таблицы из уже существующей базы данных. Реализуется через параметр ``autoload`` в конструкторе класса :class:`sqlalchemy.schema.Table.autoload`.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> metadata2 = MetaData()
+   >>> user_reflected = Table('user', metadata2, autoload=True, autoload_with=engine)
+
+   [SQL]: PRAGMA table_info("user")
+   [SQL]: ()
+   [SQL]: PRAGMA foreign_key_list("user")
+   [SQL]: ()
+   [SQL]: PRAGMA index_list("user")
+   [SQL]: ()
+
+   >>> print(user_reflected.c)
+   ['user.id', 'user.name', 'user.fullname']
+
+Для отражения всех таблиц существует метод
+:meth:`sqlalchemy.schema.MetaData.reflect`.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 2
+
+   >>> meta = MetaData()
+   >>> meta.reflect(bind=engine)
+   [SQL]: SELECT name FROM  (SELECT * FROM sqlite_master UNION ALL   SELECT * FROM sqlite_temp_master) WHERE type='table' ORDER BY name
+   [SQL]: ()
+   [SQL]: PRAGMA table_info("address")
+   [SQL]: ()
+   [SQL]: PRAGMA foreign_key_list("address")
+   [SQL]: ()
+   [SQL]: PRAGMA table_info("user")
+   [SQL]: ()
+   [SQL]: PRAGMA foreign_key_list("user")
+   [SQL]: ()
+   [SQL]: PRAGMA index_list("user")
+   [SQL]: ()
+   [SQL]: PRAGMA index_list("address")
+   [SQL]: ()
+   [SQL]: PRAGMA table_info("fancy")
+   [SQL]: ()
+   [SQL]: PRAGMA foreign_key_list("fancy")
+   [SQL]: ()
+   [SQL]: PRAGMA index_list("fancy")
+   [SQL]: ()
+   [SQL]: PRAGMA table_info("mytable")
+   [SQL]: ()
+   [SQL]: PRAGMA foreign_key_list("mytable")
+   [SQL]: ()
+   [SQL]: PRAGMA index_list("mytable")
+   [SQL]: ()
+   [SQL]: PRAGMA index_info("ix_mytable_col2")
+   [SQL]: ()
+   [SQL]: PRAGMA index_info("ix_mytable_col1")
+   [SQL]: ()
+   [SQL]: PRAGMA index_info("idx_col34")
+   [SQL]: ()
+   [SQL]: PRAGMA index_info("myindex")
+   [SQL]: ()
+   [SQL]: PRAGMA table_info("published")
+   [SQL]: ()
+   [SQL]: PRAGMA foreign_key_list("published")
+   [SQL]: ()
+   [SQL]: PRAGMA table_info("story")
+   [SQL]: ()
+   [SQL]: PRAGMA foreign_key_list("story")
+   [SQL]: ()
+   [SQL]: PRAGMA index_list("story")
+   [SQL]: ()
+   [SQL]: PRAGMA index_list("published")
+   [SQL]: ()
+   >>> new_user_table = meta.tables['user']
+   >>> new_fancy_table = meta.tables['fancy']
+
+Интроспекция
+~~~~~~~~~~~~
+
+.. seealso::
+
+   * `<https://ru.wikipedia.org/wiki/Интроспекция_(программирование)>`_
+
+Интроспекция (англ. type introspection) в программировании — возможность в
+некоторых объектно-ориентированных языках определить тип и структуру объекта во
+время выполнения программы. В :l:`SQLAlchemy` возможность анализа схемы базы
+данных. Для анализа используется функция :func:`sqlalchemy.inspection.inspect`.
+
+Список таблиц
+"""""""""""""
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> from sqlalchemy import inspect
+   >>> inspector = inspect(engine)
+   >>>
+   >>> inspector.get_table_names()
+
+   [SQL]: SELECT name FROM  (SELECT * FROM sqlite_master UNION ALL   SELECT * FROM sqlite_temp_master) WHERE type='table' ORDER BY name
+   [SQL]: ()
+   [u'address', u'fancy', u'mytable', u'published', u'story', u'user']
+
+Информация о полях таблицы
+""""""""""""""""""""""""""
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> inspector.get_columns('address')
+
+   [SQL]: PRAGMA table_info("address")
+   [SQL]: ()
+   [{'primary_key': 1, 'nullable': False, 'default': None, 'autoincrement': True, 'type': INTEGER(), 'name': u'id'}, {'primary_key': 0, 'nullable': False, 'default': None, 'autoincrement': True, 'type': VARCHAR(length=100), 'name': u'email_address'}, {'primary_key': 0, 'nullable': True, 'default': None, 'autoincrement': True, 'type': INTEGER(), 'name': u'user_id'}]
+
+Внешние ключи
+"""""""""""""
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> inspector.get_foreign_keys('address')
+
+   [SQL]: PRAGMA foreign_key_list("address")
+   [SQL]: ()
+   [{'referred_table': u'user', 'referred_columns': [u'id'], 'referred_schema': None, 'name': None, 'constrained_columns': [u'user_id']}]
+
+Полный пример
+-------------
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/2.metadata.py
+   :language: python
+   :caption: 2.sqlalchemy/2.metadata.py
+   :linenos:
