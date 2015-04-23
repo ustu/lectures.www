@@ -7,3 +7,4 @@
     sqlite
     zodb
     redis
+    postgres
