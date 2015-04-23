@@ -1,0 +1,7 @@
+Метаданные (metadata)
+=====================
+
+.. todo::
+
+   * Написать про горизонтальное маштабирование http://docs.sqlalchemy.org/en/latest/orm/examples.html#examples-sharding
+   * Как разделеять таблицы по разным метаданным и привязывать к ним свое подключение http://otkds.blogspot.com/2009/04/sqlalchemy.html
