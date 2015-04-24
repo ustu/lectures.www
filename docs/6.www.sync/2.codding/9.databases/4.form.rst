@@ -9,7 +9,9 @@
 
 .. todo::
 
-   Добавить описание
+   * Добавить описание
+   * Добавить пример с кастомным полем в схеме
+   * Добавить пример с include, exclude, etc
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/4.form/example.py
    :language: python

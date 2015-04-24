@@ -48,3 +48,14 @@ ORM
    >>> User.__table__
    Table('user', MetaData(bind=None), Column('id', Integer(), table=<user>, primary_key=True, nullable=False), Column('name', String(), table=<user>), Column('fullname', String(), table=<user>), schema=None)
 
+.. todo::
+
+   * завершить описание примера
+
+Полный пример
+-------------
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/3.sql_expression.py
+   :language: python
+   :caption: 2.sqlalchemy/3.sql_expression.py
+   :linenos:

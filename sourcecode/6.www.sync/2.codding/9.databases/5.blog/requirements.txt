@@ -5,3 +5,4 @@ paginate
 selector
 paste
 webob
+sqlalchemy

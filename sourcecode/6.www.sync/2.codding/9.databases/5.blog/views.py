@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 import deform
 from jinja2 import Environment, FileSystemLoader
 from webob import Request, Response
 
 from common import get_csrf_token, get_session
-from models import ARTICLES
+from models import Session, Articles
+
 
 env = Environment(loader=FileSystemLoader('templates'))
 
@@ -21,10 +23,9 @@ class BaseArticle(object):
     def __init__(self, request):
         self.request = request
         article_id = self.request.environ['wsgiorg.routing_args'][1]['id']
-        (self.index,
-         self.article) = next(((i, art) for i, art in enumerate(ARTICLES)
-                               if art['id'] == int(article_id)),
-                              (None, None))
+        dbsession = Session()
+        self.article = dbsession.query(Articles).filter_by(id=article_id).one()
+        dbsession.close()
 
 
 class BaseArticleForm(object):
@@ -46,11 +47,14 @@ class BlogIndex(object):
     def __init__(self, request):
         self.page = request.GET.get('page', '1')
         from paginate import Page
+        dbsession = Session()
+        articles = dbsession.query(Articles).all()
         self.paged_articles = Page(
-            ARTICLES,
+            articles,
             page=self.page,
             items_per_page=8,
         )
+        dbsession.close()
 
     def response(self):
         return Response(env.get_template('index.html')
@@ -71,13 +75,13 @@ class BlogCreate(BaseArticleForm):
             except deform.ValidationFailure as e:
                 return Response(
                     env.get_template('create.html').render(form=e.render()))
-            max_id = max([art['id'] for art in ARTICLES])
-            ARTICLES.append(
-                {'id': max_id+1,
-                 'title': self.request.POST['title'],
-                 'content': self.request.POST['content']
-                 }
-            )
+            article = Articles(**{'title': self.request.POST['title'],
+                                  'content': self.request.POST['content']
+                                  })
+            dbsession = Session()
+            dbsession.add(article)
+            dbsession.commit()
+            dbsession.close()
             self.session = get_session(self.request).pop('csrf')
             return Response(status=302, location='/')
         return Response(env.get_template('create.html')
@@ -105,18 +109,26 @@ class BlogUpdate(BaseArticle, BaseArticleForm):
             except deform.ValidationFailure as e:
                 return Response(
                     env.get_template('create.html').render(form=e.render()))
-            self.article['title'] = self.request.POST['title']
-            self.article['content'] = self.request.POST['content']
+            self.article.title = self.request.POST['title']
+            self.article.content = self.request.POST['content']
+            dbsession = Session()
+            dbsession.add(self.article)
+            dbsession.commit()
+            dbsession.close()
             self.session = get_session(self.request).pop('csrf')
             return Response(status=302, location='/')
         return Response(
             env.get_template('create.html')
-            .render(form=self.get_form().render(self.article)))
+            .render(form=self.get_form().render(
+                self.article.__dict__)))
 
 
 @wsgify
 class BlogDelete(BaseArticle):
 
     def response(self):
-        ARTICLES.pop(self.index)
+        dbsession = Session()
+        dbsession.delete(self.article)
+        dbsession.commit()
+        dbsession.close()
         return Response(status=302, location='/')
