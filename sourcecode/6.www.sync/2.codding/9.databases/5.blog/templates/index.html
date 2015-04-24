@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+    <div class="blog__title">Simple Blog</div>
+    <a href="/article/add" class="blog__button">add article</a>
+    <div class="blog-list">
+        {% for article in articles %}
+            <div class="blog-list__item">
+                <div class="blog-list__item-id">{{ article.id }}</div>
+                <a href="/article/{{ article.id }}" class="blog-list__item-link">{{ article.title }}</a>
+                <div class="blog-list__item-action">
+                    <a href="/article/{{ article.id }}/edit" class="blog-list__item-edit">edit</a>
+                    <a href="/article/{{ article.id }}/delete" onclick="return confirm_delete();"
+                        class="blog-list__item-delete">delete</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="paginator">
+        {{ articles.pager(url="?page=$page") }}
+    </div>
+{% endblock %}

@@ -4,3 +4,38 @@
 .. seealso::
 
    * https://github.com/Pylons/paginate_sqlalchemy
+
+.. todo::
+
+   Добавить описание
+
+``paginate_sqlalchemy`` выполняет то же что и библиотека  https://github.com/Pylons/paginate но гораздо быстрее для :l:`SQLAlchemy`.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/3.pagination/example.py
+   :language: python
+   :caption: 3.pagination/example.py
+   :emphasize-lines: 34,36
+   :linenos:
+
+Результат выполнения
+
+.. code-block:: text
+
+   100
+
+   Page:
+   Collection type:        <class 'sqlalchemy.orm.query.Query'>
+   Current page:           5
+   First item:             33
+   Last item:              40
+   First page:             1
+   Last page:              13
+   Previous page:          4
+   Next page:              6
+   Items per page:         8
+   Total number of items:  100
+   Number of pages:        13
+
+   [<new person #32>, <new person #33>, <new person #34>, <new person #35>, <new person #36>, <new person #37>, <new person #38>, <new person #39>]
+   new person #38
+   13

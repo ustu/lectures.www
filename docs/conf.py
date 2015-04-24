@@ -245,6 +245,15 @@ def sourcecode(role, rawtext, text, lineno, inliner,
         refuri=ref, **options)
     return [node], []
 
+BOOKS_LINKS = {
+    'patterns of enterprise application architecture':
+    'http://www.martinfowler.com/books/eaa.html',
+}
+
+PEOPLE_LINKS = {
+    'ian bicking': 'http://www.ianbicking.org/',
+    'martin flower': 'http://www.martinfowler.com/',
+}
 
 PYLONS_LINKS = {
     'webob': 'http://docs.webob.org/',
@@ -265,10 +274,15 @@ DATABASE_LINKS = {
     'postgres': 'http://postgresql.org',
     'postgresql': 'http://postgresql.org',
 
-    # ORM
+    # Python
     'db-api': 'https://www.python.org/dev/peps/pep-0249/',
     'db-api 2.0': 'https://www.python.org/dev/peps/pep-0249/',
+
+    # ORM
     'sqlalchemy': 'http://sqlalchemy.org/',
+    'sqlobject': 'http://www.sqlobject.org/index.html',
+    'sqlbuilder': 'http://www.sqlobject.org/SQLBuilder.html',
+    'hibernate': 'http://hibernate.org',
 }
 
 FRAMEWORK_LINKS = {
@@ -286,6 +300,10 @@ OTHER_LINKS = {
     'nginx': 'http://nginx.org/',
     'paste': 'http://pythonpaste.org/',
 
+    # Language
+    'python': 'http://www.python.org/',
+    'java': 'http://www.java.com',
+
     # Template engine
     'jinja': 'http://jinja.pocoo.org/',
     'jinja2': 'http://jinja.pocoo.org/',
@@ -296,7 +314,8 @@ OTHER_LINKS = {
 }
 
 GLOBAL_LINKS = dict(PYLONS_LINKS.items() + OTHER_LINKS.items() +
-                    DATABASE_LINKS.items() + FRAMEWORK_LINKS.items())
+                    DATABASE_LINKS.items() + FRAMEWORK_LINKS.items() +
+                    PEOPLE_LINKS.items() + BOOKS_LINKS.items())
 
 
 def global_link(role, rawtext, text, lineno, inliner,

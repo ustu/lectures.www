@@ -1,0 +1,98 @@
+<form
+  id="deform"
+  method="POST"
+  enctype="multipart/form-data"
+  accept-charset="utf-8" class="deform"
+  >
+
+  <fieldset class="deformFormFieldset">
+
+    
+
+    <input type="hidden" name="_charset_" />
+    <input type="hidden" name="__formid__" value="deform"/>
+    
+
+    
+
+    <ul>
+<li class="field item-id "
+    title=""
+    id="item-deformField1">
+
+  <!-- mapping_item -->
+
+  <label
+         class="desc"
+         title=""
+         for="deformField1"
+         >Id
+  </label>
+
+  
+    <input type="text" name="id" value=""
+           id="deformField1"/>
+    
+
+
+
+  
+
+  <!-- /mapping_item -->
+
+</li>
+</ul>
+
+    <ul>
+<li class="field item-name "
+    title=""
+    id="item-deformField2">
+
+  <!-- mapping_item -->
+
+  <label
+         class="desc"
+         title=""
+         for="deformField2"
+         >Name<span class="req"
+                        id="req-deformField2">*</span>
+  </label>
+
+  
+    <input type="text" name="name" value=""
+           id="deformField2"/>
+    
+
+
+
+  
+
+  <!-- /mapping_item -->
+
+</li>
+</ul>
+
+
+    <ul>
+
+      <li class="buttons">
+        
+          <button
+              id="deformsubmit"
+              name="submit"
+              type="submit"
+              class="btnText submit "
+              value="submit">
+            <span>Submit</span>
+          </button>
+        
+      </li>
+
+    </ul>
+
+  </fieldset>
+
+
+
+</form>
+
