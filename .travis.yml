@@ -9,4 +9,3 @@ install:
 
 script:
     - ./test.sh
-    - make html
