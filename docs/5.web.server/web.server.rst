@@ -55,7 +55,7 @@
    * uWSGI
    * Waitress
    * Tornado
-   * Zope
+   * :l:`Zope`
    * Werkzeug
 
 Например, для получения итоговой страницы, которую вы видите в браузере,
@@ -131,12 +131,9 @@ HTTP задает строгие правила, как клиент и серв
 
 На веб-сервере, HTTP сервер отвечает за обработку входящих запросов и ответ на них.
 
-.. figure:: /_static/5.web.server/mdn-404.jpg
-   :align: right
-   :width: 200pt
+.. figure:: /_static/5.web.server/mdn-404.png
+   :width: 450pt
    :target: https://developer.mozilla.org/en-US/404
-
-
 
 #. При получении запроса, HTTP сервер сначала проверяет существует ли ресурс по
    данному URL.

@@ -28,4 +28,4 @@ else
 fi
 echo -e "${NC}"
 
-make doctest
+# make doctest

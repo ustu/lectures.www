@@ -182,7 +182,7 @@ TLD (Top-Level Domain). Некоторые Whois сервера
     TLD "ru" is not supported
 
 Что бы посмотреть какой сервер используется,
-нужно добавить опцию "--verbose"
+нужно добавить опцию ``--verbose``.
 
 .. no-code-block:: bash
    :linenos:

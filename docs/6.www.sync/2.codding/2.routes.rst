@@ -10,6 +10,7 @@
 
 .. figure:: /_static/6.www.sync/web/routes4.jpg
    :align: left
+   :width: 300pt
    :figwidth: 20em
 
    Сортировочная станция

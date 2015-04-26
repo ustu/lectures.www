@@ -182,7 +182,8 @@ Paste
 При помощи ``paste.urlmap.URLMap`` добавляется префикс `/static/` для наших файлов из директории `static`. ``paste.cascade.Cascade`` позволяет запускать несколько WSGI-приложений одновременно.
 Таким образом наш блог принял следующую архитектуру:
 
-.. figure:: /_static/6.www.sync/4.static/blog_scheme.png
+.. figure:: /_static/6.www.sync/4.static/blog_scheme.*
+   :width: 500pt
    :align: center
 
    Структура блога со статикой

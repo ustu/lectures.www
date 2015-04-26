@@ -1,6 +1,11 @@
 Фреймворк Pyramid
 =================
 
+.. seealso::
+
+   * :l:`pyramid`
+   * http://trypyramid.org
+
 .. code-block:: python
    :linenos:
 
