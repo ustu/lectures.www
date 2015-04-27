@@ -300,6 +300,9 @@ OTHER_LINKS = {
     # Cache and Session
     'beaker': 'https://beaker.readthedocs.org/en/latest/',
 
+    # SCV
+    'git': 'http://git-scm.com/',
+
     # Other
     'zenoss': 'www.zenoss.com/',
     'erp5': 'https://ru.wikipedia.org/wiki/ERP5',

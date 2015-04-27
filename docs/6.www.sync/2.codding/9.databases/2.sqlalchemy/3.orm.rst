@@ -17,6 +17,27 @@ ORM (объектно-реляционное отображение)
 
    * http://docs.sqlalchemy.org/en/latest/orm/mapping_styles.html#classical-mappings
 
+Объект класса :class:`sqlalchemy.orm.mapper.Mapper` связывает колонки из схемы таблицы и атрибуты Python класса.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/4.orm.mapper.classic.py
+   :language: python
+   :caption: 2.sqlalchemy/4.orm.mapper.classic.py
+   :linenos:
+
+.. code-block:: ipython
+   :emphasize-lines: 10
+
+   >>> ['__class__', '__delattr__', '__dict__', '__doc__', '__format__',
+   '__getattribute__', '__hash__', '__init__', '__module__', '__new__',
+   '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__',
+   '__str__', '__subclasshook__', '__weakref__']
+
+   >>> ['__class__', '__delattr__', '__dict__', '__doc__', '__format__',
+   '__getattribute__', '__hash__', '__init__', '__module__', '__new__',
+   '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__',
+   '__str__', '__subclasshook__', '__weakref__', '_sa_class_manager',
+   'addresses', 'fullname', 'id', 'name', 'password']
+
 
 Декларативное представление классов таблиц
 ------------------------------------------
@@ -64,7 +85,7 @@ ORM (объектно-реляционное отображение)
 MetaData
 ~~~~~~~~
 
-Любой класс таблицы автоматически ассоциируется с объектом :class:`sqlalchemy.schema.Table`, который автоматически добавляется в список :class:`sqlalchemy.schema.MetaData`. Базовый класс ``Base``, созданный при помощи функции  :func:`sqlalchemy.ext.declarative.declarative_base`, является более высокоуровневой абстракцией, которая содержит в себе объект :class:`sqlalchemy.schema.MetaData` и позволяет описывать таблицы декларативным способом. Таким образом все классы-таблицы имеют свою схему, которая хранится в атрибуте ``metadata`` базового класса ``Base``:
+Любой класс таблицы автоматически ассоциируется с объектом :class:`sqlalchemy.schema.Table`, который автоматически добавляется в список :class:`sqlalchemy.schema.MetaData`. Базовый класс ``Base``, созданный при помощи функции  :func:`sqlalchemy.ext.declarative.declarative_base`, является более высокоуровневой абстракцией над :class:`sqlalchemy.schema.MetaData`, которая  позволяет описывать таблицы декларативным способом. Таким образом все классы-таблицы имеют свою схему, которая хранится в атрибуте ``metadata`` базового класса ``Base``:
 
 .. code-block:: ipython
    :linenos:
@@ -75,6 +96,33 @@ MetaData
    [('user', Table('user', MetaData(bind=None), Column('id', Integer(),
    table=<user>, primary_key=True, nullable=False), Column('name', String(),
    table=<user>), Column('fullname', String(), table=<user>), schema=None))]
+
+Благодаря тому что ``Base`` содержит в себе объект :class:`sqlalchemy.schema.MetaData`, вы можете пользоваться всеми его возможностями.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> from sqlalchemy import create_engine
+   >>> engine = create_engine('sqlite://')
+   >>> Base.metadata.create_all(engine)
+
+   [SQL]: SELECT CAST('test plain returns' AS VARCHAR(60)) AS anon_1
+   [SQL]: ()
+   [SQL]: SELECT CAST('test unicode returns' AS VARCHAR(60)) AS anon_1
+   [SQL]: ()
+   [SQL]: PRAGMA table_info("user")
+   [SQL]: ()
+   [SQL]:
+   CREATE TABLE user (
+       id INTEGER NOT NULL,
+       name VARCHAR,
+       fullname VARCHAR,
+       PRIMARY KEY (id)
+   )
+
+
+   [SQL]: ()
+   [SQL]: COMMIT
 
 Mapper
 ~~~~~~
@@ -102,11 +150,546 @@ Mapper
 
    Вася
 
+Конструктор класса
+~~~~~~~~~~~~~~~~~~
 
-Полный пример
--------------
+Декларативно описанный класс таблицы содержит в себе конструктор по умолчанию.
 
-.. .. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/4.orm.py
-   :language: python
-   :caption: 2.sqlalchemy/4.orm.py
+.. code-block:: ipython
    :linenos:
+
+   >>> ed_user = User(name='ed', fullname='Edward Jones')
+
+Можно переопределить конструктор вручную
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 4-6
+
+   class User(Base):
+       __tablename__ = 'user'
+
+       def __init__(self, name, fullname):
+          self.name = name
+          self.fullname = fullname
+
+       id = Column(Integer, primary_key=True)
+       name = Column(String)
+       fullname = Column(String)
+       password = Column(String)
+
+       addresses = relationship("Address", backref="user",
+                                order_by="Address.id")
+
+Поле ``User.id`` является первичным ключом, если его значение не указанно явно или такой ``id`` не существует в БД, то объект считается новым. После записи объекта в БД, значение поля ``id`` автоматически присваивается.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> print(ed_user.name, ed_user.fullname)
+   ('ed', 'Edward Jones')
+   >>> print(ed_user.id)
+   None
+
+Сессии
+------
+
+.. seealso::
+
+   * http://docs.sqlalchemy.org/en/latest/orm/session_basics.html
+   * https://ru.wikibooks.org/wiki/SQLAlchemy/Sessions
+
+Сессии являются более абстрактным уровнем над механизмом соединения с СУБД :class:`sqlalchemy.engine.Engine`. Они включают в себя функции хранения состояния объектов таблиц и записи этого состояния, по требованию, в БД.
+
+.. epigraph::
+
+   Анологию сессий в SQLAlchemy можно провести с системой контроля версий :l:`Git`.
+
+   * **Ресурсы**
+
+     * ``git`` управляет файлами.
+     * ``SQAlchemy`` манипулирует объектам таблиц (будущие записи в таблицах).
+   * **Состояние ресурсов**
+
+     * Область подготовленных файлов (staging area) — это обычный файл, обычно хранящийся в каталоге Git, который содержит информацию о том, какие файлы должны войти в следующий коммит.
+
+        .. code-block:: bash
+
+           git add README.txt
+
+     * В SQLAlchemy это сессия которая хранить в себе объекты для дальнейшей записи в БД.
+
+        .. code-block:: python
+
+           session.add(ed_user)
+
+   * **Запись состояния**
+
+     * ``git commit`` - создает рабочую копию файлов, добавленных в ``staging area``.
+     * ``session.commit()`` - записывает объекты, добавленные ранее в сессию, в базу данных.
+
+   Существуют даже расширения для SQLAlchemy которые позволяют хранить данные в git репозитории вместо СУБД, используя при этом только возможности ORM библиотеки SQLAlchemy, т.к. модуль соединений с БД и конструктор `SQL` выражения для git не нужен (https://github.com/matthias-k/gitdb2).
+
+Сессии создаются при помощи экземпляра класса :class:`sqlalchemy.orm.session.Session`.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> from sqlalchemy.orm import Session
+   >>> session = Session(bind=engine)
+
+Для добавления объекта (представляющего таблицу) в сессию, необходимо использовать метод :meth:`sqlalchemy.orm.session.Session.add`.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.add(ed_user)
+
+Перед выполнением любого запроса из сессии, состояние сессии автоматически переносится в БД. В нашем случае, не сохраненный объект ``ed_user`` добавляется в БД.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 4
+
+   >>> our_user = session.query(User).filter_by(name='ed').first()
+
+   [SQL]: BEGIN (implicit)
+   [SQL]: INSERT INTO user (name, fullname) VALUES (?, ?)
+   [SQL]: ('ed', 'Edward Jones')
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.name = ?
+    LIMIT ? OFFSET ?
+   [SQL]: ('ed', 1, 0)
+
+   >>> our_user
+   <User('ed', 'Edward Jones')>
+
+Теперь у пользователя ``ed_user`` появилось значение ``id``.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> our_user.id
+   1
+   >>> ed_user.id
+   1
+   >>> ed_user == our_user is ed_user
+   True
+
+Добавление нескольких объектов в сессию за раз:
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.add_all([
+   ...     User(name='wendy', fullname='Wendy Weathersmith'),
+   ...     User(name='mary', fullname='Mary Contrary'),
+   ...     User(name='fred', fullname='Fred Flinstone')
+   >>> ])
+
+Если объект, находящийся в сессии, поменялся, то он помечается как ``dirty``. Все измененные объекты в сессии доступны через атрибут :attr:`sqlalchemy.orm.session.Session.dirty`
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> ed_user.fullname = 'Ed Jones'
+   >>> session.dirty
+   IdentitySet([<User('ed', 'Ed Jones')>])
+
+Новые объекты, попавшие в сессию после ее сохранения или в новую сессию, доступны через атрибут :attr:`sqlalchemy.orm.session.Session.new`
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.new
+   IdentitySet([<User('fred', 'Fred Flinstone')>,
+                <User('wendy', 'Wendy Weathersmith')>,
+                <User('mary', 'Mary Contrary')>])
+
+Метод :meth:`sqlalchemy.orm.session.Session.commit` сохраняет состояние сессии в БД и подтверждает `SQL` транзакцию, в рамках которой выполнялись все предыдущие запросы.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 11
+
+   >>> session.commit()
+
+   [SQL]: UPDATE user SET fullname=? WHERE user.id = ?
+   [SQL]: ('Ed Jones', 1)
+   [SQL]: INSERT INTO user (name, fullname) VALUES (?, ?)
+   [SQL]: ('wendy', 'Wendy Weathersmith')
+   [SQL]: INSERT INTO user (name, fullname) VALUES (?, ?)
+   [SQL]: ('mary', 'Mary Contrary')
+   [SQL]: INSERT INTO user (name, fullname) VALUES (?, ?)
+   [SQL]: ('fred', 'Fred Flinstone')
+   [SQL]: COMMIT
+
+После выполнения ``COMMIT`` сессия не привязана ни к одной транзакции в СУБД. Любые изменения объектов в сессии создадут новую транзакцию.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 3
+
+   >>> ed_user.fullname
+
+   [SQL]: BEGIN (implicit)
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.id = ?
+   [SQL]: (1,)
+   u'Ed Jones'
+
+Создадим новые изменения объектов и отравим SQL запрос с этими изменениями.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 10,12
+
+   >>> ed_user.name = 'Edwardo'
+   >>> fake_user = User(name='fakeuser', fullname='Invalid')
+   >>> session.add(fake_user)
+
+   >>> ed_user
+   <User('Edwardo', u'Ed Jones')>
+
+   >>> session.query(User).filter(User.name.in_(['Edwardo', 'fakeuser'])).all()
+
+   [SQL]: UPDATE user SET name=? WHERE user.id = ?
+   [SQL]: ('Edwardo', 1)
+   [SQL]: INSERT INTO user (name, fullname) VALUES (?, ?)
+   [SQL]: ('fakeuser', 'Invalid')
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.name IN (?, ?)
+   [SQL]: ('Edwardo', 'fakeuser')
+   [<User('Edwardo', u'Ed Jones')>, <User('fakeuser', 'Invalid')>]
+
+Несмотря на то что `SQL` запросы были выполнены в СУБД, мы все еще находимся в транзакции. Поэтому любые изменения в сессии, даже если они выполнили `SQL` запрос в СУБД, всегда можно отметить при помощи метода :meth:`sqlalchemy.orm.session.Session.rollback`.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 2
+
+   >>> session.rollback()
+   [SQL]: ROLLBACK
+
+После ``ROLLBACK`` сессия не привязана ни к одной транзакции в СУБД. Поэтому при изменении объектов в сессии создастся новая транзакция. Причем данные предыдущей сессии не были записаны.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 3,8
+
+   >>> ed_user.name
+
+   [SQL]: BEGIN (implicit)
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.id = ?
+   [SQL]: (1,)
+   u'ed'
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 2,10
+
+   >>> fake_user in session
+   False
+
+   >>> session.query(User).filter(User.name.in_(['ed', 'fakeuser'])).all()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.name IN (?, ?)
+   [SQL]: ('ed', 'fakeuser')
+   [<User(u'ed', u'Ed Jones')>]
+
+SQL запросы через ORM
+---------------------
+
+Операции над атрибутами класса таблицы равносильны операциям над объектом :class:`sqlalchemy.schema.Column`. Поэтому их можно использовать в конструкторе `SQL` запросов. Результатом выполнения :ref:`sql_expression` будет  список значений записи в БД.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 14
+
+   >>> print(User.name == "ed")
+   "user".name = :name_1
+
+   >>> from sqlalchemy import select
+   >>> sel = select([User.name, User.fullname]).\
+   ...         where(User.name == 'ed').\
+   ...         order_by(User.id)
+   >>> session.connection().execute(sel).fetchall()
+
+   [SQL]: SELECT user.name, user.fullname
+   FROM user
+   WHERE user.name = ? ORDER BY user.id
+   [SQL]: ('ed',)
+   [(u'ed', u'Ed Jones')]
+
+ORM позволяет конструировать запросы при помощи метода :meth:`sqlalchemy.orm.session.Session.query`. Этот метод создает объект класса :class:`sqlalchemy.orm.query.Query`, который является более высокой абстракцией конструктора :ref:`sql_expression` в SQLAlchemy.
+ORM, в отличии от стандартного конструктора :ref:`sql_expression`, позволяет создавать запросы более наглядно и возвращать результат в виде объектов которые привязаны к сессии.
+
+.. todo::
+
+   * Написать про кастомные классы запросов унаследованных от класса Query
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 8
+
+   >>> query = session.query(User).filter(User.name == 'ed').order_by(User.id)
+   >>> query.all()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.name = ? ORDER BY user.id
+   [SQL]: ('ed',)
+   [<User(u'ed', u'Ed Jones')>]
+
+Можно также возвращать чистые значения полей, как это делают :ref:`sql_expression`.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 7-10
+
+   >>> for name, fullname in session.query(User.name, User.fullname):
+   ...     print(name, fullname)
+
+   [SQL]: SELECT user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   [SQL]: ()
+   (u'ed', u'Ed Jones')
+   (u'wendy', u'Wendy Weathersmith')
+   (u'mary', u'Mary Contrary')
+   (u'fred', u'Fred Flinstone')
+
+Или комбинировать значения полей с объектами.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 7-10
+
+   >>> for row in session.query(User, User.name):
+   ...     print(row.User, row.name)
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   [SQL]: ()
+   (<User(u'ed', u'Ed Jones')>, u'ed')
+   (<User(u'wendy', u'Wendy Weathersmith')>, u'wendy')
+   (<User(u'mary', u'Mary Contrary')>, u'mary')
+   (<User(u'fred', u'Fred Flinstone')>, u'fred')
+
+Ограничения и условия
+~~~~~~~~~~~~~~~~~~~~~
+
+LIMIT, OFFSET
+"""""""""""""
+
+Выбор конкретной строки запроса делается не средствами языка Python, а на стороне СУБД, за счет конструкции ``LIMIT ? OFFSET ?``, что значительно ускоряет выполнение запроса. Для программиста это выглядит прозрачно, как будто он работает с Python списком.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 6
+
+   >>> u = session.query(User).order_by(User.id)[2]
+   >>> print(u)
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user ORDER BY user.id
+    LIMIT ? OFFSET ?
+   [SQL]: (1, 2)
+   <User(u'mary', u'Mary Contrary')>
+
+Аналогично работают и Python срезы.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 6
+
+   >>> for u in session.query(User).order_by(User.id)[1:3]:
+   ...     print(u)
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user ORDER BY user.id
+    LIMIT ? OFFSET ?
+   [SQL]: (2, 1)
+   <User(u'wendy', u'Wendy Weathersmith')>
+   <User(u'mary', u'Mary Contrary')>
+
+WHERE
+"""""
+
+Условие ``WHERE`` соответствует методу :meth:`sqlalchemy.orm.query.Query.filter_by`.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 2,7
+
+   >>> for name, in session.query(User.name).\
+   ...                 filter_by(fullname='Ed Jones'):
+   ...     print(name)
+
+   [SQL]: SELECT user.name AS user_name
+   FROM user
+   WHERE user.fullname = ?
+   [SQL]: ('Ed Jones',)
+
+Или более функциональному методу :meth:`sqlalchemy.orm.query.Query.filter`.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 2,7
+
+   >>> for name, in session.query(User.name).\
+   ...                 filter(User.fullname == 'Ed Jones'):
+   ...     print(name)
+
+   [SQL]: SELECT user.name AS user_name
+   FROM user
+   WHERE user.fullname = ?
+   [SQL]: ('Ed Jones',)
+   ed
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 3,8
+
+   >>> from sqlalchemy import or_
+   >>> for name, in session.query(User.name).\
+   ...                 filter(or_(User.fullname == 'Ed Jones', User.id < 5)):
+   ...     print(name)
+
+   [SQL]: SELECT user.name AS user_name
+   FROM user
+   WHERE user.fullname = ? OR user.id < ?
+   [SQL]: ('Ed Jones', 5)
+   ed
+   wendy
+   mary
+   fred
+
+Последовательное выполнение методов :meth:`sqlalchemy.orm.query.Query.filter` соединяет условия ``WHERE`` при помощи оператора ``AND``, аналогично конструкции ``select().where()``.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 2-3,7
+
+   >>> for user in session.query(User).\
+   ...                         filter(User.name == 'ed').\
+   ...                         filter(User.fullname == 'Ed Jones'):
+   ...     print(user)
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.name = ? AND user.fullname = ?
+   [SQL]: ('ed', 'Ed Jones')
+   <User(u'ed', u'Ed Jones')>
+
+Выполнение SQL выражений
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Сам объект класса :class:`sqlalchemy.orm.query.Query` не выполняет обращений к БД.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> query = session.query(User).filter_by(fullname='Ed Jones')
+   >>>
+
+all()
+"""""
+
+Для этого существуют специальные методы этого класса, например :meth:`sqlalchemy.orm.query.Query.all`.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> query.all()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.fullname = ?
+   [SQL]: ('Ed Jones',)
+   [<User(u'ed', u'Ed Jones')>]
+
+first()
+"""""""
+
+:meth:`sqlalchemy.orm.query.Query.first` - выполнит запрос и вернет первую строку запроса или ``None``.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> query.first()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.fullname = ?
+    LIMIT ? OFFSET ?
+   [SQL]: ('Ed Jones', 1, 0)
+   <User(u'ed', u'Ed Jones')>
+
+one()
+"""""
+
+:meth:`sqlalchemy.orm.query.Query.one` - выполнит запрос, вернет первую строку запроса и проверит что она одна и только одна, иначе вызовет исключение :class:`sqlalchemy.orm.exc.NoResultFound`.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 26,10
+
+   >>> query.one()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.fullname = ?
+   [SQL]: ('Ed Jones',)
+   <User(u'ed', u'Ed Jones')>
+
+   >>>
+   >>> query = session.query(User).filter_by(fullname='nonexistent')
+   >>> query.one()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.fullname = ?
+   [SQL]: ('nonexistent',)
+   Traceback (most recent call last):
+     File "/home/user/.virtualenvs/lectures/local/lib/python2.7/site-packages/sliderepl/core.py", line 291, in run
+       exec_(co, environ)
+     File "/home/user/.virtualenvs/lectures/local/lib/python2.7/site-packages/sliderepl/compat.py", line 24, in exec_
+       exec("""exec _code_ in _globs_, _locs_""")
+     File "<string>", line 1, in <module>
+     File "<input>", line 1, in <module>
+     File "/home/user/.virtualenvs/lectures/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2478, in one
+       raise orm_exc.NoResultFound("No row was found for one()")
+   NoResultFound: No row was found for one()
+
+Если результат запроса вернет больше строк чем одну, это тоже расценивается как ошибка :class:`sqlalchemy.orm.exc.MultipleResultsFound`.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 16
+
+   >>> query = session.query(User)
+   >>> query.one()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   [SQL]: ()
+   Traceback (most recent call last):
+     File "/home/uralbash/.virtualenvs/sacrud/local/lib/python2.7/site-packages/sliderepl/core.py", line 291, in run
+       exec_(co, environ)
+     File "/home/uralbash/.virtualenvs/sacrud/local/lib/python2.7/site-packages/sliderepl/compat.py", line 24, in exec_
+       exec("""exec _code_ in _globs_, _locs_""")
+     File "<string>", line 1, in <module>
+     File "<input>", line 1, in <module>
+     File "/home/uralbash/.virtualenvs/sacrud/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2481, in one
+       "Multiple rows were found for one()")
+   MultipleResultsFound: Multiple rows were found for one()
+
+Связи между таблиц
+~~~~~~~~~~~~~~~~~~
+
