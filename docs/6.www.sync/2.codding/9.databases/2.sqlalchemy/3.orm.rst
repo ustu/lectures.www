@@ -13,9 +13,17 @@ ORM (объектно-реляционное отображение)
 Классическое представление классов таблиц
 -----------------------------------------
 
+.. seealso::
+
+   * http://docs.sqlalchemy.org/en/latest/orm/mapping_styles.html#classical-mappings
+
 
 Декларативное представление классов таблиц
 ------------------------------------------
+
+.. seealso::
+
+   * http://docs.sqlalchemy.org/en/latest/orm/mapping_styles.html#declarative-mapping
 
 Каждый класс, представляющий таблицу в БД, должен наследоваться от базового класса который создается при помощи функции :func:`sqlalchemy.ext.declarative.declarative_base`.
 
