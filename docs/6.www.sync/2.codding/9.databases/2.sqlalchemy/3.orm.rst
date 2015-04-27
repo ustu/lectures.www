@@ -1,20 +1,21 @@
-ORM
-===
+ORM (объектно-реляционное отображение)
+======================================
 
 .. seealso::
 
    * http://docs.sqlalchemy.org/en/latest/orm/index.html
    * http://rus-linux.net/MyLDP/BOOKS/Architecture-Open-Source-Applications/Vol-2/sqlalchemy-06.html
 
-Отображение классов при использовании объектно-реляционного отображения
------------------------------------------------------------------------
-
 Переключим наше внимание на объектно-реляционное отображение. Первой целью является использование описанной нами системы таблиц метаданных для предоставления возможности переноса функций заданного пользователем класса на коллекцию столбцов в таблице базы данных. Второй целью является предоставление возможности описания отношений между заданными пользователем классами, которые будут основываться на отношениях между таблицами в базе данных.
 
 В :l:`SQLAlchemy` такая связь называется "отображением", что соответствует широко известному шаблону проектирования с названием "DataMapper", описанному в книге :l:`Martin Flower` с названием :l:`Patterns of Enterprise Application Architecture`. В целом, система объектно-реляционного отображения :l:`SQLAlchemy` была разработана с применением большого количества приемов, которые описал в своей книге :l:`Martin Flower`. Она также подверглась значительному влиянию со стороны известной системы реляционного отображения :l:`Hibernate` для языка программирования :l:`Java` и продукта :l:`SQLObject` для языка программирования :l:`Python` от :l:`Ian Bicking`.
 
-Декларативное представление таблиц
-----------------------------------
+Классическое представление классов таблиц
+-----------------------------------------
+
+
+Декларативное представление классов таблиц
+------------------------------------------
 
 Каждый класс, представляющий таблицу в БД, должен наследоваться от базового класса который создается при помощи функции :func:`sqlalchemy.ext.declarative.declarative_base`.
 
@@ -42,20 +43,62 @@ ORM
 Схема таблицы
 ~~~~~~~~~~~~~
 
+Для каждого класса унаследованного от базового автоматически создается схема таблицы (объект класса :class:`sqlalchemy.schema.Table`) и привязывается к нему через атрибут ``__table__``.
+
 .. code-block:: ipython
    :linenos:
 
    >>> User.__table__
-   Table('user', MetaData(bind=None), Column('id', Integer(), table=<user>, primary_key=True, nullable=False), Column('name', String(), table=<user>), Column('fullname', String(), table=<user>), schema=None)
+   Table('user', MetaData(bind=None), Column('id', Integer(), table=<user>,
+   primary_key=True, nullable=False), Column('name', String(), table=<user>),
+   Column('fullname', String(), table=<user>), schema=None)
 
-.. todo::
+MetaData
+~~~~~~~~
 
-   * завершить описание примера
+Любой класс таблицы автоматически ассоциируется с объектом :class:`sqlalchemy.schema.Table`, который автоматически добавляется в список :class:`sqlalchemy.schema.MetaData`. Базовый класс ``Base``, созданный при помощи функции  :func:`sqlalchemy.ext.declarative.declarative_base`, является более высокоуровневой абстракцией, которая содержит в себе объект :class:`sqlalchemy.schema.MetaData` и позволяет описывать таблицы декларативным способом. Таким образом все классы-таблицы имеют свою схему, которая хранится в атрибуте ``metadata`` базового класса ``Base``:
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> Base.metadata
+   MetaData(bind=None)
+   >>> Base.metadata.tables.items()
+   [('user', Table('user', MetaData(bind=None), Column('id', Integer(),
+   table=<user>, primary_key=True, nullable=False), Column('name', String(),
+   table=<user>), Column('fullname', String(), table=<user>), schema=None))]
+
+Mapper
+~~~~~~
+
+Объект класса :class:`sqlalchemy.orm.mapper.Mapper` связывает колонки из схемы таблицы и атрибуты из класса таблицы унаследованного от ``Base``.
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/4.orm.mapper.declarative.py
+   :language: python
+   :caption: 2.sqlalchemy/4.orm.mapper.declarative.py
+   :linenos:
+
+.. code-block:: text
+   :linenos:
+
+   Mapper relationship: <sqlalchemy.util._collections.ImmutableProperties object at 0x7ffeae32da28>
+   Mapper columns: [('id', Column('id', Integer(), table=<user>,
+   primary_key=True, nullable=False)), ('name', Column('name', String(),
+   table=<user>)), ('fullname', Column('fullname', String(), table=<user>)),
+   ('password', Column('password', String(), table=<user>))]
+
+   User1 columns: [('id', Column('id', Integer(), table=<user>,
+   primary_key=True, nullable=False)), ('name', Column('name', String(),
+   table=<user>)), ('fullname', Column('fullname', String(), table=<user>)),
+   ('password', Column('password', String(), table=<user>))]
+
+   Вася
+
 
 Полный пример
 -------------
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/3.sql_expression.py
+.. .. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/4.orm.py
    :language: python
-   :caption: 2.sqlalchemy/3.sql_expression.py
+   :caption: 2.sqlalchemy/4.orm.py
    :linenos:

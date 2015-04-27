@@ -262,6 +262,8 @@ DATABASE_LINKS = {
     # Python
     'db-api': 'https://www.python.org/dev/peps/pep-0249/',
     'db-api 2.0': 'https://www.python.org/dev/peps/pep-0249/',
+    'zodb': 'http://www.zodb.org/',
+    'zeo': 'https://pypi.python.org/pypi/ZEO',
 
     # ORM
     'sqlalchemy': 'http://sqlalchemy.org/',
@@ -276,6 +278,7 @@ FRAMEWORK_LINKS = {
     'http://docs.pylonsproject.org/projects/pylons-webframework/en/latest/',
     'repoze.bfg': 'http://bfg.repoze.org',
     'zope': 'http://www.zope.org/',
+    'plone': 'https://plone.org/',
     'flask': 'http://flask.pocoo.org/',
     'turbogears': 'http://www.turbogears.org/',
 }
@@ -296,6 +299,10 @@ OTHER_LINKS = {
 
     # Cache and Session
     'beaker': 'https://beaker.readthedocs.org/en/latest/',
+
+    # Other
+    'zenoss': 'www.zenoss.com/',
+    'erp5': 'https://ru.wikipedia.org/wiki/ERP5',
 }
 
 GLOBAL_LINKS = dict(PYLONS_LINKS.items() + OTHER_LINKS.items() +

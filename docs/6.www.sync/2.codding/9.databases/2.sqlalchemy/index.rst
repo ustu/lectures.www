@@ -48,9 +48,7 @@ SQLAlchemy
 
 .. todo::
 
-   * Добавить описание из http://mapfish.org/doc/tutorials/sqlalchemy.html
-   * добавить схемы из http://rus-linux.net/MyLDP/BOOKS/Architecture-Open-Source-Applications/Vol-2/sqlalchemy-04.html
-   * описать сессии более подробно https://ru.wikibooks.org/wiki/SQLAlchemy/Sessions
+   * Описать сессии более подробно https://ru.wikibooks.org/wiki/SQLAlchemy/Sessions
 
 .. toctree::
    :maxdepth: 3
