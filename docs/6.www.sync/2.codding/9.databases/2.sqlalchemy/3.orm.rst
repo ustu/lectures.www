@@ -201,7 +201,7 @@ Mapper
 
 Сессии являются более абстрактным уровнем над механизмом соединения с СУБД :class:`sqlalchemy.engine.Engine`. Они включают в себя функции хранения состояния объектов таблиц и записи этого состояния, по требованию, в БД.
 
-.. epigraph::
+.. note::
 
    Анологию сессий в SQLAlchemy можно провести с системой контроля версий :l:`Git`.
 
@@ -225,8 +225,17 @@ Mapper
 
    * **Запись состояния**
 
-     * ``git commit`` - создает рабочую копию файлов, добавленных в ``staging area``.
-     * ``session.commit()`` - записывает объекты, добавленные ранее в сессию, в базу данных.
+     * Создает рабочую копию файлов, добавленных в ``staging area``.
+
+        .. code-block:: bash
+
+           git commit
+
+     * Записывает объекты, добавленные ранее в сессию, в базу данных.
+
+        .. code-block:: python
+
+           session.commit()
 
    Существуют даже расширения для SQLAlchemy которые позволяют хранить данные в git репозитории вместо СУБД, используя при этом только возможности ORM библиотеки SQLAlchemy, т.к. модуль соединений с БД и конструктор `SQL` выражения для git не нужен (https://github.com/matthias-k/gitdb2).
 
@@ -691,5 +700,476 @@ one()
    MultipleResultsFound: Multiple rows were found for one()
 
 Связи между таблиц
-~~~~~~~~~~~~~~~~~~
+------------------
 
+.. seealso::
+
+   * http://docs.sqlalchemy.org/en/latest/orm/relationships.html
+
+Новый класс ``Address`` имеет связь `Many-To-One` с таблицей ``User``.
+Связь между Python классов осуществляется при помощи функции :func:`sqlalchemy.orm.relationship`.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 9,11
+
+   >>> from sqlalchemy import ForeignKey
+   >>> from sqlalchemy.orm import relationship
+
+   >>> class Address(Base):
+   ...     __tablename__ = 'address'
+
+   ...     id = Column(Integer, primary_key=True)
+   ...     email_address = Column(String, nullable=False)
+   ...     user_id = Column(Integer, ForeignKey('user.id'))
+
+   ...     user = relationship("User", backref="addresses")
+
+   ...     def __repr__(self):
+   ...         return "<Address(%r)>" % self.email_address
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> Base.metadata.create_all(engine)
+
+   [SQL]: PRAGMA table_info("user")
+   [SQL]: ()
+   [SQL]: PRAGMA table_info("address")
+   [SQL]: ()
+   [SQL]:
+   CREATE TABLE address (
+       id INTEGER NOT NULL,
+       email_address VARCHAR NOT NULL,
+       user_id INTEGER,
+       PRIMARY KEY (id),
+       FOREIGN KEY(user_id) REFERENCES user (id)
+   )
+
+   [SQL]: ()
+   [SQL]: COMMIT
+
+Благодаря параметру ``backref``, класс ``User`` получает обратную ссылку на класс ``Adress``.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 2
+
+   >>> jack = User(name='jack', fullname='Jack Bean')
+   >>> jack.addresses
+   []
+
+Добавим пользователю адреса.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> jack.addresses = [
+   ...                 Address(email_address='jack@gmail.com'),
+   ...                 Address(email_address='j25@yahoo.com'),
+   ...                 Address(email_address='jack@hotmail.com'),
+   ...                 ]
+
+:func:`sqlalchemy.orm.backref` добавляет ссылки друг на друга для каждого объекта.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> jack
+   <User('jack', 'Jack Bean')>
+
+   >>> jack.addresses[1]
+   <Address('j25@yahoo.com')>
+
+   >>> jack.addresses[1].user
+   <User('jack', 'Jack Bean')>
+
+   >>> jack.addresses[1].user.addresses[1]
+   <Address('j25@yahoo.com')>
+
+   >>> jack.addresses[1].user.addresses[1].user
+   <User('jack', 'Jack Bean')>
+
+   >>> jack.addresses[1].user.addresses[1].user.addresses[1].user.addresses[1].user
+   <User('jack', 'Jack Bean')>
+
+   >>> jack.addresses[1].user.addresses[1].user.addresses[2].user.addresses[0].user
+   <User('jack', 'Jack Bean')>
+
+Добавление в сессию объекта, который ссылается на другие объекты, автоматически включает их тоже.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.add(jack)
+   >>> session.new
+   IdentitySet([<Address('jack@hotmail.com')>,
+                <Address('jack@gmail.com')>,
+                <User('jack', 'Jack Bean')>,
+                <Address('j25@yahoo.com')>])
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.commit()
+
+   [SQL]: INSERT INTO user (name, fullname) VALUES (?, ?)
+   [SQL]: ('jack', 'Jack Bean')
+   [SQL]: INSERT INTO address (email_address, user_id) VALUES (?, ?)
+   [SQL]: ('jack@gmail.com', 5)
+   [SQL]: INSERT INTO address (email_address, user_id) VALUES (?, ?)
+   [SQL]: ('j25@yahoo.com', 5)
+   [SQL]: INSERT INTO address (email_address, user_id) VALUES (?, ?)
+   [SQL]: ('jack@hotmail.com', 5)
+   [SQL]: COMMIT
+
+После подтверждения транзакции (COMMIT), обращение по ссылке создаст новую транзакцию и считает значения из БД.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> jack.addresses
+
+   [SQL]: BEGIN (implicit)
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.id = ?
+   [SQL]: (5,)
+   [SQL]: SELECT address.id AS address_id, address.email_address AS address_email_address, address.user_id AS address_user_id
+   FROM address
+   WHERE ? = address.user_id
+   [SQL]: (5,)
+   [<Address(u'jack@gmail.com')>, <Address(u'j25@yahoo.com')>, <Address(u'jack@hotmail.com')>]
+
+Теперь, считанные объекты находятся в памяти, до тех пор пока мы опять не подтвердим транзакцию (COMMIT) или отменим ее (ROLLBACK).
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> jack.addresses
+   [<Address(u'jack@gmail.com')>, <Address(u'j25@yahoo.com')>, <Address(u'jack@hotmail.com')>]
+
+Привяжем адрес к другому пользователю.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> fred = session.query(User).filter_by(name='fred').one()
+   >>> jack.addresses[1].user = fred
+   >>> fred.addresses
+   >>> session.commit()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.name = ?
+   [SQL]: ('fred',)
+   [SQL]: UPDATE address SET user_id=? WHERE address.id = ?
+   [SQL]: (4, 2)
+   [SQL]: SELECT address.id AS address_id, address.email_address AS address_email_address, address.user_id AS address_user_id
+   FROM address
+   WHERE ? = address.user_id
+   [SQL]: (4,)
+   [<Address(u'j25@yahoo.com')>]
+   [SQL]: COMMIT
+
+Выполнение операции `implicit JOIN`.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.query(User, Address).filter(User.id == Address.user_id).all()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS
+   user_fullname, address.id AS address_id, address.email_address AS
+   address_email_address, address.user_id AS address_user_id FROM user,
+   address
+   WHERE user.id = address.user_id
+   [SQL]: ()
+   [(<User(u'jack', u'Jack Bean')>, <Address(u'jack@gmail.com')>),
+   (<User(u'fred', u'Fred Flinstone')>, <Address(u'j25@yahoo.com')>),
+   (<User(u'jack', u'Jack Bean')>, <Address(u'jack@hotmail.com')>)]
+
+Явный `JOIN`.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.query(User, Address).join(Address, User.id == Address.user_id).all()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS
+   user_fullname, address.id AS address_id, address.email_address AS
+   address_email_address, address.user_id AS address_user_id FROM user JOIN
+   address ON user.id = address.user_id
+   [SQL]: ()
+   [(<User(u'jack', u'Jack Bean')>, <Address(u'jack@gmail.com')>),
+   (<User(u'fred', u'Fred Flinstone')>, <Address(u'j25@yahoo.com')>),
+   (<User(u'jack', u'Jack Bean')>, <Address(u'jack@hotmail.com')>)]
+
+Более краткий и понятный способ использовать ссылку на таблицу для связи.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.query(User, Address).join(User.addresses).all()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS
+   user_fullname, address.id AS address_id, address.email_address AS
+   address_email_address, address.user_id AS address_user_id FROM user JOIN
+   address ON user.id = address.user_id
+   [SQL]: ()
+   [(<User(u'jack', u'Jack Bean')>, <Address(u'jack@gmail.com')>),
+   (<User(u'fred', u'Fred Flinstone')>, <Address(u'j25@yahoo.com')>),
+   (<User(u'jack', u'Jack Bean')>, <Address(u'jack@hotmail.com')>)]
+
+В простых случаях можно передавать только класс таблицы.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.query(User, Address).join(Address).all()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS
+   user_fullname, address.id AS address_id, address.email_address AS
+   address_email_address, address.user_id AS address_user_id FROM user JOIN
+   address ON user.id = address.user_id
+   [SQL]: ()
+   [(<User(u'jack', u'Jack Bean')>, <Address(u'jack@gmail.com')>),
+   (<User(u'fred', u'Fred Flinstone')>, <Address(u'j25@yahoo.com')>),
+   (<User(u'jack', u'Jack Bean')>, <Address(u'jack@hotmail.com')>)]
+
+JOIN с условием WHERE.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.query(User.name).join(User.addresses).\
+   ...     filter(Address.email_address == 'jack@gmail.com').first()
+
+   [SQL]: SELECT user.name AS user_name
+   FROM user JOIN address ON user.id = address.user_id
+   WHERE address.email_address = ?
+    LIMIT ? OFFSET ?
+   [SQL]: ('jack@gmail.com', 1, 0)
+   (u'jack',)
+
+Явный вызов конструкции SELECT FROM JOIN используя метод :meth:`sqlalchemy.orm.query.Query.select_from`.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.query(User, Address).select_from(Address).join(Address.user).all()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS
+   user_fullname, address.id AS address_id, address.email_address AS
+   address_email_address, address.user_id AS address_user_id FROM address
+   JOIN user ON user.id = address.user_id
+   [SQL]: ()
+   [(<User(u'jack', u'Jack Bean')>, <Address(u'jack@gmail.com')>),
+   (<User(u'fred', u'Fred Flinstone')>, <Address(u'j25@yahoo.com')>),
+   (<User(u'jack', u'Jack Bean')>, <Address(u'jack@hotmail.com')>)]
+
+Запросы ссылающиеся на одну сущность более чем один раз, нуждаются в алиасах.
+Алиасы задаются при помощи функции :func:`sqlalchemy.orm.aliased`.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 2
+
+   >>> from sqlalchemy.orm import aliased
+   >>> a1, a2 = aliased(Address), aliased(Address)
+   >>> session.query(User).\
+   ...         join(a1).\
+   ...         join(a2).\
+   ...         filter(a1.email_address == 'jack@gmail.com').\
+   ...         filter(a2.email_address == 'jack@hotmail.com').\
+   ...         all()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user JOIN address AS address_1 ON user.id = address_1.user_id JOIN
+   address AS address_2 ON user.id = address_2.user_id WHERE
+   address_1.email_address = ? AND address_2.email_address = ?
+   [SQL]: ('jack@gmail.com', 'jack@hotmail.com')
+   [<User(u'jack', u'Jack Bean')>]
+
+Подзапросы автоматически использую алиасы.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 14
+
+   >>> from sqlalchemy import func
+   >>> subq = session.query(
+   ...                 func.count(Address.id).label('count'),
+   ...                 User.id.label('user_id')
+   ...                 ).\
+   ...                 join(Address.user).\
+   ...                 group_by(User.id).\
+   ...                 subquery()
+   >>> session.query(User.name, func.coalesce(subq.c.count, 0)).\
+   ...             outerjoin(subq, User.id == subq.c.user_id).all()
+
+   [SQL]: SELECT user.name AS user_name, coalesce(anon_1.count, ?) AS coalesce_1
+   FROM user LEFT OUTER JOIN (SELECT count(address.id) AS count, user.id AS user_id
+   FROM address JOIN user ON user.id = address.user_id GROUP BY user.id) AS anon_1
+   ON user.id = anon_1.user_id [SQL]: (0,)
+   [(u'ed', 0), (u'wendy', 0), (u'mary', 0), (u'fred', 1), (u'jack', 2)]
+
+При каждом обращении к ссылкам объекта в цикле, вызывается новый запрос:
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 7,12,17,22
+
+   >>> for user in session.query(User):
+   ...     print(user, user.addresses)
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS
+   user_fullname FROM user
+   [SQL]: ()
+   [SQL]: SELECT address.id AS address_id, address.email_address AS
+   address_email_address, address.user_id AS address_user_id FROM address
+   WHERE ? = address.user_id
+   [SQL]: (1,)
+   (<User(u'ed', u'Ed Jones')>, [])
+   [SQL]: SELECT address.id AS address_id, address.email_address AS
+   address_email_address, address.user_id AS address_user_id FROM address
+   WHERE ? = address.user_id
+   [SQL]: (2,)
+   (<User(u'wendy', u'Wendy Weathersmith')>, [])
+   [SQL]: SELECT address.id AS address_id, address.email_address AS
+   address_email_address, address.user_id AS address_user_id FROM address
+   WHERE ? = address.user_id
+   [SQL]: (3,)
+   (<User(u'mary', u'Mary Contrary')>, [])
+   [SQL]: SELECT address.id AS address_id, address.email_address AS
+   address_email_address, address.user_id AS address_user_id FROM address
+   WHERE ? = address.user_id
+   [SQL]: (4,)
+   (<User(u'fred', u'Fred Flinstone')>, [<Address(u'j25@yahoo.com')>])
+   (<User(u'jack', u'Jack Bean')>, [<Address(u'jack@gmail.com')>,
+   <Address(u'jack@hotmail.com')>])
+
+Что бы этого избежать нужно использовать опцию предварительной загрузки :func:`sqlalchemy.orm.subqueryload`.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.rollback()  # so we can see the load happen again.
+   >>> from sqlalchemy.orm import subqueryload
+   >>> for user in session.query(User).options(subqueryload(User.addresses)):
+   ...     print(user, user.addresses)
+
+   [SQL]: ROLLBACK
+   [SQL]: BEGIN (implicit)
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   [SQL]: ()
+   [SQL]: SELECT address.id AS address_id, address.email_address AS
+   address_email_address, address.user_id AS address_user_id, anon_1.user_id
+   AS anon_1_user_id FROM (SELECT user.id AS user_id
+   FROM user) AS anon_1 JOIN address ON anon_1.user_id = address.user_id ORDER BY anon_1.user_id
+   [SQL]: ()
+   (<User(u'ed', u'Ed Jones')>, [])
+   (<User(u'wendy', u'Wendy Weathersmith')>, [])
+   (<User(u'mary', u'Mary Contrary')>, [])
+   (<User(u'fred', u'Fred Flinstone')>, [<Address(u'j25@yahoo.com')>])
+   (<User(u'jack', u'Jack Bean')>, [<Address(u'jack@gmail.com')>, <Address(u'jack@hotmail.com')>])
+
+Или :func:`sqlalchemy.orm.joinedload` что бы уместить все в один запрос.
+
+.. code-block:: ipython
+   :linenos:
+
+   >>> session.rollback()
+   >>> from sqlalchemy.orm import joinedload
+   >>> for user in session.query(User).options(joinedload(User.addresses)):
+   ...     print(user, user.addresses)
+
+   [SQL]: ROLLBACK
+   [SQL]: BEGIN (implicit)
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS
+   user_fullname, address_1.id AS address_1_id, address_1.email_address AS
+   address_1_email_address, address_1.user_id AS address_1_user_id FROM user
+   LEFT OUTER JOIN address AS address_1 ON user.id = address_1.user_id
+   [SQL]: ()
+   (<User(u'ed', u'Ed Jones')>, [])
+   (<User(u'wendy', u'Wendy Weathersmith')>, [])
+   (<User(u'mary', u'Mary Contrary')>, [])
+   (<User(u'fred', u'Fred Flinstone')>, [<Address(u'j25@yahoo.com')>])
+   (<User(u'jack', u'Jack Bean')>, [<Address(u'jack@gmail.com')>, <Address(u'jack@hotmail.com')>])
+
+Удаление адреса из списка пользователя ``User.addresses``, поменяет значение  поля FOREIGN KEY на NULL, но не удалит саму запись.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 9
+
+   >>> jack = session.query(User).filter_by(name='jack').one()
+   >>> del jack.addresses[0]
+   >>> session.commit()
+
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.name = ?
+   [SQL]: ('jack',)
+   [SQL]: UPDATE address SET user_id=? WHERE address.id = ?
+   [SQL]: (None, 1)
+   [SQL]: COMMIT
+
+Мы можем настроить связи между таблицами на каскадное удаление.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 16
+
+   >>> User.addresses.property.cascade = "all, delete, delete-orphan"
+
+   >>> fred = session.query(User).filter_by(name='fred').one()
+   >>> del fred.addresses[0]
+   >>> session.commit()
+
+   [SQL]: BEGIN (implicit)
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.name = ?
+   [SQL]: ('fred',)
+   [SQL]: SELECT address.id AS address_id, address.email_address AS
+   address_email_address, address.user_id AS address_user_id FROM address
+   WHERE ? = address.user_id
+   [SQL]: (4,)
+   [SQL]: DELETE FROM address WHERE address.id = ?
+   [SQL]: (2,)
+   [SQL]: COMMIT
+
+``delete-orphan`` означает что дети не могут существовать без родителей.
+Поэтому при удалении родителя вся связанные с ним записи тоже удалятся.
+
+.. code-block:: ipython
+   :linenos:
+   :emphasize-lines: 13,15
+
+   >>> session.delete(jack)
+   >>> session.commit()
+
+   [SQL]: BEGIN (implicit)
+   [SQL]: SELECT user.id AS user_id, user.name AS user_name, user.fullname AS user_fullname
+   FROM user
+   WHERE user.id = ?
+   [SQL]: (5,)
+   [SQL]: SELECT address.id AS address_id, address.email_address AS address_email_address, address.user_id AS address_user_id
+   FROM address
+   WHERE ? = address.user_id
+   [SQL]: (5,)
+   [SQL]: DELETE FROM address WHERE address.id = ?
+   [SQL]: (3,)
+   [SQL]: DELETE FROM user WHERE user.id = ?
+   [SQL]: (5,)
+   [SQL]: COMMIT
+
+Полный пример
+-------------
+
+.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/4.orm.py
+   :language: python
+   :caption: 2.sqlalchemy/4.orm.py
+   :linenos:
