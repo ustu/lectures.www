@@ -8,7 +8,12 @@
 
 .. raw:: html
 
-   <div align="left" class="align-left"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/ustu/lectures.www"></div>
+   <a href="https://gitter.im/ustu/lectures.www" target="_blank">
+      <div align="left" class="align-left">
+         <img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at
+         https://gitter.im/ustu/lectures.www">
+      </div>
+   </a>
 
 .. image:: /_static/logo.jpg
 
