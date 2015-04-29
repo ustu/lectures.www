@@ -1,13 +1,20 @@
 Фреймворк Pyramid
 =================
 
+.. seealso::
+
+   * :l:`Pyramid`
+   * http://trypyramid.com
+   * `<https://ru.wikipedia.org/wiki/Pyramid_(программный_каркас)>`_
+
 .. toctree::
    :maxdepth: 3
 
-   introduction.rst
+   0.introduction.rst
+   1.configuration.rst
+   2.project.rst
+   blog.rst
 
-Структура приложения
---------------------
 
 Функционал (View)
 -----------------
@@ -44,3 +51,9 @@ REST
 
 XML-RPC
 ~~~~~~~
+
+
+.. toctree::
+   :hidden:
+
+   glossary

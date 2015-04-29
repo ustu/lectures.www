@@ -19,8 +19,6 @@
 
 http://lectures.uralbash.ru
 
-.. Последнее обновление |today|
-
 .. toctree::
     :maxdepth: 2
 

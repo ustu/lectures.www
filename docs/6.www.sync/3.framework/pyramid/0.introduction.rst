@@ -1,0 +1,113 @@
+Введение
+========
+
+.. image:: /_static/vector/Pyramid_Logo.*
+
+На создание :l:`Pyramid` оказали влияние такие фреймворки, как :l:`Zope`, :l:`Pylons` и :l:`Django`. Код Pyramid разрабатывался в проекте :l:`repoze.bfg`, а название поменялось в результате слияния проектов BFG и Pylons.
+
+Установка
+---------
+
+.. seealso::
+
+   * http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/install.html
+   * http://docs.pylonsproject.org/projects/pyramid/en/1.6-branch/narr/firstapp.html
+
+Обычно, достаточно выполнить:
+
+.. code-block:: bash
+
+   pip install pyramid
+
+Hello World
+-----------
+
+.. literalinclude:: /../sourcecode/6.www.sync/3.framework/pyramid/intro/helloworld.py
+   :language: python
+   :caption: helloworld.py - Pyramid приложение в одном файле
+   :linenos:
+
+Сохраните код в файл ``helloworld.py`` и запустите его (``python helloworld.py``).
+Теперь приложение доступно на 8000 порту. По адресу http://localhost:8080/hello/world отобразится "Hello World".
+
+Импорты
+~~~~~~~
+
+.. literalinclude:: /../sourcecode/6.www.sync/3.framework/pyramid/intro/helloworld.py
+   :language: python
+   :caption: helloworld.py - импортированные модули
+   :lines: 1-3
+
+Pyramid приложение начинается с конфига, который создается при помощи класса
+:class:`~pyramid.config.Configurator` из модуля :mod:`pyramid.config`.
+В дальнейшем экземпляр класса :class:`~pyramid.config.Configurator`
+используется для настройки Pyramid приложения.
+
+Как и многие другие Веб-фреймворки на Python, Pyramid использует :term:`WSGI` протокол для связи приложения и веб-сервера. В этом примере используется веб-сервер :mod:`wsgiref`, для удобства, т.к. он встроен в Python.
+
+:class:`pyramid.response.Response` копия класса :class:`~webob.response.Response`
+из библиотеки :l:`webob`. Используется для формирования HTTP ответа.
+
+View
+~~~~
+
+.. literalinclude:: /../sourcecode/6.www.sync/3.framework/pyramid/intro/helloworld.py
+   :language: python
+   :caption: helloworld.py - функция hello
+   :pyobject: hello
+
+Такой тип представления в Pyramid называется :term:`view callable`, принимает в качестве аргумента объект класса :class:`pyramid.request.Request` (который наследуется от :class:`webob.request.BaseRequest`) и возвращает объект HTTP ответа :class:`pyramid.response.Response`.
+
+Конфигурация
+~~~~~~~~~~~~
+
+.. literalinclude:: /../sourcecode/6.www.sync/3.framework/pyramid/intro/helloworld.py
+   :language: python
+   :dedent: 4
+   :caption: Создаем конфигуратор приложения
+   :lines: 10
+
+.. literalinclude:: /../sourcecode/6.www.sync/3.framework/pyramid/intro/helloworld.py
+   :language: python
+   :dedent: 4
+   :linenos:
+   :lines: 11,12
+
+В первой строчке вызывается метод конфигуратора
+:meth:`pyramid.config.Configurator.add_route`, который регистрирует новый
+маршрут (:term:`route`) с названием "hello".
+
+Вторая строка регистрирует функцию ``hello_world`` как :term:`view callable` и
+привязывает ее к маршруту "hello". Теперь при обращении по URL адресу '/hello/world' будет запускаться функция ``hello_world`` с переданным ей объектом запроса ``request``.
+
+WSGI приложение
+~~~~~~~~~~~~~~~
+
+.. literalinclude:: /../sourcecode/6.www.sync/3.framework/pyramid/intro/helloworld.py
+   :language: python
+   :dedent: 4
+   :linenos:
+   :lines: 13
+
+Метод :meth:`pyramid.config.Configurator.make_wsgi_app` создает :term:`WSGI` приложение, по тем настройкам которые мы передали в конфигуратор.
+
+WSGI сервер
+~~~~~~~~~~~
+
+.. literalinclude:: /../sourcecode/6.www.sync/3.framework/pyramid/intro/helloworld.py
+   :language: python
+   :dedent: 4
+   :linenos:
+   :lines: 14,15
+
+WSGI-сервер :mod:`wsgiref` принимает первым параметром адрес '0.0.0.0'
+(доступен извне, в отличие от '127.0.0.1' по умолчанию), вторым порт '8000',
+третий параметр это  WSGI-приложение, в пирамиде конечное приложение является
+объектом класса :class:`pyramid.router.Router` (:term:`Router`).
+
+Функция ``serve_forever`` запускает WSGI приложение.
+
+Итог
+~~~~
+
+Мы написали очень простое веб-приложение используя Pyramid фреймворк и настроив его императивно.
