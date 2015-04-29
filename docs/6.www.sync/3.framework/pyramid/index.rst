@@ -13,8 +13,10 @@
    0.introduction.rst
    1.configuration.rst
    2.project.rst
+   3.startup.rst
+   4.router.rst
+   5.urldispatch.rst
    blog.rst
-
 
 .. todo::
 
