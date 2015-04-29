@@ -6,6 +6,10 @@
 Основы Веб-программирования
 ===========================
 
+.. raw:: html
+
+   <div align="left" class="align-left"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/ustu/lectures.www"></div>
+
 .. image:: /_static/logo.jpg
 
 http://lectures.uralbash.ru
@@ -22,7 +26,11 @@ http://lectures.uralbash.ru
     4.net/index.rst
     5.web.server/index.rst
     6.www.sync/2.codding/index.rst
-    6.www.sync/3.framework/pyramid.rst
+    6.www.sync/3.framework/pyramid/index.rst
     7.www.async/index.rst
     8.www.gui/index.rst
     999.additions/index.rst
+
+.. todo::
+
+   * Добавить раздел про развертывание приложений на продакшине (разные случаии), с балансировкой, кэшированием, статикой на CDN итд

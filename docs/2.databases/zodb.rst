@@ -90,9 +90,9 @@ ZODB является иерархической базой данных. Кор
 
 Для начала создадим классы для реализации задачи без сохранения.
 
-.. literalinclude:: /../sourcecode/2.databases/zodb/1.create.py
-    :language: python
-    :linenos:
+.. .. literalinclude:: /../sourcecode/2.databases/zodb/1.create.py
+..     :language: python
+..     :linenos:
 
 .. [1] https://github.com/zopefoundation/ZODB
 .. [2] https://github.com/zodb/relstorage

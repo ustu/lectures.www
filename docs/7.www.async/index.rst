@@ -22,4 +22,6 @@
 
     ajax.rst
     http.comet.rst
+    async.rst
     websocket.rst
+    framework.rst

@@ -123,7 +123,7 @@ language = 'ru'
 today_fmt = '%d-%m-%Y'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = []
+exclude_patterns = ['contents.rst']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -281,6 +281,10 @@ FRAMEWORK_LINKS = {
     'plone': 'https://plone.org/',
     'flask': 'http://flask.pocoo.org/',
     'turbogears': 'http://www.turbogears.org/',
+
+    # Async
+    'pulsar': 'http://pythonhosted.org/pulsar/',
+    'tornado': 'http://www.tornadoweb.org/en/stable/',
 }
 
 OTHER_LINKS = {
@@ -302,6 +306,10 @@ OTHER_LINKS = {
 
     # SCV
     'git': 'http://git-scm.com/',
+
+    # Async
+    'gevent': 'http://www.gevent.org/',
+    'asyncio': 'https://docs.python.org/3/library/asyncio.html',
 
     # Other
     'zenoss': 'www.zenoss.com/',

@@ -311,25 +311,25 @@ BaseLoader
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/templates/base.html
    :language: jinja
    :linenos:
-   :caption: templates/base.html
+   :caption: templates/base.html - базовый шаблон.
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/templates/index.html
    :language: jinja
    :linenos:
-   :caption: templates/index.html
+   :caption: Главня страница templates/index.html наследуется от templates/base.html
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/templates/create.html
    :language: jinja
    :linenos:
-   :caption: templates/create.html
+   :caption: templates/create.html наследуется от базового шаблона.
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/templates/read.html
    :language: jinja
    :linenos:
-   :caption: templates/read.html
+   :caption: templates/read.html наслудуется от базового шаблона.
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/views.py
    :language: python
    :linenos:
    :emphasize-lines: 5, 30, 52, 64, 80
-   :caption: views.py
+   :caption: views.py - окружение Jinja2.

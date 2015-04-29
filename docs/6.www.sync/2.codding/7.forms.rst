@@ -109,7 +109,7 @@ Colander
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/7.forms/deform/templates/simple_with_css.html
    :language: html
-   :caption: templates/simple.html
+   :caption: templates/simple.html с CSS стилями.
    :linenos:
 
 .. figure:: /_static/6.www.sync/7.forms/simple_form_with_css.png

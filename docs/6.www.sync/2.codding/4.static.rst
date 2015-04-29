@@ -152,17 +152,17 @@ Paste
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/templates/index.html
    :language: jinja
    :linenos:
-   :caption: templates/index.html
+   :caption: templates/index.html со стилями.
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/templates/read.html
    :language: jinja
    :linenos:
-   :caption: templates/read.html
+   :caption: templates/read.html со стилями.
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/templates/create.html
    :language: jinja
    :linenos:
-   :caption: templates/create.html
+   :caption: templates/create.html со стлями.
 
 В результате получим новое отображение блога, но пока мы не укажем ему откуда брать статику, он ее не сможет их найти.
 

@@ -284,7 +284,7 @@ Index
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/6.webob/blog/0.step/views.py
    :language: python
-   :caption: views.py класс BlogIndex
+   :caption: BlogIndex.response
    :pyobject: BlogIndex
    :emphasize-lines: 12-16
    :linenos:
