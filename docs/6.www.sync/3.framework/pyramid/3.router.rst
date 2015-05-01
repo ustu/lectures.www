@@ -1,6 +1,10 @@
 Обработка HTTP запросов
 =======================
 
+.. todo::
+
+   * Нужно перевести
+
 .. image:: /_static/6.www.sync/framework/pyramid_request_processing.*
    :alt: Request Processing
 

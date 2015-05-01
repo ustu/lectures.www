@@ -1,3 +1,56 @@
 Диспетчеризация URL
 ===================
 
+.. todo::
+
+   * Расписать более подробно
+
+.. seealso::
+
+   * http://docs.pylonsproject.org/projects/pyramid/en/1.6-branch/narr/urldispatch.html
+
+Каждый поступающий на сервер приложений Pyramid запрос (**request**) должен найти вид (**view**), который и будет его обрабатывать.
+
+В Pyramid имеется два базовых подхода к поиску нужного вида для обрабатываемого запроса: на основе сопоставления (**matching**), как в большинстве подобных фреймворков, и обхода (**traversal**), как в :l:`Zope`. Кроме того, в одном приложении можно с успехом сочетать оба подхода.
+
+Простейший пример с заданием маршрута (заимствован из документации):
+
+.. code-block:: python
+
+   # Здесь config - экземпляр pyramid.config.Configurator
+   config.add_route('idea', 'site/{id}')
+   config.add_view('mypackage.views.site_view', route_name='idea')
+
+.. seealso::
+
+   * http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/traversal.html
+
+Использование обхода лучше проиллюстрировать на небольшом примере:
+
+.. code-block:: python
+
+   from wsgiref.simple_server import make_server
+   from pyramid.config import Configurator
+   from pyramid.response import Response
+
+   # Класс некоторого ресурса
+   class Resource(dict):
+       pass
+
+   # Дерево ресурсов (жёстко закодированное) в фабрике корня
+   def get_root(request):
+       return Resource({'a': Resource({'b': Resource({'c': Resource()})})})
+
+   # Вид-для-вызова, который умеет показывать ресурс Resource (в context)
+   def hello_world_of_resources(context, request):
+       output = "Ресурс и его дети: %s" % context
+       return Response(output)
+
+   if __name__ == '__main__':
+       config = Configurator(root_factory=get_root)
+       config.add_view(hello_world_of_resources, context=Resource)
+       app = config.make_wsgi_app()
+       server = make_server('0.0.0.0', 8080, app)
+       server.serve_forever()
+
+В этом примере иерархия для обхода жестко задана в методе ``get_root`` с помощью вложенных словарей, тогда как реальные приложения должны сами определять необходимый доступ по ключам (метод ``__getitem__`` помогает организовать такой доступ). В коде также присутствует корневая фабрика, с которой собственно и начинается обход узлов (node) дерева ресурсов. Вид-для-вызова (:term:`view callable`) представлен функцией ``hello_world_of_resources``. Говоря несколько упрощённо, на основе URL запроса в результате обхода иерархии Pyramid находит ресурс и применяет к нему «наилучший» вид-для-вызова (в нашем примере — он единственный).
