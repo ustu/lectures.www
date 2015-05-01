@@ -41,6 +41,7 @@
 
 .. code-block:: python
    :linenos:
+   :caption: my-pyramid-app/views.py
    :emphasize-lines: 4
 
    from pyramid.response import Response
@@ -58,16 +59,11 @@
 
 .. code-block:: python
    :linenos:
+   :caption: my-pyramid-app/__init__.py
    :emphasize-lines: 6,12
 
    from wsgiref.simple_server import make_server
    from pyramid.config import Configurator
-   from pyramid.response import Response
-   from pyramid.view import view_config
-
-   @view_config()
-   def hello(request):
-       return Response('Hello')
 
    if __name__ == '__main__':
        config = Configurator()

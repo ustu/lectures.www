@@ -250,6 +250,9 @@ PYLONS_LINKS = {
     'chameleon': 'http://pyramid-chameleon.readthedocs.org/en/latest/',
     'peppercorn':
     'http://docs.pylonsproject.org/projects/peppercorn/en/latest/',
+    'pyramid_jinja2':
+    'http://docs.pylonsproject.org/projects/pyramid-jinja2/en/latest/',
+    'cornice': 'http://cornice.rtfd.org',
 }
 
 DATABASE_LINKS = {
@@ -295,6 +298,7 @@ OTHER_LINKS = {
     # Web servers
     'nginx': 'http://nginx.org/',
     'paste': 'http://pythonpaste.org/',
+    'waitress': 'waitress.readthedocs.org/',
 
     # Language
     'python': 'http://www.python.org/',

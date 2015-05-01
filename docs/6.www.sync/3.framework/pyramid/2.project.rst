@@ -1,2 +1,195 @@
 Структура приложения
 ====================
+
+Хотя не составляет большой трудности написать Pyramid-приложение (проект) с
+нуля, Pyramid имеет инструменты для инициализации кода нового приложения по
+выбранному шаблону, или, в терминологии Pyramid, каркасной структуре
+(scaffolds). Например, в поставке имеются каркасные структуры для проектов,
+использующих :l:`ZODB` или :l:`SQLAlchemy`.
+
+Проект — это каталог, содержащий по крайней мере один пакет на Python.
+
+Типичная структура каталога для небольшого проекта:
+
+::
+
+   MyProject/
+   |-- CHANGES.txt
+   |-- development.ini
+   |-- MANIFEST.in
+   |-- myproject
+   |   |-- __init__.py
+   |   |-- static
+   |   |   |-- favicon.ico
+   |   |   |-- logo.png
+   |   |   `-- pylons.css
+   |   |-- templates
+   |   |   `-- mytemplate.pt
+   |   |-- tests.py
+   |   `-- views.py
+   |-- production.ini
+   |-- README.txt
+   |-- setup.cfg
+   `-- setup.py
+
+Приведённую структуру, как следует из документации, не следует сильно изменять,
+так как это может помешать другим разработчикам быстро ориентироваться в коде
+проекта. Тем не менее, растущий проект может потребовать некоторых изменений.
+Например, виды, модели (если они используются) и тесты можно, разбив на модули,
+перенести соответственно в подкаталоги views, models и tests (не забыв снабдить
+их файлом ``__init__.py``).
+
+Следует отметить, что Pyramid может работать с любым WSGI-сервером. Проекты,
+созданные по готовым каркасным структурам, используют сервер :l:`Waitress`.
+
+Стандартные шаблоны проектов
+----------------------------
+
+Список шаблонов можно посмотреть по команде:
+
+.. code-block:: bash
+
+   $ pcreate -l
+   Available scaffolds:
+     alchemy:  Pyramid SQLAlchemy project using url dispatch
+     starter:  Pyramid starter project
+     zodb:     Pyramid ZODB project using traversal
+
+``starter``
+  URL маршруты :term:`URL dispatch`, без БД.
+
+``zodb``
+  URL маршрутизация :term:`traversal` и БД :term:`ZODB`.
+
+``alchemy``
+  URL маршрутизация :term:`URL dispatch` и БД `SQLite` с использованием :term:`SQLAlchemy`.
+
+Некоторые пакеты могут дополнять этот список, например :l:`Cornice` и :l:`pyramid_jinja2`.
+
+.. code-block:: bash
+   :emphasize-lines: 4,5
+
+   $ pcreate -l
+   Available scaffolds:
+     alchemy:                 Pyramid SQLAlchemy project using url dispatch
+     cornice:                 A Cornice application
+     pyramid_jinja2_starter:  pyramid jinja2 starter project
+     starter:                 Pyramid starter project
+     zodb:                    Pyramid ZODB project using traversal
+
+Создание проекта
+----------------
+
+.. code-block:: bash
+
+   $ pcreate -s starter MyProject
+
+.. code-block:: bash
+
+   MyProject
+   ├── CHANGES.txt
+   ├── development.ini
+   ├── MANIFEST.in
+   ├── myproject
+   │   ├── __init__.py
+   │   ├── static
+   │   │   ├── pyramid-16x16.png
+   │   │   ├── pyramid.png
+   │   │   ├── theme.css
+   │   │   └── theme.min.css
+   │   ├── templates
+   │   │   └── mytemplate.pt
+   │   ├── tests.py
+   │   └── views.py
+   ├── production.ini
+   ├── README.txt
+   └── setup.py
+
+   3 directories, 14 files
+
+Установка
+---------
+
+.. code-block:: bash
+
+   $ cd MyProject
+   $ python setup.py develop
+
+Запуск
+------
+
+Часть настоек проекта, которые часто меняются, находится в файле ``development.ini``.
+
+.. code-block:: bash
+
+   $ pserve development.ini
+   Starting server in PID 16601.
+   serving on http://0.0.0.0:6543
+
+Ниже показан пример настроек сервера. Сервер :l:`Waitress` запустит ``MyProject.main`` по адресу ``127.0.0.1`` и порту ``6543``.
+
+.. code-block:: ini
+   :caption: Пример настроек сервера из ``development.ini``
+
+   [server:main]
+   use = egg:waitress#main
+   host = 127.0.0.1
+   port = 6543
+
+Для автоматического перезапуска сервера после изменения файлов нужно указать флаг ``--reload``.
+
+.. code-block:: text
+
+   $ pserve development.ini --reload
+   Starting subprocess with file monitor
+   Starting server in PID 16601.
+   serving on http://0.0.0.0:6543
+
+Теперь, после изменения какого-либо из файлов ``.py`` или ``.ini``, сервер
+перезапустится автоматически.
+
+.. code-block:: bash
+
+   development.ini changed; reloading...
+   -------------------- Restarting --------------------
+   Starting server in PID 16602.
+   serving on http://0.0.0.0:6543
+
+.. todo::
+
+   pyramid.reload_templates
+
+Просмотр
+--------
+
+После запуска приложения через ``pserve``, можно открыть страницу http://localhost:6543/ в браузере.
+
+.. image:: /_static/6.www.sync/framework/project.png
+   :width: 500pt
+
+Debug Toolbar
+-------------
+
+.. todo::
+
+   Расписать подробней
+
+.. seealso::
+
+   * http://docs.pylonsproject.org/projects/pyramid_debugtoolbar/en/latest/
+
+.. image:: /_static/6.www.sync/framework/project-debug.png
+   :width: 500pt
+
+.. code-block:: ini
+   :linenos:
+
+   [app:main]
+   ...
+   pyramid.includes =
+       pyramid_debugtoolbar
+
+.. todo::
+
+   * Расписать про структуру проекта из скаффолда
+   * Добавить описание разных конфигов для одного проекта, например 6544 для асинхронщины
