@@ -28,7 +28,7 @@ Hello World
    :linenos:
 
 Сохраните код в файл ``helloworld.py`` и запустите его (``python helloworld.py``).
-Теперь приложение доступно на 8000 порту. По адресу http://localhost:8080/hello/world отобразится "Hello World".
+Теперь приложение доступно на 8000 порту. По адресу http://localhost:8080/ отобразится "Hello World".
 
 Импорты
 ~~~~~~~

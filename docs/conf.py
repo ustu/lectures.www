@@ -211,6 +211,7 @@ intersphinx_mapping = {
     'http://initd.org/psycopg/docs/': None,
     'http://venusian.readthedocs.org/en/latest/': None,
     'http://docs.webob.org/en/latest/': None,
+    'http://pyramid-sqlalchemy.readthedocs.org/en/latest/': None,
 }
 
 
@@ -273,6 +274,7 @@ DATABASE_LINKS = {
 
     # ORM
     'sqlalchemy': 'http://sqlalchemy.org/',
+    'pyramid_sqlalchemy': 'http://pyramid-sqlalchemy.readthedocs.org',
     'sqlobject': 'http://www.sqlobject.org/index.html',
     'sqlbuilder': 'http://www.sqlobject.org/SQLBuilder.html',
     'hibernate': 'http://hibernate.org',
@@ -288,6 +290,7 @@ FRAMEWORK_LINKS = {
     'flask': 'http://flask.pocoo.org/',
     'turbogears': 'http://www.turbogears.org/',
     'django': 'https//www.djangoproject.com/',
+    'ruby on rails': 'http://rubyonrails.org/',
 
     # Async
     'pulsar': 'http://pythonhosted.org/pulsar/',

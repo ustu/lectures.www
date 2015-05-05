@@ -1,0 +1,363 @@
+Базы данных
+===========
+
+Сам фреймворк Pyramid не имеет встроенных возможностей работы с базами
+данных, в отличии от таких фреймворков как :l:`Django` (Django ORM) и
+:l:`Ruby on Rails` (Active Record). Хорошим выбором для реляционных БД будет
+ORM :l:`SQLAlchemy`.
+
+В скаффолде ``alchemy``, который мы использовали для создания блога, уже существуют минимальные настройки для работы с БД.
+
+Подключение к БД прописано в файле ``development.ini``.
+
+.. code-block:: ini
+   :emphasize-lines: 13
+
+   [app:main]
+   use = egg:pyramid_blogr
+
+   pyramid.reload_templates = true
+   pyramid.debug_authorization = false
+   pyramid.debug_notfound = false
+   pyramid.debug_routematch = false
+   pyramid.default_locale_name = en
+   pyramid.includes =
+       pyramid_debugtoolbar
+       pyramid_tm
+
+   sqlalchemy.url = sqlite:///%(here)s/pyramid_blogr.sqlite
+
+Объект сессии создается в файле ``pyramid_blogr/models.py``.
+Там же находится базовый класс для моделей.
+
+.. code-block:: python
+   :emphasize-lines: 17,18
+
+   from sqlalchemy import (
+       Column,
+       Index,
+       Integer,
+       Text,
+       )
+
+   from sqlalchemy.ext.declarative import declarative_base
+
+   from sqlalchemy.orm import (
+       scoped_session,
+       sessionmaker,
+       )
+
+   from zope.sqlalchemy import ZopeTransactionExtension
+
+   DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
+   Base = declarative_base()
+
+
+   class MyModel(Base):
+       __tablename__ = 'models'
+       id = Column(Integer, primary_key=True)
+       name = Column(Text)
+       value = Column(Integer)
+
+   Index('my_index', MyModel.name, unique=True, mysql_length=255)
+
+В главном файле проекта ``pyramid_blogr/__init__.py`` находится функция ``main``, которая вызывается при запуске команды ``pserve development.ini``. Причем, настройки из файла ``development.ini`` передаются в эту функцию через атрибут ``settings`` (``def main(global_config, **settings):``).
+
+``pserve`` знает что нужно запустить функцию ``main``, потому что это указанно в самом файле настроек ``development.ini``.
+
+.. code-block:: ini
+   :emphasize-lines: 6
+
+   ###
+   # wsgi server configuration
+   ###
+
+   [server:main]
+   use = egg:waitress#main
+   host = 0.0.0.0
+   port = 6543
+
+Подключение к БД берется из настроек при помощи функции :func:`sqlalchemy.engine_from_config`. Далее объекту сессии и базовому классу указывается строка подключения.
+
+.. code-block:: python
+   :emphasize-lines: 13-15
+
+   from pyramid.config import Configurator
+   from sqlalchemy import engine_from_config
+
+   from .models import (
+       DBSession,
+       Base,
+       )
+
+
+   def main(global_config, **settings):
+       """ This function returns a Pyramid WSGI application.
+       """
+       engine = engine_from_config(settings, 'sqlalchemy.')
+       DBSession.configure(bind=engine)
+       Base.metadata.bind = engine
+       config = Configurator(settings=settings)
+       config.include('pyramid_chameleon')
+       config.add_static_view('static', 'static', cache_max_age=3600)
+       config.add_route('home', '/')
+       config.scan()
+       return config.make_wsgi_app()
+
+pyramid_sqlalchemy
+------------------
+
+.. seealso::
+
+   * http://pyramid-sqlalchemy.readthedocs.org/en/latest/
+
+:l:`pyramid_sqlalchemy` - расширение для Pyramid которое делает многие настройки БД за вас.
+
+Установка:
+
+.. code-block:: bash
+
+   $ pip install pyramid_sqlalchemy
+
+Файл ``__init__.py`` стал значительно проще.
+
+.. code-block:: python
+   :emphasize-lines: 8
+
+   from pyramid.config import Configurator
+
+
+   def main(global_config, **settings):
+       """ This function returns a Pyramid WSGI application.
+       """
+       config = Configurator(settings=settings)
+       config.include('pyramid_sqlalchemy')
+       config.include('pyramid_chameleon')
+       config.add_static_view('static', 'static', cache_max_age=3600)
+       config.add_route('home', '/')
+       config.scan()
+       return config.make_wsgi_app()
+
+Базовый класс и сессия импортируются прямо из библиотеки.
+
+* :class:`pyramid_sqlalchemy.BaseObject`
+* :class:`pyramid_sqlalchemy.Session`
+
+Поэтому можно удалить ``Base`` и  ``DBSession`` из файла ``models.py``.
+
+.. code-block:: python
+   :emphasize-lines: 8
+
+   from sqlalchemy import (
+       Column,
+       Index,
+       Integer,
+       Text,
+       )
+
+   from pyramid_sqlalchemy import BaseObject
+
+
+   class MyModel(BaseObject):
+       __tablename__ = 'models'
+       id = Column(Integer, primary_key=True)
+       name = Column(Text)
+       value = Column(Integer)
+
+   Index('my_index', MyModel.name, unique=True, mysql_length=255)
+
+Сессии работаю аналогично. Пример ``views.py``.
+
+.. code-block:: python
+   :emphasize-lines: 6
+
+   from pyramid.response import Response
+   from pyramid.view import view_config
+
+   from sqlalchemy.exc import DBAPIError
+
+   from pyramid_sqlalchemy import Session as DBSession
+   from .models import MyModel
+
+
+   @view_config(route_name='home', renderer='templates/mytemplate.pt')
+   def my_view(request):
+       try:
+           one = DBSession.query(MyModel).filter(MyModel.name == 'one').first()
+       except DBAPIError:
+           return Response(conn_err_msg, content_type='text/plain', status_int=500)
+       return {'one': one, 'project': 'pyramid_blogr'}
+
+
+   conn_err_msg = """\
+   Pyramid is having a problem using your SQL database.  The problem
+   might be caused by one of the following things:
+
+   A.  You may need to run the "initialize_pyramid_blogr_db" script
+       to initialize your database tables.  Check your virtual
+       environment's "bin" directory for this script and try to run it.
+
+   B.  Your database server may not be running.  Check that the
+       database server referred to by the "sqlalchemy.url" setting in
+       your "development.ini" file is running.
+
+   After you fix the problem, please restart the Pyramid application to
+   try it again.
+   """
+
+Таблицы блога
+-------------
+
+В файле ``models.py`` заменим ``MyModel`` на таблицы блога:
+
+* User - для авторизации
+* Article - статьи
+
+.. code-block:: python
+
+   import datetime
+
+   from pyramid_sqlalchemy import BaseObject
+   from sqlalchemy import Column, DateTime, Integer, Unicode, UnicodeText
+
+
+   class User(BaseObject):
+       __tablename__ = 'users'
+       id = Column(Integer, primary_key=True)
+       name = Column(Unicode(255), unique=True, nullable=False)
+       password = Column(Unicode(255), nullable=False)
+       last_logged = Column(DateTime, default=datetime.datetime.utcnow)
+
+
+   class Article(BaseObject):
+       __tablename__ = 'articles'
+       id = Column(Integer, primary_key=True)
+       title = Column(Unicode(255), unique=True, nullable=False)
+       content = Column(UnicodeText, default=u'')
+       created = Column(DateTime, default=datetime.datetime.utcnow)
+       edited = Column(DateTime, default=datetime.datetime.utcnow)
+
+Инициализация
+-------------
+
+В скаффорлде существует файл инициализации проекта ``pyramid_blogr/scripts/initializedb.py``. Его можно выполнить как команду окружения:
+
+.. code-block:: bash
+
+   $ initialize_pyramid_blogr_db development.ini
+
+В окружение эта команда попадает после установки (``python setup.py develop``) пакета, т.к. прописана в настройках ``setup.py``.
+
+.. code-block:: python
+   :emphasize-lines: 24-25
+
+   # ...
+   setup(name='pyramid_blogr',
+         version='0.0',
+         description='pyramid_blogr',
+         long_description=README + '\n\n' + CHANGES,
+         classifiers=[
+             "Programming Language :: Python",
+             "Framework :: Pyramid",
+             "Topic :: Internet :: WWW/HTTP",
+             "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+         ],
+         author='',
+         author_email='',
+         url='',
+         keywords='web wsgi bfg pylons pyramid',
+         packages=find_packages(),
+         include_package_data=True,
+         zip_safe=False,
+         test_suite='pyramid_blogr',
+         install_requires=requires,
+         entry_points="""\
+         [paste.app_factory]
+         main = pyramid_blogr:main
+         [console_scripts]
+         initialize_pyramid_blogr_db = pyramid_blogr.scripts.initializedb:main
+         """,
+         )
+
+Добавим в этот скрипт инициализации, создание новых таблиц и добавление пользователя.
+
+.. code-block:: python
+   :emphasize-lines: 14-16, 36-40
+
+   import os
+   import sys
+   import transaction
+
+   from sqlalchemy import engine_from_config
+
+   from pyramid.paster import (
+       get_appsettings,
+       setup_logging,
+       )
+
+   from pyramid.scripts.common import parse_vars
+
+   from ..models import User
+   from pyramid_sqlalchemy import BaseObject as Base
+   from pyramid_sqlalchemy import Session as DBSession
+
+
+   def usage(argv):
+       cmd = os.path.basename(argv[0])
+       print('usage: %s <config_uri> [var=value]\n'
+             '(example: "%s development.ini")' % (cmd, cmd))
+       sys.exit(1)
+
+
+   def main(argv=sys.argv):
+       if len(argv) < 2:
+           usage(argv)
+       config_uri = argv[1]
+       options = parse_vars(argv[2:])
+       setup_logging(config_uri)
+       settings = get_appsettings(config_uri, options=options)
+       engine = engine_from_config(settings, 'sqlalchemy.')
+       DBSession.configure(bind=engine)
+
+       Base.metadata.drop_all(engine)
+       Base.metadata.create_all(engine)
+       with transaction.manager:
+           model = User(name=u'admin', password=u'admin')
+           DBSession.add(model)
+
+Теперь при выполнении этого скрипта, наша БД будет пересоздаваться.
+
+.. no-code-block:: bash
+
+   $ initialize_pyramid_blogr_db development.ini
+
+   CREATE TABLE articles (
+           id INTEGER NOT NULL,
+           title VARCHAR(255) NOT NULL,
+           content TEXT,
+           created DATETIME,
+           edited DATETIME,
+           PRIMARY KEY (id),
+           UNIQUE (title)
+   )
+
+
+   2015-05-05 12:49:59,749 INFO  [sqlalchemy.engine.base.Engine][MainThread] ()
+   2015-05-05 12:49:59,755 INFO  [sqlalchemy.engine.base.Engine][MainThread] COMMIT
+   2015-05-05 12:49:59,755 INFO  [sqlalchemy.engine.base.Engine][MainThread]
+   CREATE TABLE users (
+           id INTEGER NOT NULL,
+           name VARCHAR(255) NOT NULL,
+           password VARCHAR(255) NOT NULL,
+           last_logged DATETIME,
+           PRIMARY KEY (id),
+           UNIQUE (name)
+   )
+
+
+   2015-05-05 12:49:59,755 INFO  [sqlalchemy.engine.base.Engine][MainThread] ()
+   2015-05-05 12:49:59,761 INFO  [sqlalchemy.engine.base.Engine][MainThread] COMMIT
+   2015-05-05 12:49:59,764 INFO  [sqlalchemy.engine.base.Engine][MainThread] BEGIN (implicit)
+   2015-05-05 12:49:59,766 INFO  [sqlalchemy.engine.base.Engine][MainThread] INSERT INTO users (name, password, last_logged) VALUES (?, ?, ?)
+   2015-05-05 12:49:59,767 INFO  [sqlalchemy.engine.base.Engine][MainThread] (u'admin', u'admin', '2015-05-05 12:49:59.766198')
+   2015-05-05 12:49:59,769 INFO  [sqlalchemy.engine.base.Engine][MainThread] COMMIT

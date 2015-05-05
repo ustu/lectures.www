@@ -13,6 +13,7 @@
    0.introduction.rst
    1.configuration.rst
    2.project.rst
+   database.rst
    3.router.rst
    4.urldispatch.rst
    blog.rst

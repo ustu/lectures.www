@@ -193,3 +193,35 @@ Debug Toolbar
 
    * Расписать про структуру проекта из скаффолда
    * Добавить описание разных конфигов для одного проекта, например 6544 для асинхронщины
+
+Блог
+----
+
+Создадим структуру будущего блога.
+
+.. code-block:: bash
+
+   $ pcreate -t alchemy pyramid_blogr
+
+.. no-code-block:: bash
+
+   $ cd pyramid_blogr
+   $ tree
+   .
+   ├── CHANGES.txt
+   ├── development.ini  <- файл с настройками проекта
+   ├── MANIFEST.in
+   ├── production.ini
+   ├── pyramid_blogr
+   │   ├── __init__.py  <- точка входа нашего приложения, функция main.
+   │   │                   Создает конфиг и возвращает WSGI-приложение.
+   │   ├── models.py    <- описание схемы БД при помощи ORM SQLAlchemy
+   │   ├── scripts
+   │   │   ├── initializedb.py <- скрипт инициализации проекта
+   │   │   └── __init__.py
+   │   ├── static/      <- статические файлы (картинки, стили, javascript, ...)
+   │   ├── templates/   <- шаблоны
+   │   ├── tests.py
+   │   └── views.py     <- вьюхи (бизнес-логика приложения)
+   ├── README.txt
+   └── setup.py
