@@ -13,6 +13,9 @@
 
 В Pyramid имеется два базовых подхода к поиску нужного вида для обрабатываемого запроса: на основе сопоставления (**matching**), как в большинстве подобных фреймворков, и обхода (**traversal**), как в :l:`Zope`. Кроме того, в одном приложении можно с успехом сочетать оба подхода.
 
+Pattern Matching
+----------------
+
 Простейший пример с заданием маршрута (заимствован из документации):
 
 .. code-block:: python
@@ -20,6 +23,9 @@
    # Здесь config - экземпляр pyramid.config.Configurator
    config.add_route('idea', 'site/{id}')
    config.add_view('mypackage.views.site_view', route_name='idea')
+
+Traversal
+---------
 
 .. seealso::
 
@@ -54,3 +60,53 @@
        server.serve_forever()
 
 В этом примере иерархия для обхода жестко задана в методе ``get_root`` с помощью вложенных словарей, тогда как реальные приложения должны сами определять необходимый доступ по ключам (метод ``__getitem__`` помогает организовать такой доступ). В коде также присутствует корневая фабрика, с которой собственно и начинается обход узлов (node) дерева ресурсов. Вид-для-вызова (:term:`view callable`) представлен функцией ``hello_world_of_resources``. Говоря несколько упрощённо, на основе URL запроса в результате обхода иерархии Pyramid находит ресурс и применяет к нему «наилучший» вид-для-вызова (в нашем примере — он единственный).
+
+URL маршруты в блоге
+--------------------
+
+.. tabularcolumns:: |p{6.5cm}|p{6.5cm}|
+.. list-table:: URL маршруты для блога
+   :header-rows: 1
+
+   * - URL
+     - Назначение
+   * - \/
+     - Главная страница со списком статей
+   * - \/static/jquery.js
+     - Статические файлы
+   * - \/sign\/in
+     - Вход под своей учетной записью
+   * - \/sign\/out
+     - Выход
+   * - /add
+     - Добавление новой статьи
+   * - /article/13
+     - Просмотр статьи с id=13
+   * - /article/13/edit
+     - Редактирование статьи с id=13
+   * - /article/13/delete
+     - Удаление статьи с id=13
+
+Добавим пути в кофигуратор в файле ``__init__.py``.
+
+.. code-block:: python
+   :emphasize-lines: 11-15
+
+   from pyramid.config import Configurator
+
+
+   def main(global_config, **settings):
+       """ This function returns a Pyramid WSGI application.
+       """
+       config = Configurator(settings=settings)
+       config.include('pyramid_sqlalchemy')
+       config.include('pyramid_chameleon')
+
+       config.add_static_view('static', 'static', cache_max_age=3600)
+       config.add_route('blog', '/')
+       config.add_route('blog_article', '/article/{id:\d+}/{slug}')
+       config.add_route('blog_action', '/{action}')
+       config.add_route('auth', '/sign/{action}')
+
+       config.scan()
+       return config.make_wsgi_app()

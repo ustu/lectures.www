@@ -13,16 +13,17 @@
    0.introduction.rst
    1.configuration.rst
    2.project.rst
-   database.rst
-   3.router.rst
+   3.database.rst
    4.urldispatch.rst
-   blog.rst
+   wsgi.rst
 
 .. todo::
 
    Добавить:
 
    * Ининциализация проекта
+
+     * Добавить пример с фейковыми данными (sacrud_common)
    * Функционал (View)
    * Шаблоны (Template)
    * Базы данных (Model)
