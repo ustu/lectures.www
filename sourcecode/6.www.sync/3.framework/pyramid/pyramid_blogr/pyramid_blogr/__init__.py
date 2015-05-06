@@ -6,7 +6,8 @@ def main(global_config, **settings):
     """
     config = Configurator(settings=settings)
     config.include('pyramid_sqlalchemy')
-    config.include('pyramid_chameleon')
+    config.include('pyramid_jinja2')
+    config.add_jinja2_search_path('pyramid_blogr:templates')
 
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('blog', '/')
