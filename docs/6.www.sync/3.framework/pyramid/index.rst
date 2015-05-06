@@ -15,7 +15,9 @@
    2.project.rst
    3.database.rst
    4.urldispatch.rst
+   5.views.rst
    wsgi.rst
+   _checkpoint.rst
 
 .. todo::
 
@@ -24,9 +26,7 @@
    * Ининциализация проекта
 
      * Добавить пример с фейковыми данными (sacrud_common)
-   * Функционал (View)
    * Шаблоны (Template)
-   * Базы данных (Model)
    * Дополнения
    * Админка
    * Меню и страницы на сайте
