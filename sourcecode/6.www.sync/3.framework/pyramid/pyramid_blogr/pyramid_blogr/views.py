@@ -36,7 +36,7 @@ def blog_create(request):
         except deform.ValidationFailure as e:
             return {'form': e.render(),
                     'action': request.matchdict.get('action')}
-        if request.matchdict['action'] == 'edit':
+        if request.matchdict.get('action', '') == 'edit':
             article = Session.query(Article)\
                 .filter_by(id=request.matchdict['id']).one()
             article.title = request.POST['title']
@@ -46,7 +46,7 @@ def blog_create(request):
         Session.add(article)
         return HTTPFound(location=request.route_url('blog'))
     values = {}
-    if request.matchdict['action'] == 'edit':
+    if request.matchdict.get('action', '') == 'edit':
         values = Session.query(Article)\
             .filter_by(id=request.matchdict['id']).one().__dict__
     return {'form': form.render(values),
