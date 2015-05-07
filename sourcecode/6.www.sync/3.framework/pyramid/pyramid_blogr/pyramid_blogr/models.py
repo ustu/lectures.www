@@ -22,6 +22,10 @@ class Article(BaseObject):
     edited = Column(DateTime, default=datetime.datetime.utcnow)
 
     @classmethod
+    def by_id(cls, id):
+        return Session.query(Article).filter(Article.id == id).first()
+
+    @classmethod
     def get_paginator(cls, request, page=1):
         query = Session.query(Article).order_by(desc(Article.created))
         query_params = request.GET.mixed()

@@ -39,3 +39,62 @@
    @view_config(route_name='auth', match_param='action=out', renderer='string')
    def sign_in_out(request):
        return {}
+
+Главная страница
+~~~~~~~~~~~~~~~~
+
+``views.py``
+
+.. code-block:: python
+
+   @view_config(route_name='blog',
+                renderer='blog/index.jinja2')
+   def index_page(request):
+       page = int(request.params.get('page', 1))
+       paginator = Article.get_paginator(request, page)
+       return {'paginator': paginator}
+
+``models.py`` ``Article``
+
+.. code-block:: python
+
+    @classmethod
+    def get_paginator(cls, request, page=1):
+        query = Session.query(Article).order_by(desc(Article.created))
+        query_params = request.GET.mixed()
+
+        def url_maker(link_page):
+            query_params['page'] = link_page
+            return request.current_route_url(_query=query_params)
+        return SqlalchemyOrmPage(query, page, items_per_page=5,
+                                 url_maker=url_maker)
+
+Просмотр статей
+~~~~~~~~~~~~~~~
+
+``views.py``
+
+.. code-block:: python
+
+   @view_config(route_name='blog_article', renderer='blog/read.jinja2')
+   def blog_view(request):
+       id = int(request.matchdict.get('id', -1))
+       article = Article.by_id(id)
+       if not article:
+           return HTTPNotFound()
+       return {'article': article}
+
+``models.py`` ``Article``
+
+.. code-block:: python
+
+    @classmethod
+    def by_id(cls, id):
+        return Session.query(Article).filter(Article.id == id).first()
+
+Создание и редактирование
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Полный код
+~~~~~~~~~~
+

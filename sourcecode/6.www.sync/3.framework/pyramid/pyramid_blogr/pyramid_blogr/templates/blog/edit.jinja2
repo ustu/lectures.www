@@ -1,0 +1,13 @@
+{% extends "base.jinja2" %}
+
+{% block title %}Create{% endblock %}
+
+{% block content %}
+    <div class="blog__title">
+        <a href="/" class="blog__title-link">Simple Blog</a>
+        <span class="blog__title-text">Edit</span>
+    </div>
+    <form action="" method="POST" class="blog-form">
+        {{ form|safe }}
+    </form>
+{% endblock %}
