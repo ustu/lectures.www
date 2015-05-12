@@ -19,6 +19,7 @@
    6.templates.rst
    7.session.rst
    8.includeme.rst
+   blogr/index.rst
    wsgi.rst
    _checkpoint.rst
 
