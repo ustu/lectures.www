@@ -1,12 +1,14 @@
 # nginx
 #
-# VERSION               0.0.2
+# VERSION               0.0.3
 # vi: set ft=Dockerfile :
 # vi: set nu :
 
-FROM dockerfile/ubuntu
+FROM ubuntu
 MAINTAINER Dmitry Svintsov <root@uralbash.ru>
 
+# Add packages
+RUN apt-get install -y software-properties-common
 # Install Nginx.
 RUN \
   add-apt-repository -y ppa:nginx/stable && \

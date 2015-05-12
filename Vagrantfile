@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
   # Redis
   config.vm.define "redis" do |redis|
     redis.vm.provider "docker" do |docker|
-      docker.image = "dockerfile/redis"
+      docker.image = "redis"
       docker.name = '%s_db_redis' % PROJECT_NAME
       docker.ports = ["6379:6379"]
     end

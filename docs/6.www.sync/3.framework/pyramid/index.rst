@@ -16,6 +16,9 @@
    3.database.rst
    4.urldispatch.rst
    5.views.rst
+   6.templates.rst
+   7.session.rst
+   8.includeme.rst
    wsgi.rst
    _checkpoint.rst
 

@@ -10,6 +10,7 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 
 requires = [
     'pyramid',
+    'deform',
     'pyramid_jinja2',
     'pyramid_sqlalchemy',
     'pyramid_debugtoolbar',

@@ -1,6 +1,6 @@
 # lectureswww
 #
-# VERSION               0.0.1
+# VERSION               0.0.2
 # vi: set ft=Dockerfile :
 # vi: set nu :
 
