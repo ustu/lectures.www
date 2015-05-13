@@ -13,12 +13,12 @@
    0.introduction.rst
    1.configuration.rst
    2.project.rst
-   3.database.rst
-   4.urldispatch.rst
-   5.views.rst
-   6.templates.rst
-   7.session.rst
-   8.includeme.rst
+   3.settings.rst
+   4.database.rst
+   5.urldispatch.rst
+   6.views.rst
+   7.templates.rst
+   8.session.rst
    blogr/index.rst
    wsgi.rst
    _checkpoint.rst
@@ -40,6 +40,7 @@
    * API
    * REST
    * XML-RPC
+   * Тесты https://skillsmatter.com/skillscasts/4265-pyramid-sqlalchemy-testing-and-auth-policy
 
 .. toctree::
    :hidden:

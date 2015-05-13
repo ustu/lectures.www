@@ -1,0 +1,348 @@
+Настройки
+=========
+
+.. seealso::
+
+   * http://docs.pylonsproject.org/docs/pyramid/en/latest/narr/environment.html
+
+.. code-block:: python
+
+   from pyramid.config import Configurator
+
+   if __name__ == '__main__':
+       settings = {
+          'debug_all': True,
+          'default_locale_name': 'ru',
+       }
+       config = Configurator(settings=settings)
+
+При помощи настоек можно поменять поведение проекта. Некоторые настройки
+используются самой пирамидой, другие нужны для вашего личного использования.
+Настройки можно задавать в виде Python словаря или переменных окружения.
+
+.. todo::
+
+   * Выровнять по левому краю
+   * Написать в справочник раздел про переменные окружения в ОС
+
+.. list-table:: Переменные окружения для настройки Pyramid проекта
+   :header-rows: 1
+   :stub-columns: 1
+
+   * - Переменная окружения
+     - Словарь Python
+     - Назначение
+   * - PYRAMID_RELOAD_ASSETS
+     - pyramid.reload_assets или reload_assets
+     - Не кэширует статику если "true"
+   * - PYRAMID_DEBUG_AUTHORIZATION
+     - pyramid.debug_authorization или debug_authorization
+     - Выводит информацию об ошибках и успехах авторизации в stderr если "true"
+   * - PYRAMID_DEBUG_NOTFOUND
+     - pyramid.debug_notfound или debug_notfound
+     - Выводит отладочтную информацию связанную с исключением NotFound в stderr если "true"
+   * - PYRAMID_DEBUG_ROUTEMATCH
+     - pyramid.debug_routematch или debug_routematch
+     - Показывает отладочную информацию о маршрутах если "true"
+   * - PYRAMID_PREVENT_HTTP_CACHE
+     - pyramid.prevent_http_cache или prevent_http_cache
+     - Не использует закешированные запросы если "true"
+   * - PYRAMID_DEBUG_ALL
+     - pyramid.debug_all или debug_all
+     - Активирует все настройки начинающиеся с "debug..."
+   * - PYRAMID_DEFAULT_LOCALE_NAME
+     - pyramid.default_locale_name или default_locale_name
+     - локаль по умолчанию, например ``pyramid.default_locale_name = ru``
+
+Includes
+--------
+
+Приложение на Pyramid можно дополнять при помощи сторонних модулей или
+собственных функций. Делается это при помощи метода конфигуратора
+:meth:`pyramid.config.Configurator.include` или настройки ``pyramid.includes``.
+
+Расширение приложения собственными средствами
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Метод :meth:`~pyramid.config.Configurator.include` вызывает функцию ``moreconfiguration`` и передает
+ей в качестве параметра объект конфигуратора. Тем самым как бы являясь
+продолжением этого конфига. Такой способ называется императивное расширение
+приложения.
+
+.. code-block:: python
+   :emphasize-lines: 1-3, 9
+
+   def moreconfiguration(config):
+       config.add_route('goodbye', '/goodbye')
+       config.add_view(goodbye, route_name='goodbye')
+
+
+   config = Configurator()
+   config.add_route('home', '/')
+   config.add_view(hello_world, route_name='home')
+   config.include(moreconfiguration)
+   app = config.make_wsgi_app()
+
+Расширение через модули
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Функции можно добавлять и из других модулей приложения.
+
+.. code-block:: python
+   :emphasize-lines: 7-8
+
+   # myapp.mysubmodule.views.py
+
+   def my_view(request):
+       from pyramid.response import Response
+       return Response('OK')
+
+   def includeme(config):
+       config.add_view(my_view)
+
+Теперь в ``include`` указывается путь до нашей функции с расширением конфига.
+Причем его можно указать в виде строки.
+
+.. code-block:: python
+   :emphasize-lines: 5
+
+   from pyramid.config import Configurator
+
+   def main(global_config, **settings):
+       config = Configurator()
+       config.include('myapp.mysubmodule.views.includeme')
+
+Конфигуратор по умолчанию ищет функцию ``includeme`` поэтому ее можно опустить.
+
+.. code-block:: python
+   :emphasize-lines: 5
+
+   from pyramid.config import Configurator
+
+   def main(global_config, **settings):
+       config = Configurator()
+       config.include('myapp.mysubmodule.views')
+
+Расширение через ini файл
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+В ini файл настроек приложения, помимо самих настроек, так же можно включить
+расширения при помощи параметра ``pyramid.includes``.
+
+.. code-block:: ini
+
+   [app:main]
+   pyramid.includes = pyramid_debugtoolbar
+                      pyramid_tm
+
+Этот код эквивалентен следующему:
+
+.. code-block:: python
+
+   from pyramid.config import Configurator
+
+   def main(global_config, **settings):
+       config = Configurator(settings=settings)
+       # ...
+       config.include('pyramid_debugtoolbar')
+       config.include('pyramid_tm')
+       # ...
+
+Сторонние модули
+~~~~~~~~~~~~~~~~
+
+Для пирамиды существует огромное множество сторонних модулей которые расширяю
+функционал вашего приложения. Вот список некоторых их них https://github.com/ITCase/awesome-pyramid.
+
+.. note::
+
+   Сторонние модули устанавливаются как обычные python пакеты в ваше окружение.
+   Например:
+
+   .. code-block:: bash
+
+      pip install pyramid_debugtoolbar pyramid_jinja2 pyramid_sacrud
+
+Например добавляя ``config.include('pyramid_debugtoolbar')`` мы получаем
+отладочную консоль с Веб интерфейсом.
+
+.. image:: /_static/6.www.sync/framework/debug-toolbar-open.png
+   :width: 500pt
+
+Или админку ``config.include('pyramid_sacrud')``.
+
+.. image:: /_static/6.www.sync/framework/pyramid_sacrud.png
+   :width: 500pt
+
+``config.include('pyramid_jinja2')`` добавляет Jinja2 рендерер для ваших view.
+
+.. code-block:: python
+
+   @view_config(renderer='templates/mytemplate.jinja2')
+   def my_view(request):
+       return {'foo': 1, 'bar': 2}
+
+И так далее...
+
+В виде Python словаря
+---------------------
+
+Настройки в конфигуратор предаются в виде обычного Python словаря.
+
+.. code-block:: python
+
+   from pyramid.config import Configurator
+
+   if __name__ == '__main__':
+       settings = {
+          'default_locale_name': 'ru',
+          'pyramid.includes': 'pyramid_debugtoolbar pyramid_tm',
+       }
+       config = Configurator(settings=settings)
+       print(config.registry.settings)
+
+Модули :mod:`pyramid_debugtoolbar` и :mod:`pyramid_tm` автоматически добавляют свои
+настройки при включении их в конфиг.
+
+.. code-block:: ipython
+
+   {'debug_authorization': False,
+    'debug_notfound': False,
+    'debug_routematch': False,
+    'debug_templates': False,
+    'debugtoolbar.button_style': '',
+    'debugtoolbar.debug_notfound': False,
+    'debugtoolbar.debug_routematch': False,
+    'debugtoolbar.enabled': True,
+    'debugtoolbar.exclude_prefixes': [],
+    'debugtoolbar.extra_global_panels': [],
+    'debugtoolbar.extra_panels': [],
+    'debugtoolbar.global_panels': [<class 'pyramid_debugtoolbar.panels.introspection.IntrospectionDebugPanel'>,
+                                   <class 'pyramid_debugtoolbar.panels.routes.RoutesDebugPanel'>,
+                                   <class 'pyramid_debugtoolbar.panels.settings.SettingsDebugPanel'>,
+                                   <class 'pyramid_debugtoolbar.panels.tweens.TweensDebugPanel'>,
+                                   <class 'pyramid_debugtoolbar.panels.versions.VersionDebugPanel'>],
+    'debugtoolbar.hosts': ['127.0.0.1', '::1'],
+    'debugtoolbar.includes': (),
+    'debugtoolbar.intercept_exc': 'debug',
+    'debugtoolbar.intercept_redirects': False,
+    'debugtoolbar.max_request_history': 100,
+    'debugtoolbar.max_visible_requests': 10,
+    'debugtoolbar.panels': [<class 'pyramid_debugtoolbar.panels.headers.HeaderDebugPanel'>,
+                            <class 'pyramid_debugtoolbar.panels.logger.LoggingPanel'>,
+                            <class 'pyramid_debugtoolbar.panels.performance.PerformanceDebugPanel'>,
+                            <class 'pyramid_debugtoolbar.panels.renderings.RenderingsDebugPanel'>,
+                            <class 'pyramid_debugtoolbar.panels.request_vars.RequestVarsDebugPanel'>,
+                            <class 'pyramid_debugtoolbar.panels.sqla.SQLADebugPanel'>,
+                            <class 'pyramid_debugtoolbar.panels.traceback.TracebackPanel'>],
+    'debugtoolbar.prevent_http_cache': False,
+    'debugtoolbar.reload_assets': False,
+    'debugtoolbar.reload_resources': False,
+    'debugtoolbar.reload_templates': False,
+    'default_locale_name': 'ru',
+    'prevent_cachebust': False,
+    'prevent_http_cache': False,
+    'pyramid.debug_authorization': False,
+    'pyramid.debug_notfound': False,
+    'pyramid.debug_routematch': False,
+    'pyramid.debug_templates': False,
+    'pyramid.default_locale_name': 'ru',
+    'pyramid.includes': 'pyramid_debugtoolbar pyramid_tm',
+    'pyramid.prevent_cachebust': False,
+    'pyramid.prevent_http_cache': False,
+    'pyramid.reload_assets': False,
+    'pyramid.reload_resources': False,
+    'pyramid.reload_templates': False,
+    'reload_assets': False,
+    'reload_resources': False,
+    'reload_templates': False}
+
+В ini файле
+-----------
+
+.. seealso::
+
+   * http://pyramid.readthedocs.org/en/master/quick_tutorial/ini.html
+   * http://pyramid.readthedocs.org/en/master/narr/paste.html#paste-chapter
+
+Настройки можно хранить в ini файле, включая туда не только настройки пирамиды, но и настройки веб сервера. Т.е. мы указывает веб серверу как запускать наше приложение на Pyramid.
+
+В разделе ``[app:main]`` указываются настройки Pyramid приложения.
+
+.. code-block:: ini
+
+   ###
+   # app configuration
+   # http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html
+   ###
+
+   [app:main]
+   use = egg:MyProject
+
+   pyramid.reload_templates = true
+   pyramid.debug_authorization = false
+   pyramid.debug_notfound = false
+   pyramid.debug_routematch = false
+   pyramid.default_locale_name = en
+   pyramid.includes =
+       pyramid_debugtoolbar
+
+   # By default, the toolbar only appears for clients from IP addresses
+   # '127.0.0.1' and '::1'.
+   # debugtoolbar.hosts = 127.0.0.1 ::1
+
+
+В разделе ``[server:main]`` указываются настройки веб сервера совместимые с `Paste Deployment <http://pythonpaste.org/deploy/>`_.
+
+.. code-block:: ini
+
+   ###
+   # wsgi server configuration
+   ###
+
+   [server:main]
+   use = egg:waitress#main
+   host = 0.0.0.0
+   port = 6543
+
+Запуск приложения.
+
+.. code-block:: bash
+
+   pserver development.ini
+
+Утилита ``pserve`` читает конфиг, вызывает функцию ``MyProject.main`` с
+настройками из этого конфига, получает WSGI приложение от этой функции и
+запускает его, в нашем случае, при помощи веб сервера :l:`waitress`.
+
+.. no-code-block:: python
+
+   from pyramid.config import Configurator
+
+
+   def main(global_config, **settings):
+       """ This function returns a Pyramid WSGI application.
+       """
+       config = Configurator(settings=settings)
+       ...
+       return app
+
+Резюме
+------
+
+Pyramid предоставляет очень мощную систему настройки вашего приложения, а так
+же простой и гибкий метод расширения функционала при помощи
+:meth:`~pyramid.config.Configurator.include`.
+
+* Настройки которые практически ни когда не меняются или формируются динамически
+  удобно создавать в коде приложения.
+
+* Настройки которые вводятся вручную и могут
+  меняться лучше хранить в ini файле, например это может быть строка подключения
+  к БД, нет смысла её прописывать в коде, т.к. наверняка на реальном сервере она
+  будет отличаться. Вы же не будете править код на сервере? Лучше создать отдельный
+  файл настроек под сервер.
+
+.. todo::
+
+   * написать про tweens

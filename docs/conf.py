@@ -205,13 +205,18 @@ epub_exclude_files = ['search.html']
 intersphinx_mapping = {
     'http://docs.python.org/': None,
     'http://docs.sqlalchemy.org/en/latest/': None,
+    'http://initd.org/psycopg/docs/': None,
+
+    # Pylons
+    'http://pyramid-tm.readthedocs.org/en/latest/': None,
     'http://docs.pylonsproject.org/projects/colander/en/latest/': None,
     'http://docs.pylonsproject.org/projects/pyramid/en/latest/': None,
+    'http://docs.pylonsproject.org/projects/pyramid-debugtoolbar/en/latest/':
+    None,
     'http://deform.readthedocs.org/en/latest/': None,
-    'http://initd.org/psycopg/docs/': None,
     'http://venusian.readthedocs.org/en/latest/': None,
-    'http://docs.webob.org/en/latest/': None,
     'http://pyramid-sqlalchemy.readthedocs.org/en/latest/': None,
+    'http://docs.webob.org/en/latest/': None,
 }
 
 
