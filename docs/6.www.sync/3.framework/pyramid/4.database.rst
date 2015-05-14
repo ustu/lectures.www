@@ -42,7 +42,7 @@ SQLAlchemy
 помощи метода :meth:`sqlalchemy.orm.session.Session.commit`.
 
 .. code-block:: python
-   :emphasize-lines: 5, 9, 16-17
+   :emphasize-lines: 5, 9, 14-15
 
    # __init__.py
    from wsgiref.simple_server import make_server
@@ -99,7 +99,7 @@ transaction
 Добавим его в наш пример:
 
 .. code-block:: python
-   :emphasize-lines: 4, 8
+   :emphasize-lines: 5, 9
 
    # models.py
    from sqlalchemy import Column, Integer, Text, create_engine
@@ -124,7 +124,7 @@ transaction
 Теперь вместо ``DBSession.commit``, нужно использовать ``transaction.commit()``.
 
 .. code-block:: python
-   :emphasize-lines: 6, 17, 25
+   :emphasize-lines: 7, 17, 25
 
    # __init__.py
    from wsgiref.simple_server import make_server
@@ -178,7 +178,7 @@ transaction.abort
    Если возникает ошибка ``raise ValueError("TPC in progress")``, cмотри https://github.com/repoze/repoze.sendmail/issues/31
 
 .. code-block:: python
-   :emphasize-lines: 8, 10-13, 22, 26-33, 44-49, 51
+   :emphasize-lines: 9, 11-14, 23, 26-33, 44-49, 51
 
    # __init__.py
    from wsgiref.simple_server import make_server
@@ -289,7 +289,7 @@ pyramid_sqlalchemy
 :l:`pyramid_sqlalchemy` создает объект базового класса ``Base`` и сессии ``Session`` автоматически. Мы просто указываем строку подключения к БД в настройках и включаем модуль ``pyramid_sqlalchemy`` в проект.
 
 .. code-block:: python
-   :emphasize-lines: 5, 18, 21
+   :emphasize-lines: 6, 19, 22
 
    # __init__.py
    from wsgiref.simple_server import make_server
