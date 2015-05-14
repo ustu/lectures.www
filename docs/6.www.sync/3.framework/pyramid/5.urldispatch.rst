@@ -31,6 +31,10 @@ Traversal
 
    * http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/traversal.html
 
+.. todo::
+
+   * http://faq1c.gorbunov.ru/node/85
+
 Использование обхода лучше проиллюстрировать на небольшом примере:
 
 .. code-block:: python

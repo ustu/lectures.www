@@ -9,6 +9,82 @@ ORM :l:`SQLAlchemy`.
 SQLAlchemy
 ----------
 
+Организация БД в пирамиде не зависит от фреймворка, поэтому можно использовать
+любую структуру, которая вам удобна. Ниже я приведу один из вариантов, более
+подробно про SQLAlchemy можно прочитать в разделе :ref:`sqlalchemy`.
+
+Вынесем модели и то что касается соединения с БД в отдельный файл ``models.py``.
+
+.. code-block:: python
+
+   # models.py
+   from sqlalchemy import Column, Integer, Text, create_engine
+   from sqlalchemy.ext.declarative import declarative_base
+   from sqlalchemy.orm import sessionmaker
+
+   engine = create_engine('sqlite:///foo.db')
+   Session = sessionmaker()
+   Base = declarative_base(bind=engine)
+
+
+   class User(Base):
+       __tablename__ = 'models'
+       id = Column(Integer, primary_key=True)
+       name = Column(Text)
+
+       def __repr__(self):
+           return self.name
+
+В представлениях мы просто создаем объект
+:class:`sqlalchemy.orm.session.Session` и работаем с объектами, как описано в
+документации :l:`SQLAlchemy`. При этом в каждом представлении нам необходимо
+создавать новую SQLAlchemy сессию и не забывать ее закрывать при помощи метода
+:meth:`sqlalchemy.orm.session.Session.close`, а если были изменения
+подтверждать их задействовав :meth:`sqlalchemy.orm.session.Session.commit`.
+
+.. code-block:: python
+   :emphasize-lines: 5, 9, 16-17
+
+   # __init__.py
+   from wsgiref.simple_server import make_server
+   from pyramid.config import Configurator
+   from pyramid.response import Response
+   from models import User, Session, Base, engine
+
+
+   def hello(request):
+       DBSession = Session(bind=engine)
+       result = DBSession.query(User).all()
+       import time
+       timestamp = int(time.time())
+       new_user = User(name=str(timestamp))
+       DBSession = Session(bind=engine)
+       DBSession.add(new_user)
+       DBSession.commit()
+       DBSession.close()
+       return Response(str(result))
+
+   if __name__ == '__main__':
+       Base.metadata.create_all()
+       DBSession = Session(bind=engine)
+       DBSession.add(User(name='Vasya'))
+       DBSession.add(User(name='Petya'))
+       DBSession.commit()
+
+       config = Configurator()
+       config.add_route('hello_world', '/')
+       config.add_view(hello, route_name='hello_world')
+       app = config.make_wsgi_app()
+       server = make_server('0.0.0.0', 8000, app)
+       server.serve_forever()
+
+Данный пример при каждом обновлении делает новую запись в БД и отдает их браузеру.
+
+.. image:: /_static/6.www.sync/framework/sqlalchemy_example.png
+
 ZopeTransactionExtension
 ------------------------
+
+pyramid_sqlalchemy
+------------------
 
