@@ -259,6 +259,11 @@ PYLONS_LINKS = {
     'pyramid_jinja2':
     'http://docs.pylonsproject.org/projects/pyramid-jinja2/en/latest/',
     'cornice': 'http://cornice.rtfd.org',
+    'pyramid_mailer': 'http://pyramid-mailer.readthedocs.org/en/latest/',
+    'pyramid_tm': 'http://pyramid-tm.readthedocs.org/en/latest/',
+
+    # Zope
+    'transaction': 'http://zodb.readthedocs.org/en/latest/transactions.html',
 }
 
 DATABASE_LINKS = {
