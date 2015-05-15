@@ -8,6 +8,7 @@
 .. seealso::
 
    * http://docs.pylonsproject.org/projects/pyramid/en/1.6-branch/narr/urldispatch.html
+   * http://pyramid-cookbook.readthedocs.org/en/latest/routing/index.html
 
 Каждый поступающий на сервер приложений Pyramid запрос (**request**) должен найти вид (**view**), который и будет его обрабатывать.
 

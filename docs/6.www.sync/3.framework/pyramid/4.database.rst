@@ -357,3 +357,5 @@ pyramid_sqlalchemy
    $ pcreate --scaffold alchemy sqla_demo
    $ cd sqla_demo
    $ python setup.py develop
+
+Дополнительную информацию можно найти в `Pyramid Cookbook <http://pyramid-cookbook.readthedocs.org/en/latest/database/index.html>`_.

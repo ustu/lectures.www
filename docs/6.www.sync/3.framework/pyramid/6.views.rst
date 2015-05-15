@@ -1,8 +1,208 @@
-Функционал (Views)
-==================
+Предстваления (Views)
+=====================
+
+.. seealso::
+
+   * http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/viewconfig.html
+   * http://pyramid-cookbook.readthedocs.org/en/latest/pylons/views.html
+   * http://blog.delaguardia.com.mx/pyramid-view-configuration-let-me-count-the-ways.html
 
 .. todo::
 
-   * http://blog.delaguardia.com.mx/pyramid-view-configuration-let-me-count-the-ways.html
+   * Нарисовать схему связи вьюх с роутами, евентами итд
+   * Написать про context
 
+Представления (views) создаются в виде функций или методов и могут находится в
+любом месте проекта. В качестве аргумента функция принимает объект ``request``,
+а возвращает объект ``response``:
 
+.. code-block:: python
+
+   from pyramid.response import Response
+
+   def my_view(request):
+       return Response("Hello, world!")
+
+В классе, который содержит представления-методы, объект ``request`` передается в конструктор:
+
+.. code-block:: python
+
+   class MyHandler(object):
+       def __init__(self, request):
+           self.request = request
+
+       def my_view(self):
+           return Response("Hello, classy world!")
+
+Конфигурация
+------------
+
+route_name
+
+    Имя для привязки к роуту. Нужно если используется URL диспетчеризация.
+
+renderer
+
+    Имя обработчика (text, json) или шаблон (index.jinja2, index.pt, index.mako).
+
+permission
+
+    Строка и именем права доступа, которое текущий пользователь должен иметь
+    что бы вызвать это представление.
+
+.. http_cache
+..
+.. Affects the ‘Expires’ and ‘Cache-Control’ HTTP headers in the response. This tells the browser whether to cache the response and for how long. The value may be an integer specifying the number of seconds to cache, a datetime.timedelta instance, or zero to prevent caching. This is equivalent to calling request.response.cache_expires(value) within the view code.
+..
+.. context
+..
+.. This view will be chosen only if the context is an instance of this class or implements this interface. This is used with traversal, authorization, and exception views.
+
+request_method
+
+    “GET”, “POST”, “PUT”, “DELETE’, “HEAD”.
+
+request_param
+
+   Проверяет наличие параметров в запросе, например "foo" означает что в
+   запросе должен быть параметр с именем "foo". "foo=1" означает что этот
+   параметр должен быть равен 1.
+
+match_param
+
+   Тоже что и ``request_param`` но проверяет все параметры, в том числе которые пришли от URL диспетчеризации.
+
+.. xhr, accept, header, path_info
+..
+..      These work like the corresponding arguments to config.add_route.
+..
+.. custom_predicates
+..
+..      The value is a list of functions. Each function should take a context and request argument, and return true or false whether the arguments are acceptable to the view. The view will be chosen only if all functions return true. Note that the function arguments are different than the corresponding option to config.add_route.
+
+Декларативный способ
+~~~~~~~~~~~~~~~~~~~~
+
+Декларативный способ задания представлений осуществляется при помощи
+декораторов :class:`pyramid.view.view_config` и
+:class:`pyramid.view.view_defaults`.
+
+.. code-block:: python
+
+   from pyramid.view import view_config
+
+   class Handler(object):
+       def __init__(self, request):
+           self.request = request
+
+   class Main(Handler):
+
+       @view_config(route_name="home", renderer="index.mako")
+       def index(self):
+           return {"project": "Akhet Demo"}
+
+Функция или метод может быть привязана к нескольким представлениям.
+
+.. code-block:: python
+
+   class Main(Handler):
+
+       @view_config(route_name="home", renderer="index.mako")
+       @view_config(route_name="home_json", renderer="json")
+       def index(self):
+           return {"project": "Akhet Demo"}
+
+Пример REST
+
+.. code-block:: python
+
+   from pyramid.view import view_defaults
+   from pyramid.view import view_config
+   from pyramid.response import Response
+
+   @view_defaults(route_name='rest')
+   class RESTView(object):
+       def __init__(self, request):
+           self.request = request
+
+       @view_config(request_method='GET')
+       def get(self):
+           return Response('get')
+
+       @view_config(request_method='POST')
+       def post(self):
+           return Response('post')
+
+       @view_config(request_method='DELETE')
+       def delete(self):
+           return Response('delete')
+
+Императивный способ
+~~~~~~~~~~~~~~~~~~~
+
+.. no-code-block:: python
+
+   from pyramid.config import not_
+
+   ...
+
+      config.add_view(Main.index, route_name="home", request_method=not_('POST'))
+
+Пример REST.
+
+.. code-block:: python
+
+   from pyramid.response import Response
+   from pyramid.config import Configurator
+
+   class RESTView(object):
+       def __init__(self, request):
+           self.request = request
+
+       def get(self):
+           return Response('get')
+
+       def post(self):
+           return Response('post')
+
+       def delete(self):
+           return Response('delete')
+
+   def main(global_config, **settings):
+       config = Configurator()
+       config.add_route('rest', '/rest')
+       config.add_view(RESTView, route_name='rest', attr='get', request_method='GET')
+       config.add_view(RESTView, route_name='rest', attr='post', request_method='POST')
+       config.add_view(RESTView, route_name='rest', attr='delete', request_method='DELETE')
+       return config.make_wsgi_app()
+
+Совмещенный способ
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   from pyramid.view import view_defaults
+   from pyramid.response import Response
+   from pyramid.config import Configurator
+
+   @view_defaults(route_name='rest')
+   class RESTView(object):
+       def __init__(self, request):
+           self.request = request
+
+       def get(self):
+           return Response('get')
+
+       def post(self):
+           return Response('post')
+
+       def delete(self):
+           return Response('delete')
+
+   def main(global_config, **settings):
+       config = Configurator()
+       config.add_route('rest', '/rest')
+       config.add_view(RESTView, attr='get', request_method='GET')
+       config.add_view(RESTView, attr='post', request_method='POST')
+       config.add_view(RESTView, attr='delete', request_method='DELETE')
+       return config.make_wsgi_app()
