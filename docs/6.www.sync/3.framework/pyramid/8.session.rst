@@ -7,4 +7,151 @@
    * http://docs.pylonsproject.org/projects/pyramid/en/latest/quick_tutorial/sessions.html
    * http://docs.pylonsproject.org/projects/pyramid/en/latest/api/session.html
 
+Фреймворк :l:`Pyramid` имеет модуль :mod:`pyramid.session`, который содержит в
+себе несколько методов организации сессий.
+
+Встроенный механизм сессий
+--------------------------
+
+Для того, чтобы использовать сессии, необходимо задать :term:`session factory`
+во время конфигурации.
+
+Очень простой, небезопасный способ создания сессии реализуется при помощи
+функции :func:`pyramid.session.UnencryptedCookieSessionFactoryConfig`. Он
+использует куки для хранения информации сеанса. Эта реализация имеет следующие
+ограничения:
+
+* значения куков не шифруется, поэтому их может просмотреть любой кто имеет
+  доступ к трафику или к браузеру.
+* Максимальное число байт для сессии 4000. Это подходит только для очень
+  небольших наборов данных.
+
+Функция :func:`pyramid.session.SignedCookieSessionFactory` шифрует
+данные и поэтому их тяжело подделать.
+
+Добавление сессий в конфиг происходит следующим образом:
+
+.. code-block:: python
+
+   from pyramid.session import SignedCookieSessionFactory
+   my_session_factory = SignedCookieSessionFactory('itsaseekreet')
+
+   from pyramid.config import Configurator
+   config = Configurator()
+   config.set_session_factory(my_session_factory)
+
+или через атрибут конструктора:
+
+.. code-block:: python
+
+   from pyramid.session import SignedCookieSessionFactory
+   my_session_factory = SignedCookieSessionFactory('itsaseekreet')
+
+   from pyramid.config import Configurator
+   config = Configurator(session_factory=my_session_factory)
+
+Использование сессий
+--------------------
+
+После добавления сессий в конфиг, вы можете получить доступ к объектам сессии
+из любого запроса. Например:
+
+.. code-block:: python
+
+   from pyramid.response import Response
+
+   def myview(request):
+       session = request.session
+
+       if 'counter' in session:
+           session['counter'] += 1
+       else:
+           session['counter'] = 1
+
+       return Response(session['counter'])
+
+Альтернативные механизмы сессий
+-------------------------------
+
+.. seealso::
+
+   * https://github.com/ITCase/awesome-pyramid#caching
+
+* `pyramid_redis_sessions
+  <https://pypi.python.org/pypi/pyramid_redis_sessions>`_ - предоставляет
+  механизм сессий который использует хранилище :l:`Redis`.
+* `pyramid_beaker <https://pypi.python.org/pypi/pyramid_beaker>`_ - использует
+  в качестве бэкенда систему сессий :l:`Beaker`.
+
+В самом простом случае достаточно включить модуль в проект:
+
+.. code-block:: python
+
+   config = Configurator()
+   config.include('pyramid_beaker')
+
+Теперь можно использовать сессии:
+
+.. code-block:: python
+
+   from pyramid.response import Response
+
+   def myview(request):
+       session = request.session
+
+       if 'counter' in session:
+           session['counter'] += 1
+       else:
+           session['counter'] = 1
+
+       return Response(session['counter'])
+
+Всплывающие сообщения
+---------------------
+
+"Всплывающие сообщения" это просто очередь сообщений хранящаяся в сессии. Они показываются только один раз и при последующем обновлении затираются или формируются новые.
+
+Что бы добавить сообщение достаточно выполнить метод сессии ``flash()``.
+
+.. code-block:: python
+
+   request.session.flash('Congratulations "rm -rf /" successful')
+
+Что бы извлечь сообщение нужно вызвать метод сессии ``pop_flash()``.
+
+.. code-block:: ipython
+
+   >>> request.session.flash('info message')
+   >>> request.session.pop_flash()
+   ['info message']
+   >>> request.session.pop_flash()
+   []
+
+Для получения очереди не извлекая сообщения из нее, нужно использовать метод ``peek_flash()``.
+
+.. code-block:: ipython
+
+   >>> request.session.flash('info message')
+   >>> request.session.peek_flash()
+   ['info message']
+   >>> request.session.peek_flash()
+   ['info message']
+   >>> request.session.pop_flash()
+   ['info message']
+   >>> request.session.peek_flash()
+   []
+
+Например всплывающие сообщения используются в модуле :l:`pyramid_sacrud`. Это
+простой CRUD веб-интерфейс который выводит сообщения после какой-либо операции.
+
+.. figure:: /_static/6.www.sync/framework/pyramid_sacrud_flash.png
+   :width: 500pt
+
+   Пример всплывающего сообщения после добавления записи в админке :l:`pyramid_sacrud`
+
+Cross-Site Request Forgery (CSRF)
+---------------------------------
+
+Резюме
+------
 

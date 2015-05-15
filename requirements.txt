@@ -1,2 +1,3 @@
 sphinx>=1.3
+ipython
 git+https://bitbucket.org/zzzeek/zzzeeksphinx.git

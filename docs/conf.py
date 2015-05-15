@@ -307,6 +307,10 @@ FRAMEWORK_LINKS = {
     'tornado': 'http://www.tornadoweb.org/en/stable/',
 }
 
+ITCASE_LINKS = {
+    'pyramid_sacrud': 'https://github.com/ITCase/pyramid_sacrud',
+}
+
 OTHER_LINKS = {
     # Web servers
     'nginx': 'http://nginx.org/',
@@ -339,7 +343,8 @@ OTHER_LINKS = {
 
 GLOBAL_LINKS = dict(PYLONS_LINKS.items() + OTHER_LINKS.items() +
                     DATABASE_LINKS.items() + FRAMEWORK_LINKS.items() +
-                    PEOPLE_LINKS.items() + BOOKS_LINKS.items())
+                    PEOPLE_LINKS.items() + BOOKS_LINKS.items() +
+                    ITCASE_LINKS.items())
 
 
 def global_link(role, rawtext, text, lineno, inliner,
