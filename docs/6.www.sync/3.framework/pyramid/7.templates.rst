@@ -1,3 +1,163 @@
 Шаблоны (Templates)
 ===================
 
+.. todo::
+
+   * Написать резюме, про то что можно использовать любой шаблоназатор
+   * Написать про использование нескольких шаблонизаторов
+   * Написать про кастомные рендереры
+
+.. seealso::
+
+   * http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/templates.html
+   * http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/renderers.html
+
+В пирамиде нет встроенного шаблонизатора. Представления (:term:`view callable`)
+всегда отдают объект ``response``. Этот объект может формироваться напрямую,
+например ``Response("Hello, world!")``. При помощи встроенных обработчиков
+(string, json, jsonp), самописных или сторонних. Или через специальные функции,
+например :func:`pyramid.renderers.render_to_response`.
+
+Дополнительные обработчики могут поставляться сторонними модулями:
+
+.. code-block:: python
+
+   config.include('pyramid_chameleon') # Chameleon - template engine
+   config.include('pyramid_jinja2')    # Jinja2 -template engine
+   config.include('pyramid_mako')      # Mako -template engine
+
+Использование напрямую
+----------------------
+
+Обработка напрямую происходит при помощи функции
+:func:`pyramid.renderers.render_to_response`.
+
+.. note::
+
+   Предварительно нужно добавить расширение, которое знает как обрабатывать шаблоны :l:`Chameleon`.
+
+   .. code-block:: python
+
+      config.include('pyramid_chameleon')
+
+.. code-block:: python
+
+   from pyramid.renderers import render_to_response
+
+   def sample_view(request):
+       return render_to_response('mypackage:templates/foo.pt',
+                                 {'foo':1, 'bar':2},
+                                 request=request)
+
+Функция :func:`pyramid.renderers.render` вернет только текст, а не объект ``response``.
+
+.. code-block:: python
+
+   from pyramid.renderers import render
+   from pyramid.response import Response
+
+   def sample_view(request):
+       result = render('mypackage:templates/foo.pt',
+                       {'foo':1, 'bar':2},
+                       request=request)
+       response = Response(result)
+       return response
+
+Такой подход позволяет, например, использовать возможности самого шаблонизатора напрямую.
+
+.. code-block:: python
+
+   from mako.template import Template
+   from pyramid.response import Response
+
+   def make_view(request):
+       template = Template(filename='/templates/template.mak')
+       result = template.render(name=request.params['name'])
+       response = Response(result)
+       return response
+
+Использование через обработчики (:term:`renderer`)
+--------------------------------------------------
+
+.. seealso::
+
+   * http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/renderers.html
+
+Альтернативный способ функции :func:`~pyramid.renderers.render_to_response`, это привязывать к представлению свой обработчик. При этом представление возвращает только словарь, который в последующем будет обработан этим рендерером.
+
+.. code-block:: python
+
+   from pyramid.view import view_config
+
+   @view_config(renderer='mypackage:templates/foo.jinja2')
+   def my_view(request):
+       return {'foo':1, 'bar':2}
+
+Этот код идентичен:
+
+.. code-block:: python
+
+   from pyramid.renderers import render
+   from pyramid.response import Response
+
+   def sample_view(request):
+       result = render('mypackage:templates/foo.jinja2',
+                       {'foo':1, 'bar':2},
+                       request=request)
+       response = Response(result)
+       return response
+
+
+pyramid_jinja2
+--------------
+
+.. seealso::
+
+   * http://docs.pylonsproject.org/projects/pyramid/en/latest/quick_tutorial/jinja2.html
+   * http://docs.pylonsproject.org/projects/pyramid-jinja2/en/latest/
+
+Установка
+~~~~~~~~~
+
+.. code-block:: bash
+
+   pip install pyramid_jinj2
+
+Настройка
+~~~~~~~~~
+
+Добавляется стандартными средствами:
+
+.. code-block:: python
+
+   config.Configurator()
+   config.include('pyramid_jinja2')
+
+или
+
+.. code-block:: ini
+
+   pyramid.includes=
+       pyramid_jinja2
+
+Использование
+~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   @view_config(renderer='mypackage:templates/mytemplate.jinja2')
+   def my_view(request):
+       return {'foo': 1, 'bar': 2}
+
+По умолчанию ``pyramid_jinja2`` ищет директорию с шаблонами относительно вашего проекта, поэтому можно опустить название проекта.
+
+.. code-block:: python
+
+   @view_config(renderer='templates/mytemplate.jinja2')
+   def my_view(request):
+       return {'foo': 1, 'bar': 2}
+
+Резюме
+------
+
+Фреймворк :l:`Pyramid` не ограничивает вас в использовании какого-либо определенного шаблонизатора. Вы можете выбрать любой который вам понравится, при этом можно написать собственные обработчики запросов, даже не привязанные к движкам шаблонов, или даже написать свой собственный шаблонизатор и использовать его в пирамиде как например `Tonnikala <https://github.com/ztane/Tonnikala>`_.

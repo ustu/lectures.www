@@ -43,7 +43,7 @@ route_name
 
 renderer
 
-    Имя обработчика (text, json) или шаблон (index.jinja2, index.pt, index.mako).
+    Имя обработчика (string, json) или шаблон (index.jinja2, index.pt, index.mako).
 
 permission
 

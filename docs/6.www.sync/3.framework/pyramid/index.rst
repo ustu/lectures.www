@@ -19,6 +19,7 @@
    6.views.rst
    7.templates.rst
    8.session.rst
+   9.sacrud.rst
    blogr/index.rst
    wsgi.rst
    _checkpoint.rst
@@ -31,8 +32,7 @@
 
      * Добавить пример с фейковыми данными (sacrud_common)
    * Шаблоны (Template)
-   * Дополнения
-   * Админка
+   * Дополнения - как писать свои модули-расширения
    * Меню и страницы на сайте
    * Авторизация
    * Формы
