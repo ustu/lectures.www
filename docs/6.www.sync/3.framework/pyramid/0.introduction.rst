@@ -5,6 +5,10 @@
 
 На создание :l:`Pyramid` оказали влияние такие фреймворки, как :l:`Zope`, :l:`Pylons` и :l:`Django`. Код Pyramid разрабатывался в проекте :l:`repoze.bfg`, а название поменялось в результате слияния проектов BFG и Pylons.
 
+.. seealso::
+
+   * http://docs.pylonsproject.org/projects/pyramid/en/latest/quick_tour.html
+
 Установка
 ---------
 

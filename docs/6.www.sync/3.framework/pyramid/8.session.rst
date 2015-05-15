@@ -1,3 +1,10 @@
 Сессии
 ======
 
+.. seealso::
+
+   * http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/sessions.html
+   * http://docs.pylonsproject.org/projects/pyramid/en/latest/quick_tutorial/sessions.html
+   * http://docs.pylonsproject.org/projects/pyramid/en/latest/api/session.html
+
+
