@@ -123,7 +123,7 @@ pyramid_jinja2
 
 .. code-block:: bash
 
-   pip install pyramid_jinj2
+   pip install pyramid_jinja2
 
 Настройка
 ~~~~~~~~~
