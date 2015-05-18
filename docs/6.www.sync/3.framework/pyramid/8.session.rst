@@ -152,6 +152,55 @@
 Cross-Site Request Forgery (CSRF)
 ---------------------------------
 
+.. todo::
+
+   * расписать более подробно
+   * добавить примеры
+
+Для получения токена используется метод ``session.get_csrf_token()``.
+
+.. code-block:: python
+
+   token = request.session.get_csrf_token()
+
+Для создание нового токена:
+
+.. code-block:: python
+
+   token = request.session.new_csrf_token()
+
+Пример добавления CSRF токена из текущей сессии в форму:
+
+.. code-block:: html
+
+   <form method="post" action="/myview">
+     <input type="hidden" name="csrf_token" value="{{ request.session.get_csrf_token() }}">
+     <input type="submit" value="Delete Everything">
+   </form>
+
+Проверка токена:
+
+.. code-block:: python
+
+   from pyramid.session import check_csrf_token
+
+   def myview(request):
+       # Require CSRF Token
+       check_csrf_token(request)
+
+       # ...
+
+или
+
+.. no-code-block:: python
+
+   @view_config(request_method='POST', check_csrf=True, ...)
+   def myview(request):
+       ...
+
 Резюме
 ------
 
+.. todo::
+
+   * написать
