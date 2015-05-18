@@ -1,3 +1,21 @@
 Админка
 =======
 
+.. seealso::
+
+   * http://pyramid-sacrud.readthedocs.org/en/latest/
+
+Фреймворк :l:`Pyramid` не имеет CRUD веб-интерфейса или встроенной админки, как
+у фреймворков :l:`Django` и :l:`web2py`.
+
+
+Установка
+---------
+
+.. seealso::
+
+   * http://pyramid-sacrud.readthedocs.org/en/latest/pages/install.html
+
+.. code-block:: bash
+
+   pip install pyramid_sacrud

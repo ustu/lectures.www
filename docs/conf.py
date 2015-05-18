@@ -299,7 +299,8 @@ FRAMEWORK_LINKS = {
     'plone': 'https://plone.org/',
     'flask': 'http://flask.pocoo.org/',
     'turbogears': 'http://www.turbogears.org/',
-    'django': 'https//www.djangoproject.com/',
+    'django': 'https://www.djangoproject.com/',
+    'web2py': 'http://web2py.com',
     'ruby on rails': 'http://rubyonrails.org/',
 
     # Async
