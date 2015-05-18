@@ -327,6 +327,9 @@ OTHER_LINKS = {
     'jinja2': 'http://jinja.pocoo.org/',
     'mako': 'http://www.makotemplates.org/',
 
+    # Forms
+    'colanderalchemy': 'http://colanderalchemy.readthedocs.org/en/latest/',
+
     # Cache and Session
     'beaker': 'https://beaker.readthedocs.org/en/latest/',
 

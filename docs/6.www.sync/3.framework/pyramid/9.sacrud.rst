@@ -3,11 +3,27 @@
 
 .. seealso::
 
+   * https://ru.wikipedia.org/wiki/CRUD
    * http://pyramid-sacrud.readthedocs.org/en/latest/
 
 Фреймворк :l:`Pyramid` не имеет CRUD веб-интерфейса или встроенной админки, как
-у фреймворков :l:`Django` и :l:`web2py`.
+у фреймворков :l:`Django` и :l:`web2py`. Но за счет стороннего модуля
+:l:`pyramid_sacrud` этот функционал можно добавить.
 
+.. code-block:: python
+   :emphasize-lines: 3,5-6
+
+   from .models import (Model1, Model2, Model3,)
+   # add sacrud and project models
+   config.include('pyramid_sacrud')
+   settings = config.registry.settings
+   settings['pyramid_sacrud.models'] = (('Group1', [Model1, Model2]),
+                                        ('Group2', [Model3]))
+
+.. figure:: /_static/6.www.sync/framework/pyramid_sacrud.png
+   :width: 500pt
+
+   CRUD интерфейс для фреймворка :l:`Pyramid`
 
 Установка
 ---------
@@ -19,3 +35,294 @@
 .. code-block:: bash
 
    pip install pyramid_sacrud
+
+Использование
+-------------
+
+.. seealso::
+
+   * https://github.com/ITCase/pyramid_sacrud/tree/master/example
+
+:l:`pyramid_sacrud` предоставляет `CRUD` интерфейс для моделей :l:`SQLAlchemy`.
+Создадим 3 простых таблицы (Car, Manufacturer, User) для примера:
+
+
+.. code-block:: python
+
+   from sqlalchemy import Column, ForeignKey, Integer, String
+   from sqlalchemy.ext.declarative import declarative_base
+   from sqlalchemy.orm import backref, relationship
+
+   Base = declarative_base()
+
+
+   class User(Base):
+       __tablename__ = 'user'
+       id = Column(Integer, primary_key=True)
+       name = Column(String(30))
+
+       def __repr__(self):
+           return self.name
+
+
+   class Manufacturer(Base):
+       __tablename__ = 'manufacturers'
+       id = Column(Integer, primary_key=True)
+       name = Column(String(30))
+
+
+   class Car(Base):
+       __tablename__ = 'cars'
+       id = Column(Integer, primary_key=True)
+       name = Column(String(30))
+       manufacturer_id = Column(Integer, ForeignKey('manufacturers.id'))
+       manufacturer = relationship('Manufacturer',
+                                   backref=backref('cars', lazy='dynamic'))
+
+Далее создадим Pyramid приложение и добавляем настройки БД.
+
+.. code-block:: python
+
+   from wsgiref.simple_server import make_server
+
+   from pyramid.config import Configurator
+
+   # ...
+
+   def database_settings(config):
+       from sqlalchemy import create_engine
+       config.registry.settings['sqlalchemy.url'] = db_url = "sqlite:///example.db"
+       engine = create_engine(db_url)
+       Base.metadata.bind = engine
+       Base.metadata.create_all()
+
+   if __name__ == '__main__':
+       config = Configurator()
+       config.include(database_settings)
+       app = config.make_wsgi_app()
+       server = make_server('0.0.0.0', 6543, app)
+       server.serve_forever()
+
+Теперь опишем настройки нашего CRUD интерфейса:
+
+.. code-block:: python
+   :linenos:
+
+   def sacrud_settings(config):
+       config.include('pyramid_sacrud', route_prefix='admin')
+       config.registry.settings['pyramid_sacrud.models'] = (
+           ('Vehicle', [Manufacturer, Car]),
+           ('Group2', [User])
+       )
+
+``route_prefix='admin'`` означает что интерфейс будет доступен по адресу
+http://localhost:6543/admin/ (по умолчанию http://localhost:6543/sacrud/).
+
+В настройках (settings) параметр ``pyramid_sacrud.models`` отвечает за список моделей
+которые будут отображаться в интерфейсе. В нашем случае это 3 модели,
+поделенные на 2 группы (Vehicle и Group2).
+
+Осталось включить эти настройки в проект:
+
+
+.. code-block:: python
+   :emphasize-lines: 8
+
+   # ...
+
+   if __name__ == '__main__':
+       from pyramid.session import SignedCookieSessionFactory
+       my_session_factory = SignedCookieSessionFactory('itsaseekreet')
+       config = Configurator(session_factory=my_session_factory)
+       config.include(database_settings)
+       config.include(sacrud_settings)
+       app = config.make_wsgi_app()
+       server = make_server('0.0.0.0', 6543, app)
+       server.serve_forever()
+
+И запустить:
+
+.. code-block:: bash
+
+   python __init__.py
+
+По адресу http://localhost:6543/admin/ будет доступна наша админка!
+
+.. figure:: /_static/6.www.sync/framework/pyramid_sacrud_example.png
+   :width: 500pt
+
+.. figure:: /_static/6.www.sync/framework/pyramid_sacrud_edit.png
+   :width: 500pt
+
+Что бы после `CRUD` операций появлялись всплывающие сообщение необходимо
+добавить в проект поддержку сессий.
+
+.. code-block:: python
+
+   # ...
+
+   if __name__ == '__main__':
+       from pyramid.session import SignedCookieSessionFactory
+       my_session_factory = SignedCookieSessionFactory('itsaseekreet')
+       config = Configurator(session_factory=my_session_factory)
+
+       # ...
+
+.. figure:: /_static/6.www.sync/framework/pyramid_sacrud_flash.png
+   :width: 500pt
+
+Полный исходный код:
+
+.. code-block:: python
+
+   from wsgiref.simple_server import make_server
+
+   from pyramid.config import Configurator
+   from sqlalchemy import Column, ForeignKey, Integer, String
+   from sqlalchemy.ext.declarative import declarative_base
+   from sqlalchemy.orm import backref, relationship
+
+   Base = declarative_base()
+
+
+   class User(Base):
+       __tablename__ = 'user'
+       id = Column(Integer, primary_key=True)
+       name = Column(String(30))
+
+       def __repr__(self):
+           return self.name
+
+
+   class Manufacturer(Base):
+       __tablename__ = 'manufacturers'
+       id = Column(Integer, primary_key=True)
+       name = Column(String(30))
+
+
+   class Car(Base):
+       __tablename__ = 'cars'
+       id = Column(Integer, primary_key=True)
+       name = Column(String(30))
+       manufacturer_id = Column(Integer, ForeignKey('manufacturers.id'))
+       manufacturer = relationship('Manufacturer',
+                                   backref=backref('cars', lazy='dynamic'))
+
+
+   def sacrud_settings(config):
+       config.include('pyramid_sacrud', route_prefix='admin')
+       config.registry.settings['pyramid_sacrud.models'] = (
+           ('Vehicle', [Manufacturer, Car]),
+           ('Group2', [User])
+       )
+
+
+   def database_settings(config):
+       from sqlalchemy import create_engine
+       config.registry.settings['sqlalchemy.url'] = db_url =\
+           "sqlite:///example.db"
+       engine = create_engine(db_url)
+       Base.metadata.bind = engine
+       Base.metadata.create_all()
+
+
+   if __name__ == '__main__':
+       from pyramid.session import SignedCookieSessionFactory
+       my_session_factory = SignedCookieSessionFactory('itsaseekreet')
+       config = Configurator(session_factory=my_session_factory)
+       config.include(database_settings)
+       config.include(sacrud_settings)
+       app = config.make_wsgi_app()
+       server = make_server('0.0.0.0', 6543, app)
+       server.serve_forever()
+
+Резюме
+------
+
+`CRUD` интерфейс вряд ли может использоваться как основной инструмент клиента,
+но он может помочь визуализировать данные при разработке и выполнять
+простые операции связанные с администрированием приложения.
+
+:l:`pyramid_sacrud` довольно простой способ добавить в ваше приложение веб CRUD интерфейс,
+больше информации о настройке можно найти по адресу
+http://pyramid-sacrud.readthedocs.org/en/latest/pages/configuration.html, также
+:l:`pyramid_sacrud` полностью совместим с настройками :l:`ColanderAlchemy`.
+
+Особенностью :l:`pyramid_sacrud` является то что он не накладывает ограничений
+на структуру БД, а наоборот отталкивается от уже существующей. Ниже приведен
+пример как подключить его к БД не зная её структуры:
+
+.. code-block:: python
+
+   """
+   Funny application demonstrates the capabilities of SQLAlchemy and Pyramid.
+   It is something between phpMyAdmin and django.contrib.admin. SQLAlchemy with
+   Pyramid mapped on existing Django generated database but not vice versa.
+
+   Requirements
+   ------------
+
+   pip install pyramid, sqlalchemy
+   pip install git+https://github.com/ITCase/pyramid_sacrud.git@develop
+
+   Demonstration
+   -------------
+
+   python SQLAlchemyMyAdmin.py
+
+   goto http://localhost:8080/sacrud/
+   """
+   from wsgiref.simple_server import make_server
+
+   from pyramid.config import Configurator
+   from sqlalchemy import engine_from_config, MetaData
+   from sqlalchemy.ext.automap import automap_base
+   from sqlalchemy.ext.declarative import declarative_base
+   from sqlalchemy.orm import scoped_session, sessionmaker
+   from zope.sqlalchemy import ZopeTransactionExtension
+
+   DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
+   Base = declarative_base()
+
+
+   def get_metadata(engine):
+       # produce our own MetaData object
+       metadata = MetaData()
+       metadata.reflect(engine)
+       # we can then produce a set of mappings from this MetaData.
+       Base = automap_base(metadata=metadata)
+       # calling prepare() just sets up mapped classes and relationships.
+       Base.prepare()
+       return metadata
+
+
+   def quick_mapper(table):
+       class GenericMapper(Base):
+           __table__ = table
+           __tablename__ = table.name
+       return GenericMapper
+
+
+   def get_app():
+       config = Configurator()
+       settings = config.registry.settings
+       settings['sqlalchemy.url'] = "postgresql://login:password@localhost/your_database_name"
+
+       # Database
+       engine = engine_from_config(settings)
+       DBSession.configure(bind=engine)
+       metadata = get_metadata(engine)
+       tables = [quick_mapper(table) for table in metadata.sorted_tables]
+
+       # SACRUD
+       settings['pyramid_sacrud.models'] = (
+           ('', tables),
+       )
+       config.include('pyramid_sacrud')
+
+       return config.make_wsgi_app()
+
+   if __name__ == '__main__':
+       app = get_app()
+       server = make_server('0.0.0.0', 8080, app)
+       server.serve_forever()
