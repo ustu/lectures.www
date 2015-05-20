@@ -20,6 +20,7 @@
    7.templates.rst
    8.session.rst
    9.sacrud.rst
+   10.security.rst
    blogr/index.rst
    wsgi.rst
    _checkpoint.rst
@@ -28,18 +29,16 @@
 
    Добавить:
 
+   * Нарисовать схему https://skillsmatter.com/skillscasts/4265-pyramid-sqlalchemy-testing-and-auth-policy
    * Ининциализация проекта
 
      * Добавить пример с фейковыми данными (sacrud_common)
-   * Шаблоны (Template)
    * Дополнения - как писать свои модули-расширения
-   * Меню и страницы на сайте
+   * Меню и страницы на сайте?!
    * Авторизация
    * Формы
-   * Сессии и кэширование
-   * API
-   * REST
-   * XML-RPC
+   * Кэширование
+   * API - REST, XML-RPC
    * Тесты https://skillsmatter.com/skillscasts/4265-pyramid-sqlalchemy-testing-and-auth-policy
 
 .. toctree::

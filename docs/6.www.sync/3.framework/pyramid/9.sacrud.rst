@@ -250,7 +250,11 @@ http://pyramid-sacrud.readthedocs.org/en/latest/pages/configuration.html, так
 
 Особенностью :l:`pyramid_sacrud` является то что он не накладывает ограничений
 на структуру БД, а наоборот отталкивается от уже существующей. Ниже приведен
-пример как подключить его к БД не зная её структуры:
+пример как подключить его к БД не зная ее структуры:
+
+.. seealso::
+
+   * https://gist.github.com/uralbash/019c0629e1448c9d4e71
 
 .. code-block:: python
 
