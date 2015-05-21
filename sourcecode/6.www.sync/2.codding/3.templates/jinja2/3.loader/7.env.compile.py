@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from jinja2 import Environment, FileSystemLoader,  ModuleLoader
+from jinja2 import Environment, FileSystemLoader, ModuleLoader
 
 # Compile template
 Environment(loader=FileSystemLoader('foopkg/templates'))\

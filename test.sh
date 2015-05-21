@@ -10,7 +10,7 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 RST_FILES=`find . -name "*.rst" -printf "%p "`
-FLAKE8=$(flake8 ./sourcecode/)
+FLAKE8=$(flake8 --config=.flake8.cfg ./sourcecode/)
 RST_LINT=$(./rstlint.py)
 RST_CHECK=$(rstcheck $RST_FILES --report 2 3>&1 1>&2 2>&3 | tee >(cat - >&2)) # fd=STDERR_FILENO
 
