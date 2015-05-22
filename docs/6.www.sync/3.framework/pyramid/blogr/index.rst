@@ -1,6 +1,10 @@
 Блог
 ====
 
+.. seealso::
+
+   * http://pyramid-blogr.readthedocs.org/en/latest/
+
 Структура проекта
 -----------------
 
