@@ -17,6 +17,14 @@
     * http://popdevelop.com/2010/03/a-minimal-python-websocket-server/
     * http://diesel.io/
 
+    Concurency:
+
+    * https://docs.python.org/3/library/concurrency.html
+
+    Asyncio:
+
+    * http://sahandsaba.com/understanding-asyncio-node-js-python-3-4.html
+
 .. toctree::
     :maxdepth: 3
 
