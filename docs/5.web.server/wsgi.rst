@@ -251,6 +251,7 @@ Middleware могут брать на себя следующие функции
 найдет слово `error` в пути и искусственно вызовет исключение.
 
 .. figure:: /_static/6.www.sync/wsgi/wsgi_example_error.png
+   :width: 550pt
 
 Сессии
 ~~~~~~
@@ -291,6 +292,7 @@ Middleware могут брать на себя следующие функции
 мы можем хранить состояние сессии и при каждом обновлении будет отдаваться значение увеличенное на 1.
 
 .. figure:: /_static/6.www.sync/wsgi/wsgi_example_count.png
+   :width: 500pt
 
 Сжатие Gzip
 ~~~~~~~~~~~
@@ -312,6 +314,7 @@ Middleware могут брать на себя следующие функции
 ``GzipMiddleware`` сжимает ответ методом gzip
 
 .. figure:: /_static/6.www.sync/wsgi/wsgi_example_gzip.png
+   :width: 500pt
 
 Pony
 ~~~~

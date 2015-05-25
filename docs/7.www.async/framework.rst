@@ -1,6 +1,14 @@
 Фреймворки
 ==========
 
+aiohttp
+-------
+
+.. seealso::
+
+   * :l:`aiohttp`
+
+
 Pulsar
 ------
 
