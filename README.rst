@@ -27,6 +27,25 @@ Sphinx — это генератор документации, который п
   git clone git@github.com:ustu/lectures.www.git
   cd lectures.www
 
+Структура
+---------
+
+::
+
+   .
+   ├── docs             <----- Лекции в формате RST
+   ├── sourcecode       <----- Исходные коды к лекциям
+   ├── vagrant-data     <----- Docker контейнер для запуска примеров
+   ├── buildhtml.sh
+   ├── make.bat
+   ├── Makefile
+   ├── README.rst
+   ├── requirements.txt
+   ├── rstlint.py
+   ├── RULES.rst
+   ├── test.sh          <----- Всякие линтеры и чекеры
+   └── Vagrantfile      <----- Vagrant для автоматизации запуска Docker контейнеров
+
 Сборка
 ------
 
@@ -45,7 +64,8 @@ Sphinx — это генератор документации, который п
 Зависимости
 -----------
 
-Для команды ``make livehtml`` необходимо установить `sphinx-autobuild <https://github.com/GaretJax/sphinx-autobuild>`_
+Для команды ``make livehtml`` необходимо установить `sphinx-autobuild
+<https://github.com/GaretJax/sphinx-autobuild>`_
 
 Требования к оформлению
 -----------------------
