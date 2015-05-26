@@ -7,6 +7,11 @@
    * `A Do-It-Yourself Framework <http://pythonpaste.org/do-it-yourself-framework.html>`_
    * `Another Do-It-Yourself Framework <http://docs.webob.org/en/latest/do-it-yourself.html>`_
 
+.. todo::
+
+   * добавить PAsteDeploy
+     https://lionfacelemonface.wordpress.com/2011/03/30/wsgi-and-paste-deploy-the-bare-necessities/
+
 В этом разделе мы напишем `еще один блог` используя популярные инструменты
 языка программирования `Python`.
 

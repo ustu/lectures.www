@@ -20,10 +20,14 @@
     Concurency:
 
     * https://docs.python.org/3/library/concurrency.html
+    * http://www.toptal.com/python/beginners-guide-to-concurrency-and-parallelism-in-python
+    * https://github.com/volker48/python-concurrency
+    * http://www.slideshare.net/dabeaz/an-introduction-to-python-concurrency
 
     Asyncio:
 
     * http://sahandsaba.com/understanding-asyncio-node-js-python-3-4.html
+    * https://docs.python.org/3/library/asyncio.html
 
 .. toctree::
     :maxdepth: 3
