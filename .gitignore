@@ -6,3 +6,4 @@ TODO
 *.tmp
 *.sqlite
 .vagrant
+*.pyc
