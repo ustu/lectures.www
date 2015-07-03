@@ -14,13 +14,6 @@
 
 import os
 import sys
-# The version info for the project you're documenting, acts as replacement for
-# |version| and |release|, also used in various other places throughout the
-# built documents.
-#
-# The short X.Y version.
-# version = '0.0.0'
-# The full version, including alpha/beta/rc tags.
 from datetime import datetime
 
 import docutils
@@ -29,6 +22,8 @@ from docutils.parsers.rst.roles import set_classes
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.builders.latex import LaTeXBuilder
 from sphinx.directives.code import CodeBlock
+
+import itcase_sphinx_theme
 
 sys.path.insert(0, os.path.abspath('.'))
 
@@ -95,7 +90,6 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
-    'zzzeeksphinx',
 ]
 
 # TODO
@@ -143,13 +137,13 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-# html_theme = 'mydefault'
-html_theme = 'zzzeeksphinx'
+html_theme = 'itcase'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+# html_static_path = ['_static']
+html_theme_path = [itcase_sphinx_theme.get_html_themes_path()]
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = '-doc'

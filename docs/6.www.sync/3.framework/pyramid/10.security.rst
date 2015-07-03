@@ -282,3 +282,94 @@ ACL для роутов
    * Добавить пример с формами
    * Добавить ziggurat
    * Написать резюме
+
+Basic Auth
+----------
+
+.. seealso::
+
+   * https://gist.github.com/inklesspen/48cf6f3c7baa21df7839
+
+.. code-block:: python
+
+   from __future__ import absolute_import
+
+   from waitress import serve
+   from pyramid.config import Configurator
+   from pyramid.response import Response
+   from paste.httpheaders import WWW_AUTHENTICATE, AUTHORIZATION
+   from pyramid.security import Authenticated, Allow, Everyone
+   from pyramid.authorization import ACLAuthorizationPolicy
+
+
+   class Root(object):
+       __acl__ = [
+           (Allow, Authenticated, 'view'),
+       ]
+
+       def __init__(self, request):
+           self.request = request
+
+
+   def checkauth(username, password):
+       return username == 'pyramid' and password == 'aliens'
+
+
+   class BasicAuthenticationPolicy(object):
+       def authenticated_userid(self, request):
+           authorization = AUTHORIZATION(request.environ)
+           if not authorization:
+               return None
+           (authmeth, auth) = authorization.split(' ', 1)
+           if 'basic' != authmeth.lower():
+               return None
+           auth = auth.strip().decode('base64')
+           username, password = auth.split(':', 1)
+           if not checkauth(username, password):
+               return None
+           return username
+
+       def effective_principals(self, request):
+           ep = [Everyone]
+           username = self.authenticated_userid(request)
+           if username is not None:
+               ep.append(Authenticated)
+               ep.append(username)
+               ep.append('g:admin')
+           return ep
+
+       def unauthenticated_userid(self, request):
+           authorization = AUTHORIZATION(request.environ)
+           if not authorization:
+               return None
+           (authmeth, auth) = authorization.split(' ', 1)
+           if 'basic' != authmeth.lower():
+               return None
+           auth = auth.strip().decode('base64')
+           username, password = auth.split(':', 1)
+           return username
+
+       def remember(self, request, principal, **kw):
+           return []
+
+       def forget(self, request):
+           return []
+
+
+   def forbidden_view(request):
+       head = WWW_AUTHENTICATE.tuples('Basic realm="%s"' % 'fnord')
+       return Response('Not Authorized', status='401 Not Authorized', headers=head)
+
+
+   def hello_world(request):
+       return Response('Hello {!r}!'.format(request.effective_principals))
+
+   if __name__ == '__main__':
+       config = Configurator(root_factory=Root)
+       config.add_route('hello', '/hello')
+       config.add_view(hello_world, route_name='hello', permission='view')
+       config.set_authentication_policy(BasicAuthenticationPolicy())
+       config.set_authorization_policy(ACLAuthorizationPolicy())
+       config.add_forbidden_view(forbidden_view)
+       app = config.make_wsgi_app()
+       serve(app, host='0.0.0.0', port=8080)

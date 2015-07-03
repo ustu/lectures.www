@@ -17,7 +17,12 @@
 
 .. image:: /_static/logo.jpg
 
-http://lectures.uralbash.ru
+| http://lectures.uralbash.ru
+| https://github.com/ustu/lectures.www
+
+.. raw:: html
+
+   <br/>
 
 .. toctree::
     :maxdepth: 2

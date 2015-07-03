@@ -1,3 +1,3 @@
 sphinx>=1.3
 ipython
-git+https://bitbucket.org/zzzeek/zzzeeksphinx.git
+itcase_sphinx_theme
