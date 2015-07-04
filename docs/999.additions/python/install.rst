@@ -4,6 +4,91 @@
 Linux
 -----
 
+Установка интерпретатора CPython
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   $ sudo apt-get install python
+
+Пакетный менеджер pip
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   $ sudo apt-get install python-setuptools python-dev build-essential
+   $ sudo easy_install pip
+
+Виртуальное окружение Virtualenv
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   $ sudo pip install virtualenv virtualenvwrapper
+
+Компиляция пакетов
+~~~~~~~~~~~~~~~~~~
+
+Некоторые Python пакеты написаны с использование языка программирования Си,
+поэтому при установке они требуют компиляции. Если у вас не установлен
+компилятор, пакет не будет установлен.
+
+.. code-block:: bash
+
+   $ sudo apt-get install gcc python-dev
+
+Установка git
+~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   $ sudo apt-get intall git
+
+Пример
+~~~~~~
+
+Склонируем репозитарий админки https://github.com/ITCase/pyramid_sacrud.git в
+директорию ``/home/user/Projects``.
+
+.. code-block:: bash
+
+   $ cd /home/user/Projects/
+   $ git clone https://github.com/ITCase/pyramid_sacrud.git
+
+Установим :l:`pyramid_sacrud` из исходных кодов.
+
+.. code-block:: bash
+
+   $ cd cd /home/user/Projects/pyramid_sacrud
+   $ mkvirtualenv pyramid_sacrud
+   $ python setup.py develop
+
+Далее установим пример ``pyramid_sacrud/example``
+
+.. code-block:: bash
+
+   $ cd /home/user/Projects/pyramid_sacrud/example
+   $ workon pyramid_sacrud
+   $ python setup.py develop
+
+Пакеты устанавливаются в виртуальное окружение с названием ``pyramid_sacrud``.
+
+Теперь можно запустить пример:
+
+.. code-block:: bash
+
+   $ cd /home/user/Projects/pyramid_sacrud/example
+   $ workon pyramid_sacrud
+   $ pserve development.ini
+
+Заходим на http://localhost:6543/admin/
+
+.. figure:: /_static/999.additions/python/install/windows/pyramid_sacrud_linux.png
+   :align: center
+
+.. figure:: /_static/999.additions/python/install/windows/pyramid_sacrud2_linux.png
+   :align: center
+
 
 Windows
 -------
@@ -182,7 +267,7 @@ https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 .. code-block:: bash
 
    $ cd C:\Projects\pyramid_sacrud\example
-   $ mkvirtualenv pyramid_sacrud
+   $ workon pyramid_sacrud
    $ python setup.py develop
 
 .. figure:: /_static/999.additions/python/install/windows/pyramid_sacrud_example_install.png
@@ -204,7 +289,7 @@ https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 .. code-block:: bash
 
    $ cd C:\Projects\pyramid_sacrud\example
-   $ mkvirtualenv pyramid_sacrud
+   $ workon pyramid_sacrud
    $ pserve development.ini
 
 .. figure:: /_static/999.additions/python/install/windows/run_example.png
