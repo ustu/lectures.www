@@ -102,6 +102,7 @@ OTHER_LINKS = {
     # Other
     'zenoss': 'www.zenoss.com/',
     'erp5': 'https://ru.wikipedia.org/wiki/ERP5',
+    'numpy': 'http://www.numpy.org/',
 }
 
 ASYNC_LINKS = {
