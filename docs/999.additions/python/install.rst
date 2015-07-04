@@ -153,6 +153,9 @@ https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 .. figure:: /_static/999.additions/python/install/windows/git_9.png
    :align: center
 
+Пример
+~~~~~~
+
 Склонируем репозитарий админки https://github.com/ITCase/pyramid_sacrud.git в
 директорию ``C:\Projects``.
 
