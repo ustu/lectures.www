@@ -27,7 +27,7 @@ import itcase_sphinx_theme
 
 sys.path.insert(0, os.path.abspath('.'))
 
-from common import GLOBAL_LINKS
+from common import GLOBAL_LINKS  # noqa
 
 directives.register_directive('no-code-block', CodeBlock)
 
@@ -38,9 +38,8 @@ image_types = ['image/png', 'image/svg+xml', 'image/gif', 'image/jpeg']
 LaTeXBuilder.supported_image_types = image_types
 StandaloneHTMLBuilder.supported_image_types = image_types
 
-_LOGO = '_static/info-small.png'
 
-html_logo = _LOGO
+html_logo = 'info-small.png'
 html_favicon = '_static/urfu.ico'
 html_sidebars = {
     '**': ['globaltoc.html',
@@ -48,6 +47,12 @@ html_sidebars = {
            'sourcelink.html',
            ],
     'using/windows': ['windowssidebar.html', 'searchbox.html'],
+}
+html_theme_options = {
+    'travis_button': False,
+    'logo': True,
+    'logo_image': html_logo,
+    'logo_width': 'auto',
 }
 
 # If true, figures, tables and code-blocks are automatically numbered if they
@@ -176,7 +181,7 @@ latex_documents = [
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-latex_logo = _LOGO
+latex_logo = html_logo
 
 # -- Options for Texinfo output -------------------------------------------
 

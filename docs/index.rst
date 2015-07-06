@@ -6,23 +6,7 @@
 Основы Веб-программирования
 ===========================
 
-.. raw:: html
-
-   <a href="https://gitter.im/ustu/lectures.www" target="_blank">
-      <div align="left" class="align-left">
-         <img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at
-         https://gitter.im/ustu/lectures.www">
-      </div>
-   </a>
-
 .. image:: /_static/logo.jpg
-
-| http://lectures.uralbash.ru
-| https://github.com/ustu/lectures.www
-
-.. raw:: html
-
-   <br/>
 
 .. toctree::
     :maxdepth: 2
@@ -41,4 +25,5 @@
 
 .. todo::
 
-   * Добавить раздел про развертывание приложений на продакшине (разные случаии), с балансировкой, кэшированием, статикой на CDN итд
+   * Добавить раздел про развертывание приложений на продакшине (разные
+     случаии), с балансировкой, кэшированием, статикой на CDN итд
