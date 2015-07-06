@@ -50,6 +50,9 @@ html_sidebars = {
 }
 html_theme_options = {
     'travis_button': False,
+    'github_button': True,
+    'github_user': 'ustu',
+    'github_repo': 'lectures.www',
     'logo': True,
     'logo_image': html_logo,
     'logo_width': 'auto',
