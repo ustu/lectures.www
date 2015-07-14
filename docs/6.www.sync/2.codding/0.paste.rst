@@ -5,7 +5,9 @@ Paste
 
    * https://ru.wikipedia.org/wiki/Python_Paste
 
-.. note:: | Исходный код данного примера доступен по адресу:
+.. note::
+
+   Исходный код данного примера доступен по адресу:
 
    * :src:`6.www.sync/2.codding/0.paster`
 
