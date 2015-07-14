@@ -302,3 +302,57 @@ https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 
 .. figure:: /_static/999.additions/python/install/windows/pyramid_sacrud2.png
    :align: center
+
+
+MacOS
+------
+
+.. topic:: Homebrew
+
+    `Homebrew`_ является очень удобным пакетным менеджером для MacOS. Все дальнейшие манипуляции по установке пакетов будут осуществлены с его использованием (где это возможно, конечно).
+
+    **Установка**
+
+    .. code-block:: bash
+
+        $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+Установка интерпретатора CPython
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ brew install python
+
+Пакетный менеджер pip
+~~~~~~~~~~~~~~~~~~~~~
+
+При использовании `Homebrew`_ для установки python'а pip поставится автоматически.
+
+Виртуальное окружение Virtualenv
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ sudo pip install virtualenv virtualenvwrapper
+
+Компиляция пакетов
+~~~~~~~~~~~~~~~~~~
+
+Некоторые Python пакеты написаны с использование языка программирования Си,
+поэтому при установке они требуют компиляции. Если у вас не установлен
+компилятор, пакет не будет установлен.
+
+.. code-block:: bash
+
+    $ brew install gcc
+
+Для успешной установки GCC необходимо наличие установленного `XCode`_ в системе.
+
+.. note::
+
+    Для старых версий MacOS необходимо установить старую же версию XCode с диска, который поставляется вместе с Вашей операционной системой.
+
+
+.. _Homebrew: http://brew.sh/
+.. _XCode: https://developer.apple.com/xcode/
