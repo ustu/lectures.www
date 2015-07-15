@@ -59,7 +59,7 @@ Linux
 
 .. code-block:: bash
 
-   $ cd cd /home/user/Projects/pyramid_sacrud
+   $ cd /home/user/Projects/pyramid_sacrud
    $ mkvirtualenv pyramid_sacrud
    $ python setup.py develop
 
@@ -352,6 +352,58 @@ MacOS
 .. note::
 
     Для старых версий MacOS необходимо установить старую же версию XCode с диска, который поставляется вместе с Вашей операционной системой.
+
+Установка git
+~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   $ brew intall git
+
+Пример
+~~~~~~
+
+Склонируем репозитарий админки https://github.com/ITCase/pyramid_sacrud.git в
+директорию ``/home/user/Projects``.
+
+.. code-block:: bash
+
+   $ cd /home/user/Projects/
+   $ git clone https://github.com/ITCase/pyramid_sacrud.git
+
+Установим :l:`pyramid_sacrud` из исходных кодов.
+
+.. code-block:: bash
+
+   $ cd /home/user/Projects/pyramid_sacrud
+   $ mkvirtualenv pyramid_sacrud
+   $ python setup.py develop
+
+Далее установим пример ``pyramid_sacrud/example``
+
+.. code-block:: bash
+
+   $ cd /home/user/Projects/pyramid_sacrud/example
+   $ workon pyramid_sacrud
+   $ python setup.py develop
+
+Пакеты устанавливаются в виртуальное окружение с названием ``pyramid_sacrud``.
+
+Теперь можно запустить пример:
+
+.. code-block:: bash
+
+   $ cd /home/user/Projects/pyramid_sacrud/example
+   $ workon pyramid_sacrud
+   $ pserve development.ini
+
+Заходим на http://localhost:6543/admin/
+
+.. figure:: /_static/999.additions/python/install/windows/pyramid_sacrud_macos.png
+   :align: center
+
+.. figure:: /_static/999.additions/python/install/windows/pyramid_sacrud2_macos.png
+   :align: center
 
 
 .. _Homebrew: http://brew.sh/
