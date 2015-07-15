@@ -93,6 +93,7 @@ numfig_format = {"figure": u"Рис. %s",
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'itcase_sphinx_theme',
     'sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.doctest',

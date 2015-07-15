@@ -1,6 +1,10 @@
 Асинхронный ввод/ввод
 =====================
 
+.. note::
+
+   * http://www.curiousefficiency.org/posts/2015/07/asyncio-background-calls.html
+
 Gevent
 ------
 
