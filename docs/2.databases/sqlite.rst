@@ -1,3 +1,5 @@
+.. _SQLite:
+
 SQLite
 ======
 
