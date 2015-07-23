@@ -6,3 +6,4 @@
 
    python/index.rst
    generators.rst
+   texteditor.rst
