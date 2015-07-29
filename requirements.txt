@@ -1,3 +1,4 @@
 sphinx>=1.3.1
 ipython
 itcase_sphinx_theme>=0.1.8
+sphinx_links

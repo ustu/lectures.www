@@ -29,6 +29,8 @@ sys.path.insert(0, os.path.abspath('.'))
 
 from common import GLOBAL_LINKS  # noqa
 
+links_collection = GLOBAL_LINKS
+
 directives.register_directive('no-code-block', CodeBlock)
 
 # IMAGES
@@ -39,7 +41,7 @@ LaTeXBuilder.supported_image_types = image_types
 StandaloneHTMLBuilder.supported_image_types = image_types
 
 
-html_logo = 'info-small.png'
+# html_logo = 'info-small.png'
 html_favicon = '_static/urfu.ico'
 html_sidebars = {
     '**': ['globaltoc.html',
@@ -54,7 +56,7 @@ html_theme_options = {
     'github_user': 'ustu',
     'github_repo': 'lectures.www',
     'logo': True,
-    'logo_image': html_logo,
+    'logo_image': 'info-small.png',
     'logo_width': 'auto',
 }
 
@@ -94,6 +96,7 @@ numfig_format = {"figure": u"Рис. %s",
 # ones.
 extensions = [
     'itcase_sphinx_theme',
+    'sphinx_links',
     'sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.doctest',
@@ -185,7 +188,7 @@ latex_documents = [
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-latex_logo = html_logo
+# latex_logo = html_logo
 
 # -- Options for Texinfo output -------------------------------------------
 
@@ -248,21 +251,6 @@ def sourcecode(role, rawtext, text, lineno, inliner,
     return [node], []
 
 
-def global_link(role, rawtext, text, lineno, inliner,
-                options={}, content=[]):
-    """
-    Example:
-
-        See code there :l:`Nginx`.
-    """
-    link = GLOBAL_LINKS[text.lower()]
-    set_classes(options)
-    node = docutils.nodes.reference(
-        rawtext, docutils.utils.unescape(text),
-        refuri=link, **options)
-    return [node], []
-
-
 def setup(app):
     """Install the plugin.
 
@@ -276,4 +264,3 @@ def setup(app):
 
     # Add roles
     app.add_role('src', sourcecode)
-    app.add_role('l', global_link)
