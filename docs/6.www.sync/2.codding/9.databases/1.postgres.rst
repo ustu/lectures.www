@@ -3,6 +3,7 @@ Postgres
 
 .. seealso::
 
+   * :ref:`PostgreSQL`
    * http://initd.org/psycopg/
    * http://initd.org/psycopg/docs/usage.html
 
