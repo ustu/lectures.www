@@ -24,6 +24,9 @@
     * https://github.com/volker48/python-concurrency
     * http://www.slideshare.net/dabeaz/an-introduction-to-python-concurrency
 
+    * http://www.youtube.com/watch?v=ys8lW8eQaJQ
+    * https://lincolnloop.com/blog/concurrency-python-vs-go/
+
     Asyncio:
 
     * http://sahandsaba.com/understanding-asyncio-node-js-python-3-4.html

@@ -1,6 +1,10 @@
 Справочник
 ==========
 
+.. todo::
+
+   http://book.pythontips.com/en/latest/
+
 .. toctree::
    :maxdepth: 3
 
