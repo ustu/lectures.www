@@ -25,6 +25,7 @@ Linux
 .. code-block:: bash
 
    $ sudo pip install virtualenv virtualenvwrapper
+   $ source /usr/local/bin/virtualenvwrapper.sh
 
 Компиляция пакетов
 ~~~~~~~~~~~~~~~~~~
@@ -335,6 +336,7 @@ MacOS
 .. code-block:: bash
 
     $ sudo pip install virtualenv virtualenvwrapper
+    $ source /usr/local/bin/virtualenvwrapper.sh
 
 Компиляция пакетов
 ~~~~~~~~~~~~~~~~~~
