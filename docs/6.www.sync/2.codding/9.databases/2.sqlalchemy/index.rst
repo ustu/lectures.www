@@ -8,6 +8,7 @@ SQLAlchemy
    * :l:`SQLAlchemy`
    * https://ru.wikipedia.org/wiki/ORM
    * https://ru.wikipedia.org/wiki/SQLAlchemy
+   * http://pajhome.org.uk/blog/10_reasons_to_love_sqlalchemy.html
 
 .. todo::
 
