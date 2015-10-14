@@ -11,6 +11,6 @@
     intro.rst
     sniff.rst
     requests.rst
-    xhtml.rst
+    web.scraping/index.rst
     low-level/index.rst
     _checkpoint.rst
