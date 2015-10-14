@@ -70,7 +70,7 @@ Sphinx — это генератор документации, который п
 Требования к оформлению
 -----------------------
 
-Смотри `RULES.rst <https://github.com/ustu/lectures.www/blob/master/RULES.rst>`_
+Смотри `CONTRIBUTING.rst <https://github.com/ustu/lectures.www/blob/master/CONTRIBUTING.rst>`_
 
 
 .. image:: https://badges.gitter.im/Join%20Chat.svg
