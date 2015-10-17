@@ -13,3 +13,4 @@ Python
    context_manager.rst
    formatted_string.rst
    decorator.rst
+   asyncio-decorator.rst

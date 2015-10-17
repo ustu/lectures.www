@@ -4,6 +4,7 @@ node.js + WebKit
 .. seealso::
 
    * https://github.com/nwjs/nw.js
+   * http://electron.atom.io/
 
 Установка:
 

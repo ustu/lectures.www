@@ -32,6 +32,12 @@
     * http://sahandsaba.com/understanding-asyncio-node-js-python-3-4.html
     * https://docs.python.org/3/library/asyncio.html
 
+.. todo::
+
+   * http://www.slideshare.net/rick446/realtime-web-gevent-and-socketio
+   * http://mauveweb.co.uk/posts/2014/07/gevent-asynchronous-io-made-easy.html
+   * http://sdiehl.github.io/gevent-tutorial/
+
 .. toctree::
     :maxdepth: 3
 
