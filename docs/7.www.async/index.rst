@@ -37,6 +37,7 @@
    * http://www.slideshare.net/rick446/realtime-web-gevent-and-socketio
    * http://mauveweb.co.uk/posts/2014/07/gevent-asynchronous-io-made-easy.html
    * http://sdiehl.github.io/gevent-tutorial/
+   * http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html
 
 .. toctree::
     :maxdepth: 3

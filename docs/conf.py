@@ -142,10 +142,10 @@ pygments_style = 'sphinx'
 # -- Options for HTML output ----------------------------------------------
 
 # Add any paths that contain templates here, relative to this directory.
-# templates_path = ['_templates']
+templates_path = ['_templates']
 
 # Add any paths that contain custom themes here, relative to this directory.
-# html_theme_path = ['_themes']
+html_theme_path = [itcase_sphinx_theme.get_html_themes_path()]
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
@@ -155,7 +155,6 @@ html_theme = 'itcase'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 # html_static_path = ['_static']
-html_theme_path = [itcase_sphinx_theme.get_html_themes_path()]
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = '-doc'
