@@ -119,7 +119,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Основы Веб-программирования'
-copyright = u'2015, uralbash'
+copyright = u'2016,' + \
+    u' Кафедра Интеллектуальных Информационных Технологий ИнФО УрФУ'
 
 release_date = datetime.now().strftime("%Y-%m-%d")
 
