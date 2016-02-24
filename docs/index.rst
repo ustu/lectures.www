@@ -8,9 +8,7 @@
 
 .. image:: /_static/logo.jpg
 
-Дополнительные курсы:
-
-* `Базы данных <http://lecturesdb.readthedocs.org>`_
+Дополнительные курсы: `Базы данных <http://lecturesdb.readthedocs.org>`_
 
 .. toctree::
     :maxdepth: 2
