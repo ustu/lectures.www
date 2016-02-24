@@ -8,12 +8,15 @@
 
 .. image:: /_static/logo.jpg
 
+Дополнительные курсы:
+
+* `Базы данных <http://lecturesdb.readthedocs.org>`_
+
 .. toctree::
     :maxdepth: 2
 
     description.rst
     1.introduction/index.rst
-    2.databases/index.rst
     3.kpd/index.rst
     4.net/index.rst
     5.web.server/index.rst

@@ -217,6 +217,9 @@ intersphinx_mapping = {
     'http://docs.sqlalchemy.org/en/latest/': None,
     'http://initd.org/psycopg/docs/': None,
 
+    # lectures
+    'http://lecturesdb.readthedocs.org/': None,
+
     # Pylons
     'http://pyramid-tm.readthedocs.org/en/latest/': None,
     'http://docs.pylonsproject.org/projects/colander/en/latest/': None,
@@ -239,13 +242,13 @@ def sourcecode(role, rawtext, text, lineno, inliner,
         See code there :src:`6.www.sync/2.codding/blog/0.paster`.
     """
     # Base URL mainly used by inliner.rfc_reference, so this is correct:
-    SOURCE_URL =\
+    source_url =\
         'https://github.com/ustu/lectures.www/tree/master/sourcecode/'
-    ref = SOURCE_URL + text
+    ref = source_url + text
     set_classes(options)
     node = docutils.nodes.reference(
         rawtext,
-        SOURCE_URL + docutils.utils.unescape(text),
+        source_url + docutils.utils.unescape(text),
         refuri=ref, **options)
     return [node], []
 

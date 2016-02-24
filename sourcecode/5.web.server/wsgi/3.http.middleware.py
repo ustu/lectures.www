@@ -11,7 +11,7 @@
 """
 
 from paste.evalexception.middleware import EvalException
-from paste.gzipper import middleware as GzipMiddleware
+from paste.gzipper import middleware as GzipMiddleware  # noqa
 from paste.pony import PonyMiddleware
 from paste.session import SessionMiddleware
 
