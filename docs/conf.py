@@ -220,6 +220,8 @@ intersphinx_mapping = {
 
     # lectures
     'http://lecturesdb.readthedocs.org/': None,
+    'http://lectureskpd.readthedocs.org/': None,
+    'http://lecturesnet.readthedocs.org/': None,
 
     # Pylons
     'http://pyramid-tm.readthedocs.org/en/latest/': None,
