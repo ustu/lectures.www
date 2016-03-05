@@ -1,94 +1,80 @@
-\documentclass[c,unicode,russian]{beamer}
-\usepackage{hyperref}
-\usepackage{alltt}
-\usepackage{verbatim}
-\usepackage{fancyvrb}
+\input{../mypreamble.tex}
 
-\usepackage{fontspec}
-\setsansfont{Ubuntu}
-\setmonofont{Ubuntu Mono}
-\usepackage{polyglossia}
-\setdefaultlanguage{russian}
-
-\useinnertheme{metropolis}
-\useoutertheme{metropolis}
-\usecolortheme{metropolis}
-
-% logo of my university
-\titlegraphic{\includegraphics[width=11cm]{media/logo.jpg}}
-
-%Information to be included in the title page:
 \title{HTTP}
-\author{Основы Веб-программирования}
-\institute{Кафедра Интеллектуальных Информационных Технологий, ИнФО, УрФУ}
-\date{}
-
 
 \begin{document}
 
+% Slide #1
 \frame{\titlepage}
 
+% Slide #2
 \begin{frame}
-\frametitle{Ресурсы}
+    \frametitle{Ресурсы}
     \url{http://lectureskpd.readthedocs.org/kpd/3.http.html}
     \url{https://tools.ietf.org/html/rfc2616}
 \end{frame}
 
+% Slide #3
 \begin{frame}
-\frametitle{Особенности}
-\begin{itemize}
-  \item Через него передается основная часть Веб трафика
-  \item Создавался для передачи HTML
-  \item Сейчас используется для передачи любых данных
-  \item Текстовый протокол
-  \item 4го (прикладного) уровня стека протоколов TCP/IP
-  \item использует TCP соединение
-  \item может выполнить несколько запросов в рамках одного TCP соединения
-\end{itemize}
+    \frametitle{Особенности}
+    \begin{itemize}
+        \item Через него передается основная часть Веб трафика
+        \item Создавался для передачи HTML
+        \item Сейчас используется для передачи любых данных
+        \item Текстовый протокол
+        \item 4го (прикладного) уровня стека протоколов TCP/IP
+        \item использует TCP соединение
+        \item может выполнить несколько запросов в рамках одного TCP соединения
+    \end{itemize}
 \end{frame}
 
+% Slide #4
 \begin{frame}{HTTP в роли транспорта}
-  Может выступать в роли транспорта для других протоколов прикладного уровня
-\begin{itemize}
-  \item SOAP
-  \item XML-RPC
-  \item JSON-RPC
-  \item WebDAV
-\end{itemize}
+    Может выступать в роли транспорта для других протоколов прикладного уровня
+    \begin{itemize}
+        \item SOAP
+        \item XML-RPC
+        \item JSON-RPC
+        \item WebDAV
+    \end{itemize}
 \end{frame}
 
+% Slide #5
 \begin{frame}{Request/Response}
- Общение между клиентом и сервером происходит в два этапа:
- \begin{itemize}
-     \item Запрос
-     \item Ответ
- \end{itemize}
- Такую архитектуру еще называют клиент-серверная
- \begin{center}
-     \includegraphics[width=3in]{media/client-server.png}
- \end{center}
+    Общение между клиентом и сервером происходит в два этапа:
+    \begin{itemize}
+        \item Запрос
+        \item Ответ
+    \end{itemize}
+    Такую архитектуру еще называют клиент-серверная
+    \begin{center}
+        \includegraphics[width=3in]{media/client-server.png}
+    \end{center}
 \end{frame}
 
+% Slide #6
 \begin{frame}{HTTP сообщения}
- Соответственно делятся на 2 типа:
- \begin{itemize}
-     \item HTTP запрос
-     \item HTTP ответ
- \end{itemize}
- \begin{center}
-     \includegraphics[width=3in]{media/client-server-details.png}
- \end{center}
+    Соответственно делятся на 2 типа:
+    \begin{itemize}
+        \item HTTP запрос
+        \item HTTP ответ
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=3in]{media/client-server-details.png}
+    \end{center}
 \end{frame}
 
+% Slide #7
 \begin{frame}{Формат сообщения}
- \begin{itemize}
-     \item Стартовая строка (обязательное требование)
-     \item Заголовки
-     \item Пустая строка (только если есть тело сообщения)
-     \item Тело сообщения
- \end{itemize}
+    \begin{itemize}
+        \item Стартовая строка (обязательное требование)
+        \item Заголовки
+        \item Пустая строка (только если есть тело сообщения)
+        \item Тело сообщения
+    \end{itemize}
 \end{frame}
 
+% Slide #8
 \begin{frame}[fragile]{Пример запроса}
     \begin{Verbatim}[fontsize=\scriptsize]
 GET /ru/latest/net/http.html HTTP/1.1
@@ -100,6 +86,7 @@ User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:35.0) Gecko/20100101 Fire
     \end{Verbatim}
 \end{frame}
 
+% Slide #9
 \begin{frame}{Стартовая строка запроса}
 
     GET /ru/latest/net/http.html HTTP/1.1
@@ -123,6 +110,7 @@ User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:35.0) Gecko/20100101 Fire
 
 \end{frame}
 
+% Slide #10
 \begin{frame}{Методы}
 
     Отличаются только! названием! \newline
@@ -139,12 +127,14 @@ User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:35.0) Gecko/20100101 Fire
 
 \end{frame}
 
+% Slide #11
 \begin{frame}{URL}
- \begin{center}
-     \includegraphics[width=4in]{media/url-structure.png}
- \end{center}
+    \begin{center}
+        \includegraphics[width=4in]{media/url-structure.png}
+    \end{center}
 \end{frame}
 
+% Slide #12
 \begin{frame}{Заголовки}
 
     Заголовки выглядят в виде ``key: value''
@@ -163,9 +153,9 @@ User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:35.0) Gecko/20100101 Fire
         \item Заголовки сущности (запроса)
     \end{itemize}
 
-
 \end{frame}
 
+% Slide #13
 \begin{frame}[fragile]{Пример ответа}
     \begin{Verbatim}[fontsize=\tiny]
 HTTP/1.1 200 OK
@@ -191,6 +181,7 @@ Accept-Ranges: bytes
     \end{Verbatim}
 \end{frame}
 
+% Slide #14
 \begin{frame}{Стартовая строка ответа}
 
     HTTP/1.1 200 OK
@@ -214,6 +205,7 @@ Accept-Ranges: bytes
 
 \end{frame}
 
+% Slide #15
 \begin{frame}[fragile]{Cookie}
     Браузер обычно сохраняет эту информацию на компьютере.\newline
     Например в файл cookies.sqlite. \newline
@@ -225,22 +217,26 @@ Set-Cookie: name=value
     \end{Verbatim}
 \end{frame}
 
+% Slide #16
 \begin{frame}{Cookie}
     Cookie дают возможность организовывать сессии между клиентом и сервером.
 \end{frame}
 
+% Slide #17
 \begin{frame}{Браузер}
- \begin{center}
-     \includegraphics[width=3.5in]{media/http.example.mozzila.png}
- \end{center}
+    \begin{center}
+        \includegraphics[width=3.5in]{media/http.example.mozzila.png}
+    \end{center}
 \end{frame}
 
+% Slide #18
 \begin{frame}{FireBug}
- \begin{center}
-     \includegraphics[width=3.5in]{media/firebug1.png}
- \end{center}
+    \begin{center}
+        \includegraphics[width=3.5in]{media/firebug1.png}
+    \end{center}
 \end{frame}
 
+% Slide #19
 \begin{frame}[fragile]{telnet}
     \begin{Verbatim}[fontsize=\scriptsize]
 $ telnet readthedocs.org 80
