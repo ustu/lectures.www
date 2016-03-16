@@ -66,11 +66,11 @@ fastcgi_param
       fastcgi_param  SERVER_PORT        $server_port;
       fastcgi_param  SERVER_NAME        $server_name;
 
-**С++**
+**С**
 
 .. note::
 
-   Компиляция ``g++ -o hello.fcgi hello.cpp -lfcgi++ -lfcgi``
+   Компиляция ``gcc -o hello.fcgi hello.cpp -lfcgi``
 
 .. literalinclude:: /../sourcecode/5.web.server/fcgi/hello.cpp
    :language: cpp
