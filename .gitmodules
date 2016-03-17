@@ -1,0 +1,3 @@
+[submodule "slides/listings-golang"]
+	path = slides/listings-golang
+	url = https://github.com/julienc91/listings-golang.git

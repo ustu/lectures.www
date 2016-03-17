@@ -1,5 +1,4 @@
-Анализ трафика
-==============
+Сокеты
+======
 
-* http://lecturesnet.readthedocs.org/net/sniff.html
-* `<http://www.slideshare.net/lectureswwwlecturesw/ss-59434219>`_
+* http://lecturesnet.readthedocs.org/net/low-level/ipc/index.html

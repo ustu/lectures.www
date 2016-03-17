@@ -14,8 +14,8 @@
 \useoutertheme{metropolis}
 \usecolortheme{metropolis}
 
-\usepackage{listings}   % C++ code
-\usepackage{xcolor}     % C++ code
+\usepackage{listings,xcolor}
+\usepackage{../../listings-golang/listings-golang}   % Golang
 \lstset{%
     keywordstyle=\color{blue},
     commentstyle=\color[rgb]{0.13,0.54,0.13},
@@ -37,6 +37,9 @@
 }
 \lstdefinestyle{python}{%
     language=Python
+}
+\lstdefinestyle{go}{% add your own preferences
+    language=Golang
 }
 
 \usepackage{caption}
