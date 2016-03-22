@@ -1,6 +1,10 @@
 Веб сервер
 ==========
 
+.. seealso::
+
+    `Презентация с лекций <http://www.slideshare.net/lectureswwwlecturesw/ss-59898113>`_
+
 .. toctree::
     :maxdepth: 3
 
