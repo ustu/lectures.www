@@ -1,4 +1,4 @@
-Веб сервер
-==========
+WSGI
+====
 
-* http://lectureswww.readthedocs.org/5.web.server/index.html
+* http://lectureswww.readthedocs.org/5.web.server/wsgi.html
