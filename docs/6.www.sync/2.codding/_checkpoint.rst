@@ -50,3 +50,10 @@
    :language: python
    :caption: 9.send_request.py
    :linenos:
+
+Задание 5
+---------
+
+Выполнить упражнения из презентации
+https://bitbucket.org/zzzeek/pycon2013_student_package и оформить в виде
+заметок на сервисе ``Gist`` от ``GitHub``.
