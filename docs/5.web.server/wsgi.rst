@@ -11,7 +11,7 @@ WSGI (pep-333)
     * http://pylonsbook.com/en/1.1/the-web-server-gateway-interface-wsgi.html
     * http://pylons-webframework.readthedocs.org/en/latest/concepts.html
     * http://www.docstoc.com/docs/69863691/WSGI-from-Start-to-Finish
-    
+
     * `Презентация с лекций <http://www.slideshare.net/lectureswwwlecturesw/wsgi-pep333>`_
 
 .. figure:: /_static/6.www.sync/wsgi/wsgi.*

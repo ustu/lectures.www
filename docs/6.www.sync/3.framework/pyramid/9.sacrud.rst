@@ -41,7 +41,7 @@
 
 .. seealso::
 
-   * https://github.com/ITCase/pyramid_sacrud/tree/master/example
+   * https://github.com/sacrud/pyramid_sacrud/tree/master/example
 
 :l:`pyramid_sacrud` предоставляет `CRUD` интерфейс для моделей :l:`SQLAlchemy`.
 Создадим 3 простых таблицы (Car, Manufacturer, User) для примера:
@@ -267,7 +267,7 @@ http://pyramid-sacrud.readthedocs.org/en/latest/pages/configuration.html, так
    ------------
 
    pip install pyramid, sqlalchemy
-   pip install git+https://github.com/ITCase/pyramid_sacrud.git@develop
+   pip install git+https://github.com/sacrud/pyramid_sacrud.git@develop
 
    Demonstration
    -------------

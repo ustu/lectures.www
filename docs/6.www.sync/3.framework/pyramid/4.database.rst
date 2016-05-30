@@ -94,7 +94,8 @@ transaction
 
    * http://zodb.readthedocs.org/en/latest/transactions.html
 
-``ZopeTransactionExtension`` это расширение для SQLAlchemy, которое привязывает сессии к универсальному менеджеру транзакций :l:`transaction`.
+``ZopeTransactionExtension`` это расширение для SQLAlchemy, которое привязывает
+сессии к универсальному менеджеру транзакций :l:`transaction`.
 
 Добавим его в наш пример:
 
@@ -169,13 +170,15 @@ transaction.abort
 
 .. attention::
 
-   Пример ниже работает с версией ``repoze.sendmail==4.1``. Установить ее можно припомощи команды:
+   Пример ниже работает с версией ``repoze.sendmail==4.1``. Установить ее можно
+   припомощи команды:
 
    ::
 
       pip install repoze.sendmail==4.1
 
-   Если возникает ошибка ``raise ValueError("TPC in progress")``, cмотри https://github.com/repoze/repoze.sendmail/issues/31
+   Если возникает ошибка ``raise ValueError("TPC in progress")``, cмотри
+   https://github.com/repoze/repoze.sendmail/issues/31
 
 .. code-block:: python
    :emphasize-lines: 9, 11-14, 23, 26-33, 44-49, 51
@@ -248,7 +251,9 @@ transaction.abort
 pyramid_tm
 ~~~~~~~~~~
 
-:l:`pyramid_tm` автоматически подтверждает транзакцию в каждом запросе. Т.е. если мы забыли написать ``transaction.commit()``, то он все равно вызовется, при этом мы также можем вызывать его явно.
+:l:`pyramid_tm` автоматически подтверждает транзакцию в каждом запросе. Т.е.
+если мы забыли написать ``transaction.commit()``, то он все равно вызовется,
+при этом мы также можем вызывать его явно.
 
 .. code-block:: python
    :emphasize-lines: 24
@@ -286,7 +291,9 @@ pyramid_tm
 pyramid_sqlalchemy
 ------------------
 
-:l:`pyramid_sqlalchemy` создает объект базового класса ``Base`` и сессии ``Session`` автоматически. Мы просто указываем строку подключения к БД в настройках и включаем модуль ``pyramid_sqlalchemy`` в проект.
+:l:`pyramid_sqlalchemy` создает объект базового класса ``Base`` и сессии
+``Session`` автоматически. Мы просто указываем строку подключения к БД в
+настройках и включаем модуль ``pyramid_sqlalchemy`` в проект.
 
 .. code-block:: python
    :emphasize-lines: 6, 19, 22

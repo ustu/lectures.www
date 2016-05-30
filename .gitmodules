@@ -1,3 +1,6 @@
 [submodule "slides/listings-golang"]
 	path = slides/listings-golang
 	url = https://github.com/julienc91/listings-golang.git
+[submodule "examples/pyramid/traversal"]
+	path = examples/pyramid/traversal
+	url = git@github.com:iitwebdev/lectures_pyramid_traversal_example.git
