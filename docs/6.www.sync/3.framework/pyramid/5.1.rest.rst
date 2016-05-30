@@ -1,0 +1,9 @@
+RESPT API
+=========
+
+.. seealso::
+
+   * `Для тех кто в Djang'е
+     (http://blog.delaguardia.com.mx/pyramid-view-configuration-let-me-count-the-ways.html)
+     <http://blog.delaguardia.com.mx/pyramid-view-configuration-let-me-count-the-ways.html>`_
+

@@ -16,6 +16,7 @@
    3.settings.rst
    4.database.rst
    5.urldispatch.rst
+   5.1.rest.rst
    6.views.rst
    7.templates.rst
    8.session.rst

@@ -1,11 +1,6 @@
 Диспетчеризация URL
 ===================
 
-.. todo::
-
-   * Расписать более подробно
-     + http://blog.delaguardia.com.mx/pyramid-view-configuration-let-me-count-the-ways.html
-
 .. seealso::
 
    * http://docs.pylonsproject.org/projects/pyramid/en/1.6-branch/narr/urldispatch.html
