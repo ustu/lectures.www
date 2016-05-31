@@ -37,9 +37,9 @@
    * Дополнения - как писать свои модули-расширения
    * Меню и страницы на сайте?!
    * Авторизация
-   * Формы
+   * Формы zigg_form
    * Кэширование
-   * API - REST, XML-RPC
+   * API - XML-RPC, gRPC
    * Тесты https://skillsmatter.com/skillscasts/4265-pyramid-sqlalchemy-testing-and-auth-policy
 
 .. toctree::
