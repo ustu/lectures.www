@@ -32,6 +32,9 @@ RESPT API
 например мобильное приложение может выступать в роли клиента, который
 манипулирует данными посредством ``REST``.
 
+Pattern matching
+----------------
+
 .. literalinclude:: /../examples/pyramid/restapi/pattern_matching_example.py
    :language: python3
    :linenos:
@@ -70,3 +73,94 @@ http://localhost:8080/api/v1/people/123
 .. code-block:: json
 
     {"status": "success"}
+
+Traversal
+---------
+
+.. seealso::
+
+    Метод URL диспетчеризации :ref:`traversal_routing`
+
+В предыдущем примере показан только один ресурс - конкретный человек и
+в принципе все выглядит неплохо, пока не появится другой смежный ресурс,
+например список всех людей по адресу http://localhost:8080/api/v1/people
+
+В этом случае, придется добавлять новый путь (rout), привязывать его к
+представлению (View) и самое неприятное менять само представление, или еще
+хуже писать новое. Таким образом с увеличением ресурсов, сложность REST API
+растет не пропорционально и в какой то момент код становится не читаемым
+из-за больших размеров и постоянно меняющейся логики во View.
+
+Выход из данной ситуации - отделить ресурсы от представлений, тем самым
+вынести часть логики и сделать представления более универсальными.
+
+Ресурсы
+~~~~~~~
+
+Ресурсы могут выглядеть так:
+
+.. literalinclude:: /../examples/pyramid/restapi/traversal_example.py
+   :language: python3
+   :linenos:
+   :pyobject: PeopleResource
+   :caption: Список всех людей
+
+``PeopleResource`` представляет список всех людей и будет доступен по
+адресу http://localhost:8080/api/v1/people.
+``PeopleResource`` имеет метод ``__getitem__``, что делает его похожим на
+словарь. При обращении к объекту ресурса как к словарю, он вызовет
+эту функцию и передаст ключ в параметр ``people_id``, например:
+
+.. code-block:: python3
+
+   foo = PeopleResource()
+   bar = foo[123]  # Вернет объект PersonResource(123)
+
+Метод ``__json__`` определяет каким образом преобразовывать ресурс в json.
+
+``PersonResource`` представляет конкретного человека и будет доступен по
+адресу `http://localhost:8080/api/v1/people/{id}
+<http://localhost:8080/api/v1/people/{id}>`_. Здесь отличительной
+особенностью является то, что метод ``__json__`` наследует часть словаря из
+класса ``PeopleResource``, при помощи конструкции ``super``:
+
+.. literalinclude:: /../examples/pyramid/restapi/traversal_example.py
+   :language: python3
+   :linenos:
+   :pyobject: PersonResource
+   :emphasize-lines: 9
+   :caption: Конкретный человек
+
+View
+~~~~
+
+Перепишем View таким образом, что бы она возвращала только ресурс, а так-как
+ресурс уже содержит в себе информацию как отдавать json, то это представление
+будет универсальным как для ``PeopleResource``, так и для ``PersonResource``
+и возможно подойдет другим ресурсам которые мы будем писать в будущем.
+
+.. literalinclude:: /../examples/pyramid/restapi/traversal_example.py
+   :language: python3
+   :linenos:
+   :pyobject: RESTViewPeople
+   :caption: Представление (View) для traversal ресурсов
+
+Рендерер ``json`` по умолчанию ищет метод ``__json__`` и если он есть то
+возвращает его результат вызова.
+
+Route
+~~~~~
+
+Путь, в нашем случае, будет один, так-как вся структура вынесена в ресурсы
+(метод ``__getitem__``).
+
+.. code-block:: python
+
+    config.add_route('rest_api', '/api/v1/*traverse', factory=rest_factory)
+
+Полный пример
+~~~~~~~~~~~~~
+
+.. literalinclude:: /../examples/pyramid/restapi/traversal_example.py
+   :language: python3
+   :linenos:

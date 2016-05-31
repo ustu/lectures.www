@@ -28,6 +28,8 @@ Pattern Matching
    config.add_route('idea', 'site/{id}')
    config.add_view('mypackage.views.site_view', route_name='idea')
 
+.. _traversal_routing:
+
 Traversal
 ---------
 
