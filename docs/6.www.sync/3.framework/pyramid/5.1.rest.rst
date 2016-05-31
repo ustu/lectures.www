@@ -3,7 +3,11 @@ RESPT API
 
 .. seealso::
 
+   * https://ru.wikipedia.org/wiki/REST
    * `Для тех кто в Djang'е
      (http://blog.delaguardia.com.mx/pyramid-view-configuration-let-me-count-the-ways.html)
      <http://blog.delaguardia.com.mx/pyramid-view-configuration-let-me-count-the-ways.html>`_
 
+.. literalinclude:: /../examples/pyramid/restapi/pattern_matching_example.py
+   :language: python3
+   :linenos:

@@ -4,3 +4,6 @@
 [submodule "examples/pyramid/traversal"]
 	path = examples/pyramid/traversal
 	url = git@github.com:iitwebdev/lectures_pyramid_traversal_example.git
+[submodule "examples/pyramid/restapi"]
+	path = examples/pyramid/restapi
+	url = https://github.com/iitwebdev/lectures_pyramid_restapi_example.git
