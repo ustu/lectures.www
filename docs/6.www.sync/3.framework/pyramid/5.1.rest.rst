@@ -7,7 +7,66 @@ RESPT API
    * `Для тех кто в Djang'е
      (http://blog.delaguardia.com.mx/pyramid-view-configuration-let-me-count-the-ways.html)
      <http://blog.delaguardia.com.mx/pyramid-view-configuration-let-me-count-the-ways.html>`_
+   * http://docs.pylonsproject.org/projects/pyramid_cookbook/en/latest/testing/testing_post_curl.html
+
+``REST API`` подразумевает под собой простые правила:
+
+* Каждый URL является ресурсом
+* При обращении к ресурсу методом ``GET`` возвращается описание этого
+  ресурса
+* Метод ``POST`` добавляет новый ресурс
+* Метод ``PUT`` изменяет ресурс
+* Метод ``DELETE`` удаляет ресурс
+
+Эти правила предоставляют простой ``CRUD`` интерфейс для других приложений,
+взаимодействие с которым происходит через протокол ``HTTP``.
+
+Соответствие ``CRUD`` операций и ``HTTP`` методов:
+
+* **CREATE** - ``POST``
+* **READ** - ``GET``
+* **UPDATE** - ``PUT``
+* **DELETE** - ``DELETE``
+
+``REST API`` интерфейс очень удобен для межпрограммного взаимодействия,
+например мобильное приложение может выступать в роли клиента, который
+манипулирует данными посредством ``REST``.
 
 .. literalinclude:: /../examples/pyramid/restapi/pattern_matching_example.py
    :language: python3
    :linenos:
+
+Пример выше добавляет View с тремя методами, каждый из которых вызывается при
+соответствующем ``GET``, ``POST``, ``DELETE`` запросе.
+Ресурсом здесь является конкретный человек, получить которого можно по URL
+http://localhost:8080/api/v1/people/123
+
+Результатом запроса будет:
+
+.. code-block:: json
+
+    {"get": {}, "id": "123", "method": "GET"}
+
+Для отправки ``POST`` запроса воспользуемся консольной утилитой :man:`curl`:
+
+.. code-block:: bash
+
+    $ curl -X POST -d 'param1=value1&param2=value2' http://localhost:8080/api/v1/people/1
+
+Результат запроса:
+
+.. code-block:: json
+
+    {"id": "1", "post": {"param1": "value1", "param2": "value2"}, "method": "POST"}
+
+``DELETE`` запрос выполняется по аналогии:
+
+.. code-block:: bash
+
+    $ curl -X DELETE http://localhost:8080/api/v1/people/1
+
+Результат запроса:
+
+.. code-block:: json
+
+    {"status": "success"}
