@@ -23,8 +23,6 @@ from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.builders.latex import LaTeXBuilder
 from sphinx.directives.code import CodeBlock
 
-import itcase_sphinx_theme
-
 sys.path.insert(0, os.path.abspath('.'))
 
 from common import GLOBAL_LINKS  # noqa
@@ -50,15 +48,15 @@ html_sidebars = {
            ],
     'using/windows': ['windowssidebar.html', 'searchbox.html'],
 }
-html_theme_options = {
-    'travis_button': False,
-    'github_button': True,
-    'github_user': 'ustu',
-    'github_repo': 'lectures.www',
-    'logo': True,
-    'logo_image': 'info-small.png',
-    'logo_width': 'auto',
-}
+# html_theme_options = {
+#     'travis_button': False,
+#     'github_button': True,
+#     'github_user': 'ustu',
+#     'github_repo': 'lectures.www',
+#     'logo': True,
+#     'logo_image': 'info-small.png',
+#     'logo_width': 'auto',
+# }
 
 # If true, figures, tables and code-blocks are automatically numbered if they
 # has caption. For now, it works only with the HTML builder. Default is False.
@@ -95,13 +93,13 @@ numfig_format = {"figure": u"Рис. %s",
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'itcase_sphinx_theme',
     'sphinx_links',
     'sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
+    'zzzeeksphinx',
 ]
 
 # TODO
@@ -146,11 +144,11 @@ pygments_style = 'sphinx'
 templates_path = ['_templates']
 
 # Add any paths that contain custom themes here, relative to this directory.
-html_theme_path = [itcase_sphinx_theme.get_html_themes_path()]
+# html_theme_path = []
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'itcase'
+html_theme = 'zzzeeksphinx'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

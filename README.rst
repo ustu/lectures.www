@@ -34,15 +34,15 @@ Sphinx — это генератор документации, который п
 
    .
    ├── docs             <----- Лекции в формате RST
-   ├── sourcecode       <----- Исходные коды к лекциям
-   ├── vagrant-data     <----- Docker контейнер для запуска примеров
-   ├── buildhtml.sh
+   ├── examples         <----- Исходные коды с примерами из лекций
+   ├── slides           <----- Презентации к лекциям в формате LaTeX
+   ├── vagrant          <----- Docker контейнер для запуска примеров
    ├── make.bat
    ├── Makefile
    ├── README.rst
    ├── requirements.txt
    ├── rstlint.py
-   ├── RULES.rst
+   ├── CONTRIBUTING.rst
    ├── test.sh          <----- Всякие линтеры и чекеры
    └── Vagrantfile      <----- Vagrant для автоматизации запуска Docker контейнеров
 
@@ -54,6 +54,16 @@ Sphinx — это генератор документации, который п
 .. code-block:: bash
 
   make html
+
+В Docker
+
+.. code-block:: bash
+
+   vagrant up --provider=docker
+
+.. code-block:: bash
+
+   vagrant reload
 
 Для Windows
 
