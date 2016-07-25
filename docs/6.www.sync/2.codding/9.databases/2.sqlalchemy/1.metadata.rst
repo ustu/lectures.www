@@ -78,7 +78,7 @@
 Table
 -----
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> user_table
@@ -90,7 +90,7 @@ Table
 Имя таблицы
 ~~~~~~~~~~~
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> user_table.name
@@ -101,7 +101,7 @@ Table
 
 Поля таблицы хранятся в списке :attr:`sqlalchemy.schema.Table.columns` или его более коротком варианте :attr:`sqlalchemy.schema.Table.c`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> user_table.c
@@ -118,7 +118,7 @@ Table
 Сами поля тоже содержат информацию о себе, например в атрибутах ``name`` и
 ``type``.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> user_table.c.id
@@ -141,7 +141,7 @@ Table
 Первичные ключи таблицы можно получить при помощи атрибута
 :attr:`sqlalchemy.schema.Table.primary_key`
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> user_table.primary_key
@@ -163,7 +163,7 @@ SQL выражения
 * :meth:`sqlalchemy.schema.Table.join`
 * :meth:`sqlalchemy.schema.Table.outerjoin`
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> print(user_table.select())
@@ -184,7 +184,7 @@ SQL выражения
 
 Все таблицы из списка :class:`sqlalchemy.schema.MetaData` можно создать при помощи метода :meth:`sqlalchemy.schema.MetaData.create_all`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy import create_engine
@@ -210,7 +210,7 @@ SQL выражения
 * :meth:`sqlalchemy.schema.Table.drop`
 * :meth:`sqlalchemy.schema.Table.create`
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> user_table.drop(engine)
@@ -237,7 +237,7 @@ SQL выражения
 
 Типы полей описаны в модуле :mod:`sqlalchemy.types`:
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy import String, Numeric, DateTime, Enum
@@ -274,7 +274,7 @@ SQL выражения
 :class:`sqlalchemy.schema.Column` или при помощи объекта класса
 :class:`sqlalchemy.schema.Index`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> meta = MetaData()
@@ -330,7 +330,7 @@ SQL выражения
 внешнего ключа в схеме нужно использовать класс
 :class:`sqlalchemy.schema.ForeignKey`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 1,5
 
@@ -358,7 +358,7 @@ SQL выражения
 :class:`sqlalchemy.schema.ForeignKey` это более краткая запись следующей
 конструкции :class:`sqlalchemy.schema.ForeignKeyConstraint`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 16-19
 
@@ -434,7 +434,7 @@ SQL выражения
 
 В :l:`SQLAlchemy` рефлексия означает автоматическую загрузку схемы таблицы из уже существующей базы данных. Реализуется через параметр ``autoload`` в конструкторе класса :class:`sqlalchemy.schema.Table.autoload`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> metadata2 = MetaData()
@@ -453,7 +453,7 @@ SQL выражения
 Для отражения всех таблиц существует метод
 :meth:`sqlalchemy.schema.MetaData.reflect`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 2
 
@@ -523,7 +523,7 @@ SQL выражения
 Список таблиц
 """""""""""""
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy import inspect
@@ -538,7 +538,7 @@ SQL выражения
 Информация о полях таблицы
 """"""""""""""""""""""""""
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> inspector.get_columns('address')
@@ -550,7 +550,7 @@ SQL выражения
 Внешние ключи
 """""""""""""
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> inspector.get_foreign_keys('address')

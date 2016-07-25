@@ -205,7 +205,7 @@ https://github.com/uralbash/awesome-pyramid.
 Модули :mod:`pyramid_debugtoolbar` и :mod:`pyramid_tm` автоматически добавляют свои
 настройки при включении их в конфиг.
 
-.. code-block:: ipython
+.. code-block:: pycon
 
    {'debug_authorization': False,
     'debug_notfound': False,

@@ -15,7 +15,7 @@ SQL выражения
 Создание таблицы
 ----------------
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy import MetaData, Table, Column, String, Integer
@@ -52,7 +52,7 @@ SQL выражения
 
 В примере ниже показывается соответствие SQL выражения с Python выражением `сравнения`. Такое преобразование возможно при помощи реализации "магического" Python метода :meth:`sqlalchemy.sql.expression.ColumnElement.__eq__`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 7
 
@@ -67,7 +67,7 @@ SQL выражения
 
 Комбинация нескольких выражений
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 4
 
@@ -81,7 +81,7 @@ SQL выражения
 
 SQL операторы OR и AND соответствуют побитовым операторам в Python ``|`` и ``&`` или функциям :func:`sqlalchemy.sql.expression.or_` и :func:`sqlalchemy.sql.expression.and_`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy import and_, or_
@@ -145,7 +145,7 @@ SQL операторы OR и AND соответствуют побитовым �
 Операторы сравнения
 ~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> print(user_table.c.id == 5)
@@ -163,7 +163,7 @@ SQL операторы OR и AND соответствуют побитовым �
 
 Сравнение с ``None`` преобразуется в SQL конструкцию ``IS NULL``.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> print(user_table.c.id != None)
@@ -174,7 +174,7 @@ SQL операторы OR и AND соответствуют побитовым �
 Операторы AND и OR
 ~~~~~~~~~~~~~~~~~~
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> print((user_table.c.id == None) | (user_table.c.fullname == 'Vasya'))
@@ -187,7 +187,7 @@ SQL операторы OR и AND соответствуют побитовым �
 
 Арифметический оператор сложения
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> print(user_table.c.id + 5)
@@ -196,7 +196,7 @@ SQL операторы OR и AND соответствуют побитовым �
 Python оператор сложения автоматически определяет строки и подставляет SQL
 оператор конкатенации ``||``
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> print(user_table.c.fullname + "some name")
@@ -205,7 +205,7 @@ Python оператор сложения автоматически опреде
 Операторы IN и NOT IN
 ~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> print(user_table.c.username.in_(["wendy", "mary", "ed"]))
@@ -239,7 +239,7 @@ Python оператор сложения автоматически опреде
 SQLite
 """"""
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy.dialects import sqlite
@@ -249,7 +249,7 @@ SQLite
 MySQL
 """""
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> expression = user_table.c.username == 'ed'
@@ -261,7 +261,7 @@ MySQL
 PostgreSQL
 """"""""""
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy.dialects import postgresql
@@ -271,7 +271,7 @@ PostgreSQL
 Firebird
 """"""""
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy.dialects import firebird
@@ -281,7 +281,7 @@ Firebird
 MSSQL
 """""
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy.dialects import mssql
@@ -294,7 +294,7 @@ MSSQL
 При компиляции SQL выражения буквенные значения преобразуются в параметры, они доступны через атрибут :attr:`sqlalchemy.sql.compiler.SQLCompiler.params`
 
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> expression = user_table.c.username == 'ed'
@@ -304,7 +304,7 @@ MSSQL
 
 Параметры извлекаются при выполнении запроса
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> engine.execute(
@@ -321,7 +321,7 @@ INSERT
 
 SQL запросы INSERT можно формировать при помощи метода :meth:`sqlalchemy.schema.Table.insert`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> insert_stmt = user_table.insert().values(username='ed', fullname='Ed Jones')
@@ -334,7 +334,7 @@ SQL запросы INSERT можно формировать при помощи 
 
 Результат выполнения содержит в себе значение ``primary_key`` добавленной записи в БД.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> result.inserted_primary_key
@@ -342,7 +342,7 @@ SQL запросы INSERT можно формировать при помощи 
 
 Запись нескольких строк в таблицу за раз.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> conn.execute(user_table.insert(), [
@@ -360,7 +360,7 @@ SELECT
 
 SQL запросы SELECT можно формировать при помощи функции :func:`sqlalchemy.sql.expression.select`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy import select
@@ -380,7 +380,7 @@ SQL запросы SELECT можно формировать при помощи 
 
 :meth:`sqlalchemy.engine.ResultProxy.fetchall`
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> select_stmt = select([user_table])
@@ -395,7 +395,7 @@ WHERE
 
 Условие WHERE можно указать как метод класса ``Select`` :meth:`sqlalchemy.sql.expression.Select.where`
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> select_stmt = select([user_table]).\
@@ -416,7 +416,7 @@ WHERE
 
 Несколько вызовов метода ``where`` сливаются в одно SQL выражения при помощи оператора AND
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 2-3, 8
 
@@ -435,7 +435,7 @@ ORDER BY
 
 ORDER BY соответствует методу :meth:`sqlalchemy.sql.expression.Select.order_by`
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> select_stmt = select([user_table]).\
@@ -452,7 +452,7 @@ FOREIGN KEY
 
 FOREIGN KEY соответствует классу :class:`sqlalchemy.schema.ForeignKey`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy import ForeignKey
@@ -497,7 +497,7 @@ JOIN
 
 Два объекта :class:`sqlalchemy.schema.Table` могут быть связанны при помощи метода :meth:`sqlalchemy.schema.Table.join`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> join_obj = user_table.join(address_table,
@@ -511,7 +511,7 @@ JOIN
 
 Условие ON подставляется автоматически
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> join_obj = user_table.join(address_table)
@@ -520,7 +520,7 @@ JOIN
 
 Выполнить SQL запрос следующей конструкции SELECT FROM JOIN можно при помощи метода :meth:`sqlalchemy.sql.expression.Select.select_from`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> select_stmt = select([user_table, address_table]).select_from(join_obj)
@@ -534,7 +534,7 @@ JOIN
 Вложенные запросы
 -----------------
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> select_stmt = select([user_table]).where(user_table.c.username == 'ed')
@@ -554,7 +554,7 @@ JOIN
 
 Конструкция AS добавляется при помощи метода :meth:`sqlalchemy.sql.expression.Select.alias`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> select_alias = select_stmt.alias()
@@ -576,7 +576,7 @@ JOIN
 * :meth:`sqlalchemy.sql.expression.Select.group_by`
 * :class:`sqlalchemy.sql.functions.count`
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy import func
@@ -592,7 +592,7 @@ JOIN
 
 Вложенный запрос применяет алиас подзапроса.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> username_plus_count = select([
@@ -620,7 +620,7 @@ JOIN
 
 Скалярный SELECT вернет только одно поле одной строки.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> address_sel = select([
@@ -634,7 +634,7 @@ JOIN
 
 Что бы его вызвать в подзапросе нужно использовать метод :meth:`sqlalchemy.sql.expression.Select.as_scalar`
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> select_stmt = select([user_table.c.username, address_sel.as_scalar()])
@@ -652,7 +652,7 @@ UPDATE
 
 :meth:`sqlalchemy.schema.Table.update`
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> update_stmt = address_table.update().\
@@ -666,7 +666,7 @@ UPDATE
 
 UPDATE запрос значение которого строится из значения полей текущей записи
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> update_stmt = user_table.update().\
@@ -689,7 +689,7 @@ DELETE
 
 :meth:`sqlalchemy.schema.Table.delete`
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> delete_stmt = address_table.delete().\
@@ -702,7 +702,7 @@ DELETE
 
 Количество удаленных строк (применимо и для UPDATE).
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> result.rowcount

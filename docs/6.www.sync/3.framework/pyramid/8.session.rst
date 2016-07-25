@@ -121,7 +121,7 @@
 
 Что бы извлечь сообщение нужно вызвать метод сессии ``pop_flash()``.
 
-.. code-block:: ipython
+.. code-block:: pycon
 
    >>> request.session.flash('info message')
    >>> request.session.pop_flash()
@@ -131,7 +131,7 @@
 
 Для получения очереди не извлекая сообщения из нее, нужно использовать метод ``peek_flash()``.
 
-.. code-block:: ipython
+.. code-block:: pycon
 
    >>> request.session.flash('info message')
    >>> request.session.peek_flash()

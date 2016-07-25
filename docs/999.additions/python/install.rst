@@ -47,7 +47,7 @@
 
 Теперь можно запускать:
 
-.. code-block:: ipython
+.. code-block:: pycon
 
   $ $HOME/Projects/bin/python3.5/bin/python3
   Python 3.5.0+ (default, Oct 10 2015, 13:35:25)
@@ -55,7 +55,7 @@
   Type "help", "copyright", "credits" or "license" for more information.
   >>>
 
-.. code-block:: ipython
+.. code-block:: pycon
 
   >>> {*range(4), 4, *(5, 6, 7)}
   {0, 1, 2, 3, 4, 5, 6, 7}

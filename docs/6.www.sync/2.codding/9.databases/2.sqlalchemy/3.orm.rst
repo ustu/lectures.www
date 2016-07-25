@@ -6,9 +6,22 @@ ORM (объектно-реляционное отображение)
    * http://docs.sqlalchemy.org/en/latest/orm/index.html
    * http://rus-linux.net/MyLDP/BOOKS/Architecture-Open-Source-Applications/Vol-2/sqlalchemy-06.html
 
-Переключим наше внимание на объектно-реляционное отображение. Первой целью является использование описанной нами системы таблиц метаданных для предоставления возможности переноса функций заданного пользователем класса на коллекцию столбцов в таблице базы данных. Второй целью является предоставление возможности описания отношений между заданными пользователем классами, которые будут основываться на отношениях между таблицами в базе данных.
+Переключим наше внимание на объектно-реляционное отображение. Первой целью
+является использование описанной нами системы таблиц метаданных для
+предоставления возможности переноса функций заданного пользователем класса на
+коллекцию столбцов в таблице базы данных. Второй целью является предоставление
+возможности описания отношений между заданными пользователем классами, которые
+будут основываться на отношениях между таблицами в базе данных.
 
-В :l:`SQLAlchemy` такая связь называется "отображением", что соответствует широко известному шаблону проектирования с названием "DataMapper", описанному в книге :l:`Martin Flower` с названием :l:`Patterns of Enterprise Application Architecture`. В целом, система объектно-реляционного отображения :l:`SQLAlchemy` была разработана с применением большого количества приемов, которые описал в своей книге :l:`Martin Flower`. Она также подверглась значительному влиянию со стороны известной системы реляционного отображения :l:`Hibernate` для языка программирования :l:`Java` и продукта :l:`SQLObject` для языка программирования :l:`Python` от :l:`Ian Bicking`.
+В :l:`SQLAlchemy` такая связь называется "отображением", что соответствует
+широко известному шаблону проектирования с названием "DataMapper", описанному в
+книге :l:`Martin Flower` с названием :l:`Patterns of Enterprise Application Architecture`.
+В целом, система объектно-реляционного отображения
+:l:`SQLAlchemy` была разработана с применением большого количества приемов,
+которые описал в своей книге :l:`Martin Flower`. Она также подверглась
+значительному влиянию со стороны известной системы реляционного отображения
+:l:`Hibernate` для языка программирования :l:`Java` и продукта :l:`SQLObject`
+для языка программирования :l:`Python` от :l:`Ian Bicking`.
 
 Классическое представление классов таблиц
 -----------------------------------------
@@ -24,7 +37,7 @@ ORM (объектно-реляционное отображение)
    :caption: 2.sqlalchemy/4.orm.mapper.classic.py
    :linenos:
 
-.. code-block:: ipython
+.. code-block:: pycon
    :emphasize-lines: 10
 
    >>> ['__class__', '__delattr__', '__dict__', '__doc__', '__format__',
@@ -48,7 +61,7 @@ ORM (объектно-реляционное отображение)
 
 Каждый класс, представляющий таблицу в БД, должен наследоваться от базового класса который создается при помощи функции :func:`sqlalchemy.ext.declarative.declarative_base`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 2,6
 
@@ -74,7 +87,7 @@ ORM (объектно-реляционное отображение)
 
 Для каждого класса унаследованного от базового автоматически создается схема таблицы (объект класса :class:`sqlalchemy.schema.Table`) и привязывается к нему через атрибут ``__table__``.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> User.__table__
@@ -87,7 +100,7 @@ MetaData
 
 Любой класс таблицы автоматически ассоциируется с объектом :class:`sqlalchemy.schema.Table`, который автоматически добавляется в список :class:`sqlalchemy.schema.MetaData`. Базовый класс ``Base``, созданный при помощи функции  :func:`sqlalchemy.ext.declarative.declarative_base`, является более высокоуровневой абстракцией над :class:`sqlalchemy.schema.MetaData`, которая  позволяет описывать таблицы декларативным способом. Таким образом все классы-таблицы имеют свою схему, которая хранится в атрибуте ``metadata`` базового класса ``Base``:
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> Base.metadata
@@ -99,7 +112,7 @@ MetaData
 
 Благодаря тому что ``Base`` содержит в себе объект :class:`sqlalchemy.schema.MetaData`, вы можете пользоваться всеми его возможностями.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy import create_engine
@@ -155,14 +168,14 @@ Mapper
 
 Декларативно описанный класс таблицы содержит в себе конструктор по умолчанию.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> ed_user = User(name='ed', fullname='Edward Jones')
 
 Можно переопределить конструктор вручную
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 4-6
 
@@ -183,7 +196,7 @@ Mapper
 
 Поле ``User.id`` является первичным ключом, если его значение не указанно явно или такой ``id`` не существует в БД, то объект считается новым. После записи объекта в БД, значение поля ``id`` автоматически присваивается.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> print(ed_user.name, ed_user.fullname)
@@ -241,7 +254,7 @@ Mapper
 
 Сессии создаются при помощи экземпляра класса :class:`sqlalchemy.orm.session.Session`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> from sqlalchemy.orm import Session
@@ -249,14 +262,14 @@ Mapper
 
 Для добавления объекта (представляющего таблицу) в сессию, необходимо использовать метод :meth:`sqlalchemy.orm.session.Session.add`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.add(ed_user)
 
 Перед выполнением любого запроса из сессии, состояние сессии автоматически переносится в БД. В нашем случае, не сохраненный объект ``ed_user`` добавляется в БД.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 4
 
@@ -276,7 +289,7 @@ Mapper
 
 Теперь у пользователя ``ed_user`` появилось значение ``id``.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> our_user.id
@@ -288,7 +301,7 @@ Mapper
 
 Добавление нескольких объектов в сессию за раз:
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.add_all([
@@ -299,7 +312,7 @@ Mapper
 
 Если объект, находящийся в сессии, поменялся, то он помечается как ``dirty``. Все измененные объекты в сессии доступны через атрибут :attr:`sqlalchemy.orm.session.Session.dirty`
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> ed_user.fullname = 'Ed Jones'
@@ -308,7 +321,7 @@ Mapper
 
 Новые объекты, попавшие в сессию после ее сохранения или в новую сессию, доступны через атрибут :attr:`sqlalchemy.orm.session.Session.new`
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.new
@@ -318,7 +331,7 @@ Mapper
 
 Метод :meth:`sqlalchemy.orm.session.Session.commit` сохраняет состояние сессии в БД и подтверждает `SQL` транзакцию, в рамках которой выполнялись все предыдущие запросы.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 11
 
@@ -336,7 +349,7 @@ Mapper
 
 После выполнения ``COMMIT`` сессия не привязана ни к одной транзакции в СУБД. Любые изменения объектов в сессии создадут новую транзакцию.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 3
 
@@ -351,7 +364,7 @@ Mapper
 
 Создадим новые изменения объектов и отравим SQL запрос с этими изменениями.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 10,12
 
@@ -376,7 +389,7 @@ Mapper
 
 Несмотря на то что `SQL` запросы были выполнены в СУБД, мы все еще находимся в транзакции. Поэтому любые изменения в сессии, даже если они выполнили `SQL` запрос в СУБД, всегда можно отметить при помощи метода :meth:`sqlalchemy.orm.session.Session.rollback`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 2
 
@@ -385,7 +398,7 @@ Mapper
 
 После ``ROLLBACK`` сессия не привязана ни к одной транзакции в СУБД. Поэтому при изменении объектов в сессии создастся новая транзакция. Причем данные предыдущей сессии не были записаны.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 3,8
 
@@ -398,7 +411,7 @@ Mapper
    [SQL]: (1,)
    u'ed'
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 2,10
 
@@ -418,7 +431,7 @@ SQL запросы через ORM
 
 Операции над атрибутами класса таблицы равносильны операциям над объектом :class:`sqlalchemy.schema.Column`. Поэтому их можно использовать в конструкторе `SQL` запросов. Результатом выполнения :ref:`sql_expression` будет  список значений записи в БД.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 14
 
@@ -444,7 +457,7 @@ ORM, в отличии от стандартного конструктора :r
 
    * Написать про кастомные классы запросов унаследованных от класса Query
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 8
 
@@ -459,7 +472,7 @@ ORM, в отличии от стандартного конструктора :r
 
 Можно также возвращать чистые значения полей, как это делают :ref:`sql_expression`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 7-10
 
@@ -476,7 +489,7 @@ ORM, в отличии от стандартного конструктора :r
 
 Или комбинировать значения полей с объектами.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 7-10
 
@@ -499,7 +512,7 @@ LIMIT, OFFSET
 
 Выбор конкретной строки запроса делается не средствами языка Python, а на стороне СУБД, за счет конструкции ``LIMIT ? OFFSET ?``, что значительно ускоряет выполнение запроса. Для программиста это выглядит прозрачно, как будто он работает с Python списком.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 6
 
@@ -514,7 +527,7 @@ LIMIT, OFFSET
 
 Аналогично работают и Python срезы.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 6
 
@@ -533,7 +546,7 @@ WHERE
 
 Условие ``WHERE`` соответствует методу :meth:`sqlalchemy.orm.query.Query.filter_by`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 2,7
 
@@ -548,7 +561,7 @@ WHERE
 
 Или более функциональному методу :meth:`sqlalchemy.orm.query.Query.filter`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 2,7
 
@@ -562,7 +575,7 @@ WHERE
    [SQL]: ('Ed Jones',)
    ed
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 3,8
 
@@ -582,7 +595,7 @@ WHERE
 
 Последовательное выполнение методов :meth:`sqlalchemy.orm.query.Query.filter` соединяет условия ``WHERE`` при помощи оператора ``AND``, аналогично конструкции ``select().where()``.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 2-3,7
 
@@ -601,7 +614,7 @@ WHERE
 
 Сам объект класса :class:`sqlalchemy.orm.query.Query` не выполняет обращений к БД.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> query = session.query(User).filter_by(fullname='Ed Jones')
@@ -612,7 +625,7 @@ all()
 
 Для этого существуют специальные методы этого класса, например :meth:`sqlalchemy.orm.query.Query.all`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> query.all()
@@ -628,7 +641,7 @@ first()
 
 :meth:`sqlalchemy.orm.query.Query.first` - выполнит запрос и вернет первую строку запроса или ``None``.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> query.first()
@@ -645,7 +658,7 @@ one()
 
 :meth:`sqlalchemy.orm.query.Query.one` - выполнит запрос, вернет первую строку запроса и проверит что она одна и только одна, иначе вызовет исключение :class:`sqlalchemy.orm.exc.NoResultFound`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 26,10
 
@@ -678,7 +691,7 @@ one()
 
 Если результат запроса вернет больше строк чем одну, это тоже расценивается как ошибка :class:`sqlalchemy.orm.exc.MultipleResultsFound`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 16
 
@@ -709,7 +722,7 @@ one()
 Новый класс ``Address`` имеет связь `Many-To-One` с таблицей ``User``.
 Связь между Python классов осуществляется при помощи функции :func:`sqlalchemy.orm.relationship`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 9,11
 
@@ -728,7 +741,7 @@ one()
    ...     def __repr__(self):
    ...         return "<Address(%r)>" % self.email_address
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> Base.metadata.create_all(engine)
@@ -751,7 +764,7 @@ one()
 
 Благодаря параметру ``backref``, класс ``User`` получает обратную ссылку на класс ``Adress``.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 2
 
@@ -761,7 +774,7 @@ one()
 
 Добавим пользователю адреса.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> jack.addresses = [
@@ -772,7 +785,7 @@ one()
 
 :func:`sqlalchemy.orm.backref` добавляет ссылки друг на друга для каждого объекта.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> jack
@@ -798,7 +811,7 @@ one()
 
 Добавление в сессию объекта, который ссылается на другие объекты, автоматически включает их тоже.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.add(jack)
@@ -808,7 +821,7 @@ one()
                 <User('jack', 'Jack Bean')>,
                 <Address('j25@yahoo.com')>])
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.commit()
@@ -825,7 +838,7 @@ one()
 
 После подтверждения транзакции (COMMIT), обращение по ссылке создаст новую транзакцию и считает значения из БД.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> jack.addresses
@@ -843,7 +856,7 @@ one()
 
 Теперь, считанные объекты находятся в памяти, до тех пор пока мы опять не подтвердим транзакцию (COMMIT) или отменим ее (ROLLBACK).
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> jack.addresses
@@ -851,7 +864,7 @@ one()
 
 Привяжем адрес к другому пользователю.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> fred = session.query(User).filter_by(name='fred').one()
@@ -874,7 +887,7 @@ one()
 
 Выполнение операции `implicit JOIN`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.query(User, Address).filter(User.id == Address.user_id).all()
@@ -891,7 +904,7 @@ one()
 
 Явный `JOIN`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.query(User, Address).join(Address, User.id == Address.user_id).all()
@@ -907,7 +920,7 @@ one()
 
 Более краткий и понятный способ использовать ссылку на таблицу для связи.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.query(User, Address).join(User.addresses).all()
@@ -923,7 +936,7 @@ one()
 
 В простых случаях можно передавать только класс таблицы.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.query(User, Address).join(Address).all()
@@ -939,7 +952,7 @@ one()
 
 JOIN с условием WHERE.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.query(User.name).join(User.addresses).\
@@ -954,7 +967,7 @@ JOIN с условием WHERE.
 
 Явный вызов конструкции SELECT FROM JOIN используя метод :meth:`sqlalchemy.orm.query.Query.select_from`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.query(User, Address).select_from(Address).join(Address.user).all()
@@ -971,7 +984,7 @@ JOIN с условием WHERE.
 Запросы ссылающиеся на одну сущность более чем один раз, нуждаются в алиасах.
 Алиасы задаются при помощи функции :func:`sqlalchemy.orm.aliased`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 2
 
@@ -993,7 +1006,7 @@ JOIN с условием WHERE.
 
 Подзапросы автоматически использую алиасы.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 14
 
@@ -1016,7 +1029,7 @@ JOIN с условием WHERE.
 
 При каждом обращении к ссылкам объекта в цикле, вызывается новый запрос:
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 7,12,17,22
 
@@ -1051,7 +1064,7 @@ JOIN с условием WHERE.
 
 Что бы этого избежать нужно использовать опцию предварительной загрузки :func:`sqlalchemy.orm.subqueryload`.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.rollback()  # so we can see the load happen again.
@@ -1077,7 +1090,7 @@ JOIN с условием WHERE.
 
 Или :func:`sqlalchemy.orm.joinedload` что бы уместить все в один запрос.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
 
    >>> session.rollback()
@@ -1100,7 +1113,7 @@ JOIN с условием WHERE.
 
 Удаление адреса из списка пользователя ``User.addresses``, поменяет значение  поля FOREIGN KEY на NULL, но не удалит саму запись.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 9
 
@@ -1118,7 +1131,7 @@ JOIN с условием WHERE.
 
 Мы можем настроить связи между таблицами на каскадное удаление.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 16
 
@@ -1144,7 +1157,7 @@ JOIN с условием WHERE.
 ``delete-orphan`` означает что дети не могут существовать без родителей.
 Поэтому при удалении родителя вся связанные с ним записи тоже удалятся.
 
-.. code-block:: ipython
+.. code-block:: pycon
    :linenos:
    :emphasize-lines: 13,15
 

@@ -1,4 +1,0 @@
-sphinx>=1.4.1
-ipython
-git+https://bitbucket.org/zzzeek/zzzeeksphinx
-sphinx_links
