@@ -1,5 +1,5 @@
-RESPT API
-=========
+REST API
+========
 
 .. seealso::
 
