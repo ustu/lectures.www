@@ -30,7 +30,7 @@ my_intersphinx = {
     'http://deform.readthedocs.io/en/latest/': None,
     'http://venusian.readthedocs.io/en/latest/': None,
     'http://pyramid-sqlalchemy.readthedocs.io/en/latest/': None,
-    'http://docs.webob.io/en/latest/': None,
+    'http://docs.webob.org/en/latest/': None,
 }
 intersphinx_mapping = {**intersphinx_mapping, **my_intersphinx}
 
