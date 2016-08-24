@@ -32,4 +32,7 @@ my_intersphinx = {
     'http://pyramid-sqlalchemy.readthedocs.io/en/latest/': None,
     'http://docs.webob.org/en/stable/': None,
 }
-intersphinx_mapping = {**intersphinx_mapping, **my_intersphinx}
+intersphinx_mapping = dict(
+    list(intersphinx_mapping.items())
+    + list(my_intersphinx.items())
+)
