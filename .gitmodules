@@ -7,3 +7,6 @@
 [submodule "examples/pyramid/restapi"]
 	path = examples/pyramid/restapi
 	url = https://github.com/iitwebdev/lectures_pyramid_restapi_example.git
+[submodule "_lectures"]
+	path = _lectures
+	url = https://github.com/ustu/lectures

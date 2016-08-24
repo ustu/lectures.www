@@ -9,7 +9,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../../docs/'))
+sys.path.insert(0, os.path.abspath('../_lectures/docs/'))
 
 from config_sphinx import *  # noqa
 
@@ -30,7 +30,6 @@ my_intersphinx = {
     'http://deform.readthedocs.io/en/latest/': None,
     'http://venusian.readthedocs.io/en/latest/': None,
     'http://pyramid-sqlalchemy.readthedocs.io/en/latest/': None,
-    'http://docs.webob.io/en/latest/': None,
+    'http://docs.webob.org/en/stable/': None,
 }
 intersphinx_mapping = {**intersphinx_mapping, **my_intersphinx}
-
