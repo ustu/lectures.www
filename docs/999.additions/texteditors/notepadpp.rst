@@ -1,10 +1,5 @@
-.. _texteditor:
-
-Текстовые редакторы
-===================
-
 Notepad++
----------
+=========
 
 Скачайте инсталятор https://notepad-plus-plus.org/download/ и установите редактор.
 
@@ -26,10 +21,4 @@ Python программ.
 В результате нажатие клавиши <Tab> будет подменяться четырьмя пробелами.
 
 .. figure:: /_static/999.additions/texteditor/tab_4_space.png
-
-SublimeText
------------
-
-Vim
----
 
