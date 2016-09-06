@@ -72,6 +72,10 @@ ITCASE_LINKS = {
 }
 
 OTHER_LINKS = {
+    # OS
+    'nix': 'http://nixos.org/nix/',
+    'nixos': 'http://nixos.org/',
+
     # Web servers
     'nginx': 'http://nginx.org/',
     'paste': 'http://pythonpaste.org/',
@@ -103,6 +107,10 @@ OTHER_LINKS = {
     'zenoss': 'www.zenoss.com/',
     'erp5': 'https://ru.wikipedia.org/wiki/ERP5',
     'numpy': 'http://www.numpy.org/',
+    'vscode': 'https://code.visualstudio.com/',
+    'visual studio code': 'https://code.visualstudio.com/',
+    'wingware': 'https://wingware.com/',
+    'qtcreator': 'https://www.qt.io/ide/',
 }
 
 ASYNC_LINKS = {

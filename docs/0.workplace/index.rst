@@ -53,14 +53,20 @@ Firefox` или `Google Chrome` или любой другой соответс�
 Системы контроля версий:
 
 * git
-* mercurial
-* subversion
+* mercurial (hg)
+* subversion (svn)
 
 Социальные сети для разработчиков:
 
-* github.com
-* bitbucket.org
-* sourceforge.net
+* `GitHub <https://github.com>`_ - использует `git`, исходный код закрыт
+* `GitLab <https://gitlab.com>`_ - opensource аналог github
+* `BitBucket <https://bitbucket.org>`_ - использует `git`, `mercurial`,
+  исходный код закрыт
+* `SourceForge <https://sourceforge.net>`_ - использует `subversion`, один из
+  первых подобных сервисов
+* `RhodeCode <https://rhodecode.com/>`_ - opensource проект, позволяет
+  использовать в проектах любую систему контроля версий, на выбор (`git`, `hg`,
+  `svn`).
 
 Git
 ~~~
