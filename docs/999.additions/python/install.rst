@@ -123,13 +123,13 @@ Linux
 Пример
 ~~~~~~
 
-Склонируем репозитарий админки https://github.com/ITCase/pyramid_sacrud.git в
+Склонируем репозитарий админки https://github.com/sacrud/pyramid_sacrud.git в
 директорию ``/home/user/Projects``.
 
 .. code-block:: bash
 
    $ cd /home/user/Projects/
-   $ git clone https://github.com/ITCase/pyramid_sacrud.git
+   $ git clone https://github.com/sacrud/pyramid_sacrud.git
 
 Установим :l:`pyramid_sacrud` из исходных кодов.
 
@@ -317,12 +317,12 @@ https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 Пример
 ~~~~~~
 
-Склонируем репозитарий админки https://github.com/ITCase/pyramid_sacrud.git в
+Склонируем репозитарий админки https://github.com/sacrud/pyramid_sacrud.git в
 директорию ``C:\Projects``.
 
 .. code-block:: bash
 
-   $ git clone https://github.com/ITCase/pyramid_sacrud.git
+   $ git clone https://github.com/sacrud/pyramid_sacrud.git
 
 .. figure:: /_static/999.additions/python/install/windows/git_clone.png
    :align: center
@@ -440,13 +440,13 @@ MacOS
 Пример
 ~~~~~~
 
-Склонируем репозитарий админки https://github.com/ITCase/pyramid_sacrud.git в
+Склонируем репозитарий админки https://github.com/sacrud/pyramid_sacrud.git в
 директорию ``/home/user/Projects``.
 
 .. code-block:: bash
 
    $ cd /home/user/Projects/
-   $ git clone https://github.com/ITCase/pyramid_sacrud.git
+   $ git clone https://github.com/sacrud/pyramid_sacrud.git
 
 Установим :l:`pyramid_sacrud` из исходных кодов.
 

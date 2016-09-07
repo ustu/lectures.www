@@ -9,6 +9,7 @@ Python
    :maxdepth: 3
 
    install.rst
+   virtualenv.rst
    package_manager.rst
    context_manager.rst
    formatted_string.rst
