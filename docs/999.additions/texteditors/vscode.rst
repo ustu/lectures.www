@@ -1,6 +1,10 @@
 Visual Studio Code
 ==================
 
+.. seealso::
+
+    https://www.visualstudio.com/ru-ru/products/code-vs.aspx
+
 :l:`Visual Studio Code` отличный выбор для начинающего программиста,
 имеет необходимый минимум:
 
@@ -585,6 +589,28 @@ https://github.com.
          /_static/999.additions/texteditor/github_hello1.png
          :width: 600px
          :align: center
+
+Для того что бы проверка синтаксиса заработала, необходимо создать файл
+``.vscode/settings.json`` и переопределить в нем глобальные настройки для
+нашего проекта:
+
+.. code-block:: json
+
+    {
+        "editor.fontSize": 18,
+
+        //Python
+        "python.pythonPath": "${workspaceRoot}/hello1_env/bin/python",
+
+        // Whether to lint Python files using pylint.
+        "python.linting.pylintEnabled": true,
+
+        // Whether to lint Python files using pep8
+        "python.linting.pep8Enabled": true,
+
+        // Whether to lint Python files using flake8
+        "python.linting.flake8Enabled": true
+    }
 
 Pyramid
 -------
