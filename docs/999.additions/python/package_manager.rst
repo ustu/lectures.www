@@ -57,8 +57,8 @@
 
 .. code-block:: bash
 
-   $ pip install git+https://github.com/pylons/pyramid   # Установка по ссылке
-   $ pip install https://bitbucket.org/zzzeek/sqlalchemy # Установка по ссылке
+   $ pip install git+https://github.com/pylons/pyramid       # Установка по ссылке
+   $ pip install git+https://bitbucket.org/zzzeek/sqlalchemy # Установка по ссылке
 
 Установка пакетов из исходных кодов
 -----------------------------------
@@ -69,7 +69,7 @@
 
    $ git clone git@github.com:myint/rstcheck.git
    $ cd rstcheck
-   $ python setup.py install
+   $ pip install .
 
 Симлинк на директорию. Требуется для разработки, что бы не устанавливать
 заново, после каждого изменения в проекте.
@@ -78,4 +78,4 @@
 
    $ git clone git@github.com:myint/rstcheck.git
    $ cd rstcheck
-   $ python setup.py develop
+   $ pip install -e .
