@@ -16,6 +16,8 @@ html:
 clean:
 	rm -rf $(BUILDDIR)
 
+linkcheck:
+	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck
 
 # vim:ft=make
 #
