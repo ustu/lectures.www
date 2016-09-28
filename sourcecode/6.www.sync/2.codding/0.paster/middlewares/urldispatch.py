@@ -1,11 +1,5 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-# vim:fenc=utf-8
-#
-# Copyright © 2015 uralbash <root@uralbash.ru>
-#
-# Distributed under terms of the MIT license.
-
 """
 Example from Ian Bicking WSGI presantation.
 """

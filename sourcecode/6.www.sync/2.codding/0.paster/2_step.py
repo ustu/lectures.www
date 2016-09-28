@@ -1,11 +1,5 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-# vim:fenc=utf-8
-#
-# Copyright © 2015 uralbash <root@uralbash.ru>
-#
-# Distributed under terms of the MIT license.
-
 """
 Simple blog
 """
@@ -52,6 +46,7 @@ class BlogDelete(BaseBlog):
     def __iter__(self):
         self.start('200 OK', [('Content-Type', 'text/plain')])
         yield 'Simple Blog -> DELETE'
+
 
 # URL dispatching middleware
 app_list = [

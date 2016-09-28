@@ -11,10 +11,27 @@ Paste
 
    * :src:`6.www.sync/2.codding/0.paster`
 
-Python Paste, или просто Paste — набор программ для веб-разработки с использованием языка Python.
-Включает в себя множество различных `middleware`, `WSGI-сервер` и другое.
+Python `Paste`, или просто `Paste` — набор программ для веб-разработки с
+использованием языка Python. Включает в себя множество различных `middleware`,
+`WSGI-сервер` и другое. Был разработан `Яном Бикингом`, что бы показать всю
+красоту спецификации `WSGI`, которая на тот момент была еще в черновиках.
+Проект больше академический и до недавнего времени не имел даже поддержки
+`Python 3`, но несмотря на это, многие современные фреймворки взяли за
+основу примеры из `Paste` (:l:`TurboGears`, :l:`Zope`, :l:`Pylons`,
+:l:`Pyramid`)
 
-Например, в нем есть готовая поддержка самых `разных способов аутентификации <http://pythonpaste.org/developer-features.html>`_ (Basic, Digest, form, signed cookie, auth_tkt), поддержка корректной и удобной генерации ответов и `заголовков <http://pythonpaste.org/modules/httpheaders.html>`_ (к примеру редиректы, Cache-control, Expires, `gzipper <http://pythonpaste.org/modules/gzipper.html>`_ и прочие). Различные базовые средства комбинации приложений (`URLMap <http://pythonpaste.org/modules/urlmap.html>`_, `Cascade <http://pythonpaste.org/modules/cascade.html>`_, `Recursive <http://pythonpaste.org/modules/recursive.html>`_), `статических данных <http://pythonpaste.org/modules/urlparser.html>`_ (с учетом Etag, If-Modified итп).
+В нем есть готовая поддержка самых `разных способов аутентификации
+<http://pythonpaste.org/developer-features.html>`_ (Basic, Digest, form, signed
+cookie, auth_tkt), поддержка корректной и удобной генерации ответов и
+`заголовков <http://pythonpaste.org/modules/httpheaders.html>`_ (к примеру
+редиректы, Cache-control, Expires, `gzipper
+<http://pythonpaste.org/modules/gzipper.html>`_ и прочие). Различные базовые
+средства комбинации приложений (`URLMap
+<http://pythonpaste.org/modules/urlmap.html>`_, `Cascade
+<http://pythonpaste.org/modules/cascade.html>`_, `Recursive
+<http://pythonpaste.org/modules/recursive.html>`_), `статических данных
+<http://pythonpaste.org/modules/urlparser.html>`_ (с учетом Etag, If-Modified
+итп).
 
 Некоторые возможности ``paste`` мы рассмотрели в разделе :ref:`wsgi`.
 
@@ -25,7 +42,15 @@ HTTP server
 
    * http://pythonpaste.org/modules/httpserver.html#module-paste.httpserver
 
-Создадим простое `WSGI-приложение` и запустим его при помощи `WSGI-HTTP-сервера` ``paste.httpserver``:
+Встроенный `WSGI` сервер :mod:`wsgiref` появился в `Python` начиная с версии
+`2.5 <https://docs.python.org/2/whatsnew/2.5.html#the-wsgiref-package>`_,
+частично вобрав наработки из модуля :mod:`paste.httpserver`. На данный момент
+целесообразно использовать встроенный в Python модуль :mod:`wsgiref` или
+сторонние более производительные реализации :l:`waitress` и :l:`gunicorn`.
+
+В нашем случае подойдет любая реализация сервера отвечающего стандарту `WSGI`,
+поэтому в примерах используется :mod:`paste.httpserver`. С его помощью запустим
+простое `WSGI-приложение`:
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/0_step.py
    :language: python
@@ -45,7 +70,8 @@ HTTP server
 
    Главная страница блога
 
-.. note:: Стоит отметить что приложение будет доступно по любому пути этого адреса, например:
+.. note:: Стоит отметить что приложение будет доступно по любому пути этого
+   адреса, например:
 
    * http://localhost:8000/
    * http://localhost:8000/foo

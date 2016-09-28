@@ -1,11 +1,5 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-# vim:fenc=utf-8
-#
-# Copyright © 2015 uralbash <root@uralbash.ru>
-#
-# Distributed under terms of the MIT license.
-
 """
 Simple blog
 """
@@ -139,6 +133,7 @@ class BlogDelete(BaseArticle):
                     ('Location', '/')])
         ARTICLES.pop(self.index)
         yield ''
+
 
 # BasicAuth applications
 passwd = {'admin': '123'}

@@ -79,7 +79,8 @@ OTHER_LINKS = {
     # Web servers
     'nginx': 'http://nginx.org/',
     'paste': 'http://pythonpaste.org/',
-    'waitress': 'waitress.readthedocs.org/',
+    'waitress': 'https://waitress.readthedocs.org/',
+    'gunicorn': 'http://docs.gunicorn.org/en/stable/',
 
     # Language
     'python': 'http://www.python.org/',
