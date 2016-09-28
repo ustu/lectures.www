@@ -1,8 +1,3 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-Simple blog
-"""
 from middlewares.urldispatch import RegexDispatch
 
 ARTICLES = [
@@ -45,18 +40,24 @@ class BlogIndex(BaseBlog):
 
     def __iter__(self):
         self.start('200 OK', [('Content-Type', 'text/html')])
-        yield '<h1>Simple Blog</h1>'
+        yield b'<h1>Simple Blog</h1>'
         for article in ARTICLES:
-            yield '''{0} - <a href="/article/{0}">{1}</a>
+            yield str.encode(
+                '''
+                {0} - <a href="/article/{0}">{1}</a>
                 (<a href="/article/{0}/delete">delete</a>)<br/>
-            '''.format(article['id'], article['title'])
+                '''.format(
+                    article['id'],
+                    article['title']
+                )
+            )
 
 
 class BlogCreate(BaseBlog):
 
     def __iter__(self):
         self.start('200 OK', [('Content-Type', 'text/plain')])
-        yield 'Simple Blog -> CREATE'
+        yield b'Simple Blog -> CREATE'
 
 
 class BlogRead(BaseArticle):
@@ -64,20 +65,20 @@ class BlogRead(BaseArticle):
     def __iter__(self):
         if not self.article:
             self.start('404 Not Found', [('content-type', 'text/plain')])
-            yield 'not found'
+            yield b'not found'
             return
 
         self.start('200 OK', [('Content-Type', 'text/html')])
-        yield '<h1><a href="/">Simple Blog</a> -> READ</h1>'
-        yield '<h2>%s</h2>' % self.article['title']
-        yield '%s' % self.article['content']
+        yield b'<h1><a href="/">Simple Blog</a> -> READ</h1>'
+        yield str.encode('<h2>{}</h2>'.format(self.article['title']))
+        yield str.encode(self.article['content'])
 
 
 class BlogUpdate(BaseArticle):
 
     def __iter__(self):
         self.start('200 OK', [('Content-Type', 'text/plain')])
-        yield 'Simple Blog -> UPDATE'
+        yield b'Simple Blog -> UPDATE'
 
 
 class BlogDelete(BaseArticle):
@@ -87,7 +88,7 @@ class BlogDelete(BaseArticle):
                    [('Content-Type', 'text/html'),
                     ('Location', '/')])
         ARTICLES.pop(self.index)
-        yield ''
+        yield b''
 
 
 # URL dispatching middleware

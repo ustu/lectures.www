@@ -1,14 +1,9 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-Simple blog
-"""
-
-
 def blog(environ, start_response):
-    # Generate response
-    start_response('200 OK', [('Content-Type', 'text/plain')])
-    return ['Simple Blog', ]
+    start_response(
+        '200 OK',
+        [('Content-Type', 'text/plain')]
+    )
+    return [b'Simple Blog', ]
 
 
 if __name__ == '__main__':

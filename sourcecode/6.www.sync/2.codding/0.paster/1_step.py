@@ -1,15 +1,12 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-Simple blog
-"""
 from middlewares.urldispatch import URLDispatch
 
 
 def blog(environ, start_response):
-    # Generate response
-    start_response('200 OK', [('Content-Type', 'text/plain')])
-    return ['Simple Blog', ]
+    start_response(
+        '200 OK',
+        [('Content-Type', 'text/plain')]
+    )
+    return [b'Simple Blog', ]
 
 
 # URL dispatching middleware

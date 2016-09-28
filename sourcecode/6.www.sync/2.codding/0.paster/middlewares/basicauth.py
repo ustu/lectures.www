@@ -3,6 +3,7 @@
 """
 BasicAuth
 """
+import base64
 
 
 class BasicAuth(object):
@@ -18,8 +19,8 @@ class BasicAuth(object):
             return self.auth_required(environ, start_response)
         auth_type, enc_auth_info = auth.split(None, 1)
         assert auth_type.lower() == 'basic'
-        auth_info = enc_auth_info.decode('base64')
-        username, password = auth_info.split(':', 1)
+        auth_info = base64.b64decode(enc_auth_info)
+        username, password = auth_info.decode().split(':', 1)
         if self.users.get(username) != password:
             return self.auth_required(environ, start_response)
         environ['REMOTE_USER'] = username
@@ -27,8 +28,9 @@ class BasicAuth(object):
 
     def auth_required(self, environ, start_response):
         status = '401 Authorization Required'
-        headers = [('content-type', 'text/plain'),
-                   ('WWW-Authenticate',
-                    'Basic realm="%s"' % self.realm)]
+        headers = [
+            ('content-type', 'text/plain'),
+            ('WWW-Authenticate', 'Basic realm="%s"' % self.realm)
+        ]
         start_response(status, headers)
-        return ['authentication required']
+        return [b'authentication required']

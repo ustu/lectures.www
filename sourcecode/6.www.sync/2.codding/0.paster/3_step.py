@@ -1,8 +1,3 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-Simple blog
-"""
 from middlewares.urldispatch import RegexDispatch
 
 
@@ -17,35 +12,35 @@ class BlogIndex(BaseBlog):
 
     def __iter__(self):
         self.start('200 OK', [('Content-Type', 'text/plain')])
-        yield 'Simple Blog'
+        yield b'Simple Blog'
 
 
 class BlogCreate(BaseBlog):
 
     def __iter__(self):
         self.start('200 OK', [('Content-Type', 'text/plain')])
-        yield 'Simple Blog -> CREATE'
+        yield b'Simple Blog -> CREATE'
 
 
 class BlogRead(BaseBlog):
 
     def __iter__(self):
         self.start('200 OK', [('Content-Type', 'text/plain')])
-        yield 'Simple Blog -> READ'
+        yield b'Simple Blog -> READ'
 
 
 class BlogUpdate(BaseBlog):
 
     def __iter__(self):
         self.start('200 OK', [('Content-Type', 'text/plain')])
-        yield 'Simple Blog -> UPDATE'
+        yield b'Simple Blog -> UPDATE'
 
 
 class BlogDelete(BaseBlog):
 
     def __iter__(self):
         self.start('200 OK', [('Content-Type', 'text/plain')])
-        yield 'Simple Blog -> DELETE'
+        yield b'Simple Blog -> DELETE'
 
 
 # URL dispatching middleware

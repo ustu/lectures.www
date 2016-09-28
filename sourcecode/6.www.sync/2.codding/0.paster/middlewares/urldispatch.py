@@ -1,5 +1,3 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Example from Ian Bicking WSGI presantation.
 """
@@ -18,7 +16,7 @@ class URLDispatch(object):
                 return app(environ, start_response)
         start_response('404 Not Found',
                        [('content-type', 'text/plain')])
-        return ['not found']
+        return [b'not found']
 
 
 class RegexDispatch(object):
@@ -37,4 +35,4 @@ class RegexDispatch(object):
                 environ['url_params'] = match.groupdict()
                 return app(environ, start_response)
         start_response('404 Not Found', [('content-type', 'text/plain')])
-        return ['not found']
+        return [b'not found']

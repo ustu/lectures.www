@@ -1,8 +1,3 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-Simple blog
-"""
 from middlewares.urldispatch import RegexDispatch
 from middlewares.basicauth import BasicAuth
 
@@ -46,28 +41,34 @@ class BlogIndex(BaseBlog):
 
     def __iter__(self):
         self.start('200 OK', [('Content-Type', 'text/html')])
-        yield '<h1>Simple Blog</h1>'
-        yield '<a href="/article/add">Add article</a>'
-        yield '<br />'
-        yield '<br />'
+        yield b'<h1>Simple Blog</h1>'
+        yield b'<a href="/article/add">Add article</a>'
+        yield b'<br />'
+        yield b'<br />'
         for article in ARTICLES:
-            yield '''{0} - (<a href="/article/{0}/delete">delete</a> |
+            yield str.encode(
+                '''
+                {0} - (<a href="/article/{0}/delete">delete</a> |
                 <a href="/article/{0}/edit">edit</a>)
                 <a href="/article/{0}">{1}</a><br />
-            '''.format(article['id'], article['title'])
+                '''.format(
+                    article['id'],
+                    article['title']
+                )
+            )
 
 
 class BlogCreate(BaseBlog):
 
     def __iter__(self):
         if self.environ['REQUEST_METHOD'].upper() == 'POST':
-            from urlparse import parse_qs
+            from urllib.parse import parse_qs
             values = parse_qs(self.environ['wsgi.input'].read())
             max_id = max([art['id'] for art in ARTICLES])
             ARTICLES.append(
                 {'id': max_id+1,
-                 'title': values['title'].pop(),
-                 'content': values['content'].pop()
+                 'title': values[b'title'].pop().decode(),
+                 'content': values[b'content'].pop().decode()
                  }
             )
             self.start('302 Found',
@@ -76,15 +77,16 @@ class BlogCreate(BaseBlog):
             return
 
         self.start('200 OK', [('Content-Type', 'text/html')])
-        yield '<h1><a href="/">Simple Blog</a> -> CREATE</h1>'
-        yield '''
-<form action="" method="POST">
-    Title:<br>
-    <input type="text" name="title"><br>
-    Content:<br>
-    <textarea name="content"></textarea><br><br>
-    <input type="submit" value="Submit">
-</form>'''
+        yield b'<h1><a href="/">Simple Blog</a> -> CREATE</h1>'
+        yield b'''
+            <form action="" method="POST">
+                Title:<br>
+                <input type="text" name="title"><br>
+                Content:<br>
+                <textarea name="content"></textarea><br><br>
+                <input type="submit" value="Submit">
+            </form>
+            '''
 
 
 class BlogRead(BaseArticle):
@@ -92,37 +94,43 @@ class BlogRead(BaseArticle):
     def __iter__(self):
         if not self.article:
             self.start('404 Not Found', [('content-type', 'text/plain')])
-            yield 'not found'
+            yield b'not found'
             return
 
         self.start('200 OK', [('Content-Type', 'text/html')])
-        yield '<h1><a href="/">Simple Blog</a> -> READ</h1>'
-        yield '<h2>%s</h2>' % self.article['title']
-        yield '%s' % self.article['content']
+        yield b'<h1><a href="/">Simple Blog</a> -> READ</h1>'
+        yield str.encode('<h2>{}</h2>'.format(self.article['title']))
+        yield str.encode(self.article['content'])
 
 
 class BlogUpdate(BaseArticle):
 
     def __iter__(self):
         if self.environ['REQUEST_METHOD'].upper() == 'POST':
-            from urlparse import parse_qs
+            from urllib.parse import parse_qs
             values = parse_qs(self.environ['wsgi.input'].read())
-            self.article['title'] = values['title'].pop()
-            self.article['content'] = values['content'].pop()
+            self.article['title'] = values[b'title'].pop().decode()
+            self.article['content'] = values[b'content'].pop().decode()
             self.start('302 Found',
                        [('Content-Type', 'text/html'),
                         ('Location', '/')])
             return
         self.start('200 OK', [('Content-Type', 'text/html')])
-        yield '<h1><a href="/">Simple Blog</a> -> UPDATE</h1>'
-        yield '''
-<form action="" method="POST">
-    Title:<br>
-    <input type="text" name="title" value="{0}"><br>
-    Content:<br>
-    <textarea name="content">{1}</textarea><br><br>
-    <input type="submit" value="Submit">
-</form>'''.format(self.article['title'], self.article['content'])
+        yield b'<h1><a href="/">Simple Blog</a> -> UPDATE</h1>'
+        yield str.encode(
+            '''
+            <form action="" method="POST">
+                Title:<br>
+                <input type="text" name="title" value="{0}"><br>
+                Content:<br>
+                <textarea name="content">{1}</textarea><br><br>
+                <input type="submit" value="Submit">
+            </form>
+            '''.format(
+                self.article['title'],
+                self.article['content']
+            )
+        )
 
 
 class BlogDelete(BaseArticle):
@@ -132,7 +140,7 @@ class BlogDelete(BaseArticle):
                    [('Content-Type', 'text/html'),
                     ('Location', '/')])
         ARTICLES.pop(self.index)
-        yield ''
+        yield b''
 
 
 # BasicAuth applications
