@@ -9,7 +9,7 @@ Paste
 
    Исходный код доступен по адресу:
 
-   * :src:`6.www.sync/2.codding/0.paster`
+   https://github.com/iitwebdev/lectures_wsgi_example
 
 Python `Paste`, или просто `Paste` — набор программ для веб-разработки.
 Включает в себя множество различных `middleware`, `WSGI-сервер` и другое. Был
@@ -85,6 +85,10 @@ HTTP server
 URL диспетчеризация
 -------------------
 
+Доступ к `WSGI` приложению обычно осуществляется по конкретным `URL` адресам
+(ресурсам). В нашем примере приложение `blog` должно быть доступно только по
+корневому `URL` адресу, иные адреса должны выдавать страницу с ошибкой `404`.
+
 Для разделения путей напишем `WSGI-middleware` ``URLDispatch``.
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/middlewares/urldispatch.py
@@ -102,10 +106,11 @@ URL диспетчеризация
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/1_step.py
    :language: python
-   :emphasize-lines: 12, 20-24
+   :emphasize-lines: 1, 13-16
    :linenos:
 
-Любой путь отличающийся от корневого (http://localhost:8000/), по которому доступно приложение ``blog``, будет инициализировать `404 код ошибки`.
+Любой путь отличающийся от корневого (http://localhost:8000/), по которому
+доступно приложение ``blog``, будет инициализировать код ошибки `404`.
 
 .. figure:: /_static/6.www.sync/wsgi/blog/1_1_step.png
    :align: center
@@ -113,7 +118,11 @@ URL диспетчеризация
 
    `404 Not Found`
 
-`Блог` будет состоять из следующих страниц:
+Такой механизм в Веб-азработке называется `URL` маршрутизация или
+диспетчеризация, более подробно об этом будет говорится в разделе
+:ref:`wsgi_route`.
+
+Структура нашего блога будет состоять из следующих страниц:
 
 .. tabularcolumns:: |p{4.5cm}|p{4.5cm}|p{5.2cm}|
 .. list-table:: Страницы блога
@@ -138,7 +147,9 @@ URL диспетчеризация
      - /article/{id}/delete
      - Удаление статьи по {id}
 
-Добавим `WSGI-приложения` которые будут реализовывать `CRUD` и укажем им соответствующие адреса.
+По сути блог является стандартным `CRUD` (CREATE-READ-UPDATE-DELETE)
+интерфейсом, каждую часть которого будет реализовывать свое отдельное  `WSGI`
+приложение связанное `URL` адресом.
 
 .. figure:: /_static/6.www.sync/wsgi/blog/1_2_step_dia.*
    :align: center
@@ -148,7 +159,7 @@ URL диспетчеризация
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/2_step.py
    :language: python
-   :emphasize-lines: 22-54
+   :emphasize-lines: 11-43, 49-52
    :linenos:
 
 .. note::
@@ -162,7 +173,9 @@ URL диспетчеризация
 
    Если вместо ``{id}`` подставить цифру, то вернется `404 ошибка`.
 
-Перепишем `WSGI-middleware` ``URLDispatch`` так, что бы он понимал регулярные выражения.
+Пока наша реализация роутов ничего не знает про символы типа "{id}", поэтому мы
+не можем заменять их числом. Что бы это исправить научим ``URLDispatch``
+`middleware` понимать регулярные выражения.
 
 .. tabularcolumns:: |p{4.5cm}|p{5.5cm}|p{5.2cm}|
 .. list-table:: Страницы блога
@@ -199,16 +212,16 @@ URL диспетчеризация
 
    URL пути на регулярных выражениях
 
-И поменяем настройки:
+Подменим символы "{id}" в адресах на регулярные выражения:
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/3_step.py
    :language: python
-   :emphasize-lines: 12, 60-62
+   :emphasize-lines: 1, 49-53, 54
    :linenos:
 
 .. note::
 
-   Теперь можно переходить по URL'ам с цифрами заместо {id}, например:
+   Теперь можно переходить по URL'ам с числами вместо {id}, например:
 
    * http://localhost:8000/article/1
    * http://localhost:8000/article/13/
@@ -219,10 +232,12 @@ URL диспетчеризация
 Данные
 ------
 
-Добавим базовые данные и функционал для их чтения, удаления.
+Приложения обычно представляют данные, которые собирают из разных мест (БД,
+память, файлы, и т.д.), для блога такими данными как раз являются статьи и
+возможно комментарии к ним.
 
-Данные хранятся в виде списка словарей. Каждый словарь это отдельная статья с
-ключами ``id``, ``title``, ``content``.
+Оформим данные в виде списка, каждая запись которого будет являться статьей со
+следующими ключами ``id``, ``title``, ``content``.
 
 .. code-block:: python
    :linenos:
@@ -250,7 +265,7 @@ URL диспетчеризация
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/4_step.py
    :language: python
    :pyobject: BlogIndex
-   :emphasize-lines: 6-9
+   :emphasize-lines: 6-15
    :linenos:
 
 .. figure:: /_static/6.www.sync/wsgi/blog/1_4_step.png
@@ -296,7 +311,7 @@ URL диспетчеризация
 
 .. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/4_step.py
    :language: python
-   :emphasize-lines: 14-29, 39-47, 55-58, 72-80, 93-97
+   :emphasize-lines: 3-18, 28-36, 56-60, 73-74, 77-81, 84-91, 97-100, 102
    :linenos:
 
 Формы
