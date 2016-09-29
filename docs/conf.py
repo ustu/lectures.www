@@ -6,12 +6,14 @@
 #
 # Distributed under terms of the MIT license.
 
+# standard library
 import os
 import sys
 
 sys.path.insert(0, os.path.abspath('../_lectures/docs/'))
 
-from config_sphinx import *  # noqa
+from config_sphinx import *  # noqa isort:skip
+
 
 project = u'Основы Веб-программирования'
 epub_title = project
