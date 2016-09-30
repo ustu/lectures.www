@@ -11,5 +11,5 @@
 	path = _lectures
 	url = https://github.com/ustu/lectures
 [submodule "sourcecode/6.www.sync/2.codding/0.paste"]
-	path = sourcecode/6.www.sync/2.codding/0.paster
+	path = examples/wsgi
     url = https://github.com/iitwebdev/lectures_wsgi_example.git

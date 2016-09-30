@@ -55,7 +55,7 @@ HTTP server
 поэтому в примерах используется :mod:`paste.httpserver`. С его помощью запустим
 простое `WSGI-приложение`:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/0_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/0_step.py
    :language: python
    :linenos:
 
@@ -91,7 +91,7 @@ URL диспетчеризация
 
 Для разделения путей напишем `WSGI-middleware` ``URLDispatch``.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/middlewares/urldispatch.py
+.. literalinclude:: /../examples/wsgi/0.paste/middlewares/urldispatch.py
    :language: python
    :pyobject: URLDispatch
    :linenos:
@@ -104,7 +104,7 @@ URL диспетчеризация
 
 Добавим настройки в наше приложение:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/1_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/1_step.py
    :language: python
    :emphasize-lines: 1, 13-16
    :linenos:
@@ -157,7 +157,7 @@ URL диспетчеризация
 
    Сопоставление путей и `WSGI-приложений`
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/2_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/2_step.py
    :language: python
    :emphasize-lines: 11-43, 49-52
    :linenos:
@@ -200,7 +200,7 @@ URL диспетчеризация
      - ^/article/(?P<id>\d+)/delete$
      - Удаление статьи по {id}
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/middlewares/urldispatch.py
+.. literalinclude:: /../examples/wsgi/0.paste/middlewares/urldispatch.py
    :language: python
    :pyobject: RegexDispatch
    :emphasize-lines: 11-14
@@ -214,7 +214,7 @@ URL диспетчеризация
 
 Подменим символы "{id}" в адресах на регулярные выражения:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/3_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/3_step.py
    :language: python
    :emphasize-lines: 1, 49-53, 54
    :linenos:
@@ -262,7 +262,7 @@ URL диспетчеризация
 
 Главная страница формируется перебором статей в списке:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/4_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/4_step.py
    :language: python
    :pyobject: BlogIndex
    :emphasize-lines: 6-15
@@ -279,7 +279,7 @@ URL диспетчеризация
 (переменная окружения, которую добавляет `middlwware` ``RegexDispatch``) и
 находит ее среди списка данных.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/4_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/4_step.py
    :language: python
    :pyobject: BaseArticle
    :linenos:
@@ -287,7 +287,7 @@ URL диспетчеризация
 Приложение ``BlogRead`` отвечающее за чтение статьи выводит его содержимое или
 отдает `404 ошибку`:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/4_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/4_step.py
    :language: python
    :pyobject: BlogRead
    :linenos:
@@ -302,14 +302,14 @@ URL диспетчеризация
 возвращает статус ответа `302 Fount` с заголовком `Location: /`, указывающий
 браузеру что нужно перейти на главную страницу (перенаправление).
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/4_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/4_step.py
    :language: python
    :pyobject: BlogDelete
    :linenos:
 
 Полный код с изменениями:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/4_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/4_step.py
    :language: python
    :emphasize-lines: 3-18, 28-36, 56-60, 73-74, 77-81, 84-91, 97-100, 102
    :linenos:
@@ -322,7 +322,7 @@ URL диспетчеризация
 возвращает `HTML` форму, а `POST` записывает данные в список ``ARTICLES``,
 после чего перенаправляет на главную страницу.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/5_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/5_step.py
    :language: python
    :pyobject: BlogCreate
    :linenos:
@@ -337,7 +337,7 @@ URL диспетчеризация
 подставляются уже существующие значения и вместо добавления нового объекта в
 список ``ARTICLES``, обновляется уже существующий.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/5_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/5_step.py
    :language: python
    :pyobject: BlogUpdate
    :linenos:
@@ -350,7 +350,7 @@ URL диспетчеризация
 
 Полный код с изменениями:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/5_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/5_step.py
    :language: python
    :emphasize-lines: 45, 64-88, 108-132
    :linenos:
@@ -376,14 +376,14 @@ URL диспетчеризация
 В нашем примере используется алгоритм ``BasicAuth`` и `WSGI-middleware`
 ``middlewares.basicauth.BasicAuth``.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/middlewares/basicauth.py
+.. literalinclude:: /../examples/wsgi/0.paste/middlewares/basicauth.py
    :language: python
    :pyobject: BasicAuth
    :linenos:
 
 Полный код с изменениями:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/0.paster/6_step.py
+.. literalinclude:: /../examples/wsgi/0.paste/6_step.py
    :language: python
    :emphasize-lines: 2, 146-150, 155, 157, 158
    :linenos:
