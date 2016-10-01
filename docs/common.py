@@ -62,6 +62,9 @@ FRAMEWORK_LINKS = {
     'web2py': 'http://web2py.com',
     'ruby on rails': 'http://rubyonrails.org/',
 
+    # GUI
+    'electron': 'http://electron.atom.io/',
+
     # Async
     'pulsar': 'http://pythonhosted.org/pulsar/',
     'tornado': 'http://www.tornadoweb.org/en/stable/',
@@ -85,6 +88,7 @@ OTHER_LINKS = {
     # Language
     'python': 'http://www.python.org/',
     'java': 'http://www.java.com',
+    'nodejs': 'https://nodejs.org/en/',
 
     # Template engine
     'jinja': 'http://jinja.pocoo.org/',

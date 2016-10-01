@@ -146,7 +146,7 @@ RV фреймворки:
 Мы использовали самописные `WSGI-middleware`, которые решают стандартные
 задачи. Заменим их на уже существующие:
 
-* `urlrelay <https://pypi.python.org/pypi/urlrelay/>`_ - URL-диспетчеризация
+* `selector <https://github.com/lukearno/selector>`_ - URL-диспетчеризация
 * `wsgi-basic-auth <https://github.com/mvantellingen/wsgi-basic-auth>`_ -
   авторизация по методу `Basic Auth`
 

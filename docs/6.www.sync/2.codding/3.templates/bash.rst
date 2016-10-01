@@ -6,15 +6,15 @@ sed шаблонизатор
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/bash/0.nginx_proxy_conf.tpl
+.. literalinclude:: /../examples/wsgi/3.templates/bash/0.nginx_proxy_conf.tpl
    :language: jinja
    :linenos:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/bash/0.sed.sh
+.. literalinclude:: /../examples/wsgi/3.templates/bash/0.sed.sh
    :language: python
    :linenos:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/bash/proxy.nginx.conf
+.. literalinclude:: /../examples/wsgi/3.templates/bash/proxy.nginx.conf
    :language: nginx
    :linenos:
    :name: render_result
@@ -25,11 +25,11 @@ eval шаблонизатор
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/bash/1.nginx_proxy_conf.tpl
+.. literalinclude:: /../examples/wsgi/3.templates/bash/1.nginx_proxy_conf.tpl
    :language: bash
    :linenos:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/bash/1.eval.sh
+.. literalinclude:: /../examples/wsgi/3.templates/bash/1.eval.sh
    :language: python
    :linenos:
 

@@ -15,7 +15,7 @@ Hello {{ name }}!
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/0.hello.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/0.hello.py
    :language: python
    :linenos:
 
@@ -52,7 +52,7 @@ Hello Вася!
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/1.statements/0.hello.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/1.statements/0.hello.py
    :language: python
    :linenos:
 
@@ -63,7 +63,7 @@ Hello Вася! Hello Вася! Hello Вася! Hello Вася! Hello Вася!
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/1.statements/1.set.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/1.statements/1.set.py
    :language: python
    :linenos:
 
@@ -76,7 +76,7 @@ Hello Вася! Hello Вася! Hello Вася! Hello Вася! Hello Вася!
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/2.module.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/2.module.py
    :language: python
    :linenos:
 
@@ -88,11 +88,11 @@ Hello Вася! Hello Вася! Hello Вася! Hello Вася! Hello Вася!
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/3.loader/foopkg/templates/0.hello.html
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/3.loader/foopkg/templates/0.hello.html
    :language: jinja
    :linenos:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/3.loader/0.file.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/3.loader/0.file.py
    :language: python
    :linenos:
    :name: 0.file.py
@@ -145,7 +145,7 @@ FileSystemLoader
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/3.loader/1.env.file.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/3.loader/1.env.file.py
    :language: python
    :emphasize-lines: 4
    :linenos:
@@ -157,7 +157,7 @@ PackageLoader
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/3.loader/2.env.pkg.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/3.loader/2.env.pkg.py
    :language: python
    :emphasize-lines: 4
    :linenos:
@@ -169,7 +169,7 @@ DictLoader
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/3.loader/3.env.dict.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/3.loader/3.env.dict.py
    :language: python
    :emphasize-lines: 17
    :linenos:
@@ -181,7 +181,7 @@ FunctionLoader
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/3.loader/4.env.func.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/3.loader/4.env.func.py
    :language: python
    :emphasize-lines: 22
    :linenos:
@@ -193,7 +193,7 @@ PrefixLoader
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/3.loader/5.env.prefix.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/3.loader/5.env.prefix.py
    :language: python
    :emphasize-lines: 22
    :linenos:
@@ -205,7 +205,7 @@ ChoiceLoader
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/3.loader/6.env.choice.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/3.loader/6.env.choice.py
    :language: python
    :emphasize-lines: 22
    :linenos:
@@ -217,7 +217,7 @@ ModuleLoader
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/3.loader/7.env.compile.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/3.loader/7.env.compile.py
    :language: python
    :emphasize-lines: 10
    :linenos:
@@ -229,7 +229,7 @@ BaseLoader
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/3.loader/8.env.base.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/3.loader/8.env.base.py
    :language: python
    :emphasize-lines: 7-19
    :linenos:
@@ -241,15 +241,15 @@ BaseLoader
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/4.nginx/nginx_proxy_conf.tpl
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/4.nginx/nginx_proxy_conf.tpl
    :language: jinja
    :linenos:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/4.nginx/do_proxy.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/4.nginx/do_proxy.py
    :language: python
    :linenos:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/4.nginx/proxy.nginx.conf
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/4.nginx/proxy.nginx.conf
    :language: nginx
    :linenos:
 
@@ -258,15 +258,15 @@ BaseLoader
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/5.inherit/base.html
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/5.inherit/base.html
    :language: jinja
    :linenos:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/5.inherit/index.html
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/5.inherit/index.html
    :language: jinja
    :linenos:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/5.inherit/app.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/5.inherit/app.py
    :language: python
    :linenos:
 
@@ -308,27 +308,27 @@ BaseLoader
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/templates/base.html
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/templates/base.html
    :language: jinja
    :linenos:
    :caption: templates/base.html - базовый шаблон.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/templates/index.html
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/templates/index.html
    :language: jinja
    :linenos:
    :caption: Главня страница templates/index.html наследуется от templates/base.html
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/templates/create.html
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/templates/create.html
    :language: jinja
    :linenos:
    :caption: templates/create.html наследуется от базового шаблона.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/templates/read.html
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/templates/read.html
    :language: jinja
    :linenos:
    :caption: templates/read.html наслудуется от базового шаблона.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/jinja2/6.blog/views.py
+.. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/views.py
    :language: python
    :linenos:
    :emphasize-lines: 5, 30, 52, 64, 80

@@ -8,7 +8,7 @@ Hello ${ name }!
 
 .. todo:: добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/3.templates/mako/0.hello.py
+.. literalinclude:: /../examples/wsgi/3.templates/mako/0.hello.py
    :language: python
    :linenos:
 
