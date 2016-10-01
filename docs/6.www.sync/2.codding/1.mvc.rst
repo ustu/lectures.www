@@ -118,7 +118,7 @@ RV фреймворки:
 
    Исходный код доступен по адресу:
 
-   * :src:`6.www.sync/2.codding/1.mvc`
+   * `<https://github.com/iitwebdev/lectures_wsgi_example/tree/master/1.mvc>`_
 
 Где:
 
@@ -126,6 +126,10 @@ RV фреймворки:
   настройки и запуск Веб-сервера
 * ``models.py`` - код который представляет данные, обычно называется `модели`
 * ``views.py`` - логика программы (в нашем случае `WSGI-приложения`)
+
+.. warning::
+
+   Примеры работают только в Python3
 
 Данные
 ------
@@ -143,16 +147,15 @@ RV фреймворки:
 задачи. Заменим их на уже существующие:
 
 * `urlrelay <https://pypi.python.org/pypi/urlrelay/>`_ - URL-диспетчеризация
-* `paste.auth.basic <http://pythonpaste.org/modules/auth.basic.html#module-paste.auth.basic>`_ - авторизация по методу `Basic Auth`
+* `wsgi-basic-auth <https://github.com/mvantellingen/wsgi-basic-auth>`_ -
+  авторизация по методу `Basic Auth`
 
 Настройки авторизации ``__init__.py``:
 
 .. literalinclude:: /../examples/wsgi/1.mvc/__init__.py
    :language: python
-   :emphasize-lines: 12, 18-19, 24-26
+   :emphasize-lines: 2, 12-15, 21, 23, 24
    :linenos:
-
-Для авторизации добавлена отдельная функция проверки `логина`, `пароля` (``authfunc``).
 
 URL-диспетчеризация
 -------------------
@@ -161,7 +164,7 @@ URL-диспетчеризация
 
 .. literalinclude:: /../examples/wsgi/1.mvc/__init__.py
    :language: python
-   :emphasize-lines: 14, 15, 29-34
+   :emphasize-lines: 5, 18-24
    :linenos:
 
 `WSGI-приложение` можно указывать как объект (``BlogRead``) или как строку
