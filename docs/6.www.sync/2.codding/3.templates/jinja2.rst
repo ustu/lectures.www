@@ -259,11 +259,11 @@ BaseLoader
 .. todo:: добавить описание
 
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/5.inherit/base.html
-   :language: jinja
+   :language: html+jinja
    :linenos:
 
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/5.inherit/index.html
-   :language: jinja
+   :language: html+jinja
    :linenos:
 
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/5.inherit/app.py
@@ -309,27 +309,27 @@ BaseLoader
 .. todo:: добавить описание
 
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/templates/base.html
-   :language: jinja
+   :language: html+jinja
    :linenos:
    :caption: templates/base.html - базовый шаблон.
 
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/templates/index.html
-   :language: jinja
+   :language: html+jinja
    :linenos:
    :caption: Главня страница templates/index.html наследуется от templates/base.html
 
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/templates/create.html
-   :language: jinja
+   :language: html+jinja
    :linenos:
    :caption: templates/create.html наследуется от базового шаблона.
 
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/templates/read.html
-   :language: jinja
+   :language: html+jinja
    :linenos:
    :caption: templates/read.html наслудуется от базового шаблона.
 
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/views.py
    :language: python
    :linenos:
-   :emphasize-lines: 5, 30, 52, 64, 80
+   :emphasize-lines: 5, 31, 55, 69, 87
    :caption: views.py - окружение Jinja2.
