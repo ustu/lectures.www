@@ -1,7 +1,9 @@
 Статика
 =======
 
-При загрузке HTML страницы браузер ищет все недостающие медиа-файлы (css, js, swf, png, svg, gif, jpg, avi, mp3, mp4, ...) и подгружает их отдельными HTTP запросами (см. :numref:`itcase`).
+При загрузке `HTML` страницы браузер ищет все недостающие медиа-файлы (`css`, `js`,
+`swf`, `png`, `svg`, `gif`, `jpg`, `avi`, `mp3`, `mp4`, ...) и подгружает их
+отдельными `HTTP` запросами (см. :numref:`itcase`).
 
 .. figure:: /_static/6.www.sync/4.static/browser-static-load.png
    :width: 530pt
@@ -10,7 +12,23 @@
 
    http://itcase.pro
 
-Отдачу статических файлов можно настроить через отдельный сервер статики, например :l:`Nginx`, или реализовать средствами самого Веб-приложения.
+На картинке выше видно, что `FireFox` нашел 14 дополнительных ресурсов для
+этого сайта. Браузер автоматически установит 14 `TCP` соединений, по одному на
+каждый ресурс, и попытается получить данные отправив `HTTP` запросы. Т.к.
+установка соединения и сетевые задержки очень дорогие операции, лучшей
+практикой является объединение ресурсов в один файл, например можно объединить
+все `JavaScript` файлы в один при помощи :l:`RequireJS`, то же можно проделать
+и для `CSS` файлов или для картинок (спрайты), помимо прочего :l:`Webpack`
+вообще позволяет запаковывать `JavaScript` файлы совместно с `CSS`.
+
+.. note::
+
+    Стоит отметить, что протокол `HTTP2` лишен этого недостатка, так-как
+    загружает ресурсы асинхронно в рамках одного соединения.
+
+Отдачу статических файлов можно настроить через отдельный сервер статики,
+например :l:`Nginx`, или реализовать средствами самого Веб-приложения (гораздо
+медленнее).
 
 Nginx
 -----
@@ -43,7 +61,9 @@ Nginx
    :caption: index2.html
    :emphasize-lines: 6,7,8,35
 
-Сервер :l:`Nginx` настроен таким образом, что по адресу ``/example`` отдается страница ``index2.html``, а по ``/static`` файлы из директории ``/usr/share/nginx/html/static_example/static``.
+Сервер :l:`Nginx` настроен таким образом, что по адресу ``/example`` отдается
+страница ``index2.html``, а по ``/static`` файлы из директории
+``/usr/share/nginx/html/static_example/static``.
 
 .. literalinclude:: /../sourcecode/nginx/sites-enabled/default.nginx
    :language: nginx
@@ -61,6 +81,9 @@ Nginx
    :align: center
 
    Пример index2.html без статики
+
+Если скопировать файлы статики в директорию
+``/usr/share/nginx/html/static_example/static``, то сервер начнет их отдавать:
 
 .. figure:: /_static/6.www.sync/4.static/nginx_with_static.png
    :width: 530pt
@@ -92,12 +115,13 @@ Paste
 
 Для отдачи статики используется WSGI-приложение ``StaticURLParser`` из модуля :l:`paste`.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/0.paste/app.py
+.. literalinclude:: /../examples/wsgi/4.static/0.paste/app.py
    :language: python
    :linenos:
    :caption: app.py
 
-По адресу http://localhost:8000 будет открыта страница `index.html` (действие по умолчанию). Остальные файлы доступны по адресам:
+По адресу http://localhost:8000 будет открыта страница `index.html` (действие
+по умолчанию). Остальные файлы доступны по адресам:
 
 * http://localhost:8000/index.html
 * http://localhost:8000/static/html-css-js.png
@@ -108,7 +132,8 @@ Paste
 Блог
 ~~~~
 
-В нашем примере блога определенно не хватает стилей и динамики. Что бы это исправить, добавим файлы `css` и `js` в директорию `static`, как показано ниже:
+В нашем примере блога определенно не хватает стилей и динамики. Что бы это
+исправить, добавим файлы `css` и `js` в директорию `static`, как показано ниже:
 
 .. code-block:: text
    :emphasize-lines: 6,7
@@ -129,42 +154,44 @@ Paste
 
    2 directories, 12 files
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/templates/base.html
+.. literalinclude:: /../examples/wsgi/4.static/1.paste_blog/templates/base.html
    :language: jinja
    :linenos:
    :caption: templates/base.html
    :emphasize-lines: 11, 27
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/static/main.css
+.. literalinclude:: /../examples/wsgi/4.static/1.paste_blog/static/main.css
    :language: css
    :linenos:
    :caption: static/main.css
 
-Функция ``confirm_delete()`` выводит окно подтверждения при нажатии на кнопку удаления статьи.
+Функция ``confirm_delete()`` выводит окно подтверждения при нажатии на кнопку
+удаления статьи.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/static/main.js
+.. literalinclude:: /../examples/wsgi/4.static/1.paste_blog/static/main.js
    :language: js
    :linenos:
    :caption: static/main.js
 
 Добавим классы в остальных шаблонах, что бы наши стили применились.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/templates/index.html
+.. literalinclude:: /../examples/wsgi/4.static/1.paste_blog/templates/index.html
    :language: jinja
    :linenos:
    :caption: templates/index.html со стилями.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/templates/read.html
+.. literalinclude:: /../examples/wsgi/4.static/1.paste_blog/templates/read.html
    :language: jinja
    :linenos:
    :caption: templates/read.html со стилями.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/templates/create.html
+.. literalinclude:: /../examples/wsgi/4.static/1.paste_blog/templates/create.html
    :language: jinja
    :linenos:
    :caption: templates/create.html со стлями.
 
-В результате получим новое отображение блога, но пока мы не укажем ему откуда брать статику, он ее не сможет их найти.
+В результате получим новое отображение блога, но пока мы не укажем откуда
+брать статику, он ее не сможет найти.
 
 .. figure:: /_static/6.www.sync/4.static/blog_wo_static.png
    :align: center
@@ -173,14 +200,16 @@ Paste
 
 Статику будет отдавать WSGI-приложение ``StaticURLParser``.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/4.static/1.paste_blog/__init__.py
+.. literalinclude:: /../examples/wsgi/4.static/1.paste_blog/__init__.old.py2
    :language: python
    :linenos:
    :caption: __init__.py
-   :emphasize-lines: 37-46
+   :emphasize-lines: 26-35
 
-При помощи ``paste.urlmap.URLMap`` добавляется префикс `/static/` для наших файлов из директории `static`. ``paste.cascade.Cascade`` позволяет запускать несколько WSGI-приложений одновременно.
-Таким образом наш блог принял следующую архитектуру:
+При помощи ``paste.urlmap.URLMap`` добавляется префикс `/static/` для наших
+файлов из директории `static`. ``paste.cascade.Cascade`` позволяет запускать
+несколько WSGI-приложений одновременно.  Таким образом наш блог принял
+следующую архитектуру:
 
 .. figure:: /_static/6.www.sync/4.static/blog_scheme.*
    :width: 500pt
@@ -200,4 +229,11 @@ Paste
 
    Окно подтверждения при удалении статьи
 
-Для реальных проектов лучше использовать библиотеку `Whitenoise <https://github.com/evansd/whitenoise>`_, она поддерживает Python 3 и CDN.
+Для реальных проектов лучше использовать библиотеку `Whitenoise
+<https://github.com/evansd/whitenoise>`_, она поддерживает `Python3` и `CDN`.
+
+.. literalinclude:: /../examples/wsgi/4.static/1.paste_blog/__init__.py
+   :language: python
+   :linenos:
+   :caption: __init__.py
+   :emphasize-lines: 32-34

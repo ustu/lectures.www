@@ -23,6 +23,9 @@ PYLONS_LINKS = {
 
     # Zope
     'transaction': 'http://zodb.readthedocs.org/en/latest/transactions.html',
+
+    # Sacrud
+    'pyramid_sacrud': 'https://github.com/sacrud/pyramid_sacrud',
 }
 
 DATABASE_LINKS = {
@@ -70,8 +73,9 @@ FRAMEWORK_LINKS = {
     'tornado': 'http://www.tornadoweb.org/en/stable/',
 }
 
-ITCASE_LINKS = {
-    'pyramid_sacrud': 'https://github.com/ITCase/pyramid_sacrud',
+JS_LINKS = {
+    'requirejs': 'http://requirejs.org/',
+    'webpack': 'https://webpack.github.io/',
 }
 
 OTHER_LINKS = {
@@ -130,6 +134,6 @@ GLOBAL_LINKS = dict(
     list(FRAMEWORK_LINKS.items()) +
     list(PEOPLE_LINKS.items()) +
     list(BOOKS_LINKS.items()) +
-    list(ITCASE_LINKS.items()) +
+    list(JS_LINKS.items()) +
     list(ASYNC_LINKS.items())
 )
