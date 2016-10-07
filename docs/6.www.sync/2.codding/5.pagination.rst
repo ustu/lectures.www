@@ -5,7 +5,11 @@
 
    * `wikipedia пагинация <https://ru.wikipedia.org/w/index.php?title=Пагинация>`_
 
-В Интернете под пагинацией понимают показ ограниченной части информации на одной веб-странице (например, 10 результатов поиска или 20 форумных трэдов). Она повсеместно используется в веб-приложениях для разбиения большого массива данных на страницы и включает в себя навигационный блок для перехода на другие страницы.
+В Интернете под пагинацией понимают показ ограниченной части информации на
+одной веб-странице (например, 10 результатов поиска или 20 форумных трэдов).
+Она повсеместно используется в веб-приложениях для разбиения большого массива
+данных на страницы и включает в себя навигационный блок для перехода на другие
+страницы.
 
 .. figure:: /_static/6.www.sync/5.pagination/opennet.png
    :align: center
@@ -22,13 +26,13 @@
 
    * http://ru.lipsum.com/
 
-Для начала наполним блог случайными статьями при помощи функции ``generate_lorem_ipsum`` из пакета ``jinja2.utils``.
+Для начала наполним блог случайными статьями при помощи функции
+``generate_lorem_ipsum`` из пакета ``jinja2.utils``.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/5.pagination/0.blog/models.py
+.. literalinclude:: /../examples/wsgi/5.pagination/0.blog/models.py
    :language: python
    :linenos:
    :caption: models.py
-   :emphasize-lines: 2, 6-
 
 .. figure:: /_static/6.www.sync/5.pagination/long_list_blog_articles.png
    :align: center
@@ -43,17 +47,18 @@ Paginate
    * `webhelpers.paginate <http://docs.pylonsproject.org/projects/webhelpers/en/latest/modules/paginate.html>`_
    * https://github.com/Pylons/paginate
 
-Модуль ``paginate`` делит список статей на страницы. Номер страницы передается методом `GET`, в параметре `page`. По умолчанию берется первая страница.
+Модуль ``paginate`` делит список статей на страницы. Номер страницы передается
+методом `GET`, в параметре `page`. По умолчанию берется первая страница.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/5.pagination/1.blog/views.py
+.. literalinclude:: /../examples/wsgi/5.pagination/1.blog/views.py
    :language: python
    :linenos:
    :caption: views.py
    :pyobject: BlogIndex
-   :emphasize-lines: 6-14
+   :emphasize-lines: 6-17,21
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/5.pagination/1.blog/templates/index.html
-   :language: jinja
+.. literalinclude:: /../examples/wsgi/5.pagination/1.blog/templates/index.html
+   :language: html+jinja
    :linenos:
    :caption: templates/index.html
    :emphasize-lines: 22
