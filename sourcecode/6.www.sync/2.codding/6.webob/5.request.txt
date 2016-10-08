@@ -1,4 +1,0 @@
-NestedMultiDict([(u'check', u'a'), (u'check', u'b'), (u'name', u'Bob'), ('name', u'Vasya'), ('email', u'vasya@example.com')])
-[u'a', u'b']
-vasya@example.com
-Bob

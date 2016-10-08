@@ -1,2 +1,0 @@
-<RequestCookies (dict-like) with values {u'foo': u'abcdef', u'bar': u'2', u'session_id': u'9999999'}>
-abcdef

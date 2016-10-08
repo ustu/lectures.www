@@ -35,6 +35,7 @@ my_intersphinx = {
     'http://docs.webob.org/en/stable/': None,
     'http://pythonpaste.org/': None,
     'http://jinja.pocoo.org/docs/dev/': None,
+    'http://docs.webob.org/en/stable/': None,
 }
 intersphinx_mapping = dict(
     list(intersphinx_mapping.items())
