@@ -1,3 +1,0 @@
-paste
-beaker
-pylibmc
