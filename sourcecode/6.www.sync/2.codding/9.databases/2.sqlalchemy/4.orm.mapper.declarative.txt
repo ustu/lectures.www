@@ -1,6 +1,0 @@
-Mapper relationship: <sqlalchemy.util._collections.ImmutableProperties object at 0x7ffeae32da28>
-Mapper columns: [('id', Column('id', Integer(), table=<user>, primary_key=True, nullable=False)), ('name', Column('name', String(), table=<user>)), ('fullname', Column('fullname', String(), table=<user>)), ('password', Column('password', String(), table=<user>))]
-
-User1 columns: [('id', Column('id', Integer(), table=<user>, primary_key=True, nullable=False)), ('name', Column('name', String(), table=<user>)), ('fullname', Column('fullname', String(), table=<user>)), ('password', Column('password', String(), table=<user>))]
-
-Вася

@@ -13,3 +13,6 @@
 [submodule "sourcecode/6.www.sync/2.codding/0.paste"]
 	path = examples/wsgi
     url = https://github.com/iitwebdev/lectures_wsgi_example.git
+[submodule "examples/database"]
+	path = examples/database
+	url = git@github.com:iitwebdev/lectures_database_example.git

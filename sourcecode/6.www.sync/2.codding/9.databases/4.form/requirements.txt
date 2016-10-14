@@ -1,3 +1,0 @@
-sqlalchemy
-colanderalchemy
-deform

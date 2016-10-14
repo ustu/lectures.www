@@ -7,10 +7,10 @@ Postgres
    * http://initd.org/psycopg/
    * http://initd.org/psycopg/docs/usage.html
 
-Psycopg - это самая популярная библиотека для :l:`PostgreSQL` в языке программирования python.
-Основные преимущества ее, это реализация DB-API 2.0 спецификации и потокобезовасность.
-Написана на Си, как обертка над `libpq <http://www.postgresql.org/docs/current/static/libpq.html>`_.
-
+Psycopg - это самая популярная библиотека для :l:`PostgreSQL` в языке
+программирования python. Основные преимущества ее, это реализация DB-API 2.0
+спецификации и потокобезовасность. Написана на Си, как обертка над `libpq
+<http://www.postgresql.org/docs/current/static/libpq.html>`_.
 
 .. code-block:: python
 

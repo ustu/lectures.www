@@ -3,7 +3,7 @@
 
 Создадим две таблицы и добавим сотрудников (``employee``).
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/0.simple.example.py
+.. literalinclude:: /../examples/database/2.sqlalchemy/0.simple.example.py
    :language: python
    :caption: 2.sqlalchemy/0.simple.example.py
    :linenos:
@@ -25,7 +25,7 @@
    insert into employee(emp_name) values ('jack');
    insert into employee(emp_name) values ('fred');
 
-.. code-block:: sql
+.. code-block:: sqlite3
 
    $ sqlite3 some.db
    sqlite> .tables
@@ -123,7 +123,8 @@ close
 -----
 
 Соединение закроется автоматически после выполнения `SQL` запроса,
-но можно это сделать и вручную, при помощи метода :meth:`sqlalchemy.engine.ResultProxy.close`
+но можно это сделать и вручную, при помощи метода
+:meth:`sqlalchemy.engine.ResultProxy.close`
 
 .. code-block:: python
    :linenos:
@@ -144,7 +145,8 @@ close
    engine.execute("insert into employee_of_month (emp_name) values (:emp_name)",
                   emp_name='fred')
 
-Мы можем контролировать соединение используя метод :meth:`sqlalchemy.engine.Engine.connect`
+Мы можем контролировать соединение используя метод
+:meth:`sqlalchemy.engine.Engine.connect`
 
 .. code-block:: python
    :linenos:
@@ -240,7 +242,7 @@ close
 Полный пример
 -------------
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/1.engine.py
+.. literalinclude:: /../examples/database/2.sqlalchemy/1.engine.py
    :language: python
    :caption: 2.sqlalchemy/1.engine.py
    :linenos:

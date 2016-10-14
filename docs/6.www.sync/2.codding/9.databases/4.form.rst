@@ -13,16 +13,16 @@
    * Добавить пример с кастомным полем в схеме
    * Добавить пример с include, exclude, etc
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/4.form/example.py
+.. literalinclude:: /../examples/database/4.form/example.py
    :language: python
    :caption: 4.form/example.py
    :emphasize-lines: 16,17
    :linenos:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/4.form/example.txt
+.. literalinclude:: /../examples/database/4.form/example.txt
    :language: html
    :caption: 4.form/example.txt
    :linenos:
 
 .. raw:: html
-   :file: ../../../../sourcecode/6.www.sync/2.codding/9.databases/4.form/example.txt
+   :file: ../../../../examples/database/4.form/example.txt

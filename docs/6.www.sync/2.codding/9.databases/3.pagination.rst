@@ -9,9 +9,10 @@
 
    Добавить описание
 
-``paginate_sqlalchemy`` выполняет то же что и библиотека  https://github.com/Pylons/paginate но гораздо быстрее для :l:`SQLAlchemy`.
+``paginate_sqlalchemy`` выполняет то же, что и библиотека
+https://github.com/Pylons/paginate, но гораздо быстрее для :l:`SQLAlchemy`.
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/3.pagination/example.py
+.. literalinclude:: /../examples/database/3.pagination/example.py
    :language: python
    :caption: 3.pagination/example.py
    :emphasize-lines: 34,36

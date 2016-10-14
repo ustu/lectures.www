@@ -7,8 +7,10 @@
 
 .. todo::
 
-   * Написать про горизонтальное маштабирование http://docs.sqlalchemy.org/en/latest/orm/examples.html#examples-sharding
-   * Как разделять таблицы по разным метаданным и привязывать к ним свое подключение http://otkds.blogspot.com/2009/04/sqlalchemy.html
+   * Написать про горизонтальное маштабирование
+     http://docs.sqlalchemy.org/en/latest/orm/examples.html#examples-sharding
+   * Как разделять таблицы по разным метаданным и привязывать к ним свое
+     подключение http://otkds.blogspot.com/2009/04/sqlalchemy.html
 
 Для описания структуры базы данных используют 3 основных класса:
 
@@ -99,7 +101,8 @@ Table
 Поля таблицы
 ~~~~~~~~~~~~
 
-Поля таблицы хранятся в списке :attr:`sqlalchemy.schema.Table.columns` или его более коротком варианте :attr:`sqlalchemy.schema.Table.c`.
+Поля таблицы хранятся в списке :attr:`sqlalchemy.schema.Table.columns` или его
+более коротком варианте :attr:`sqlalchemy.schema.Table.c`.
 
 .. code-block:: pycon
    :linenos:
@@ -154,7 +157,9 @@ Table
 SQL выражения
 ~~~~~~~~~~~~~
 
-Объект класса :class:`sqlalchemy.schema.Table` является частью механизма SQL выражений в :mod:`sqlalchemy` и содержит в себе множество вспомогательных методов для построения SQL запросов:
+Объект класса :class:`sqlalchemy.schema.Table` является частью механизма SQL
+выражений в :mod:`sqlalchemy` и содержит в себе множество вспомогательных
+методов для построения SQL запросов:
 
 * :meth:`sqlalchemy.schema.Table.select`
 * :meth:`sqlalchemy.schema.Table.delete`
@@ -182,7 +187,8 @@ SQL выражения
 Создание таблиц
 ~~~~~~~~~~~~~~~
 
-Все таблицы из списка :class:`sqlalchemy.schema.MetaData` можно создать при помощи метода :meth:`sqlalchemy.schema.MetaData.create_all`.
+Все таблицы из списка :class:`sqlalchemy.schema.MetaData` можно создать при
+помощи метода :meth:`sqlalchemy.schema.MetaData.create_all`.
 
 .. code-block:: pycon
    :linenos:
@@ -205,7 +211,8 @@ SQL выражения
    [SQL]: ()
    [SQL]: COMMIT
 
-Для создания, удаления одной таблицы необходимо использовать методы класса :class:`sqlalchemy.schema.Table`:
+Для создания, удаления одной таблицы необходимо использовать методы класса
+:class:`sqlalchemy.schema.Table`:
 
 * :meth:`sqlalchemy.schema.Table.drop`
 * :meth:`sqlalchemy.schema.Table.create`
@@ -432,7 +439,9 @@ SQL выражения
 означает процесс, во время которого программа может отслеживать и
 модифицировать собственную структуру и поведение во время выполнения.
 
-В :l:`SQLAlchemy` рефлексия означает автоматическую загрузку схемы таблицы из уже существующей базы данных. Реализуется через параметр ``autoload`` в конструкторе класса :class:`sqlalchemy.schema.Table.autoload`.
+В :l:`SQLAlchemy` рефлексия означает автоматическую загрузку схемы таблицы из
+уже существующей базы данных. Реализуется через параметр ``autoload`` в
+конструкторе класса :class:`sqlalchemy.schema.Table.autoload`.
 
 .. code-block:: pycon
    :linenos:
@@ -562,7 +571,7 @@ SQL выражения
 Полный пример
 -------------
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/2.sqlalchemy/2.metadata.py
+.. literalinclude:: /../examples/database/2.sqlalchemy/2.metadata.py
    :language: python
    :caption: 2.sqlalchemy/2.metadata.py
    :linenos:

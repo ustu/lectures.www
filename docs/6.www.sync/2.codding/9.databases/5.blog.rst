@@ -5,13 +5,13 @@
 
    * Добавить описание
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/5.blog/models.py
+.. literalinclude:: /../examples/database/5.blog/models.py
    :language: python
    :caption: models.py - данные хранятся в БД SQLite
    :emphasize-lines: 2-18,21,23-24,26-27,37-40
    :linenos:
 
-.. literalinclude:: /../sourcecode/6.www.sync/2.codding/9.databases/5.blog/views.py
+.. literalinclude:: /../examples/database/5.blog/views.py
    :language: python
    :caption: views.py - SQLAlchemy
    :emphasize-lines: 7,26-28,50-51,57,78-84,114-117,130-133

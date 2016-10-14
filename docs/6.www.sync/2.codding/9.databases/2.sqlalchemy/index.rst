@@ -1,7 +1,7 @@
 .. _sqlalchemy:
 
-SQLAlchemy
-==========
+SQLAlchemy ORM
+==============
 
 .. seealso::
 
