@@ -5,9 +5,50 @@ SQLite
 
    * :ref:`SQLite`
    * https://docs.python.org/3.5/library/sqlite3.html
+   * https://www.sqlite.org/quickstart.html
 
 :l:`SQLite` - это БД которая хранит базу в одном файле и не требует отдельного
 процесса для запуска, при этом использует не стандартный вариант языка SQL.
+Такой подход позволяет встроить ``sqlite`` прямо в программу, без необходимости
+установки сервера БД. Пример использования ``sqlite`` в ``C++``:
+
+.. code-block:: cpp
+
+    #include <stdio.h>
+    #include <sqlite3.h>
+
+    static int callback(void *NotUsed, int argc, char **argv, char **azColName){
+      int i;
+      for(i=0; i<argc; i++){
+        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+      }
+      printf("\n");
+      return 0;
+    }
+
+    int main(int argc, char **argv){
+      sqlite3 *db;
+      char *zErrMsg = 0;
+      int rc;
+
+      if( argc!=3 ){
+        fprintf(stderr, "Usage: %s DATABASE SQL-STATEMENT\n", argv[0]);
+        return(1);
+      }
+      rc = sqlite3_open(argv[1], &db);
+      if( rc ){
+        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+        sqlite3_close(db);
+        return(1);
+      }
+      rc = sqlite3_exec(db, argv[2], callback, 0, &zErrMsg);
+      if( rc!=SQLITE_OK ){
+        fprintf(stderr, "SQL error: %s\n", zErrMsg);
+        sqlite3_free(zErrMsg);
+      }
+      sqlite3_close(db);
+      return 0;
+    }
 
 `SQLite` можно использовать для хранения внутренних данных программы (например
 FireFox хранит куки в sqlite) или для создания прототипа приложения, а затем
