@@ -77,7 +77,7 @@ Mock запрос
    :linenos:
 
 .. literalinclude:: /../examples/wsgi/6.webob/2.request.txt
-   :language: python
+   :language: text
    :linenos:
 
 GET

@@ -196,7 +196,7 @@ pdb;pdb.set_trace();`.
 
 Шрифт задается в настройках ``File->Preferences->User Settings``:
 
-.. code-block:: json
+.. code-block:: text
    :emphasize-lines: 4
 
    // Place your settings in this file to overwrite the default settings
@@ -212,7 +212,7 @@ pdb;pdb.set_trace();`.
 открыть настройки пользователя ``File->Preferences->User Settings`` и прописать
 опцию ``editor.tabCompletion``:
 
-.. code-block:: json
+.. code-block:: text
    :emphasize-lines: 6
 
    // Place your settings in this file to overwrite the default settings
@@ -245,7 +245,7 @@ pdb;pdb.set_trace();`.
        :width: 600px
        :align: center
 
-   .. code-block:: json
+   .. code-block:: text
 
        {
            // Defines VS Code's display language.
@@ -594,7 +594,7 @@ https://github.com.
 ``.vscode/settings.json`` и переопределить в нем глобальные настройки для
 нашего проекта:
 
-.. code-block:: json
+.. code-block:: text
 
     {
         "editor.fontSize": 18,
