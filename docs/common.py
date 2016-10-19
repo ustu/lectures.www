@@ -64,6 +64,7 @@ FRAMEWORK_LINKS = {
     'django': 'https://www.djangoproject.com/',
     'web2py': 'http://web2py.com',
     'ruby on rails': 'http://rubyonrails.org/',
+    'bottle': 'https://bottlepy.org',
 
     # GUI
     'electron': 'http://electron.atom.io/',
