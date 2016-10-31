@@ -16,9 +16,13 @@
 выполнены одна за другой, последовательно. Ниже пример простого приложения на
 Пирамиде сконфигурированного императивно.
 
+.. note::
+
+    Пример будет доступен по адресу http://localhost:8080/hello/
+
 .. code-block:: python
    :linenos:
-   :emphasize-lines: 9-11
+   :emphasize-lines: 9-12
 
    from wsgiref.simple_server import make_server
    from pyramid.config import Configurator
@@ -29,7 +33,11 @@
 
    if __name__ == '__main__':
        config = Configurator()
-       config.add_view(hello_world)
+
+       config.add_route('myHelloRoute', '/hello/')
+       config.add_view(hello_world, route_name='myHelloRoute')
+
+       # Создаем и запускаем WSGI приложение
        app = config.make_wsgi_app()
        server = make_server('0.0.0.0', 8080, app)
        server.serve_forever()
@@ -53,8 +61,8 @@ decoration`), т.е. добавлять настройки как можно б�
    from pyramid.response import Response
    from pyramid.view import view_config
 
-   @view_config(name='hello', request_method='GET')
-   def hello(request):
+   @view_config(route_name='myHelloRoute')
+   def hello_world(request):
        return Response('Hello')
 
 Сам по себе декоратор :class:`pyramid.view.view_config` не произведет ни какого
@@ -66,14 +74,18 @@ decoration`), т.е. добавлять настройки как можно б�
 .. code-block:: python
    :linenos:
    :caption: my-pyramid-app/__init__.py
-   :emphasize-lines: 6,12
+   :emphasize-lines: 8
 
    from wsgiref.simple_server import make_server
    from pyramid.config import Configurator
 
    if __name__ == '__main__':
        config = Configurator()
+
+       config.add_route('myHelloRoute', '/hello/')
        config.scan()
+
+       # Создаем и запускаем WSGI приложение
        app = config.make_wsgi_app()
        server = make_server('0.0.0.0', 8080, app)
        server.serve_forever()
@@ -83,7 +95,33 @@ decoration`), т.е. добавлять настройки как можно б�
 
 .. code-block:: python
 
-   config.add_view(hello)
+   config.add_view(hello_world, route_name='myHelloRoute')
+
+Можно этот пример записать в одном файле:
+
+.. code-block:: python
+   :linenos:
+   :emphasize-lines: 6,14
+
+   from wsgiref.simple_server import make_server
+   from pyramid.config import Configurator
+   from pyramid.response import Response
+   from pyramid.view import view_config
+
+   @view_config(route_name='myHelloRoute')
+   def hello_world(request):
+       return Response('Hello world!')
+
+   if __name__ == '__main__':
+       config = Configurator()
+
+       config.add_route('myHelloRoute', '/hello/')
+       config.scan()
+
+       # Создаем и запускаем WSGI приложение
+       app = config.make_wsgi_app()
+       server = make_server('0.0.0.0', 8080, app)
+       server.serve_forever()
 
 Резюме
 ------
