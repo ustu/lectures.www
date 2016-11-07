@@ -427,3 +427,4 @@ http://localhost:8000/pony.
   Interface
 * `JSGI <https://en.wikipedia.org/wiki/JSGI>`_ – JavaScript web server gateway
   interface
+* `WAI <http://www.yesodweb.com/book/web-application-interface>`_ - Web Application Interface (Haskell)
