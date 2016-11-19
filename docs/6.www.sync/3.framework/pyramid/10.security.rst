@@ -189,7 +189,7 @@ Access Control List или :term:`ACL` — список контроля дос�
 
 .. code-block:: python
 
-   from pyramid.security import Allow
+   from pyramid.security import Allow, Deny
    from pyramid.security import Everyone
 
    __acl__ = [
