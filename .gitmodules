@@ -16,3 +16,6 @@
 [submodule "examples/database"]
 	path = examples/database
 	url = https://github.com/iitwebdev/lectures_database_example.git
+[submodule "examples/nogui/CSharpYandexAPI"]
+	path = examples/nogui/CSharpYandexAPI
+	url = https://github.com/iitwebdev/CSharpYandexAPI.git

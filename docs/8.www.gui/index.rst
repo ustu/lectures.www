@@ -23,3 +23,4 @@
 
    qt5.rst
    nw.js.rst
+   csharp.rst
