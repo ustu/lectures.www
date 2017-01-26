@@ -10,6 +10,9 @@ C#, обращение к REST API
 `WebRequest <https://msdn.microsoft.com/ru-ru/library/system.net.webrequest(v=vs.110).aspx>`_
 для обращения к API Яндекс.Переводчика.
 
+.. image:: /_static/8.www.gui/csharp_restapi.png
+    :align: center
+
 Введение
 --------
 
