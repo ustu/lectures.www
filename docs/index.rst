@@ -14,9 +14,10 @@
 
 .. image:: /_static/logo.jpg
 
-Дополнительные курсы: `Базы данных <http://lecturesdb.readthedocs.org>`_,
-`Каналы передачи данных <http://lectureskpd.readthedocs.org>`_,
-`Сетевое программирование <http://lecturesnet.readthedocs.org>`_
+.. include:: /../_lectures/docs/lect_links.rst
+
+Содержание
+----------
 
 .. toctree::
     :maxdepth: 2
