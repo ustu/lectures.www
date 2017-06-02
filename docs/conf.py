@@ -16,6 +16,7 @@ from config_sphinx import *  # noqa isort:skip
 
 
 project = u'Основы Веб-программирования'
+html_title = project
 epub_title = project
 latex_documents = [
     ('index', 'lectures.tex',
@@ -38,6 +39,6 @@ my_intersphinx = {
     'http://docs.webob.org/en/stable/': None,
 }
 intersphinx_mapping = dict(
-    list(intersphinx_mapping.items())
+    list(intersphinx_mapping.items())  # noqa
     + list(my_intersphinx.items())
 )

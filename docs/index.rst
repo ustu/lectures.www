@@ -3,6 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. sectionauthor:: Svintsov Dmitry <root@uralbash.ru>
+
+.. meta::
+   :description: Лекции по курсу "Основы Веб-программирования"
+   :keywords: курс, база, данных, веб, сетевое, программирование, канал, передачи, python, pyramid, cgi, wsgi, rest, web
+
 Основы Веб-программирования
 ===========================
 
