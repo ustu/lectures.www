@@ -7,5 +7,5 @@
 #
 
 
-cd /home/vagrant/lectureswww &&
+cd /home/vagrant/lectures &&
     make clean html
