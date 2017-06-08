@@ -1,9 +1,15 @@
-// <!-- Yandex.RTB R-A-222712-1 -->
+var blockId = "";
+if (window.location.hostname == "lectures.uralbash.ru") {
+  blockId = "R-A-231461-1";
+} else {
+  blockId = "R-A-222712-1";
+}
+
 (function(w, d, n, s, t) {
   w[n] = w[n] || [];
   w[n].push(function() {
     Ya.Context.AdvManager.render({
-      blockId: "R-A-222712-1",
+      blockId: blockId,
       renderTo: "yandex-partner",
       horizontalAlign: false,
       async: true
