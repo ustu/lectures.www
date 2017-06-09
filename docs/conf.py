@@ -18,11 +18,13 @@ from config_sphinx import *  # noqa isort:skip
 project = u'Основы Веб-программирования'
 html_title = project
 epub_title = project
+
 latex_documents = [
     ('index', 'lectures.tex',
      project,
      u'Свинцов Дмитрий', 'manual'),
 ]
+
 my_intersphinx = {
     # Pylons
     'http://pyramid-tm.readthedocs.io/en/latest/': None,
@@ -38,7 +40,10 @@ my_intersphinx = {
     'http://jinja.pocoo.org/docs/dev/': None,
     'http://docs.webob.org/en/stable/': None,
 }
+
 intersphinx_mapping = dict(
     list(intersphinx_mapping.items())  # noqa
     + list(my_intersphinx.items())
 )
+
+exclude_patterns += ['999.additions/index.rst']  # noqa

@@ -14,6 +14,8 @@
 
 .. image:: /_static/logo.jpg
 
+.. Смотри также
+
 .. include:: /../_lectures/docs/lect_links.rst
 
 Содержание
@@ -29,7 +31,10 @@
     6.www.sync/3.framework/pyramid/index.rst
     7.www.async/index.rst
     8.www.gui/index.rst
-    999.additions/index.rst
+
+.. Справочник
+
+.. include:: 999.additions/index.rst
 
 .. todo::
 
