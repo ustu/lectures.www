@@ -40,6 +40,6 @@ setTimeout((function googAdSense(d) {
      data-ad-slot="6348097736"></ins>
 `;
   }
-})(window.document), 1000);
+})(window.document), 2000);
 
-setTimeout((function () {(adsbygoogle = window.adsbygoogle || []).push({})})(), 1100);
+setTimeout((function () {(adsbygoogle = window.adsbygoogle || []).push({})})(), 2100);
