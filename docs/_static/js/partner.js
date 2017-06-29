@@ -23,23 +23,23 @@ if (window.location.hostname == "lectures.uralbash.ru") {
   t.parentNode.insertBefore(s, t);
 })(window, window.document, "yandexContextAsyncCallbacks");
 
-setTimeout((function googAdSense(d) {
-  var partnerDiv = d.getElementById('yandex-partner');
-  if (!partnerDiv.innerHTML.trim()) {
-    var t = d.getElementsByTagName("script")[0];
-    var s = d.createElement("script");
-    s.type = "text/javascript";
-    s.src = "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-    s.async = true;
-    t.parentNode.insertBefore(s, t);
-
-    partnerDiv.innerHTML = `
-<ins class="adsbygoogle"
-     style="display:inline-block;width:300px;height:250px"
-     data-ad-client="ca-pub-2884502571619359"
-     data-ad-slot="6348097736"></ins>
-`;
-  }
-})(window.document), 2000);
-
-setTimeout((function () {(adsbygoogle = window.adsbygoogle || []).push({})})(), 2100);
+// setTimeout((function googAdSense(d) {
+//   var partnerDiv = d.getElementById('yandex-partner');
+//   if (!partnerDiv.innerHTML.trim()) {
+//     var t = d.getElementsByTagName("script")[0];
+//     var s = d.createElement("script");
+//     s.type = "text/javascript";
+//     s.src = "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+//     s.async = true;
+//     t.parentNode.insertBefore(s, t);
+//
+//     partnerDiv.innerHTML = `
+// <ins class="adsbygoogle"
+//      style="display:inline-block;width:300px;height:250px"
+//      data-ad-client="ca-pub-2884502571619359"
+//      data-ad-slot="6348097736"></ins>
+// `;
+//   }
+// })(window.document), 2000);
+//
+// setTimeout((function () {(adsbygoogle = window.adsbygoogle || []).push({})})(), 2100);
