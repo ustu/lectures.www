@@ -42,4 +42,4 @@ setTimeout((function googAdSense(d) {
   }
 })(window.document), 1000);
 
-setTimeout(((adsbygoogle = window.adsbygoogle || []).push({}))(), 1100);
+setTimeout((function () {(adsbygoogle = window.adsbygoogle || []).push({})})(), 1100);
