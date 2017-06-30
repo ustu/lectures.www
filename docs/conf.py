@@ -19,6 +19,8 @@ project = u'Основы Веб-программирования'
 html_title = project
 epub_title = project
 
+html_extra_path = ["html_extra_path"]
+
 latex_documents = [
     ('index', 'lectures.tex',
      project,
