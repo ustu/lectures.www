@@ -14,11 +14,11 @@ sys.path.insert(0, os.path.abspath('../_lectures/docs/'))
 
 from config_sphinx import *  # noqa isort:skip
 
-
 project = u'Основы Веб-программирования'
 html_title = project
 epub_title = project
 
+set_base_url("https://lectureswww.readthedocs.io/")  # noqa
 html_extra_path = ["html_extra_path"]
 
 latex_documents = [
