@@ -136,7 +136,7 @@ start_response
 .. literalinclude:: /../sourcecode/5.web.server/wsgi/1.cgi.app.py
    :language: python
    :pyobject: simple_app
-   :emphasize-lines: 2-4
+   :emphasize-lines: 7-9
    :linenos:
 
 ``start_response`` возвращает вызываемый объект, обычно "write".
