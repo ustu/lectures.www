@@ -37,6 +37,7 @@ Pattern matching
 
 .. literalinclude:: /../examples/pyramid/restapi/pattern_matching_example.py
    :language: python3
+   :emphasize-lines: 38-39, 15, 23, 31
    :linenos:
 
 Пример выше добавляет View с тремя методами, каждый из которых вызывается при

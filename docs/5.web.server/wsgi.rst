@@ -5,7 +5,8 @@ WSGI (pep-333)
 
 .. seealso::
 
-    * http://legacy.python.org/dev/peps/pep-0333/
+    * https://www.python.org/dev/peps/pep-0333/
+    * https://www.python.org/dev/peps/pep-3333/
     * https://ru.wikipedia.org/wiki/WSGI
     * http://docs.repoze.org/moonshining/pep333.html
     * http://pylonsbook.com/en/1.1/the-web-server-gateway-interface-wsgi.html
