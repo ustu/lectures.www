@@ -77,9 +77,10 @@
    :language: html+php
    :linenos:
 
-Результат:
+Результат выполнения программы:
 
 .. code-block:: html
+    :caption: php index.php
 
     <html>
       <head>
