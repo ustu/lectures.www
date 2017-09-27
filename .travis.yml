@@ -1,10 +1,5 @@
 sudo: false
-language: python
-
-install:
-    - pip install pep8 flake8
-    - pip install git+https://github.com/myint/rstcheck.git
-    - pip install -r requirements.txt
+language: nix
 
 script:
-    - ./test.sh
+    - make

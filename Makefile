@@ -14,7 +14,7 @@ ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(SOURCEDIR)
 all:
 	nix-shell ./_lectures/default.nix \
 		--indirect --add-root .gcroots/dep \
-		--run "make html"
+		--run "make html test"
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
@@ -24,6 +24,11 @@ clean:
 
 linkcheck:
 	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck
+
+test:
+	rstcheck \
+		`find . -not -path "./.env/*" -name "*.rst" -printf "%p "` \
+		--ignore-roles github,l,man --ignore-language bash --report 2
 
 # vim:ft=make
 #
