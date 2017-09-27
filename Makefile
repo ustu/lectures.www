@@ -10,6 +10,12 @@ BUILDDIR      = build
 SOURCEDIR     = docs
 ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(SOURCEDIR)
 
+
+all:
+	nix-shell ./_lectures/default.nix \
+		--indirect --add-root .gcroots/dep \
+		--run "make html"
+
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 
