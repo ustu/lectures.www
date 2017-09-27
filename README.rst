@@ -11,13 +11,7 @@
 
 .. code-block:: bash
 
-    $ vagrant up --provider=docker
-
-Пересборка:
-
-.. code-block:: bash
-
-    $ vagrant reload
+    $ make
 
 Запуск:
 
