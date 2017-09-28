@@ -1,8 +1,9 @@
-#! /usr/bin/env python
+#! /usr/bin/env nix-shell
+#! nix-shell -i python -p python python27Packages.flup
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2014 uralbash <root@uralbash.ru>
+# Copyright (c) 2014 uralbash <root@uralbash.ru>
 #
 # Distributed under terms of the MIT license.
 
@@ -23,5 +24,6 @@ def app(environ, start_response):
     for k, v in sorted(environ.items()):
         yield '<tr><th>%s</th><td>%s</td></tr>' % (k, v)
     yield '</table>'
+
 
 WSGIServer(app).run()
