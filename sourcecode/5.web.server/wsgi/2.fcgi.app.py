@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i python -p python python27Packages.flup
+#! nix-shell -i python -p python python2Packages.flup
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
