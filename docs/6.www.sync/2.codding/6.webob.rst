@@ -318,11 +318,12 @@ Create
    :linenos:
 
 .. literalinclude:: /../examples/wsgi/6.webob/blog/0.step/views.py
-   :diff: /../examples/wsgi/5.pagination/1.blog/views.py
    :language: python
    :caption: views.py изменения в классе BlogCreate
    :pyobject: BlogCreate
    :linenos:
+
+.. :diff: /../examples/wsgi/5.pagination/1.blog/views.py
 
 .. no-code-block:: python
    :linenos:
