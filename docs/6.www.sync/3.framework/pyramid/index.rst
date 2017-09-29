@@ -24,7 +24,6 @@
    10.security.rst
    blogr/index.rst
    wsgi.rst
-   _checkpoint.rst
 
 .. todo::
 

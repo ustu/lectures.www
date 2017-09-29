@@ -43,9 +43,8 @@ my_intersphinx = {
     'http://venusian.readthedocs.io/en/latest/': None,
     'http://pyramid-sqlalchemy.readthedocs.io/en/latest/': None,
     'http://docs.webob.org/en/stable/': None,
-    'http://pythonpaste.org/': None,
+    'http://paste.readthedocs.io/en/latest/': None,
     'http://jinja.pocoo.org/docs/dev/': None,
-    'http://docs.webob.org/en/stable/': None,
 }
 
 intersphinx_mapping = dict(
