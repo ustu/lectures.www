@@ -18,7 +18,6 @@ project = u'Основы Веб-программирования'
 html_title = project
 epub_title = project
 
-# Github
 edit_on_github_project = 'ustu/lectures.www'
 edit_on_github_branch = 'master'
 
@@ -27,9 +26,13 @@ set_base_url("https://lectureswww.readthedocs.io/")  # noqa
 html_extra_path = ["html_extra_path"]
 
 latex_documents = [
-    ('index', 'lectures.tex',
-     project,
-     u'Свинцов Дмитрий', 'manual'),
+    (
+        'index',
+        'lectures.tex',
+        project,
+        u'Свинцов Дмитрий',
+        'manual'
+    ),
 ]
 
 my_intersphinx = {
@@ -52,4 +55,6 @@ intersphinx_mapping = dict(
     + list(my_intersphinx.items())
 )
 
-exclude_patterns += ['999.additions/index.rst']  # noqa
+exclude_patterns += [  # noqa
+    '999.additions/index.rst'
+]
