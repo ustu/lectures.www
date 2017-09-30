@@ -98,6 +98,15 @@
 \end{frame}
 
 % Slide #10
+\begin{frame}{Application}
+
+    \begin{center}
+        \vspace{-0.35in}\includegraphics[width=3in]{media/wsgi-app.png}
+    \end{center}
+
+\end{frame}
+
+% Slide #11
 \begin{frame}[fragile]{Application. Функция}
 
     \vspace{-1in}
@@ -113,20 +122,11 @@
 
 \end{frame}
 
-% Slide #11
-\begin{frame}{Application}
-
-    \begin{center}
-        \vspace{-0.35in}\includegraphics[width=3in]{media/wsgi-app.png}
-    \end{center}
-
-\end{frame}
-
 % Slide #12
 \begin{frame}[fragile]{Application. Класс}
 
     \begin{lstlisting}[style=python, caption=WSGI app class]
-    class AppClass:
+    class AppClass(object):
         def __init__(self, environ, start_response):
             self.environ = environ
             self.start = start_response
@@ -142,23 +142,7 @@
 
 \end{frame}
 
-
 % Slide #13
-\begin{frame}{Server. Задачи WSGI сервера}
-
-    \begin{itemize}
-        \item Сформировать переменные окружения (\textbf{environment})
-        \item Описать функцию обработчик запроса (\textbf{start\_response})
-        \item Передать их в \textbf{WSGI приложение}
-        \item Результат \textbf{WSGI сервер} отправляет по HTTP, клиенту
-        \item а \textbf{WSGI шлюз} приводит к формату клиент-серверного
-            протокола (CGI, FastCGI, SCGI, uWSGI, \ldots) и передает их на
-            Веб-сервер (например выводит в stdout, stderr).
-    \end{itemize}
-
-\end{frame}
-
-% Slide #14
 \begin{frame}{Server}
 
     \begin{center}
@@ -167,8 +151,52 @@
 
 \end{frame}
 
+% Slide #14
+\begin{frame}{Server. Задачи WSGI сервера}
+
+    \begin{itemize}
+        \item Сформировать переменные окружения (\textbf{environment})
+        \item Описать функцию обработчик запроса (\textbf{start\_response})
+        \item Передать их в \textbf{WSGI приложение}
+        \item Результат ответа \textbf{WSGI} приложения \textbf{WSGI сервер}
+          отправляет по HTTP, клиенту
+    \end{itemize}
+
+\end{frame}
+
+% Slide #14
+\begin{frame}{Server. WSGI шлюз}
+
+    \begin{itemize}
+
+      \item Либо \textbf{WSGI сервер} (шлюз) отправлет результат ответа proxy-серверу
+        по протоколу (CGI, FastCGI, SCGI, uWSGI, \ldots), который передает его
+        клиенту.
+      \item Proxy сервера могут быть например \textbf{Nginx}, \textbf{Apache},
+        \ldots
+
+    \end{itemize}
+
+\end{frame}
+
+
+% Slide #14
+\begin{frame}{Server. Что выбрать?}
+
+    \begin{itemize}
+
+      \item Waitress
+      \item Gunicorn
+      \item uWSGI
+      \item wsgiref
+
+    \end{itemize}
+
+\end{frame}
+
+
 % Slide #15
-\begin{frame}[fragile]{Server}
+\begin{frame}[fragile]{Server. Написать самому}
 
     \begin{lstlisting}[style=python]
     def run_with_cgi(application):
@@ -292,6 +320,19 @@
 
 \end{frame}
 
+% Slide #30
+\begin{frame}[fragile]{Middleware. Все вместе}
+    \begin{lstlisting}[style=python]
+    app = EvalException(app)   # go to /Errors
+    app = SessionMiddleware(app)
+    app = GzipMiddleware(app)
+    app = PonyMiddleware(app)  # go to /pony
+
+    from paste.httpserver import serve
+    serve(app, host='0.0.0.0', port=8000)
+    \end{lstlisting}
+\end{frame}
+
 % Slide #22
 \begin{frame}{Middleware. Application}
 
@@ -366,19 +407,6 @@
     \begin{center}
         \includegraphics[width=3in]{media/wsgi_example_pony.png}
     \end{center}
-\end{frame}
-
-% Slide #30
-\begin{frame}[fragile]{Middleware. Все вместе}
-    \begin{lstlisting}[style=python]
-    app = EvalException(app)   # go to /Errors
-    app = SessionMiddleware(app)
-    app = GzipMiddleware(app)
-    app = PonyMiddleware(app)  # go to /pony
-    from paste import reloader
-    from paste.httpserver import serve
-    serve(app, host='0.0.0.0', port=8000)
-    \end{lstlisting}
 \end{frame}
 
 % Slide #31
