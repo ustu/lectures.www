@@ -35,5 +35,6 @@ class AppClass(object):
         self.start(status, response_headers)
         yield "Hello world!\n"
 
+
 if __name__ == '__main__':
     run_with_cgi(AppClass)

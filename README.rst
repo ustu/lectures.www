@@ -1,25 +1,34 @@
 Лекции
 ======
 
-Инициализация:
+Установка
+----------
+
+1. Инициализация
+^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
     $ git submodule update --init --recursive
 
-Сборка:
+2. Сборка
+^^^^^^^^^
+
+Для сборки необходимо установить пакетный менеджер `Nix
+<https://nixos.org/nix/>`_.
 
 .. code-block:: bash
 
-    $ vagrant up --provider=docker
+    $ curl https://nixos.org/nix/install | sh
 
-Пересборка:
+После установки `Nix` сборка осуществляется командой `make`:
 
 .. code-block:: bash
 
-    $ vagrant reload
+    $ make
 
-Запуск:
+3. Запуск
+^^^^^^^^^
 
 .. code-block:: bash
 

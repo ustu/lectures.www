@@ -5,12 +5,12 @@ import sys
 def run_with_cgi(application):
 
     environ = dict(os.environ.items())
-    environ['wsgi.input']        = sys.stdin  # flake8: noqa
-    environ['wsgi.errors']       = sys.stderr
-    environ['wsgi.version']      = (1, 0)
-    environ['wsgi.multithread']  = False
+    environ['wsgi.input'] = sys.stdin
+    environ['wsgi.errors'] = sys.stderr
+    environ['wsgi.version'] = (1, 0)
+    environ['wsgi.multithread'] = False
     environ['wsgi.multiprocess'] = True
-    environ['wsgi.run_once']     = True
+    environ['wsgi.run_once'] = True
 
     if environ.get('HTTPS', 'off') in ('on', '1'):
         environ['wsgi.url_scheme'] = 'https'

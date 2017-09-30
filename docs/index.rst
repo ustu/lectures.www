@@ -32,6 +32,16 @@
     7.www.async/index.rst
     8.www.gui/index.rst
 
+Закрепление материала
+---------------------
+
+.. toctree::
+    :maxdepth: 1
+
+    5.web.server/_checkpoint.rst
+    6.www.sync/2.codding/_checkpoint.rst
+    6.www.sync/3.framework/pyramid/_checkpoint.rst
+
 .. Справочник
 
 .. include:: 999.additions/index.rst

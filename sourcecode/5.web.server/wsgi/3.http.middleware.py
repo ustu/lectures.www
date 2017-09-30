@@ -1,4 +1,5 @@
-#! /usr/bin/env python
+#! /usr/bin/env nix-shell
+#! nix-shell -i python3 -p python3 python3Packages.paste
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
@@ -11,7 +12,7 @@
 """
 
 from paste.evalexception.middleware import EvalException
-from paste.gzipper import middleware as GzipMiddleware  # noqa
+from paste.gzipper import middleware as GzipMiddleware
 from paste.pony import PonyMiddleware
 from paste.session import SessionMiddleware
 
@@ -31,7 +32,8 @@ def app(environ, start_response):
 
     # Generate response
     start_response('200 OK', [('Content-Type', 'text/plain')])
-    return ['You have been here %d times!\n' % count, ]
+    return [b'You have been here %d times!\n' % count, ]
+
 
 app = EvalException(app)   # go to http://localhost:8000/Errors
 app = SessionMiddleware(app)

@@ -28,4 +28,3 @@
    7.forms.rst
    8.session.rst
    9.databases/index.rst
-   _checkpoint.rst
