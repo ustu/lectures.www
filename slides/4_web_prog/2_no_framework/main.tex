@@ -1,5 +1,6 @@
 \input{../../mypreamble.tex}
 \usepackage{array}      % Table
+\usepackage{dirtytalk}  % say
 
 \title{Веб без фреймворков}
 
@@ -42,6 +43,15 @@
 
 \end{frame}
 
+
+% Slide #7
+\begin{frame}{Веб-сервер}
+
+  \textbf{Веб сервер}
+
+\end{frame}
+
+
 % Slide #5
 \begin{frame}{Веб-сервер}
 
@@ -83,33 +93,81 @@
 
 \end{frame}
 
+
 % Slide #7
 \begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
 
-  \textbf{MVC} (Model-View-Controller)
+  \textbf{Разделение кода на части}
 
-  123
+\end{frame}
+
+
+% Slide #7
+\begin{frame}{Разделение кода: \textbf{MVC}}
+
+  \textbf{MVC} (Model-View-Controller: модель-вид-контроллер) —
+
+  шаблон архитектуры ПО, который подразумевает разделение программы на 3
+  слабосвязанных компонента, каждый из которых отвечает за свою сферу
+  деятельности.
 
 \end{frame}
 
 
 % Slide #8
-\begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
+\begin{frame}{Разделение кода: \textbf{MVC}}
 
-  M -> M
-  V -> T
-  C -> V
-
-  Tada! Django MTV
+  \begin{center}
+    \includegraphics[width=3.2in]{media/mvc.png}
+  \end{center}
 
 \end{frame}
 
+
 % Slide #9
-\begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
+\begin{frame}{Разделение кода: \textbf{MVC}}
 
-  classic MVC:
+  Классические \textbf{MVC} фреймворки:
 
-  Pylons, Rails
+  \begin{itemize}
+    \item Ruby on Rails
+    \item Pylons
+  \end{itemize}
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}{Разделение кода: \textbf{MTV}}
+
+  Фреймворк \textbf{Django} ввел новую терминологию \textbf{MTV}
+
+  \begin{itemize}
+    \item \textbf{M -> M} Модели остались неизменными
+    \item \textbf{V -> T} Представление назвали Templates
+    \item \textbf{C -> V} Контроллеры назвали Views
+  \end{itemize}
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}{Разделение кода: \textbf{MTV}}
+
+  Tada! Django MTV
+
+  \begin{center}
+    \includegraphics[width=2.2in]{media/mtv_logo.jpg}
+  \end{center}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}{Разделение кода: \textbf{MTV}}
+
+  \begin{center}
+    \includegraphics[width=3.2in]{media/mtv.png}
+  \end{center}
 
 \end{frame}
 
@@ -117,40 +175,82 @@
 \begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
 
   Разработка без фреймворков дает вам возможность придерживаться любой
-  архитектуры приложения, независимо от паттерна проектирования.
+  архитектуры приложения и паттерна проектирования.
 
 \end{frame}
 
 % Slide #12
 \begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
 
-  Это дает неоспоримую гибкость таким приложениям.
+  Это дает неоспоримую гибкость таким приложениям, оставляя ответственность по
+  структуре ПО за разработчиком.
 
 \end{frame}
 
 
 % Slide #10
-\begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
+\begin{frame}{Разделение кода: \textbf{RV}}
 
-  RV - дает ту же гибкость, накладывая минимальную архитектуры идеально
+  \textbf{RV} (Resources-View) --
+
+  дает ту же гибкость, накладывая минимальную архитектуру идеально
   вписывающуюся в ограничения Веб приложений.
 
 \end{frame}
 
 
-% Slide #10
-\begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
+% Slide #8
+\begin{frame}{Разделение кода: \textbf{RV}}
 
-  RV - WTF?????
-
-  Адреса - пути.
-  Ресурсы привязаны к путям.
-  View обрабатывают ресурсы.
-
-  Pyramid only
+  \begin{center}
+    \includegraphics[width=4.0in]{media/rv.png}
+  \end{center}
 
 \end{frame}
 
+
+% Slide #10
+\begin{frame}{Разделение кода: \textbf{RV}}
+
+  \say{Мы считаем, что есть только две вещи: ресурсы (\textbf{Resource}) и
+    виды (\textbf{View}). Дерево ресурсов представляет структуру сайта, а вид
+    представляет ресурс.
+  }
+
+\end{frame}
+
+% Slide #10
+\begin{frame}{Разделение кода: \textbf{RV}}
+
+  \say{«\textbf{Шаблоны}» (\textbf{Template}) в реальности лишь
+    деталь реализации некоторого вида: строго говоря, они не обязательны, и вид
+    может вернуть ответ (Response) и без них.
+  }
+
+\end{frame}
+
+% Slide #10
+\begin{frame}{Разделение кода: \textbf{RV}}
+
+  \say{Нет никакого «\textbf{Контроллера}» (\textbf{controller}): его просто не
+    существует. «\textbf{Модель}» (\textbf{Model}) же либо представлена деревом
+    ресурсов, либо «доменной моделью» (domain model) (например, моделью
+    \textbf{SQLAlchemy}), которая вообще не является частью каркаса. Нам
+    кажется, что наша терминология более разумна при существующих ограничениях
+    веб-технологий.
+  }
+
+\end{frame}
+
+
+% Slide #10
+\begin{frame}{Разделение кода: \textbf{RV}}
+
+  \textbf{Pyramid} only
+
+    \includegraphics[width=0.5in]{media/pyramid.png}
+
+\end{frame}
 
 
 \end{document}
