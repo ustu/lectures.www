@@ -1,0 +1,156 @@
+\input{../../mypreamble.tex}
+\usepackage{array}      % Table
+
+\title{Веб без фреймворков}
+
+\begin{document}
+
+% Slide #1
+\frame{\titlepage}
+
+% Slide #2
+\begin{frame}{Ресурсы}
+  \url{http://lectures.uralbash.ru/6.www.sync/2.codding/index.html}
+\end{frame}
+
+% Slide #3
+\begin{frame}{WSGI - это\ldots?}
+
+    Для разработки сайтов или Web-приложений на языке Python был утверждён
+    стандарт взаимодействия между Python-приложениями и сервером (например
+    Apache), названный WSGI (“Web Server Gateway Interface”).
+
+    \textbf{Python}\newline
+    \textbf{pep-333}\newline
+    \textbf{pep-3333}\newline
+
+\end{frame}
+
+% Slide #4
+\begin{frame}{Общие принципы}
+
+  \begin{itemize}
+    \item Веб-сервер
+    \item Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}
+    \item Маршрутизация URL
+    \item Шаблоны
+    \item Пагинация
+    \item Request/Response
+    \item Статика
+    \item Формы
+  \end{itemize}
+
+\end{frame}
+
+% Slide #5
+\begin{frame}{Веб-сервер}
+
+  Задача Веб сервера - запускать Веб приложения.\newline\newline
+    Популярные WSGI Веб сервера:\newline
+
+  \begin{itemize}
+    \item wsgiref
+    \item Paste
+    \item Waitress
+    \item Gunicorn
+  \end{itemize}
+
+
+\end{frame}
+
+% Slide #6
+\begin{frame}[fragile]{wsgiref}
+
+    \begin{lstlisting}[style=python]
+    from wsgiref.simple_server import make_server
+
+    def hello_world_app(environ, start_response):
+        status = '200 OK'  # HTTP Status
+        headers = [
+          ('Content-type', 'text/plain; charset=utf-8')
+        ]  # HTTP Headers
+        start_response(status, headers)
+
+        # The returned object is going to be printed
+        return [b"Hello World"]
+
+    with make_server('', 8000, hello_world_app) as httpd:
+        print("Serving on port 8000...")
+
+        # Serve until process is killed
+        httpd.serve_forever()
+    \end{lstlisting}
+
+\end{frame}
+
+% Slide #7
+\begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
+
+  \textbf{MVC} (Model-View-Controller)
+
+  123
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
+
+  M -> M
+  V -> T
+  C -> V
+
+  Tada! Django MTV
+
+\end{frame}
+
+% Slide #9
+\begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
+
+  classic MVC:
+
+  Pylons, Rails
+
+\end{frame}
+
+% Slide #11
+\begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
+
+  Разработка без фреймворков дает вам возможность придерживаться любой
+  архитектуры приложения, независимо от паттерна проектирования.
+
+\end{frame}
+
+% Slide #12
+\begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
+
+  Это дает неоспоримую гибкость таким приложениям.
+
+\end{frame}
+
+
+% Slide #10
+\begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
+
+  RV - дает ту же гибкость, накладывая минимальную архитектуры идеально
+  вписывающуюся в ограничения Веб приложений.
+
+\end{frame}
+
+
+% Slide #10
+\begin{frame}{Разделение кода: \textbf{MVC}, \textbf{MTV}, \textbf{RV}}
+
+  RV - WTF?????
+
+  Адреса - пути.
+  Ресурсы привязаны к путям.
+  View обрабатывают ресурсы.
+
+  Pyramid only
+
+\end{frame}
+
+
+
+\end{document}
