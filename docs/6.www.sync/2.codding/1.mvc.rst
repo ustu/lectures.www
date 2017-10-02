@@ -53,6 +53,10 @@ MTV
 
 Фреймворк Django_ ввел новую терминологию **MTV**.
 
+.. note::
+
+    https://docs.djangoproject.com/en/dev/faq/general/#django-appears-to-be-a-mvc-framework-but-you-call-the-controller-the-view-and-the-view-the-template-how-come-you-don-t-use-the-standard-names
+
 В `Django` функции отвечающие за обработку логики соответствуют части
 `Controller` из MVC, но называются `View`, а отображение соответствует части
 `View` из MVC, но называется `Template`, получилось что:
@@ -69,7 +73,12 @@ MTV
    TADA!! Django invented MTV
 
 Вся логика при таком подходе вынесена во `View`, а то как будут отображаться
-данные в `Template`.
+данные в `Template`. Из-за ограничений `HTTP` протокола, `View` в `Django`
+описывает **какие данные** будут представленны по запросу на определенный URL.
+`View` как и протокол `HTTP` не хранит состояний и по факту является обычной
+функцией обратного вызова, которая запускается вновь при каждом запросе
+по `URL`. `Шаблоны` (`Templates`) в свою очередь, описывают **как данные**
+представить пользователю.
 
 .. figure:: /_static/6.www.sync/web/mtv.*
    :align: center
