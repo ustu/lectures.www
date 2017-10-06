@@ -5,6 +5,7 @@
 
 all:
 	@xelatex main.tex
+	cp main.pdf ../../build/_slides/4.1_wsgi.pdf
 	@evince  main.pdf > /dev/null&
 
 

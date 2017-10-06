@@ -5,6 +5,7 @@
 
 all:
 	@xelatex main.tex
+	cp main.pdf ../../build/_slides/4.2_no_framework.pdf
 	@evince  main.pdf > /dev/null&
 
 

@@ -23,7 +23,10 @@ edit_on_github_branch = 'master'
 
 # for Sitemap
 set_base_url("https://lectureswww.readthedocs.io/")  # noqa
-html_extra_path = ["html_extra_path"]
+html_extra_path = [
+    "html_extra_path",
+    "../slides/build/"
+]
 
 latex_documents = [
     (

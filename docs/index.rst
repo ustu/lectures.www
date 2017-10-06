@@ -42,6 +42,14 @@
     6.www.sync/2.codding/_checkpoint.rst
     6.www.sync/3.framework/pyramid/_checkpoint.rst
 
+Слайды
+------
+
+.. toctree::
+    :maxdepth: 2
+
+    slides.rst
+
 .. Справочник
 
 .. include:: 999.additions/index.rst

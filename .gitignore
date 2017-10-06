@@ -1,5 +1,6 @@
 .gcroots/
 build
+!slides/build
 TODO
 *.swp
 *.swo
