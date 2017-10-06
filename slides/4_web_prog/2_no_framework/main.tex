@@ -1,6 +1,7 @@
 \input{../../mypreamble.tex}
 \usepackage{array}      % Table
 \usepackage{dirtytalk}  % say
+\usepackage{tabularx}
 
 \title{Веб без фреймворков}
 
@@ -253,14 +254,18 @@
 \end{frame}
 
 % Slide #7
-\begin{frame}{Веб-сервер}
+\begin{frame}{Маршруты}
 
   \textbf{Маршруты}
+
+  или
+
+  \textbf{Диспетчеризация URL}
 
 \end{frame}
 
 % Slide #8
-\begin{frame}{Маршруты}
+\begin{frame}{Маршруты: Сортировочная Ж/Д станция}
 
   \begin{center}
     \vspace{-20pt}\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/routes.jpg}
@@ -268,6 +273,233 @@
 
 \end{frame}
 
+
+% Slide #8
+\begin{frame}{Маршруты: Сортировочная Ж/Д станция}
+
+  \begin{itemize}
+    \item \textbf{Поезда} похожи на HTTP запросы клиентов
+    \item \textbf{Сортировочная станция} представляет из себя
+      \textbf{маршруты}, только вместо поездов занимается диспетчеризацией HTTP
+      запросов от клиентов
+    \item \textbf{Пункт назначения} (завод или вокзал) можно сравнить с
+      функцией (кодом), которая обрабатывает запрос
+  \end{itemize}
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}{Маршруты: Определение}
+
+  \textbf{Маршруты} определяют шаблоны URL и связывают их со своим кодом
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}{Маршруты: Преимущества}
+
+  В отличии от CGI, где все привязано к файловой системе,
+  если вы измените свое решение по поводу конкретного URL, то просто поменяйте
+  шаблон URL - код по-прежнему будет работать отлично и не понадобится менять
+  какую-либо логику.
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Маршруты: Регулярные выражения}
+
+  \begin{lstlisting}[style=python]
+    from django.conf.urls import url
+
+    from . import views
+
+    urlpatterns = [
+     url(r'^articles/2003/$', views.special_case_2003),
+     url(r'^articles/([0-9]{4})/$', views.year_archive),
+     url(r'^articles/([0-9]{4})/([0-9]{2})/$', views.month_archive),
+     url(r'^articles/([0-9]{4})/([0-9]{2})/([0-9]+)/$', views.article_detail),
+    ]
+    \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Маршруты: Сопоставление с образом}
+
+  \begin{lstlisting}[style=python]
+    import selector
+
+    dispatch = selector.Selector()
+    dispatch.add('/', GET=BlogIndex)
+    dispatch.add('/add', GET=create, POST=create)
+    dispatch.add('/{id:digits}', GET=BlogRead)
+    dispatch.add('/{id:digits}/edit', GET=update, POST=update)
+    dispatch.add('/{id:digits}/delete', GET=delete)
+  \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Маршруты: Сравнение}
+
+  \begin{table}[]
+  \centering
+  \label{my-label}
+  \begin{tabular}{ll}
+    Регулярные выражения & Сопоставление с образом \\
+    / & / \\
+    /article/add & /article/add \\
+    \verb|^/article/(?P<id>d+)/$|       & \verb|/article/{id:digits}|      \\
+    \verb|^/article/(?P<id>d+)/edit$|   & \verb|/article/{id:digits}/edit| \\
+    \verb|^/article/(?P<id>d+)/delete$| & \verb|/article/{id:digits}/delete|
+
+  \end{tabular}
+  \end{table}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}{Маршруты: Преимущества}
+
+  \begin{itemize}
+    \item
+      Регулярные выражения дают огромные возможности.
+    \item
+      Но из-за ограничений \newline
+      описанных в стандарте RFC 1738,
+      большинство из них не нужны.
+    \item
+      Использование регулярных выражений затрудняет читабельность кода.
+  \end{itemize}
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}{Шаблоны}
+
+  \textbf{Шаблоны}
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}{Шаблоны: Определение}
+
+  \textbf{Шаблоны} имеют очень простое определение - в статические файлы вставляются
+  куски кода, при прогоне таких файлов через специальный транслятор
+  (препроцессор), код заменяется результатом его выполнения.
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: C++}
+
+  \begin{lstlisting}[style=cpp]
+    template< typename T >
+    T min( T a, T b )
+    {
+      return a < b ? a : b;
+    }
+  \end{lstlisting}
+
+  \begin{lstlisting}[style=cpp]
+    int min( int a, int b )
+    {
+      return a < b ? a : b;
+    }
+
+    long min( long a, long b )
+    {
+      return a < b ? a : b;
+    }
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: PHP}
+
+  \begin{lstlisting}[style=php]
+  <html>
+    <head> <title> Тестируем PHP </title> </head>
+    <body>
+    <?php
+      echo '<h1>Hello, world!</h1>';
+    ?>
+    <br />
+    <?php
+      $colors = array("red", "green", "blue", "yellow");
+
+      foreach ($colors as $value) {
+          echo "* $value <br />\n";
+      }
+    ?>
+    </body>
+  </html>
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: PHP}
+
+  \begin{lstlisting}[style=php]
+    <body>
+
+    <h1>Hello, world!</h1>
+    <br />
+
+    * red <br />
+    * green <br />
+    * blue <br />
+    * yellow <br />
+
+    </body>
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: PHP}
+
+  \begin{lstlisting}[style=php]
+    <body>
+
+    <h1>Hello, world!</h1>
+    <br />
+
+    * red <br />
+    * green <br />
+    * blue <br />
+    * yellow <br />
+
+    </body>
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}{Шаблоны: Jinja2}
+
+  \textbf{Jinja2} — самый популярный шаблонизатор в языке программирования
+  Python. Автор Armin Ronacher из команды http://www.pocoo.org/, не раз
+  приезжал на конференции в Екатеринбург с докладами о своих продуктах.
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}{Шаблоны: Jinja2}
+
+  \begin{center}
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/template.png}
+  \end{center}
+
+\end{frame}
 
 
 \end{document}
