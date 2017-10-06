@@ -326,6 +326,24 @@
 \end{frame}
 
 % Slide #8
+\begin{frame}[fragile]{Маршруты: Django 2.0 - Сопоставление с образом}
+
+  \begin{lstlisting}[style=python]
+    from django.urls import path
+
+    from . import views
+
+    urlpatterns = [
+      path('articles/2003/', views.special_case_2003),
+      path('articles/<int:year>/', views.year_archive),
+      path('articles/<int:year>/<int:month>/', views.month_archive),
+      path('articles/<int:year>/<int:month>/<slug:slug>/', views.article_detail),
+    ]
+    \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
 \begin{frame}[fragile]{Маршруты: Сопоставление с образом}
 
   \begin{lstlisting}[style=python]
@@ -340,6 +358,9 @@
   \end{lstlisting}
 
 \end{frame}
+
+
+
 
 
 \begin{frame}[fragile]{Маршруты: Сравнение}
