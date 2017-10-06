@@ -1,5 +1,5 @@
 Сокеты
 ======
 
-* http://lecturesnet.readthedocs.org/net/low-level/ipc/index.html
-* http://www.slideshare.net/lectureswwwlecturesw/ss-59897850
+* https://lecturesnet.readthedocs.io/net/low-level/ipc/index.html
+* https://lectureswww.readthedocs.io/slides.html

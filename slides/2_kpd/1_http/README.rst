@@ -1,4 +1,4 @@
 Протокол HTTP
 =============
 
-`<http://www.slideshare.net/lectureswwwlecturesw/http-58802166>`_
+`<https://lectureswww.readthedocs.io/slides.html>`_

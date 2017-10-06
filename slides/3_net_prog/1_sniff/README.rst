@@ -1,5 +1,5 @@
 Анализ трафика
 ==============
 
-* http://lecturesnet.readthedocs.org/net/sniff.html
-* `<http://www.slideshare.net/lectureswwwlecturesw/ss-59434219>`_
+* https://lecturesnet.readthedocs.io/net/sniff.html
+* https://lectureswww.readthedocs.io/slides.html
