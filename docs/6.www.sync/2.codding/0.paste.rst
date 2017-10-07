@@ -51,6 +51,11 @@ HTTP server
 целесообразно использовать встроенный в Python модуль :mod:`wsgiref` или
 сторонние более производительные реализации :l:`waitress` и :l:`gunicorn`.
 
+
+.. literalinclude:: /../examples/wsgi/0.paste/0_step_wsgiref.py
+   :language: python
+   :linenos:
+
 В нашем случае подойдет любая реализация сервера отвечающего стандарту `WSGI`,
 поэтому в примерах используется :mod:`paste.httpserver`. С его помощью запустим
 простое `WSGI-приложение`:
