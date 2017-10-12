@@ -154,7 +154,7 @@ http://localhost:6543/admin/ (по умолчанию http://localhost:6543/sacr
 .. figure:: /_static/6.www.sync/framework/pyramid_sacrud_edit.png
    :width: 500pt
 
-Что бы после `CRUD` операций появлялись всплывающие сообщение необходимо
+Чтобы после `CRUD` операций появлялись всплывающие сообщение необходимо
 добавить в проект поддержку сессий.
 
 .. code-block:: python

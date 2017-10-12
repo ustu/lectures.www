@@ -677,7 +677,7 @@ JOIN
    FROM address, "user"
    WHERE "user".id = address.user_id
 
-Что бы его вызвать в подзапросе нужно использовать метод
+Чтобы его вызвать в подзапросе нужно использовать метод
 :meth:`sqlalchemy.sql.expression.Select.as_scalar`
 
 .. code-block:: pycon

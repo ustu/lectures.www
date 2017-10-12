@@ -1132,7 +1132,7 @@ JOIN с условием WHERE.
    (<User(u'jack', u'Jack Bean')>, [<Address(u'jack@gmail.com')>,
    <Address(u'jack@hotmail.com')>])
 
-Что бы этого избежать нужно использовать опцию предварительной загрузки
+Чтобы этого избежать нужно использовать опцию предварительной загрузки
 :func:`sqlalchemy.orm.subqueryload`.
 
 .. code-block:: pycon
@@ -1159,7 +1159,7 @@ JOIN с условием WHERE.
    (<User(u'fred', u'Fred Flinstone')>, [<Address(u'j25@yahoo.com')>])
    (<User(u'jack', u'Jack Bean')>, [<Address(u'jack@gmail.com')>, <Address(u'jack@hotmail.com')>])
 
-Или :func:`sqlalchemy.orm.joinedload` что бы уместить все в один запрос.
+Или :func:`sqlalchemy.orm.joinedload` чтобы уместить все в один запрос.
 
 .. code-block:: pycon
    :linenos:
