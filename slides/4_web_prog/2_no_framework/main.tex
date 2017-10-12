@@ -468,7 +468,7 @@
 % Slide #8
 \begin{frame}[fragile]{Шаблоны: PHP}
 
-  \begin{lstlisting}[style=php]
+  \begin{lstlisting}[style=html]
     <body>
 
     <h1>Hello, world!</h1>
@@ -500,6 +500,341 @@
   \begin{center}
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/template.png}
   \end{center}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: Jinja2 - \{\{ выражения \}\}}
+
+  \begin{lstlisting}[style=Python]
+    from jinja2 import Template
+
+    template = Template('Hello {{ name }}!')
+    print(template.render(name='Вася'))
+  \end{lstlisting}
+
+  Hello Вася!
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: Jinja2 - \{\# комментарии \#\}}
+
+  \begin{lstlisting}
+    {# Это кусок кода
+       который стал временно не ненужен,
+       но удалять жалко
+        {% for user in users %}
+            ...
+        {% endfor %}
+    #}
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: Jinja2 - \{\% операторы \%\}}
+
+  \begin{lstlisting}[style=Python]
+    from jinja2 import Template
+    text = '{% for item in range(5) %}Hello {{ name }}! {% endfor %}'
+    template = Template(text)
+    print(template.render(name='Вася'))
+  \end{lstlisting}
+
+  Hello Вася! Hello Вася! Hello Вася! Hello Вася! Hello Вася!
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: Jinja2 - модули}
+
+  \begin{lstlisting}[style=Python]
+    from jinja2 import Template
+    template = Template(
+      "{% set a, b, c = 'foo', 'фуу', 'föö' %}"
+    )
+    m = template.module
+    print(m.a)
+    print(m.b)
+    print(m.c)
+  \end{lstlisting}
+
+  foo\newline
+  фуу\newline
+  föö
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: Jinja2 - чтение из файла}
+
+  \begin{lstlisting}[style=html]
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      </head>
+      <body>
+        {% for item in range(5) %}
+          Hello {{ name }}!
+        {% endfor %}
+      </body>
+    </html>
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: Jinja2 - чтение из файла}
+
+  \begin{lstlisting}[style=python]
+    from jinja2 import Template
+
+    html = open('foopkg/templates/0.hello.html').read()
+    template = Template(html)
+    print(template.render(name='Петя'))
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: Jinja2 - чтение из файла}
+
+  \begin{lstlisting}[style=html]
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      </head>
+      <body>
+
+          Hello Петя!
+
+          Hello Петя!
+
+          Hello Петя!
+
+          Hello Петя!
+
+          Hello Петя!
+
+      </body>
+    </html>
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: Jinja2 - \{\% extends "наследование" \%\}}
+
+  \begin{lstlisting}[style=html]
+    <head>
+        {% block head %}
+          <link rel="stylesheet" href="style.css" />
+          <title>{% block title %}
+            {% endblock %} - My Webpage</title>
+          <meta charset='utf-8'>
+        {% endblock %}
+    </head>
+    <body>
+        <div id="content">{% block content %}
+          {% endblock %}</div>
+        <div id="footer">
+            {% block footer %}
+              &copy; Copyright 2008 by
+              <a href="http://domain.invalid/">you</a>.
+            {% endblock %}
+        </div>
+    </body>
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: Jinja2 - \{\% extends "наследование" \%\}}
+
+  \begin{lstlisting}[style=html]
+    {% extends "base.html" %}
+    {% block title %}Index{% endblock %}
+    {% block head %}
+        {{ super() }}
+        <style type="text/css">
+            .important { color: #336699; }
+        </style>
+    {% endblock %}
+    {% block content %}
+        <h1>Index</h1>
+        <p class="important">
+          Welcome {{ name }} to my awesome homepage.
+        </p>
+    {% endblock %}
+  \end{lstlisting}
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: Jinja2 - \{\% extends "наследование" \%\}}
+
+  \begin{lstlisting}[style=python]
+    from jinja2 import Environment, FileSystemLoader
+
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template('index.html')
+    print(template.render(name='Петя'))
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: Jinja2 - \{\% extends "наследование" \%\}}
+
+  \begin{lstlisting}[style=python]
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+
+
+        <link rel="stylesheet" href="style.css" />
+        <title>Index - My Webpage</title>
+        <meta charset='utf-8'>
+
+        <style type="text/css">
+            .important { color: #336699; }
+        </style>
+
+    </head>
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Шаблоны: Jinja2 - \{\% extends "наследование" \%\}}
+
+  \begin{lstlisting}[style=python]
+    <body>
+        <div id="content">
+        <h1>Index</h1>
+        <p class="important">
+          Welcome Петя to my awesome homepage.
+        </p>
+    </div>
+        <div id="footer">
+
+            &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+
+        </div>
+    </body>
+    </html>
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}{Пагинация}
+
+  \textbf{Пагинация}
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}{Пагинация: Определение}
+
+  \textbf{Пагинация} --- разделение контента на страницы.
+
+\end{frame}
+
+% Slide #8
+\begin{frame}{Пагинация: www.opennet.ru}
+
+  \begin{center}
+    \includegraphics[width=\textwidth]{media/opennet.png}
+  \end{center}
+
+\end{frame}
+
+\begin{frame}{Пагинация: market.yandex.ru}
+
+  \begin{center}
+    \includegraphics[width=\textwidth]{media/yandex-market-pagination.png}
+  \end{center}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}{Пагинация: Python}
+
+  pip install \textbf{paginate}
+  
+  https://github.com/Pylons/paginate
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Пагинация: Python}
+
+  \begin{lstlisting}[style=python]
+      from paginate import Page
+      page = values.get('page', 1)
+      paged_articles = Page(
+          ARTICLES,
+          page=page,
+          items_per_page=8,
+      )
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Пагинация: Python}
+
+  \begin{lstlisting}[style=python]
+    {% for article in articles %}
+      <div class="blog-list__item">
+        <div class="blog-list__item-id">
+        {{ article.id }}</div>
+        <a href="/article/{{ article.id }}"
+          class="blog-list__item-link">{{ article.title }}</a>
+        <div class="blog-list__item-action">
+          <a href="/article/{{ article.id }}/edit"
+            class="blog-list__item-edit">edit</a>
+          <a href="/article/{{ article.id }}/delete"
+            onclick="return confirm_delete();"
+            class="blog-list__item-delete">delete</a>
+        </div>
+      </div>
+    {% endfor %}
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{Пагинация: Python}
+
+  \begin{lstlisting}[style=python]
+    <div class="paginator">
+        {{ articles.pager(url="?page=$page") }}
+    </div>
+  \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}{Пагинация: Python}
+
+  \begin{center}
+    \includegraphics[height=\textheight]{media/blog_with_page.png}
+  \end{center}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}{Request/Response. WebOb}
+
+  \textbf{WebOb} --- библиотека сериализующая HTTP запрос (текст) в объект и
+  наоборот объект в HTTP ответ (текст).
 
 \end{frame}
 
