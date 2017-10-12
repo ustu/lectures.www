@@ -48,7 +48,7 @@
 .. toctree::
     :maxdepth: 2
 
-    slides.rst
+    slides/index.rst
 
 .. Справочник
 
