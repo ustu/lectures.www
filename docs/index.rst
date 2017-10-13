@@ -40,6 +40,7 @@
 
     5.web.server/_checkpoint.rst
     6.www.sync/2.codding/_checkpoint.rst
+    6.www.sync/2.codding/9.databases/_checkpoint.rst
     6.www.sync/3.framework/pyramid/_checkpoint.rst
 
 Слайды
