@@ -18,6 +18,7 @@ WebOb
 .. code-block:: python
 
    from urlparse import parse_qs
+
    values = parse_qs(environ['QUERY_STRING'])
    page = values.get('page', ['1', ]).pop()
 
