@@ -537,7 +537,8 @@
 
   \begin{lstlisting}[style=Python]
     from jinja2 import Template
-    text = '{% for item in range(5) %}Hello {{ name }}! {% endfor %}'
+    text = '{% for item in range(5) %}'
+      'Hello {{ name }}! {% endfor %}'
     template = Template(text)
     print(template.render(name='Вася'))
   \end{lstlisting}
@@ -838,5 +839,445 @@
 
 \end{frame}
 
+% Slide #8
+\begin{frame}[fragile]{WebOb. Сравнение}
+
+  http://localhost:80/blog?page=42
+
+  \begin{lstlisting}[style=python]
+    from urlparse import parse_qs
+
+    values = parse_qs(environ['QUERY_STRING'])
+    page = values.get('page', ['1', ]).pop()
+  \end{lstlisting}
+
+  \begin{lstlisting}[style=python]
+    from webob import Request
+
+    req = Request(environ)
+    page = req.params.get('page', '1')
+  \end{lstlisting}
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}[fragile]{WebOb. Request из окружения}
+
+  \begin{lstlisting}[style=python]
+    environ = {
+        'HTTP_HOST': 'localhost:80',
+        'PATH_INFO': '/article',
+        'QUERY_STRING': 'id=1',
+        'REQUEST_METHOD': 'GET',
+        'SCRIPT_NAME': ''
+    }
+
+    from webob import Request
+    req = Request(environ)
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{WebOb. Request Mock}
+
+  \begin{lstlisting}[style=python]
+    from webob import Request
+    req = Request.blank('/blog?page=4')
+
+    from pprint import pprint
+    pprint(req.environ)
+  \end{lstlisting}
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}[fragile]{WebOb. Request Mock}
+
+  \begin{lstlisting}[style=python]
+    {'HTTP_HOST': 'localhost:80',
+     'PATH_INFO': '/blog',
+     'QUERY_STRING': 'page=4',
+     'REQUEST_METHOD': 'GET',
+     'SCRIPT_NAME': '',
+     'SERVER_NAME': 'localhost',
+     'SERVER_PORT': '80',
+     'SERVER_PROTOCOL': 'HTTP/1.0',
+     'wsgi.errors': <open file '<stderr>', mode 'w' at 0x7f4ff5d111e0>,
+     'wsgi.input': <_io.BytesIO object at 0x7f4ff3b622f0>,
+     'wsgi.multiprocess': False,
+     'wsgi.multithread': False,
+     'wsgi.run_once': False,
+     'wsgi.url_scheme': 'http',
+     'wsgi.version': (1, 0)}
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{WebOb. Request методы}
+
+  \begin{lstlisting}[style=python]
+    from webob import Request
+    req = Request.blank('/blog?page=4')
+
+    print(req.method)
+    print(req.scheme)
+    print(req.path_info)
+    print(req.host)
+    print(req.host_url)
+    print(req.application_url)
+    print(req.path_url)
+    print(req.url)
+    print(req.path)
+    print(req.path_qs)
+    print(req.query_string)
+  \end{lstlisting}
+
+\end{frame}
+
+
+% Slide #8
+\begin{frame}[fragile]{WebOb. Request методы}
+
+  \begin{lstlisting}[style=python]
+    GET
+    http
+    /blog
+    localhost:80
+    http://localhost
+    http://localhost
+    http://localhost/blog
+    http://localhost/blog?page=4
+    /blog
+    /blog?page=4
+    page=4
+  \end{lstlisting}
+
+\end{frame}
+
+% Slide #8
+\begin{frame}[fragile]{WebOb. Request GET}
+
+  \begin{lstlisting}[style=python]
+    from webob import Request
+    req = Request.blank('/test?check=a&check=b&name=Bob')
+
+    print(req.GET)
+    print(req.GET['check'])
+    print(req.GET.getall('check'))
+    print(list(req.GET.items()))
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. Request GET}
+
+  \begin{lstlisting}[style=python]
+    GET([('check', 'a'), ('check', 'b'), ('name', 'Bob')])
+    b
+    ['a', 'b']
+    [('check', 'a'), ('check', 'b'), ('name', 'Bob')]
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. Request POST}
+
+  \begin{lstlisting}[style=python]
+    from webob import Request
+    req = Request.blank('/test')
+
+    print(req.POST)  # empty
+    print(list(req.POST.items()))
+
+    print()
+
+    # Set POST
+    req.method = 'POST'
+    req.body = b'name=Vasya&email=vasya@example.com'
+
+    print(req.POST)  # not empty
+    print(req.POST['name'])
+    print(req.POST['email'])
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. Request POST}
+
+  \begin{lstlisting}[style=python]
+    <NoVars: Not a form request>
+    []
+
+    MultiDict([('name', 'Vasya'),
+      ('email', 'vasya@example.com')])
+    Vasya
+    vasya@example.com
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. Request GET \& POST \& PUT \& DELETE}
+
+  \begin{lstlisting}[style=python]
+    from webob import Request
+    req = Request.blank('/test?check=a&check=b&name=Bob')
+
+    # Set POST
+    req.method = 'POST'
+    req.body = b'name=Vasya&email=vasya@example.com'
+
+    print(req.params)
+    print(req.params.getall('check'))
+    print(req.params['email'])
+    print(req.params['name'])
+  \end{lstlisting}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{WebOb. Request GET \& POST \& PUT \& DELETE}
+
+  \begin{lstlisting}[style=python]
+    NestedMultiDict([('check', 'a'), ('check', 'b'),
+      ('name', 'Bob'), ('name', 'Vasya'),
+      ('email', 'vasya@example.com')])
+    ['a', 'b']
+    vasya@example.com
+    Bob
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. Cookie}
+
+  \begin{lstlisting}[style=python]
+    from webob import Request
+    req = Request.blank('/test')
+
+    # Set Cookie
+    req.headers['Cookie'] = 'session_id=9999999;'
+      'foo=abcdef;bar=2'
+
+    print(req.cookies)
+    print(req.cookies['foo'])
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. Cookie}
+
+  \begin{lstlisting}[style=python]
+    from webob import Request
+    req = Request.blank('/test')
+
+    # Set Cookie
+    req.headers['Cookie'] = 'session_id=9999999;'
+      'foo=abcdef;bar=2'
+
+    print(req.cookies)
+    print(req.cookies['foo'])
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. Cookie}
+
+  \begin{lstlisting}[style=python]
+    <RequestCookies (dict-like) with values
+      {'bar': '2', 'foo': 'abcdef', 'session_id': '9999999'}>
+    abcdef
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. WSGI application}
+
+  \begin{lstlisting}[style=python]
+    from webob import Request
+
+    def wsgi_app(environ, start_response):
+        request = Request(environ)
+        if request.path == '/test':
+            start_response('200 OK',
+              [('Content-type', 'text/plain')])
+            return ['Hi!']
+        start_response('404 Not Found',
+          [('Content-type', 'text/plain')])
+
+    req = Request.blank('/test')
+    status, headers, app_iter = req.call_application(
+      wsgi_app
+    )
+    print(status, headers, app_iter)
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. WSGI application}
+
+  \begin{lstlisting}[style=python]
+    200 OK
+    [('Content-type', 'text/plain')]
+    ['Hi!']
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. WSGI application}
+
+  \begin{lstlisting}[style=python]
+    req = Request.blank('/bar')
+    status, headers, app_iter = req.call_application(
+      wsgi_app
+    )
+    print(status)
+    print(headers)
+    print(app_iter)
+  \end{lstlisting}
+
+  \begin{lstlisting}[style=python]
+    404 Not Found
+    [('Content-type', 'text/plain')]
+    None
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. Response}
+
+  \begin{lstlisting}[style=python]
+    >>> from webob import Response
+    >>> res = Response()
+    >>> res.status
+    '200 OK'
+    >>> res.headerlist
+    [('Content-Type', 'text/html; charset=UTF-8'), ('Content-Length', '0')]
+    >>> res.body
+    ''
+  \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{WebOb. Response}
+
+  \begin{lstlisting}[style=python]
+    >>> res.status = 404
+    >>> res.status
+    '404 Not Found'
+    >>> res.status_code
+    404
+    >>> res.headerlist = [('Content-type', 'text/html')]
+    >>> res.body = b'test'
+    >>> print res
+    404 Not Found
+    Content-type: text/html
+    Content-Length: 4
+
+    test
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. Response - UTF8}
+
+  \begin{lstlisting}[style=python]
+    >>> res.body = u"test"
+    Traceback (most recent call last):
+        ...
+    TypeError: You cannot set Response.body to a unicode object (use Response.text)
+    >>> res.text = u"test"
+    Traceback (most recent call last):
+        ...
+    AttributeError: You cannot access Response.text unless charset is set
+    >>> res.charset = 'utf8'
+    >>> res.text = u"test"
+    >>> res.body
+    'test'
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. Response - UTF8}
+
+  \begin{lstlisting}[style=python]
+    >>> from webob import Response
+    >>> resp = Response(body=b'Hello World!')
+    >>> resp.content_type
+    'text/html'
+    >>> resp.content_type = 'text/plain'
+    >>> print resp
+    200 OK
+    Content-Length: 12
+    Content-Type: text/plain; charset=UTF-8
+
+    Hello World!
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. WSGI application}
+
+  \begin{lstlisting}[style=python]
+    from webob import Request, Response
+
+    def wsgi_app(environ, start_response):
+        response = Response()
+        response.content_type = 'text/plain'
+        parts = []
+        for name, value in sorted(environ.items()):
+            parts.append('%s: %r' % (name, value))
+        response.body = str.encode('\n'.join(parts))
+        return response(environ, start_response)
+
+    req = Request.blank('/test')
+    # WSGI-application response
+    print(req.call_application(wsgi_app))
+    # HTTP response
+    print(req.get_response(wsgi_app))
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. WSGI application}
+
+  \begin{lstlisting}[style=python]
+    ('200 OK', [('Content-Type', 'text/plain; charset=UTF-8'),
+      ('Content-Length', '411')],
+        [b"HTTP_HOST: 'localhost:80'\nPATH_INFO: '/test'\nQUERY_STRING: ''\nREQUEST_METHOD: 'GET'\nSCRIPT_NAME: ''\nSERVER_NAME: 'localhost'\nSERVER_PORT: '80'\nSERVER_PROTOCOL: 'HTTP/1.0'\nwsgi.errors: <_io.TextIOWrapper name='<stderr>' mode='w' encoding='UTF-8'>\nwsgi.input: <_io.BytesIO object at 0x7f692e219048>\nwsgi.multiprocess: False\nwsgi.multithread: False\nwsgi.run_once: False\nwsgi.url_scheme: 'http'\nwsgi.version: (1, 0)"])
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{WebOb. WSGI application}
+
+  \begin{lstlisting}[style=python]
+    200 OK
+    Content-Type: text/plain; charset=UTF-8
+    Content-Length: 411
+
+    HTTP_HOST: 'localhost:80'
+    PATH_INFO: '/test'
+    QUERY_STRING: ''
+    REQUEST_METHOD: 'GET'
+    SCRIPT_NAME: ''
+    SERVER_NAME: 'localhost'
+    SERVER_PORT: '80'
+    SERVER_PROTOCOL: 'HTTP/1.0'
+    wsgi.errors: <_io.TextIOWrapper name='<stderr>' mode='w' encoding='UTF-8'>
+    wsgi.input: <_io.BytesIO object at 0x7f692e219048>
+    wsgi.multiprocess: False
+    wsgi.multithread: False
+    wsgi.run_once: False
+    wsgi.url_scheme: 'http'
+    wsgi.version: (1, 0)
+  \end{lstlisting}
+
+\end{frame}
 
 \end{document}
