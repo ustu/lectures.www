@@ -14,13 +14,85 @@
 .. figure:: /_static/6.www.sync/5.pagination/opennet.png
    :align: center
 
-   `OpenNET.ru <http://www.opennet.ru/cgi-bin/openforum/vsluhboard.cgi?az=list&forum=vsluhforumID8>`_
+   `OpenNET.ru
+   <http://www.opennet.ru/cgi-bin/openforum/vsluhboard.cgi?az=list&forum=vsluhforumID8>`_
+
+Paginate
+--------
+
+.. seealso::
+
+   * `webhelpers.paginate
+     <http://docs.pylonsproject.org/projects/webhelpers/en/latest/modules/paginate.html>`_
+   * https://github.com/Pylons/paginate
+   * https://v4-alpha.getbootstrap.com/components/pagination/
+
+Модуль ``paginate`` делит список статей на страницы. Номер страницы передается
+методом `GET`, в параметре `page`. По умолчанию берется первая страница.
+
+.. code-block:: python
+
+    p = paginate.Page(
+        items,
+        page=1,
+        items_per_page=42
+    )
+
+Пример `Mako` шаблона использующий `Bootstrap4` для пагинации.
+
+.. code-block:: html+mako
+
+    <%inherit file="base.mako"/>
+
+    <%block name="content">
+      <h2>${tag.title()}</h2>
+      <br/>
+      <div class="row">
+        %for item in p:
+          <div class="col">
+            <div class="row">
+              <a href="${_static_prefix}/item/${item.id}.html"> 🔗 </a>
+            </div>
+            <br/>
+            <div class="row">
+              <pre id='id-${item.id}' width=100%>
+                ${item.text}
+              </pre>
+            </div>
+          </div>
+        %endfor
+      </div>
+
+      # https://v4-alpha.getbootstrap.com/components/pagination/
+      <div class="row">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            ${p.pager(
+              url="../$page/index.html".format(tag),
+              link_attr={'class': 'page_link'},
+              link_tag=lambda page: '<li class="page-item {} {}"><a class="page-link" href="{}">{}</a></li>'.format(
+              'active' if page['type'] == 'current_page' else '',
+              'disabled' if not len(page['href'].strip()) else '',
+              page['href'],
+              page['value']
+              )
+            )}
+          </ul>
+        </nav>
+      </div>
+    </%block>
+
+
+.. figure:: /_static/6.www.sync/5.pagination/bootstrap.png
+   :align: center
+
+   Bootstrap4 pagination
 
 Блог
 ----
 
 Данные
-~~~~~~
+^^^^^^
 
 .. seealso::
 
@@ -40,15 +112,7 @@
    Много статей не помещаются на экран
 
 Paginate
-~~~~~~~~
-
-.. seealso::
-
-   * `webhelpers.paginate <http://docs.pylonsproject.org/projects/webhelpers/en/latest/modules/paginate.html>`_
-   * https://github.com/Pylons/paginate
-
-Модуль ``paginate`` делит список статей на страницы. Номер страницы передается
-методом `GET`, в параметре `page`. По умолчанию берется первая страница.
+^^^^^^^^
 
 .. literalinclude:: /../examples/wsgi/5.pagination/1.blog/views.py
    :language: python
