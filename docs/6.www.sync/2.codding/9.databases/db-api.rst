@@ -18,10 +18,11 @@ DB-API 2.0
 
 Также существуют реализации для других СУБД:
 
-* PostgreSQL (psycopg2, txpostgres, ...)
-* MySQL (mysql-python, PyMySQL, ...)
-* MS SQL Server (adodbapi, pymssql, mxODBC, pyodbc, ...)
-* Oracle (cx_Oracle, mxODBC, pyodbc, ...)
+* **PostgreSQL** (psycopg2, txpostgres, ...)
+* **FireBird** (`fdb <https://pypi.python.org/pypi/fdb>`_)
+* **MySQL** (mysql-python, PyMySQL, ...)
+* **MS SQL** Server (adodbapi, pymssql, mxODBC, pyodbc, ...)
+* **Oracle** (cx_Oracle, mxODBC, pyodbc, ...)
 * и другие http://wiki.python.org/moin/DatabaseInterfaces
 
 Большинство из них могут быть установлены стандартным способом:
