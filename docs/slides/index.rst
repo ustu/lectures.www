@@ -10,4 +10,4 @@
     webserver.rst
     wsgi.rst
     no_framework.rst
-
+    sql.rst

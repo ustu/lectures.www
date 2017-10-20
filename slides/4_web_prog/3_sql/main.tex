@@ -1,0 +1,222 @@
+\input{../../mypreamble.tex}
+
+\title{Базы данных}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Ресурсы}
+  \url{http://lectures.uralbash.ru/6.www.sync/2.codding/9.databases/index.html}
+\end{frame}
+
+\begin{frame}{DB-API 2.0}
+
+  \textbf{DB-API} - общий правила работы с БД.
+
+  \textbf{pep-249}\newline
+
+\end{frame}
+
+\begin{frame}{DB-API 2.0}
+
+  \begin{itemize}
+    \item Connection
+    \item Cursor
+    \item Типы данных
+    \item Исключения
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{DB-API 2.0 - Connection}
+
+  \textbf{Connection} - устанавливает соединение с БД.
+
+\end{frame}
+
+\begin{frame}{DB-API 2.0 - Connection. Операции}
+
+  \begin{itemize}
+
+    \item \textbf{close()}- Закрывает соединение с базой данных.
+    \item \textbf{commit()} - Завершает транзакцию.
+    \item \textbf{rollback()} - Откатывает начатую транзакцию
+    \item \textbf{cursor()} - Возвращает объект-курсор, использующий данное
+      соединение.  Если база данных не поддерживает курсоры, модуль сопряжения
+      должен их имитировать.
+
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{DB-API 2.0 - Connection. Пример}
+
+    \begin{lstlisting}[style=python]
+    import sqlite3
+    conn = sqlite3.connect('example.sqlite')
+    \end{lstlisting}
+
+    \begin{lstlisting}[style=python]
+    import sqlite3
+    conn = sqlite3.connect(':memory:')
+    \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}{DB-API 2.0 - Cursor}
+
+  \textbf{Курсор} — объект базы данных, который позволяет приложениям работать
+  с записями «по одной», а не сразу с множеством, как это делается в обычных
+  SQL командах
+
+\end{frame}
+
+\begin{frame}{DB-API 2.0 - Cursor. Операции}
+
+  \begin{itemize}
+
+    \item \textbf{execute()} - Закрывает соединение с базой данных.
+    \item \textbf{executemany()} - Выполняет серию запросов или команд.
+    \item \textbf{callproc()} - Откатывает начатую транзакцию
+    \item \textbf{cursor()} - Вызывает хранимую процедуру.
+
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{DB-API 2.0 - Cursor. Пример}
+
+    \begin{lstlisting}[style=python]
+    c = conn.cursor()
+
+    # Создание таблицы
+    c.execute('''CREATE TABLE stocks
+    (date text, trans text,
+    symbol text, qty real, price real)''')
+
+    # Добавление записи
+    c.execute(
+      "INSERT INTO stocks VALUES"
+      "('2006-01-05','BUY','RHAT',100,35.14)"
+    )
+    \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{DB-API 2.0 - Cursor. Пример}
+
+    \begin{lstlisting}[style=python]
+    # Сохранение (commit) изменений
+    conn.commit()
+
+    # Закрытие соединения.
+    # Если изменения не были сохранены (метод commit),
+    # то данные пропадут.
+    conn.close()
+    \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{DB-API 2.0 - Cursor. Пример}
+
+    \begin{lstlisting}[style=python]
+    # Запись сразу нескольких объектов за раз
+    purchases = [
+     ('2006-03-28', 'BUY', 'IBM', 1000, 45.00),
+     ('2006-04-05', 'BUY', 'MSFT', 1000, 72.00),
+     ('2006-04-06', 'SELL', 'IBM', 500, 53.00),
+    ]
+    c.executemany(
+      'INSERT INTO stocks VALUES (?,?,?,?,?)',
+      purchases
+    )
+    \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}{DB-API 2.0 - Cursor. Результат}
+
+  \begin{itemize}
+
+    \item \textbf{fetchone()} - Возвращает следующую запись (в виде
+      последовательности) из результата запроса.
+    \item \textbf{fetchall()} - Возвращает все (или все оставшиеся) записи
+      результата запроса.
+    \item \textbf{fetchmany()} - Возвращает следующие несколько записей из
+      результатов запроса.
+
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{DB-API 2.0 - Cursor. Пример}
+
+    \begin{lstlisting}[style=python]
+    # Никогда так не делайте -- не безопасно!
+    symbol = 'RHAT'
+    c.execute(
+    "SELECT * FROM stocks WHERE symbol = '%s'" % symbol
+    )
+
+    # Правильно
+    t = ('RHAT',)
+    c.execute(
+      'SELECT * FROM stocks WHERE symbol=?',
+      t
+    )
+    print(c.fetchone())
+    \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}{DB-API 2.0 - Типы}
+
+  \begin{itemize}
+
+    \item \textbf{Date}
+    \item \textbf{Time}
+    \item \textbf{Timestamp}
+    \item \textbf{DateFromTicks}
+    \item \textbf{TimeFromTicks}
+    \item \textbf{Binary}
+
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{DB-API 2.0 - Исключения}
+
+    \begin{lstlisting}[style=python]
+    StandardError
+    ├──Warning
+    └──Error
+       ├──InterfaceError (a problem with the db api)
+       └──DatabaseError (a problem with the database)
+          ├──DataError (bad data, values out of range, etc.)
+          ├──OperationalError (the db has an issue out of our control)
+          ├──IntegrityError
+          ├──InternalError
+          ├──ProgrammingError (something wrong with the operation)
+          └──NotSupportedError (the operation is not supported)
+    \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}{DB-API 2.0 - Кто использует}
+
+  \begin{itemize}
+
+    \item SQLite
+    \item PostgreSQL (psycopg2, txpostgres, …)
+    \item FireBird (fdb)
+    \item MySQL (mysql-python, PyMySQL, …)
+    \item MS SQL Server (adodbapi, pymssql, mxODBC, pyodbc, …)
+    \item Oracle (cx\_Oracle, mxODBC, pyodbc, …)
+    \item и другие http://wiki.python.org/moin/DatabaseInterfaces
+
+  \end{itemize}
+
+\end{frame}
+
+\end{document}
