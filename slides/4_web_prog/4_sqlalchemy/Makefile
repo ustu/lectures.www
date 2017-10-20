@@ -5,7 +5,7 @@
 
 all:
 	@xelatex main.tex
-	cp main.pdf ../../build/_slides/4.3_sql.pdf
+	cp main.pdf ../../build/_slides/4.4_sqlalchemy.pdf
 	@evince  main.pdf > /dev/null&
 
 
