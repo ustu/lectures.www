@@ -296,7 +296,7 @@ https://github.com/uralbash/awesome-pyramid.
 
 
 В разделе ``[server:main]`` указываются настройки веб сервера совместимые с
-`Paste Deployment <http://pythonpaste.org/deploy/>`_.
+`Paste Deployment <http://pastedeploy.readthedocs.io/>`_.
 
 .. code-block:: ini
 

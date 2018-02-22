@@ -4,6 +4,10 @@ Python
 .. todo::
 
    * https://www.ibm.com/developerworks/ru/library/l-data_structures_01/
+   
+.. seealso::
+
+  Полезные ссылки http://wiht.co/python-guide
 
 .. toctree::
    :maxdepth: 3
