@@ -8,7 +8,7 @@ Beaker
 
    * :l:`Beaker`
 
-`Beaker` - это библиотека предназначенная для кэширования и создания сессии,
+`Beaker` — это библиотека предназначенная, для кэширования и создания сессии,
 как в веб-приложениях, так и в чистых `Python` скриптах. Имеет
 `WSGI`-middleware для `WSGI`-приложений и декоратор
 (:ref:`additions_python_decorator`) для простых приложений.
@@ -83,7 +83,7 @@ http://beaker.readthedocs.org/en/latest/configuration.html
 """""""""""""""""""""""""""
 
 По умолчанию сессии хранятся в оперативной памяти и при завершении программы
-удаляются. Чтобы сессии хранились постоянно нужно указать место на диске:
+удаляются. Чтобы сессии хранились постоянно, нужно указать место на диске:
 
 .. literalinclude:: /../examples/wsgi/8.session/3.session.file.py
    :language: python
@@ -114,7 +114,7 @@ http://beaker.readthedocs.org/en/latest/configuration.html
 .. literalinclude:: /../examples/wsgi/8.session/cache/container_file/1/18/18b9908ab7514d8e8d16ae05e1eb09e0.cache
    :language: text
    :encoding: cp1251
-   :caption: Сереализованный кэш в файле 18b9908ab7514d8e8d16ae05e1eb09e0.cache
+   :caption: Сериализованный кэш в файле 18b9908ab7514d8e8d16ae05e1eb09e0.cache
    :linenos:
 
 Хранение в Memcached
