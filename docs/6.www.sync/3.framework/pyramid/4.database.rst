@@ -28,7 +28,7 @@ SQLAlchemy
 
 
    class User(Base):
-       __tablename__ = 'models'
+       __tablename__ = 'users'
        id = Column(Integer, primary_key=True)
        name = Column(Text)
 
@@ -115,7 +115,7 @@ transaction
 
 
    class User(Base):
-       __tablename__ = 'models'
+       __tablename__ = 'users'
        id = Column(Integer, primary_key=True)
        name = Column(Text)
 
@@ -342,7 +342,7 @@ pyramid_sqlalchemy
 
 
    class User(BaseObject):
-       __tablename__ = 'models'
+       __tablename__ = 'users'
        id = Column(Integer, primary_key=True)
        name = Column(Text)
 
