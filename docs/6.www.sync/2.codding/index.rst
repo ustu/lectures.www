@@ -12,7 +12,7 @@
    * добавить PAsteDeploy
      https://lionfacelemonface.wordpress.com/2011/03/30/wsgi-and-paste-deploy-the-bare-necessities/
 
-В этом разделе мы напишем `еще один блог` используя популярные инструменты
+В этом разделе мы напишем `еще один блог`, используя популярные инструменты
 языка программирования `Python`.
 
 .. toctree::
