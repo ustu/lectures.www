@@ -11,7 +11,7 @@
 Замечания к выполнению
 ----------------------
 
-Пример `WSGI middleware` которое вставляет в тело `HTML` страниц строки
+Пример `WSGI middleware`, которое вставляет в тело `HTML`-страниц строки
 следующим образом:
 
 .. code-block:: html
@@ -42,7 +42,7 @@
 
     class WsgiTopBottomMiddleware(object):
         '''
-        WSGI Midlewere которое добавляет TOP, BOTTOM в HTML документ
+        WSGI Middleware, которое добавляет TOP, BOTTOM в HTML документ
         '''
 
         def __init__(self, app):
@@ -61,7 +61,7 @@
 
     def app(environ, start_response):
         '''
-        WSGI приложение которое отдает HTML документ
+        WSGI приложение, которое отдает HTML документ
         '''
         response_code = '200 OK'
         response_type = ('Content-Type', 'text/HTML')
@@ -99,10 +99,10 @@
 Задание 1
 ^^^^^^^^^
 
-* Написать `WSGI` приложение который отдает статикой файлы `index.html` и
+* Написать `WSGI` приложение, которое отдает статикой файлы `index.html` и
   `about.html`.
 
-* Написать `WSGI middleware` которое будет вставлять в `HTML` документ
+* Написать `WSGI middleware`, которое будет вставлять в `HTML` документ
   `JavaScript` и `CSS` файлы из списка типа:
   
   .. code-block:: python
