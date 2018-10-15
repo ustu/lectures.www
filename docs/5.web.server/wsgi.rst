@@ -185,7 +185,7 @@ start_response
 
    Hello world!
 
-.. note:: В исходных кодах к лекциям  ``cgiserver.py` делает этот пример доступным по адресу
+.. note:: В исходных кодах к лекциям  ``cgiserver.py`` делает этот пример доступным по адресу
    http://localhost:8000/wsgi/1.cgi.app.py
 
 Middleware
