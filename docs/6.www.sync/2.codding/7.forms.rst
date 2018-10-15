@@ -35,7 +35,7 @@ Deform
    * :l:`Deform`
    * https://skillsmatter.com/skillscasts/4886-king-forms
 
-`Deform` - это `Python` библиотека для генерации форм. `Deform` использует :l:`Colander` как генератор схемы, :l:`Peppercorn` для десериализации данных из формы и шаблонизатор :l:`Chameleon`.
+`Deform` — это `Python` библиотека для генерации форм. `Deform` использует :l:`Colander` как генератор схемы, :l:`Peppercorn` для десериализации данных из формы и шаблонизатор :l:`Chameleon`.
 
 Основные задачи, которые выполняет `Deform`:
 
@@ -66,7 +66,7 @@ Colander
 
 * Схема :l:`Colander`
 * Объект `Form` из :l:`Deform`
-* WSGI-приложение которое получает POST параметры из запроса
+* WSGI-приложение, которое получает POST параметры из запроса
 * Шаблон страницы с формой
 
 Схема Colander
@@ -352,7 +352,7 @@ Deform и Colander в реальных проектах
    :caption: create.html - форма генерируется автоматически
    :linenos:
 
-Теперь форма имеет валидацию, защиту от CSRF атак и генерируются автоматически при помощи :l:`Deform`.
+Теперь форма имеет валидацию, защиту от CSRF атак и генерируется автоматически при помощи :l:`Deform`.
 
 
 .. figure:: /_static/6.www.sync/7.forms/blog_validation.png

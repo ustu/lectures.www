@@ -7,7 +7,7 @@ Jinja2
    * https://ru.wikipedia.org/wiki/Jinja
 
 **Jinja2** — самый популярный шаблонизатор в языке программирования Python.
-Автор `Armin Ronacher` из команды `<http://www.pocoo.org/>`_, не раз
+Автор `Armin Ronacher` из команды `<http://www.pocoo.org/>`_ не раз
 приезжал на конференции в `Екатеринбург` с докладами о своих продуктах.
 
 Синтаксис `Jinja2` сильно похож на `Django`-шаблонизатор, но при этом дает
@@ -32,7 +32,7 @@ Hello Вася!
 
 .. code-block:: jinja
 
-   {# Это кусок кода который стал временно не ненужен, но удалять жалко
+   {# Это кусок кода, который стал временно не нужен, но удалять жалко
        {% for user in users %}
            ...
        {% endfor %}
@@ -100,11 +100,11 @@ Hello Вася! Hello Вася! Hello Вася! Hello Вася! Hello Вася!
    :language: python
    :linenos:
    :name: 0.file.py
-   :caption: ``jinja2/3.loader/0.file.py`` - чтение шаблона из файла
+   :caption: ``jinja2/3.loader/0.file.py`` — чтение шаблона из файла
 
 .. code-block:: html
    :name: hello_petya
-   :caption: Результат рендинга шаблона ``jinja2/3.loader/foopkg/templates/0.hello.html``
+   :caption: Результат рендеринга шаблона ``jinja2/3.loader/foopkg/templates/0.hello.html``
 
    <!DOCTYPE html>
    <html>
@@ -282,7 +282,7 @@ BaseLoader
 
 
        <link rel="stylesheet" href="style.css" />
-       <title>Index - My Webpage</title>
+       <title>Index — My Webpage</title>
        <meta charset='utf-8'>
 
        <style type="text/css">
@@ -315,12 +315,12 @@ BaseLoader
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/templates/base.html
    :language: html+jinja
    :linenos:
-   :caption: templates/base.html - базовый шаблон.
+   :caption: templates/base.html — базовый шаблон.
 
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/templates/index.html
    :language: html+jinja
    :linenos:
-   :caption: Главня страница templates/index.html наследуется от templates/base.html
+   :caption: Главная страница templates/index.html наследуется от templates/base.html
 
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/templates/create.html
    :language: html+jinja
@@ -330,10 +330,10 @@ BaseLoader
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/templates/read.html
    :language: html+jinja
    :linenos:
-   :caption: templates/read.html наслудуется от базового шаблона.
+   :caption: templates/read.html наследуется от базового шаблона.
 
 .. literalinclude:: /../examples/wsgi/3.templates/jinja2/6.blog/views.py
    :language: python
    :linenos:
    :emphasize-lines: 5, 31, 55, 69, 87
-   :caption: views.py - окружение Jinja2.
+   :caption: views.py — окружение Jinja2.

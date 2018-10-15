@@ -38,7 +38,7 @@ Paginate
         items_per_page=42
     )
 
-Пример `Mako` шаблона использующий `Bootstrap4` для пагинации.
+Пример `Mako` шаблона, использующего `Bootstrap4` для пагинации.
 
 .. code-block:: html+mako
 
