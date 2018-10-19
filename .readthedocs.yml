@@ -1,0 +1,5 @@
+python:
+  version: 3
+
+# Pip requirements
+requirements_file: docs/_lectures/requirements.txt
