@@ -14,19 +14,6 @@ sys.path.insert(0, os.path.abspath('../_lectures/docs/'))
 
 from config_sphinx import *  # noqa isort:skip
 
-# Submodules
-CURDIR = os.path.abspath('../')
-bashCommand = "git --git-dir={0}/.git --work-tree={0}".format(
-    CURDIR
-) + " submodule update --init --recursive"
-process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-output, error = process.communicate()
-
-# Install
-bashCommand = "pip install -r requirements.txt"
-process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-output, error = process.communicate()
-
 
 project = u'Основы Веб-программирования'
 html_title = project
