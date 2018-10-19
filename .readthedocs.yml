@@ -3,3 +3,8 @@ python:
 
 # Pip requirements
 requirements_file: docs/_lectures/requirements.txt
+
+# Submodules
+submodules:
+  include: all
+  recursive: true
