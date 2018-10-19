@@ -2,7 +2,7 @@ python:
   version: 3
 
 # Pip requirements
-requirements_file: _lectures/requirements.txt
+requirements_file: null
 
 # Submodules
 submodules:
