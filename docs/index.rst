@@ -16,7 +16,7 @@
 
 .. Смотри также
 
-.. include:: /../_lectures/docs/lect_links.rst
+.. .. include:: /../_lectures/docs/lect_links.rst
 
 Содержание
 ----------
