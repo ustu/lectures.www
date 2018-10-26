@@ -11,11 +11,6 @@ SOURCEDIR     = docs
 ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(SOURCEDIR)
 
 
-all:
-	nix-shell ./_lectures/default.nix \
-		--indirect --add-root .gcroots/dep \
-		--run "make html test"
-
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 

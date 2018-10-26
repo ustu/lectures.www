@@ -12,7 +12,7 @@ Python
 .. toctree::
    :maxdepth: 3
 
-   install.rst
+   install/index.rst
    virtualenv.rst
    package_manager.rst
    context_manager.rst
