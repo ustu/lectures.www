@@ -324,7 +324,8 @@ Anaconda устанавливается также:
 
 .. seealso::
 
-    https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/project.html
+    * https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/project.html
+    * https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/cookiecutters.html
 
 Для примера создадим стартовую Веб-страницу при помощи фреймворка `Pyramid`.
 Для её создания будем использовать готовый шаблон проекта, который можно
