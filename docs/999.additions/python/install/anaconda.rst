@@ -1,14 +1,12 @@
 Установка Anaconda в Windows
 ============================
 
-Установка интерпретатора CPython
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 .. seealso::
 
     * https://www.anaconda.com/
+    * https://www.anaconda.com/download/
     * https://en.wikipedia.org/wiki/Anaconda_(Python_distribution)
-
+    
 Anaconda -- свободный open source дистрибутив для языков программирования Python
 и R с открытым кодом для обработки данных большого объема, построения
 аналитических прогнозов и научных вычислений. Разработчики дистрибутива имеют
