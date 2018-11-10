@@ -561,7 +561,7 @@ Anaconda устанавливается также:
     Serving on http://DESKTOP-9JPISDO:6543
 
 
-Заходим на http://localhost:6543/admin/
+Заходим на http://localhost:6543/
 
 .. figure:: /_static/999.additions/python/install/windows/pyramid_simple_app.png
    :align: center
