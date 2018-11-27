@@ -392,7 +392,7 @@ Anaconda устанавливается также:
 
 .. code-block:: winbath
 
-    (myenv) C:\Users\user\Project\pyramid_test>cookiecutter gh:Pylons/pyramid-cookiecutter-starter --checkout 1.9-branch
+    (myenv) C:\Users\user\Project\pyramid_test>cookiecutter gh:Pylons/pyramid-cookiecutter-starter
     project_name [Pyramid Scaffold]: myfirstapp
     repo_name [myfirstapp]:
     Select template_language:
