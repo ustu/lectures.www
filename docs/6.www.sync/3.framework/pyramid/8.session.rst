@@ -75,7 +75,7 @@
 
 .. seealso::
 
-   * https://github.com/ITCase/awesome-pyramid#caching
+   * https://github.com/uralbash/awesome-pyramid#caching
 
 * `pyramid_redis_sessions
   <https://pypi.python.org/pypi/pyramid_redis_sessions>`_ - предоставляет
